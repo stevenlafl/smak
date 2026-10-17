@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel oriented",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.055,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.36,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.74,
+   "wrap": 0.07,
+   "jitter": 1.15
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.15,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.36,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a steam puff: a soft, lumpy white-grey cloud that grows from a small puff (frame 1), swells to its fullest (frames 3 to 7), then breaks up and thins into scattered wisps (frames 8 to 10). That is the effect the brief asks for, animated."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Frames are 64 x 64 as measured. The puff sits in the middle of each frame and fills about half its width at full size, with the border clear (border max 0.055, mean 0). The growth from small to full size fills the frames as a steam puff should."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "By eye the colour is a pale, slightly warm white-grey with soft grey shading in the folds and no tint. That suits steam against the grey backdrop, and nothing reads as neon or off-palette."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame count (12), the envelope (peak at 0.36, first and last frame empty or near empty) and the loop-free one-shot measures are all within the class's measures, and it grows and thins as it should. But the brief asks for a puff that rises, and it hardly does: the centre sits near the same height in frames 1, 4, 7 and 8 (roughly 2 to 3 pixels of drift at native size), so the spread and fade read as the motion and the rise is missing. Frame 0 is empty, which is fine for a puff that starts from nothing."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measured type (parallel oriented) and format (index alpha) are what the steam slot takes, and the 64 x 64 size is the frame size the sprite is built with. Nothing in the frames contradicts the file's type or format. The file name cannot be checked from the pictures, so this is judged on the measures given."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

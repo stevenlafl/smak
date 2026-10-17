@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.035,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.36,
+    "first": 0.82,
+    "last": 0
+   },
+   "dark": 0.66,
+   "wrap": 1.74,
+   "jitter": 1.68
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.68,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.36,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.82,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames show a cloud of round blobs with radial streaks that spreads and fades (frames 0 to 11 of the sheet). It reads more as a burst or explosion puff than as a sludge spit splashing: no spit arc, no droplets leaving the impact point, and the splash does not look like wet matter hitting a surface."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The effect fills a 64 by 64 frame as a splash would, centred, with the border measured at 0.035 max and 0 mean, so nothing is clipped at the edges and the cloud is not a small dot in a large empty frame."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Frames 0 to 4 are a bright chartreuse, lime-yellow with a pale yellow-white hot core (frames 2 to 4), which reads as toxic or neon. The brief asks for sludge in Half-Life's palette, which is green-grey and muted. The fade to dark olive in frames 8 to 11 is closer, but the bright frames are off."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Two measures sit outside the class range. Jitter is 1.68 against 1.04 to 1.48: the blob layout reshuffles from frame to frame (frames 0 to 2 are visibly different arrangements), so it flickers. The envelope starts at 0.82 (first frame), against 0 to 0.22 for the class, so the sprite opens at full brightness instead of building. Peak at 0.36, the last frame at 0 and the border at 0 all fit the class, and the 12 frames fade to dark, so the motion is partly right."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file is additive, parallel, 64 by 64, 12 frames, and it reads back in that form. Nothing in the measures contradicts the type or format the brief gives for a sprite. The name check against the replaced slot is not in the data, so this is a 2 on what was measured, not on the slot itself."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

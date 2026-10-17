@@ -1,0 +1,81 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   23.2,
+   23.2,
+   35.5
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0.044,
+  "triangles": 336,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_longjump.mdl, models/rip.mdl, models/uplant1.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, C, B, D where the asset was D, A, C, C: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every view (front, left, back, right, front-left, front-right, back-left, back-right) is the same upright cylinder with a slight taper and a chime rim at top and bottom, as a 55-gallon drum should be. The top view is a near-round polygon with no part sticking out or missing. Matches the brief's words."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 23.2 x 23.2 x 35.5 units against the brief's 23 across and 34 high: height is 4.4% over and across is within 1%. Well inside 15% of the brief's size."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The parts the brief names are there: the hazard stripe (a diagonal yellow and black band across the upper third, on every side), and the rolling hoops (two bands at roughly one-third and two-thirds height, plus the top and bottom rims). The two bung plugs on top are not named by the brief and are not charged. No part is missing or in the wrong place."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The body is a rust-brown mottled metal with darker patches, which reads as rusted painted steel. The stripe is yellow and black, and the bungs are a grey metal. Colours and materials match the brief on every side."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Rust mottling, rim lines, the hazard stripe in one band on the upper body, and wear on the lid. The stripe is in its place on every side. A vertical texture seam runs down the front through the stripe (front and front-left views); it is a paint join, minor, and not a shape fault."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the line-up test. Asked four times in four orders which of the four was not made by Valve, the judges picked the wrong model each time (C, C, B, D against the asset at D, A, C, C). The drum passes as one of the game's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Upright, with its bottom disc flat on the floor at the origin, as a drum stands. The stripe sits at the front and is level all the way round."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's checks pass with no errors. Triangles are 336: above twice the Half-Life median of 99, but under the most Half-Life spends on props of this kind and size (422), so the amended M8 does not fail it. The top and bottom are closed, and nothing is open, inside out or floating in the views."
+  }
+ },
+ "total": 16,
+ "of": 16,
+ "passes": true
+}

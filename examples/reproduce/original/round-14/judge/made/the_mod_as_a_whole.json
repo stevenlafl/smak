@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     null
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     null,
+     null
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     null
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 289055
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 236787
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 6107500
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1430261
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness reports nothing missing and no failed SMAK checks. On the sheet, all five props are there (valve wheel, drum with hazard stripe, control console, pipe junction, caged orange lamp), plus the wrench and the crawler, and all three maps are shown. The textures, sprites and sounds are not visible on this sheet and rest on the harness's list."
+  },
+  "O2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The walk test links the chain fw_yard to fw_pumphall to fw_control, and fw_control ends the chain. Every level change has landmarks of null (fw_yard has one, fw_pumphall has two), so the landmark placement the rubric asks for is not confirmed, and arrival points are not measured. Clearly short of a 2."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props share a palette: grey concrete, rust, teal-grey weathering, hazard yellow-black, and a red valve wheel. The map views are grey concrete in the same family. But the yard is under a bright daytime blue sky with white clouds, where the brief asks for dusk. The map lamps read white, not the sodium orange of the wall lamp and the brief. The maps and props do not yet read as one lit place."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The harness reports the wrench and crawler turntable videos, the pump hall flight and the props picture as present. The props sheet shows each of the five props clearly, and the lamp's orange glass and the console's screens and switches are legible."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

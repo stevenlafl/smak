@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     null
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     null,
+     null
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     null
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 150144
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 236787
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 5877360
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1335826
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measurements report nothing missing and no failed checks. The sheet shows all five props (valve wheel, drum with hazard stripe, console, pipe junction, caged sodium lamp), the crawler and the wrench, and views of all three maps. The sprites, sounds and wad were not visible on this sheet and are taken from the measurements alone."
+  },
+  "O2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The walk test reaches each change of level from the start: fw_yard leads to fw_pumphall, fw_pumphall to fw_control, and fw_control is the end. But every change has landmark null, so nothing shows that the player arrives where they left. The brief and rubric require a landmark at each change."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props agree with each other: grey steel, yellow and black hazard paint, red paint worn to steel, rust patches. The map views do not fully match. The fw_yard view shows a bright blue daytime sky where the brief asks for dusk. Its walls are warm brown and the hall's are grey-orange, against the cool grey-green of the props. The palette is close but visibly off in the yard."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measurements show the wrench and crawler turntables, the pump hall flight and the props sheet are all present with plausible sizes. The props sheet shows the five props as they are. I did not play the videos, so this rests on presence and the measurement."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

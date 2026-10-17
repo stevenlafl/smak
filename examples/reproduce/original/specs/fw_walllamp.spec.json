@@ -1,213 +1,199 @@
 {
   "spec": "smak.model/1",
   "name": "fw_walllamp.mdl",
-  "kind": "prop",
+  "kind": "piece",
   "size": {
-    "height": 14,
-    "length": 15
+    "height": 24,
+    "width": 15,
+    "length": 16
   },
   "materials": {
-    "cast": {
-      "base": "metal",
-      "tone": [
-        0.24,
-        0.25,
-        0.22
-      ],
-      "picture": "library:green_metal_rust",
-      "size": 39
+    "backplate": {
+      "base": "steel",
+      "picture": "library:rusty_metal_03",
+      "size": 53
     },
     "cage": {
       "base": "steel",
-      "tone": [
-        0.3,
-        0.29,
-        0.26
-      ],
-      "rust": 0.5
+      "picture": "library:metal_grate_rusty",
+      "size": 20
     },
     "glass": {
-      "base": "neon",
+      "base": "glass",
       "tone": [
-        1,
-        0.58,
-        0.18
+        0.95,
+        0.6,
+        0.2
       ]
     }
-  },
-  "finish": {
-    "wear": 0.5,
-    "grime": 0.6,
-    "light": 0.3
   },
   "parts": [
     {
       "id": "plate",
       "kind": "box",
-      "material": "cast",
+      "material": "backplate",
       "size": [
-        1.5,
-        9,
-        14
+        3,
+        14,
+        24
       ],
       "at": [
-        0.75,
+        0,
         0,
         0
-      ],
-      "panels": [
-        {
-          "face": "front",
-          "at": [
-            4.5,
-            12
-          ],
-          "size": [
-            1.2,
-            1.2
-          ],
-          "shape": "round",
-          "radius": 0.6,
-          "style": "raised"
-        },
-        {
-          "face": "front",
-          "at": [
-            4.5,
-            2
-          ],
-          "size": [
-            1.2,
-            1.2
-          ],
-          "shape": "round",
-          "radius": 0.6,
-          "style": "raised"
-        }
       ]
     },
     {
-      "id": "housing",
-      "kind": "turn",
-      "axis": "x",
-      "material": "cast",
-      "sides": 8,
-      "caps": [
-        true,
-        true
-      ],
-      "rings": [
-        [
-          0,
-          3.8
-        ],
-        [
-          1.2,
-          4.9
-        ],
-        {
-          "s": 3.6,
-          "r": 4.6,
-          "crease": true
-        }
+      "id": "arm",
+      "kind": "box",
+      "material": "backplate",
+      "size": [
+        6,
+        2,
+        2
       ],
       "at": [
-        1.2,
+        3,
         0,
-        7
+        11
       ]
     },
     {
-      "id": "globe",
-      "kind": "turn",
-      "axis": "x",
+      "id": "glass",
+      "kind": "sphere",
       "material": "glass",
-      "sides": 8,
-      "caps": [
-        true,
-        true
-      ],
-      "rings": [
-        [
-          0,
-          4.1
-        ],
-        [
-          6,
-          4.2
-        ],
-        [
-          8.2,
-          3.2
-        ],
-        [
-          9,
-          1.6
-        ]
-      ],
+      "radius": 5,
+      "sides": 6,
       "at": [
-        4.6,
+        9,
         0,
-        7
+        12
       ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.42,
-              0
-            ],
-            [
-              0.42,
-              360
-            ]
-          ],
-          "width": 0.7,
-          "material": "cage"
-        }
-      ]
+      "finish": false
     },
     {
-      "id": "cage_bar",
+      "id": "ring_front",
       "kind": "tube",
       "material": "cage",
-      "sides": 3,
+      "sides": 4,
       "path": [
         [
-          4.4,
-          0,
-          11.9,
-          0.45
+          13,
+          6.5,
+          12,
+          0.6
         ],
         [
-          10.8,
-          0,
-          11.7,
-          0.45
+          13,
+          3.25,
+          17.63,
+          0.6
         ],
         [
-          14,
-          0,
-          8.6,
-          0.45
+          13,
+          -3.25,
+          17.63,
+          0.6
         ],
         [
-          14,
-          0,
-          6.6,
-          0.45
+          13,
+          -6.5,
+          12,
+          0.6
         ]
-      ],
-      "repeat": {
-        "count": 4,
-        "axis": "x",
-        "through": [
-          0,
-          0,
-          7
+      ]
+    },
+    {
+      "id": "ring_back",
+      "kind": "tube",
+      "material": "cage",
+      "sides": 4,
+      "path": [
+        [
+          5,
+          6.5,
+          12,
+          0.6
         ],
-        "start": 45
-      }
+        [
+          5,
+          3.25,
+          17.63,
+          0.6
+        ],
+        [
+          5,
+          -3.25,
+          17.63,
+          0.6
+        ],
+        [
+          5,
+          -6.5,
+          12,
+          0.6
+        ]
+      ]
+    },
+    {
+      "id": "bar_side_a",
+      "kind": "box",
+      "material": "cage",
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "at": [
+        9,
+        6.5,
+        12
+      ]
+    },
+    {
+      "id": "bar_side_b",
+      "kind": "box",
+      "material": "cage",
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "at": [
+        9,
+        -6.5,
+        12
+      ]
+    },
+    {
+      "id": "bar_top",
+      "kind": "box",
+      "material": "cage",
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "at": [
+        9,
+        3.25,
+        17.63
+      ]
+    },
+    {
+      "id": "bar_top_b",
+      "kind": "box",
+      "material": "cage",
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "at": [
+        9,
+        -3.25,
+        17.63
+      ]
     }
   ]
 }

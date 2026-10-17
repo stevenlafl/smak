@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 7.15,
+   "peak": -8,
+   "rms": -30.5,
+   "crest": 22.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.02,
+   "tail": 0.359,
+   "attack": 0.045,
+   "peakAt": 4.6,
+   "t20": 1.936,
+   "t40": 2.075,
+   "centroid": 1066,
+   "rolloff": 840,
+   "flatness": 0.151,
+   "bands": {
+    "<150": 1.6,
+    "150-600": 22.8,
+    "600-2k": 65.8,
+    "2k-5k": 5.8,
+    ">5k": 3.9
+   },
+   "onsets": 10
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 17,
+   "of": 20,
+   "lines": [
+    "rms -30.5 dBFS (-30.3 to -24.3): under the range",
+    "centroid 1066 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "flatness 0.151 (0.05 to 0.15): too noisy: more tone (modes)"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows ten sharp, separate onsets (about 0.6 to 0.7 s apart, at x of roughly 40, 120, 195, 285, 365, 460, 525, 620, 690 and 755 px) and each one has a fast falling tail in the spectrogram. That is a water drip. The onset count of 10 in the features agrees."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each drip is a fast attack (0.045 s) with a short decay (t20 1.936 s, t40 2.075 s), as the picture shows, and the length of 7.15 s is the loop's own. The measures' flagged lines do not name length, attack or decay. I could not check these against the class's range, since the range is not in the measures, so this rests on the picture and the absence of a flag."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The centroid is 1066 Hz, above the reference range of 671 to 1007 Hz, and the measure flags it as too bright, with less energy above 2000 Hz wanted. The 600 to 2k band holds 65.8% and 2k to 5k only 5.8%. The spectrogram's bright body sits in the middle bands (the orange and red mass from about 600 Hz up), which matches the measure. The spectrum is clearly off, though not far from the range."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The onsets match (ten drips, as above). The flatness is 0.151 against a range of 0.05 to 0.15, flagged as too noisy with more tone wanted. The picture shows a broadband red-orange noise bed across the whole length between the drips, which is where that noise comes from. The gaps between drips are also uneven (about 0.65 to 0.95 s), and the seam at the loop wrap is about 1.2 s, roughly twice a normal gap. The character is partly off."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Engine faults are empty, clipping is 0, DC is 0 and peak is -8 dBFS, so there is no clipping or offset. The measures do not give the sample rate, bit depth or channel count, and the picture does not show them, so the format is not confirmed. The loop cue is also not confirmed. The file's seam from the last drip (about 6.2 s) to the first (about 0.3 s, across the wrap) is roughly 1.2 s, about double the drip spacing, so a loop point is not visible there. Whether the original has its cue at this point cannot be checked from what was given."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

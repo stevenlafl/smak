@@ -1,0 +1,76 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.409,
+   "peak": -6,
+   "rms": -20,
+   "crest": 14,
+   "dc": 0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.18,
+   "peakAt": 0.18,
+   "t20": 0.13,
+   "t40": 0.18,
+   "centroid": 835,
+   "rolloff": 1206,
+   "flatness": 0.216,
+   "bands": {
+    "<150": 1.1,
+    "150-600": 65.3,
+    "600-2k": 25.3,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 0
+  },
+  "class": "swing",
+  "against": {
+   "score": 22,
+   "of": 22,
+   "lines": []
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "From the picture alone (sound cannot be listened to here): the waveform is a noisy burst that swells to its peak at about 0.18 s and dies away by about 0.41 s, and the spectrogram is a broadband, low-mid-weighted smear with no hit or click. That is the shape of a swing, not a strike, which is the event the brief names."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.409 s with peak at 0.18 s and t20 0.13 s, t40 0.18 s. The class check in the measurements reports 22 of 22 with no failed lines, so the envelope sits within the swing class's range. The picture agrees: a single swell and a long tail. Cannot listen; judged from the measures and picture."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 835 Hz with band shares of 1.1 (under 150), 65.3 (150-600), 25.3 (600-2k), 6.7 (2k-5k) and 1.6 (over 5k). The class check passes 22 of 22. The spectrogram matches: the bright yellow-orange sits in the lower third, fading above about 2 kHz. Cannot listen; judged from the measures and picture."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No onsets (0), which is right for a swing with no hit in it. Flatness 0.216 places it as noise with some tone, within the game's range the measure is taken over. The spectrogram shows no obvious pitch glide and a steady texture across the swing. Cannot listen; judged from the measures and picture."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Engine faults are empty, clipping is 0, DC is 0.0001 and the peak is -6 dBFS, with lead 0 and tail 0.005. The name on the picture is sound/weapons/cbar_miss1.wav, the file the game plays. The sample rate and bit depth are not in the measurements, so this rests on the empty fault list and the clean measures. Cannot listen; judged from the measures and picture."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

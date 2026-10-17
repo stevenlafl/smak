@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.803,
+   "peak": -0.5,
+   "rms": -25.1,
+   "crest": 24.6,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.025,
+   "attack": 0.015,
+   "peakAt": 0.015,
+   "t20": 0.299,
+   "t40": 0.554,
+   "centroid": 952,
+   "rolloff": 1507,
+   "flatness": 0.169,
+   "bands": {
+    "<150": 0.5,
+    "150-600": 67.2,
+    "600-2k": 19.6,
+    "2k-5k": 11,
+    ">5k": 1.6
+   },
+   "onsets": 3
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture reads as a crawler's attack: a hard transient at 0.015 s, then scattered hits and a wet tail. But the original's most distinct part is a dense cluster of bites in the first 0.25 s (roughly 0.05 to 0.25 s in the lower picture), and the replacement has a single loud spike with only a few sparse hits after it. The event is recognisable, but it is clearly thinner than the brief's crawler attack. The listening limit applies."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length is 0.803 s against the game's 0.906 s, 11% short, within 25%. t20 is 0.299 s against 0.394 s, 24% short, within a quarter. Attack is 0.015 s, peak at 0.015 s, tail 0.025 s, so the envelope is a sharp start and a fast decay. The class range from src/audio/classes.mjs was not given, so this is checked against the game's own sound only."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid is 952 Hz against 921 Hz, 3% off, within 20%. Bands: <150 0.5 vs 0.5; 150-600 67.2 vs 68.1; 600-2k 19.6 vs 18.8; 2k-5k 11 vs 10.9; >5k 1.6 vs 1.6. Every band is within 1 point, well inside 10 points. The spectrogram matches the original's warm low-mid body. The class range from classes.mjs was not given, so this too is checked against the game's own sound."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must-have. The original has a dense rattle of many small hits in its first quarter second, and the replacement has fewer and sparser onsets (measured 3), with a single dominant transient at its start. Flatness is 0.169, and the spectrogram shows no pitch glide in either sound, so the tone/noise character and pitch movement are close. The onset pattern is the clear difference."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Named sound/headcrab/hc_attack1.wav, matching the game's file. Peak -0.5 dBFS with clipped 0 and dc 0, so no clipping and no DC offset. engineFaults is empty. The rate, bit depth and channel count are not in the measurements given, so this rests on the engine check passing; the picture shows no format fault."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

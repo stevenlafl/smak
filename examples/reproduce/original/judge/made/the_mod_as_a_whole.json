@@ -11,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     "fw_lm1"
+     "fw_lm_yard"
     ],
     "asked": "fw_pumphall"
    },
@@ -21,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     "fw_lm1",
-     "fw_lm2"
+     "fw_lm_yard",
+     "fw_lm_hall"
     ],
     "asked": "fw_control"
    },
@@ -30,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     "fw_lm2"
+     "fw_lm_hall"
     ],
     "asked": null
    }
@@ -39,22 +39,22 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 480221
+    "bytes": 142748
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 404004
+    "bytes": 236787
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 9830977
+    "bytes": 5877360
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 1197320
+    "bytes": 323336
    }
   ]
  },
@@ -67,28 +67,28 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements report nothing missing and no failed checks. All five props are in everything.png (valve wheel, drum, console, pipe junction, caged lamp), and the wrench and crawler are there too. The four shown files are present. I can read the props and the wrench and crawler in the picture, but not the .wad textures, sounds or sprites, so those rest on the measurement alone."
+   "reason": "The measurements report nothing missing and no failed checks. The sheet shows all five props (valve wheel, drum, console, pipe junction, caged lamp), the wrench and the crawler, and the three maps. The brief's videos and prop sheet are listed as present. Sprites, sounds and the wad are not visible in this picture, so this rests on the measurements. Quality issues belong to the per-asset scores, not to presence."
   },
   "O2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The chain is fw_yard to fw_pumphall (through fw_lm1), then fw_pumphall to fw_control (through fw_lm1 and fw_lm2), and fw_control ends the mod, as the brief says. Each change of level is reached on foot from the start and arrives where the last map left. The measurements show no missing model, sprite or sound."
+   "reason": "The chain is wired: fw_yard leads to fw_pumphall through fw_lm_yard, and fw_pumphall leads to fw_control through fw_lm_hall. fw_control is the last map and has no onward link, which the brief asks for. The walk test reaches each change of level from the start. The names check reports no failures."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Most of the set agrees: rusted brown-tan concrete and steel in the pump hall and control room, orange sodium glow, yellow hazard stripe on the drum. But the yard (bottom row, first map view) has a flat bright sky-blue sky, which reads as daytime and is not the dusk the brief asks for, and it sits outside the warm rust palette of the other maps. The props are cooler grey-green where the map walls are warm brown, and the valve wheel and wrench are saturated red beside desaturated walls. Those differences are visible in the sheet."
+   "reason": "The hazard yellow, red and steel grey of the props and the hazard-striped walls in the third view agree with each other. But fw_yard is shown under a bright blue daytime sky, where the brief asks for dusk. Its walls are brown-orange rust, while the flooded hall's door view is grey concrete. The yard reads as a different material family from the hall and the control room. The wrench in the sheet is a grey block with a red stub, which does not share the props' finish."
   },
   "O4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The brief's shown items are all present: videos/fw_wrench.mp4, videos/fw_crawler.mp4 and videos/fw_pumphall.mp4, and pictures/fw_props.png. The sheet shows each prop as it is, with all five props, the wrench and the crawler legible at a glance. The map views are labelled with their entities in the harness's overlay, which is not a mod fault."
+   "score": 1,
+   "reason": "The sheet of props exists and shows five props in a single picture, and the videos are listed as present. The wrench's entry in the sheet does not show the wrench as it is: it reads as a grey box with a red stub and no toothed jaw. The crawler's sheet entry reads as a green blob with a ring of teeth, which is recognisable, but the wrench is not."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 8,
  "passes": false
 }

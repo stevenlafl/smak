@@ -1,0 +1,76 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 6.85,
+   "peak": -0.5,
+   "rms": -29.9,
+   "crest": 29.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.893,
+   "peakAt": 0.918,
+   "t20": 5.797,
+   "t40": 5.937,
+   "centroid": 925,
+   "rolloff": 1400,
+   "flatness": 0.083,
+   "bands": {
+    "<150": 1.3,
+    "150-600": 28.9,
+    "600-2k": 65.2,
+    "2k-5k": 4.7,
+    ">5k": 0
+   },
+   "onsets": 9
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 20,
+   "of": 20,
+   "lines": []
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows nine sharp, separate transients (about 0.9 s, 2.0 s, 3.1 s, 4.2 s, 5.0 s, 5.9 s and 6.5 s on the waveform), each a fast spike that decays, with the spectrogram's bright vertical streaks at each onset. That is what water dripping into a pool sounds like, and it matches the brief's 'water dripping in a loop'."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The length (6.85 s) is a plausible loop length, and the attack (0.893 s) and peak position (0.918 s) match the first drip. But the class's decay range is not in the measures, so S2 cannot be checked against it. The t20 of 5.797 s means the level stays within 20 dB of the peak for nearly the whole loop: the waveform's noise bed between drips is as loud as the drips' tails, so the drips never fall to quiet. That may be right for an ambience, but it is not shown to be."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measures are centroid 925 Hz, rolloff 1400 Hz, bands 1.3 / 28.9 / 65.2 / 4.7 / 0 percent. The spectrogram agrees: the energy sits between about 150 Hz and 2 kHz, and above about 5 kHz it is nearly dark. The measures do not give the class's centroid or band ranges, so the spectrum cannot be shown within 20% or 10 points of Half-Life's own drips. It is not clearly off, and the brief's drips often sound brighter than this, but this judge cannot confirm it."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Onsets are 9, each a clear, separate hit as the picture shows, with no pitch movement to match or contradict. Flatness 0.083 is a mostly tonal spectrum with noisy edges, which suits a drip ringing in a pool. The noise bed under the drips is continuous, as it would be in a real ambience, and no click or artefact is visible in the waveform."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine checks report no faults: clipped 0, DC 0, peak -0.5 dB, no leading or trailing silence, and engineFaults empty. The file name is sound/ambience/fw_drips.wav, which is the game's name for the water drip loop. The measures do not report the sample rate, bit depth or channel count, nor a loop cue, so those are taken from the passed engine checks rather than read here."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

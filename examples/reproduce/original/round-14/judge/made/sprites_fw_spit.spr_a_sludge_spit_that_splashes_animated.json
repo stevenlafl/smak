@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 8,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.094,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.14,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.68,
+   "wrap": 0.43,
+   "jitter": 1.5
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.5,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.14,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Reads as a sludge burst: a bright blob in frame 1 throws out lobes and droplets in frames 2 to 3, then spreads. But from frame 4 on it is a radial starburst of thin streaks (frames 4 and 5), which looks more like a spark or explosion than a spit splashing. The brief's splash is only partly there."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each frame is 64 x 64 and the effect sits in the centre, with the edges clean (border mean 0, max 0.094, within the class's 0 to 0.005). The effect fills the frame about as an explosion sprite does."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colour is a vivid lime green (frames 1 to 3 are the most saturated). The brief asks for green-grey sludge in the station's palette, so this is brighter and more toxic than the brief's green-grey."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured against the explosion class, two must-have measures fail: peakAt 0.14 against 0.22 to 0.71 (the peak is at frame 1, so it peaks too soon), and jitter 1.5 against 1.04 to 1.48 (the frames flicker, since frames 4 and 5 change their streak pattern from one frame to the next). The envelope starts and ends dark (first 0, last 0), which is right. The kind of motion (burst, spread, thin, fade) is roughly right, so the score is 1, not 0."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The format is index alpha and the type is parallel, which the engine accepts. Nothing in the brief names the slot or the file this sprite takes the place of, and no measure checks its type or name against the class, so it cannot be confirmed as fitting the game. Held at 1 until the name and type are checked against the file it replaces."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

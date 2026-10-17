@@ -1,0 +1,78 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 3.05,
+   "peak": -6,
+   "rms": -13.6,
+   "crest": 7.6,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.19,
+   "peakAt": 1.197,
+   "t20": 1.656,
+   "t40": 1.741,
+   "centroid": 260,
+   "rolloff": 194,
+   "flatness": 0.025,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 96,
+    "600-2k": 2.5,
+    "2k-5k": 1.1,
+    ">5k": 0.2
+   },
+   "onsets": 4
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 19,
+   "of": 20,
+   "lines": [
+    "crest 7.6 dB (8.3 to 14.3): too squashed"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows one sustained drone: a steady band of energy from about 150 to 600 Hz across the full 3.05 s, with no strike or transient, which fits a pump's droning loop. Judged from the picture and features only; the judge cannot listen to the sound."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 3.05 s, attack 0.19 s, t20 1.656 s and t40 1.741 s are not flagged by the class check (the only line in the measurement is about crest), so the envelope is within the loop machine class's range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 260 Hz, with 96% of the energy in the 150-600 Hz band and 2.5% in 600-2k, 1.1% in 2k-5k, and 0.2% under 150 Hz and over 5k. The class check raises nothing on the spectrum, so it is within the class's range. The spectrogram agrees: the bright band sits at the bottom, with a dark top half."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The crest is 7.6 dB where a loop machine sits at 8.3 to 14.3 dB: the measurement reads it as too squashed, with the waveform near a constant level and little dynamic movement across the loop. The tone is clearly tonal (flatness 0.025), which suits a drone, and four onsets are measured, but the squashed dynamics are a character fault the picture shows (the waveform band is uniformly thick from about 0.2 s to 2.9 s)."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping (0), no DC offset (0), peak -6 dBFS, and the engine faults list is empty. The features do not state the sample rate, bit depth or channel count, so the format is attested only by the empty engine check. The waveform shows no cue marker, and the brief asks for none."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

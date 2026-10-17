@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel oriented",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.369,
+    "mean": 0.005
+   },
+   "envelope": {
+    "peakAt": 0.27,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.79,
+   "wrap": 0.33,
+   "jitter": 1.34
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.34,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.005,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.27,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The effect is a steam wisp: a column rising from the bottom of the frame in frames 1 to 4, drifting up and thinning and fading through frames 5 to 10. That is the smoke-puff effect the brief asks for, rising and thinning."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Each 64x64 frame holds a thin column about 15 to 20 px wide, centred, with the rest empty grey. It reads as a wisp rather than a puff. The brief's 'steam puff' suggests a fuller cloud, and the column leaves most of each frame unused. The original's size is not given, so this is judged by eye against the brief."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged by eye, the steam is pale grey-white over the engine's grey backdrop, which suits steam in this palette. Nothing reads as neon or coloured. The mean-colour measure is not given, so this is by eye only."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measures sit inside the smoke puff class: 12 frames (class takes 12), jitter 1.34 (range 0.9 to 1.5), peak at 0.27 (0.2 to 0.6), first frame 0 (at most 0.35), last frame 0 (at most 0.1). Border mean 0.005 is at the class limit. Motion is a rise and thin: the column climbs and fades, and it ends dark, as a one-shot that finishes does."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Type is parallel oriented and format is index alpha, the type and format the amendment gives for steam sprites. The file reads back at 64x64 with 12 frames and no fault is reported. The name fw_steam cannot be checked against the game's file from the pictures alone, so this rests on the measures and the harness's read-back."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

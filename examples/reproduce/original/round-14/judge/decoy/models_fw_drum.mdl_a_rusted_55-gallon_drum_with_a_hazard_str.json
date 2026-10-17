@@ -1,0 +1,81 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   23,
+   23,
+   34
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0,
+  "triangles": 12,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_crowbar.mdl, models/w_longjump.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, C, B, C where the asset was D, A, C, C: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The outline is a plain box, not a drum. In the top view (sides.png, TOP) the footprint is a square, where a 55-gallon drum's is a circle. The front, left, back and right views are plain rectangles with square corners, and the front-left and back-right views show four flat faces with hard vertical edges and no rim or bulge. The brief's drum form is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 23 x 23 x 34 units, which matches the brief's 34 high and 23 across exactly (sizeOff 0)."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names a rusted drum with a hazard stripe. The body is a four-faced box where the drum's body is round, and the named hazard stripe is absent in every view (sides.png). The drum's rolling hoops and lid are not modelled. Capped at 1 for the round body and the missing stripe."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The whole asset is one mottled grey, like concrete or primer. There is no rust colour or wear anywhere, despite the brief's 'rusted', and no yellow or black hazard paint. The steel-grey base is close, but the required regions are not there."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The hazard stripe the brief names is not there in any of the ten views, and the rust is missing too. The only texture is a soft cloudy noise over every face, which is not the drum's markings or wear."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Scored at the rubric's cap for M6, which is measured apart by the line-up test (judges picked the asset in 1 of 4 readings: C, where the asset sat at C; the other three picks went elsewhere, so it passed for a Valve prop in 3 of 4). Looking at lineup.png, the asset at B is a plain grey box beside the game's crowbar, a creature and a backpack-like prop, and visually it does not read as a drum. The cap of 2 is applied as stated, not as my own visual judgement."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The box stands upright on its base as a drum does, and the origin is at the bottom in the side views. A drum has no front to match, so nothing is wrong with the facing."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check reports no errors. The triangle count is 12, far below twice the median of 99 and the three-quarter line of 156. The box looks closed in all ten views, with nothing open, inside out or floating."
+  }
+ },
+ "total": 10,
+ "of": 16,
+ "passes": false
+}

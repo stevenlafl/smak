@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.742,
+   "peak": -0.5,
+   "rms": -15.8,
+   "crest": 15.3,
+   "dc": 0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.03,
+   "attack": 0.06,
+   "peakAt": 0.379,
+   "t20": 0.205,
+   "t40": 0.279,
+   "centroid": 906,
+   "rolloff": 1744,
+   "flatness": 0.245,
+   "bands": {
+    "<150": 0.5,
+    "150-600": 67.3,
+    "600-2k": 19.5,
+    "2k-5k": 11,
+    ">5k": 1.7
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Picture (top panel) shows one soft noise burst of about 0.5 s that fades out by about 0.74 s, with energy mostly 150-600 Hz. The game's own crawler attack (bottom panel) has two sharp strikes near 0.1 s and 0.4 s, then clicks. The made file has no discrete strike or bite pattern, so it reads as a generic creature rattle more than a crawler's attack. Judged from the picture only; the sound could not be heard."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 0.742 s is 18% under the game's 0.906 s, inside the 25% band. Attack is 0.06 s, which is plausible. T20 is 0.205 s against the game's 0.394 s, about half. The class range the rubric checks T20 against is not among the measurements given, so the envelope cannot be confirmed within range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 906 Hz against the game's 921 Hz (1.6% off, inside 20%). Band shares: <150 0.5 vs 0.5; 150-600 67.3 vs 68.1; 600-2k 19.5 vs 18.8; 2k-5k 11 vs 10.9; >5k 1.7 vs 1.6. Every band is within 1 point, inside the 10-point limit."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are 0 in the made file, while the game's file has several sharp hits (visible as spikes at about 0.1 s, 0.4 s, 0.5 s and 0.7 s in the bottom waveform). The made sound is one smeared wash with no hits or clicks. Flatness 0.245 falls inside the game's 0.05 to 0.28 range, so the noisiness matches; the missing hits do not."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "engineFaults is empty. Peak -0.5 dBFS, clipped 0 and DC 0.0001 all pass. The measures given do not list the sample rate, channels or bit depth, so the format is confirmed only through the empty fault list."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

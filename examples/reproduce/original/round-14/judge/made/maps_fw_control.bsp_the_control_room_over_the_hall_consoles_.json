@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1312,
+   720
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "plan.png shows one large room (roughly x 36-988, y 119-548) with a lighter raised block at the right (x 691-929). The valve room the brief names is not drawn, and the lift (func_plat 7 at x 857-903, y 351) has no lower landing to reach. The top strip above the func_breakables (y 36-107) is unlabelled as a hall, so the brief's joined areas are not there."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no sizes for the control room or the valve room, so the 25% check cannot run. The one room that exists is plausibly sized, but the valve room is missing, so the sizes of the two areas cannot be matched."
+  },
+  "P3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The plan has one floor height, and the views (views.png, all four yaw views at z 64) show one storey. The lift's descent to a lower valve room, the storey the brief is built around, is absent. Floor heights are not labelled on the plan, so no step, ledge or drop can be confirmed."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Present: info_player_start (15, x 110 y 408), two monster_headcrab (17 and 18, matching the 2 found), and a func_plat (7) that can stand in for the lift. Missing: the main valve wheel that ends the mod (no wheel entity; func_button 9 sits by the consoles at x 880-935 and reads as a console button), and no changelevel (changelevels is empty)."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "views.png shows concrete walls and a wet-looking concrete floor, which match the brief's words. Yellow hazard-stripe trim shows only at the base of the console-like props (views 3 and 4). The brief's steel, control-panel and window textures cannot be confirmed at this distance, and no valve-room metal is shown."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Light entities 20 to 34 are spread across the room, and ceiling lamps show in views 1, 2 and 4. The lamps look white-grey, not sodium-orange, and the brief's buzzing sodium lamps are not evident. There is no valve room's lighting to compare."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Consoles are there as cycler_sprite props (10 to 14) with a hazard-striped base (views 3 and 4). Light-blue window panels show on a wall in view 3. The consoles sit in the open floor rather than in a row under windows onto the hall, and the valve wheel and the lift cage are missing."
+  },
+  "P8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The harness reports no check errors and no unreached places, so it compiles and the walk reaches the start and the items. But nothing is said about leaks, and with no valve wheel and no changelevel the mod has no way to finish, so the walk test cannot prove the way out."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside (views.png, yaw 0 to 180), it reads as a plain concrete room with ceiling lamps, which could pass for a Half-Life room. The brief's defining features (windows looking down on a hall, a lift, a valve wheel) are not visible, and the room is empty and bland. A player who knew the control room would not recognise it."
+  }
+ },
+ "total": 7,
+ "of": 18,
+ "passes": false
+}

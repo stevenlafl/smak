@@ -1,0 +1,81 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.7,
+   "peak": -0.5,
+   "rms": -13.2,
+   "crest": 12.7,
+   "dc": 0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.015,
+   "peakAt": 0.025,
+   "t20": 0.569,
+   "t40": 0.673,
+   "centroid": 1922,
+   "rolloff": 1981,
+   "flatness": 0.118,
+   "bands": {
+    "<150": 2,
+    "150-600": 10.8,
+    "600-2k": 73.1,
+    "2k-5k": 12.1,
+    ">5k": 2
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 18,
+   "of": 22,
+   "lines": [
+    "crest 12.7 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
+    "rms -13.2 dBFS (-12.9 to -5.7): under the range",
+    "centroid 1922 Hz (1074 to 1654): too bright: less over 2000 Hz",
+    "flatness 0.118 (0.16 to 0.28): too pure: more noise"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a sharp broadband onset at 0.00 s, a dense body to about 0.4 s, then a decay to 0.7 s, with a sustained mid-band ring. That is an impact followed by metal ring, which reads as a wrench on metal. The measures flag the hit as spiky (crest 12.7 dB against 5.3 to 12.5), which is a harder transient than the class, but the event is the same."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.7 s, attack 0.015 s, peak at 0.025 s and t20 0.569 s are all within the metal hit class's range. None is listed as out of range in the measures. The waveform's decay in the picture, a dense body fading to a thin tail (tail 0.005), matches a short metal hit."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid is 1922 Hz against the class's 1074 to 1654 Hz, which is outside it. The 600 Hz to 2 kHz band holds 73.1% (the rest is spread thin). The spectrogram shows the bright orange energy sitting in the mid band through the whole body, with too little falling off above 2 kHz. The measure says 'too bright: less over 2000 Hz'. The band shares are not flagged in the measures, so the fault is in the centroid, not every band."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness 0.118 against the class's 0.16 to 0.28 is too pure, as the measure says ('more noise'). The spectrogram shows a single bright horizontal line at about the middle of the frequency axis, running from 0.1 s to the end, which is a steady tone where the class has noise. Onsets are 0, so there is one hit and no separate clicks; without the original's file I cannot say whether it had more. This is a clearly off character, not a complete miss."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Engine checks are clean: engineFaults is empty, clipped is 0, DC is 0.0001 and peak is -0.5 dBFS. Nothing in the picture shows clipping or a loop. The file format (rate, bit depth, mono) is not in the measures and I cannot read it from the picture, so this rests on the engine check rather than on my own reading of the format."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,197 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 41,
+    "width": 49
+  },
+  "materials": {
+    "pipe": {
+      "base": "steel",
+      "picture": "library:metal_plate_02",
+      "size": 79,
+      "rust": 0.3
+    },
+    "plate": {
+      "base": "steel",
+      "picture": "library:metal_plate_02",
+      "size": 39,
+      "rust": 0.2
+    },
+    "flange": {
+      "base": "steel",
+      "picture": "library:rusty_metal_02",
+      "size": 39
+    },
+    "bolt": {
+      "base": "steel",
+      "tone": [
+        0.35,
+        0.35,
+        0.33
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "foot",
+      "kind": "tube",
+      "material": "plate",
+      "sides": 12,
+      "path": [
+        [
+          0,
+          0,
+          0,
+          7.5
+        ],
+        [
+          0,
+          0,
+          3,
+          7.5
+        ]
+      ]
+    },
+    {
+      "id": "foot_bolts",
+      "kind": "studs",
+      "material": "bolt",
+      "on": {
+        "part": "foot",
+        "path": [
+          [
+            0.5,
+            0
+          ],
+          [
+            0.5,
+            300
+          ]
+        ]
+      },
+      "count": 6,
+      "radius": 0.8,
+      "height": 0.8
+    },
+    {
+      "id": "pipe_up",
+      "kind": "tube",
+      "material": "pipe",
+      "sides": 8,
+      "path": [
+        [
+          0,
+          0,
+          3,
+          4
+        ],
+        [
+          0,
+          0,
+          28,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "flange_up",
+      "kind": "turn",
+      "axis": "z",
+      "material": "flange",
+      "rings": [
+        [
+          0,
+          6.5
+        ],
+        [
+          2.5,
+          6.5
+        ]
+      ],
+      "at": [
+        0,
+        0,
+        18
+      ],
+      "sides": 8
+    },
+    {
+      "id": "elbow",
+      "kind": "sphere",
+      "material": "pipe",
+      "radius": 5.5,
+      "sides": 8,
+      "at": [
+        0,
+        0,
+        30
+      ]
+    },
+    {
+      "id": "pipe_across",
+      "kind": "tube",
+      "material": "pipe",
+      "sides": 8,
+      "path": [
+        [
+          0,
+          0,
+          30,
+          4
+        ],
+        [
+          0,
+          38.5,
+          30,
+          4
+        ]
+      ]
+    },
+    {
+      "id": "flange_across",
+      "kind": "turn",
+      "axis": "y",
+      "material": "flange",
+      "rings": [
+        [
+          0,
+          6.5
+        ],
+        [
+          2.5,
+          6.5
+        ]
+      ],
+      "at": [
+        0,
+        26,
+        30
+      ],
+      "sides": 8
+    },
+    {
+      "id": "flange_end",
+      "kind": "turn",
+      "axis": "y",
+      "material": "flange",
+      "rings": [
+        [
+          0,
+          6.5
+        ],
+        [
+          2.5,
+          6.5
+        ]
+      ],
+      "at": [
+        0,
+        38.5,
+        30
+      ],
+      "sides": 8
+    }
+  ]
+}

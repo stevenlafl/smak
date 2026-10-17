@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.32,
+   "peak": -0.5,
+   "rms": -15,
+   "crest": 14.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.12,
+   "t40": 0.224,
+   "centroid": 260,
+   "rolloff": 388,
+   "flatness": 0.004,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 94.5,
+    "600-2k": 5.2,
+    "2k-5k": 0.1,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform is one sharp tonal burst at 0.00 s that decays over about 0.3 s, with harmonic stripes in the spectrogram at 150-600 Hz. The game's own crawler attack (0.91 s) has several separate impacts, a wet crunch and a broadband spread from 150 Hz to 5 kHz. The picture shows a generic thump, not a crawler's bite or swipe, so it is there but clearly off. Listening is outside this judge's reach, so this rests on the picture and features."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Length is 0.32 s against the original's 0.906 s, about 65% short, far outside the 25% allowed (length measure). The t20 decay is 0.12 s against 0.394 s, also outside the class range; no class is given (class: null), so the original's own decay is the reference. The must-have fails by measure."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Centroid is 260 Hz against the original's 921 Hz, about 72% low, against a 20% limit. Band shares miss by more than 10 points: 150-600 Hz is 94.5% against 68.1% (26.4 points); 600-2k is 5.2% against 18.8% (13.6 points); 2k-5k is 0.1% against 10.9% (10.8 points). The made sound has almost no energy above 2 kHz."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are 0 where the original has several transients (the picture shows clusters near 0.1 s, 0.3 s, 0.6 s and 0.7 s). Flatness is 0.004, very tonal, while the original's spectrogram is broadband and noisy. The made sound has no clicks or hits and reads as a pitched decay. This is not a must-have, but it is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping (clipped 0), no DC (dc 0), peak at -0.5 dB, name sound/headcrab/hc_attack1.wav as the game's, and engineFaults is empty. The sample rate and bit depth are not in the measurements, so the format rests on the engine check passing; the judge cannot confirm them from the picture."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

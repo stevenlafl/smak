@@ -1,0 +1,248 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 56,
+    "length": 49
+  },
+  "materials": {
+    "pipe": {
+      "base": "steel",
+      "tone": [
+        0.3,
+        0.31,
+        0.27
+      ],
+      "picture": "library:rusty_metal_sheet",
+      "size": 79,
+      "rust": 0.4
+    },
+    "flange": {
+      "base": "steel",
+      "tone": [
+        0.3,
+        0.22,
+        0.16
+      ],
+      "picture": "library:rusty_metal_05",
+      "size": 49
+    },
+    "bolt": {
+      "base": "steel",
+      "tone": [
+        0.42,
+        0.4,
+        0.37
+      ],
+      "rust": 0.5
+    },
+    "seam": {
+      "base": "flat",
+      "tone": [
+        0.08,
+        0.07,
+        0.06
+      ]
+    }
+  },
+  "finish": {
+    "wear": 0.6,
+    "grime": 0.6,
+    "light": 0.3
+  },
+  "parts": [
+    {
+      "id": "pipe_low",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 6,
+      "height": 28,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -40,
+        0,
+        9.5
+      ]
+    },
+    {
+      "id": "flange_low",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 9.5,
+      "height": 3.2,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -13.6,
+        0,
+        9.5
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              0
+            ],
+            [
+              0.5,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "seam"
+        }
+      ]
+    },
+    {
+      "id": "elbow",
+      "kind": "tube",
+      "material": "flange",
+      "sides": 8,
+      "path": [
+        [
+          -10.6,
+          0,
+          9.5,
+          6.6
+        ],
+        [
+          -5.2,
+          0,
+          10.89,
+          6.6
+        ],
+        [
+          -1.39,
+          0,
+          14.7,
+          6.6
+        ],
+        [
+          0,
+          0,
+          20.1,
+          6.6
+        ]
+      ]
+    },
+    {
+      "id": "flange_high",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 9.5,
+      "height": 3.2,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        19.9
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              0
+            ],
+            [
+              0.5,
+              360
+            ]
+          ],
+          "width": 0.35,
+          "material": "seam"
+        }
+      ]
+    },
+    {
+      "id": "pipe_high",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 6,
+      "height": 33,
+      "sides": 8,
+      "at": [
+        0,
+        0,
+        23
+      ]
+    },
+    {
+      "id": "bolt_low",
+      "kind": "cylinder",
+      "material": "bolt",
+      "radius": 1,
+      "height": 5,
+      "sides": 4,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -14.5,
+        0,
+        17.5
+      ],
+      "repeat": {
+        "count": 6,
+        "axis": "x",
+        "through": [
+          -12,
+          0,
+          9.5
+        ],
+        "start": 0
+      }
+    },
+    {
+      "id": "bolt_high",
+      "kind": "cylinder",
+      "material": "bolt",
+      "radius": 1,
+      "height": 5,
+      "sides": 4,
+      "at": [
+        8,
+        0,
+        19
+      ],
+      "repeat": {
+        "count": 6,
+        "axis": "z",
+        "through": [
+          0,
+          0,
+          21.5
+        ],
+        "start": 30
+      }
+    },
+    {
+      "id": "saddle",
+      "kind": "box",
+      "material": "flange",
+      "size": [
+        6,
+        14,
+        4.5
+      ],
+      "at": [
+        -34,
+        0,
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,428 @@
+{
+  "spec": "smak.model/1",
+  "name": "headcrab.mdl",
+  "kind": "character",
+  "base": {
+    "file": "headcrab.mdl"
+  },
+  "contract": {
+    "file": "headcrab.mdl"
+  },
+  "materials": {
+    "skin": {
+      "base": "leather",
+      "tone": [
+        0.38,
+        0.46,
+        0.36
+      ]
+    },
+    "belly": {
+      "base": "bone",
+      "tone": [
+        0.8,
+        0.8,
+        0.68
+      ]
+    },
+    "mouth": {
+      "base": "flat",
+      "tone": [
+        0.24,
+        0.14,
+        0.12
+      ]
+    },
+    "teeth": {
+      "base": "bone",
+      "tone": [
+        0.9,
+        0.88,
+        0.8
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "crawl",
+      "kind": "blob",
+      "material": "skin",
+      "blend": 2.5,
+      "triangles": 250,
+      "pieces": [
+        {
+          "at": [
+            -8,
+            0,
+            10.5
+          ],
+          "radius": [
+            6.5,
+            6.5,
+            5
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Leg",
+            "Bip01 L Leg1"
+          ],
+          "radius": [
+            1.8,
+            1.4
+          ]
+        },
+        {
+          "span": [
+            "Bip01 L Leg1",
+            "Bip01 L Foot"
+          ],
+          "radius": [
+            1.4,
+            0.9
+          ]
+        },
+        {
+          "at": "Bip01 L Foot",
+          "radius": 1.1
+        },
+        {
+          "span": [
+            "Bip01 R Leg",
+            "Bip01 R Leg1"
+          ],
+          "radius": [
+            1.8,
+            1.4
+          ]
+        },
+        {
+          "span": [
+            "Bip01 R Leg1",
+            "Bip01 R Foot"
+          ],
+          "radius": [
+            1.4,
+            0.9
+          ]
+        },
+        {
+          "at": "Bip01 R Foot",
+          "radius": 1.1
+        },
+        {
+          "from": [
+            -3,
+            6,
+            8
+          ],
+          "to": [
+            -2,
+            10.5,
+            1.2
+          ],
+          "radius": [
+            1.6,
+            0.9
+          ],
+          "bone": "Bip01 Spine"
+        },
+        {
+          "from": [
+            -3,
+            -6,
+            8
+          ],
+          "to": [
+            -2,
+            -10.5,
+            1.2
+          ],
+          "radius": [
+            1.6,
+            0.9
+          ],
+          "bone": "Bip01 Spine"
+        },
+        {
+          "from": [
+            -13,
+            6,
+            8
+          ],
+          "to": [
+            -14,
+            10.5,
+            1.2
+          ],
+          "radius": [
+            1.6,
+            0.9
+          ],
+          "bone": "Bip01 Spine"
+        },
+        {
+          "from": [
+            -13,
+            -6,
+            8
+          ],
+          "to": [
+            -14,
+            -10.5,
+            1.2
+          ],
+          "radius": [
+            1.6,
+            0.9
+          ],
+          "bone": "Bip01 Spine"
+        }
+      ]
+    },
+    {
+      "id": "belly",
+      "kind": "superquadric",
+      "material": "belly",
+      "size": [
+        11,
+        12,
+        4.5
+      ],
+      "round": [
+        0.3,
+        0.5
+      ],
+      "sides": 8,
+      "at": [
+        -8,
+        0,
+        4.2
+      ],
+      "bone": "Bip01 Spine"
+    },
+    {
+      "id": "mouth",
+      "kind": "turn",
+      "axis": "x",
+      "material": "mouth",
+      "rings": [
+        [
+          0,
+          3.2
+        ],
+        [
+          1.5,
+          3.4
+        ]
+      ],
+      "at": [
+        -3.2,
+        0,
+        8.5
+      ],
+      "bone": "Bip01 Neck",
+      "sides": 10
+    },
+    {
+      "id": "tooth_1",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        3.4,
+        8.5
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_2",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        2.75,
+        10.5
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_3",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        1.05,
+        11.73
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_4",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        -1.05,
+        11.73
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_5",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        -2.75,
+        10.5
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_6",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -2.1,
+        -3.4,
+        8.5
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_7",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        -2.75,
+        6.5
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_8",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        -1.05,
+        5.27
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_9",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        1.05,
+        5.27
+      ],
+      "bone": "Bip01 Neck"
+    },
+    {
+      "id": "tooth_10",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.45,
+      "top": 0,
+      "height": 1.2,
+      "sides": 5,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1.9,
+        2.75,
+        6.5
+      ],
+      "bone": "Bip01 Neck"
+    }
+  ]
+}

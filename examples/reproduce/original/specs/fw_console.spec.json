@@ -4,506 +4,240 @@
   "kind": "prop",
   "size": {
     "height": 42,
-    "width": 48
+    "width": 44,
+    "length": 24
   },
   "materials": {
     "case": {
-      "base": "metal",
-      "tone": [
-        0.34,
-        0.37,
-        0.33
-      ],
-      "picture": "library:green_metal_rust",
-      "size": 39
-    },
-    "dark": {
-      "base": "metal",
-      "tone": [
-        0.14,
-        0.14,
-        0.13
-      ]
-    },
-    "dial": {
       "base": "paint",
+      "picture": "library:blue_metal_plate",
+      "size": 98,
       "tone": [
-        0.66,
-        0.64,
-        0.56
+        0.32,
+        0.36,
+        0.38
       ]
     },
-    "needle": {
-      "base": "flat",
-      "tone": [
-        0.08,
-        0.07,
-        0.06
-      ]
+    "top": {
+      "base": "steel",
+      "picture": "library:metal_plate_02",
+      "size": 79
     },
     "screen": {
       "base": "flat",
       "tone": [
-        0.08,
-        0.2,
-        0.1
-      ],
-      "flags": [
-        "fullbright"
+        0.05,
+        0.16,
+        0.14
       ]
     },
-    "red": {
+    "brass": {
+      "base": "brass",
+      "tone": [
+        0.6,
+        0.5,
+        0.25
+      ]
+    },
+    "switch": {
       "base": "paint",
       "tone": [
-        0.5,
-        0.12,
+        0.08,
+        0.08,
         0.08
       ]
     },
-    "amber": {
-      "base": "paint",
+    "hazard": {
+      "base": "hazard",
       "tone": [
-        0.6,
-        0.4,
-        0.1
-      ]
-    },
-    "steel": {
-      "base": "steel",
-      "tone": [
-        0.5,
-        0.5,
-        0.48
+        0.85,
+        0.65,
+        0.08
       ]
     }
   },
-  "finish": {
-    "wear": 0.6,
-    "grime": 0.5,
-    "light": 0.3
-  },
   "parts": [
     {
-      "id": "cabinet",
+      "id": "body",
       "kind": "box",
       "material": "case",
       "size": [
         24,
-        48,
-        30
+        44,
+        24
+      ],
+      "at": [
+        0,
+        0,
+        0
       ],
       "panels": [
         {
           "face": "front",
           "at": [
-            24,
-            12
+            22,
+            3
           ],
           "size": [
-            42,
-            16
+            44,
+            4
+          ],
+          "style": "flat",
+          "material": "hazard"
+        }
+      ]
+    },
+    {
+      "id": "panel",
+      "kind": "box",
+      "material": "top",
+      "size": [
+        18,
+        44,
+        18
+      ],
+      "at": [
+        -3,
+        0,
+        24
+      ],
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            11,
+            9
+          ],
+          "size": [
+            15,
+            8
           ],
           "style": "inset",
+          "material": "screen",
           "edge": 0.6
         },
         {
           "face": "front",
           "at": [
-            24,
-            3
+            33,
+            9
           ],
           "size": [
-            30,
-            2
+            15,
+            8
           ],
           "style": "inset",
-          "material": "dark"
-        },
-        {
-          "face": "front",
-          "at": [
-            40,
-            12
-          ],
-          "size": [
-            2,
-            4
-          ],
-          "style": "raised",
-          "material": "steel"
-        },
-        {
-          "face": "front",
-          "at": [
-            24,
-            24.5
-          ],
-          "size": [
-            44,
-            5
-          ],
-          "style": "flat",
-          "material": "dark"
+          "material": "screen",
+          "edge": 0.6
         },
         {
           "face": "front",
           "at": [
             6,
-            24.5
+            16
           ],
           "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "red"
-        },
-        {
-          "face": "front",
-          "at": [
-            11,
-            24.5
-          ],
-          "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "steel"
-        },
-        {
-          "face": "front",
-          "at": [
-            16,
-            24.5
-          ],
-          "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "steel"
-        },
-        {
-          "face": "front",
-          "at": [
-            21,
-            24.5
-          ],
-          "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "red"
-        },
-        {
-          "face": "front",
-          "at": [
-            26,
-            24.5
-          ],
-          "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "steel"
-        },
-        {
-          "face": "front",
-          "at": [
-            31,
-            24.5
-          ],
-          "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "steel"
-        },
-        {
-          "face": "front",
-          "at": [
-            36,
-            24.5
-          ],
-          "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "steel"
-        },
-        {
-          "face": "front",
-          "at": [
-            41,
-            24.5
-          ],
-          "size": [
-            2,
-            3.4
-          ],
-          "style": "raised",
-          "material": "red"
-        }
-      ]
-    },
-    {
-      "id": "desk",
-      "kind": "box",
-      "material": "case",
-      "size": [
-        17,
-        49,
-        2.5
-      ],
-      "rotate": [
-        0,
-        -16,
-        0
-      ],
-      "at": [
-        5,
-        0,
-        28.6
-      ],
-      "panels": [
-        {
-          "face": "top",
-          "at": [
-            8.5,
-            10
-          ],
-          "size": [
-            10,
-            10
+            4.4,
+            4.4
           ],
           "shape": "ellipse",
           "style": "raised",
-          "material": "dark"
+          "material": "brass"
         },
         {
-          "face": "top",
+          "face": "front",
           "at": [
-            8.5,
-            21.5
+            22,
+            16
           ],
           "size": [
-            10,
-            10
+            4.4,
+            4.4
           ],
           "shape": "ellipse",
           "style": "raised",
-          "material": "dark"
+          "material": "brass"
         },
         {
-          "face": "top",
+          "face": "front",
           "at": [
-            8.5,
-            33
+            38,
+            16
           ],
           "size": [
-            10,
-            10
+            4.4,
+            4.4
           ],
           "shape": "ellipse",
           "style": "raised",
-          "material": "dark"
+          "material": "brass"
         },
         {
-          "face": "top",
+          "face": "front",
           "at": [
-            8.5,
-            10
-          ],
-          "size": [
-            8,
-            8
-          ],
-          "shape": "ellipse",
-          "style": "inset",
-          "edge": 0.3,
-          "material": "dial"
-        },
-        {
-          "face": "top",
-          "at": [
-            8.5,
-            21.5
-          ],
-          "size": [
-            8,
-            8
-          ],
-          "shape": "ellipse",
-          "style": "inset",
-          "edge": 0.3,
-          "material": "dial"
-        },
-        {
-          "face": "top",
-          "at": [
-            8.5,
-            33
-          ],
-          "size": [
-            8,
-            8
-          ],
-          "shape": "ellipse",
-          "style": "inset",
-          "edge": 0.3,
-          "material": "dial"
-        },
-        {
-          "face": "top",
-          "at": [
-            9.5,
-            9
-          ],
-          "size": [
-            3,
-            0.6
-          ],
-          "style": "flat",
-          "material": "needle"
-        },
-        {
-          "face": "top",
-          "at": [
-            8.5,
-            22.5
-          ],
-          "size": [
-            0.6,
+            6,
             3
           ],
-          "style": "flat",
-          "material": "needle"
-        },
-        {
-          "face": "top",
-          "at": [
-            7.5,
-            34
-          ],
           "size": [
-            3,
-            0.6
-          ],
-          "style": "flat",
-          "material": "needle"
-        },
-        {
-          "face": "top",
-          "at": [
-            5,
-            42
-          ],
-          "size": [
-            3,
-            5
+            2.6,
+            3.6
           ],
           "style": "raised",
-          "material": "amber"
+          "material": "switch"
         },
         {
-          "face": "top",
+          "face": "front",
           "at": [
-            12,
-            42
+            14,
+            3
           ],
           "size": [
-            3,
-            5
+            2.6,
+            3.6
           ],
           "style": "raised",
-          "material": "red"
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            22,
+            3
+          ],
+          "size": [
+            2.6,
+            3.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            30,
+            3
+          ],
+          "size": [
+            2.6,
+            3.6
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            38,
+            3
+          ],
+          "size": [
+            2.6,
+            3.6
+          ],
+          "style": "raised",
+          "material": "switch"
         }
       ]
-    },
-    {
-      "id": "riser",
-      "kind": "box",
-      "material": "case",
-      "size": [
-        8,
-        48,
-        13
-      ],
-      "attach": {
-        "to": "cabinet",
-        "toAt": "top",
-        "at": "bottom",
-        "offset": [
-          -8,
-          0,
-          -0.5
-        ]
-      }
-    },
-    {
-      "id": "screen_left",
-      "kind": "box",
-      "material": "screen",
-      "size": [
-        0.6,
-        17,
-        9
-      ],
-      "attach": {
-        "to": "riser",
-        "toAt": "front",
-        "at": "back",
-        "offset": [
-          -0.3,
-          11,
-          1.4
-        ]
-      },
-      "print": {
-        "text": "FLOW 000",
-        "face": "front",
-        "ink": [
-          0.35,
-          0.85,
-          0.45
-        ],
-        "size": 0.3
-      }
-    },
-    {
-      "id": "screen_right",
-      "kind": "box",
-      "material": "screen",
-      "size": [
-        0.6,
-        17,
-        9
-      ],
-      "attach": {
-        "to": "riser",
-        "toAt": "front",
-        "at": "back",
-        "offset": [
-          -0.3,
-          -11,
-          1.4
-        ]
-      },
-      "print": {
-        "text": "LEVEL 87",
-        "face": "front",
-        "ink": [
-          0.35,
-          0.85,
-          0.45
-        ],
-        "size": 0.3
-      }
     }
   ]
 }

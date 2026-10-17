@@ -1,0 +1,83 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 7.15,
+   "peak": -0.5,
+   "rms": -18,
+   "crest": 17.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.025,
+   "tail": 0.494,
+   "attack": 0.005,
+   "peakAt": 2.704,
+   "t20": 3.627,
+   "t40": 3.816,
+   "centroid": 1600,
+   "rolloff": 1938,
+   "flatness": 0.002,
+   "bands": {
+    "<150": 0,
+    "150-600": 0,
+    "600-2k": 89.7,
+    "2k-5k": 10.3,
+    ">5k": 0
+   },
+   "onsets": 11
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 12,
+   "of": 20,
+   "lines": [
+    "crest 17.5 dB (20.17 to 33.63): too squashed",
+    "rms -18 dBFS (-30.3 to -24.3): over the range",
+    "centroid 1600 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "flatness 0.002 (0.05 to 0.15): too pure: more noise",
+    "band 150-600 0% (13.2 to 33.2): under the range",
+    "band 600-2k 89.7% (62.3 to 82.3): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture reads as water dripping: 11 separate transients (the measured onset count) at about 0.3, 0.9, 1.45, 2.1, 2.7, 3.4, 3.9, 4.6, 5.1, 5.6 and 6.2 s, each with a sharp attack, a short ring and silence between. The waveform and spectrogram both show drips, not a continuous sound. Judged from the picture only, since the judge cannot listen."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 7.15 s, attack 0.005 s and t20 3.627 s are given, but no class range for length, attack or decay is in the measurements, so nothing confirms they are within range. The attack is fast, as a drip's should be, but the decay is unverified. It cannot score 2 without the range."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured against the class: centroid 1600 Hz against 671 to 1007 Hz (too bright, about 59% above the top of the range), and the 150-600 Hz band at 0% against 13.2 to 33.2%, so the body of the sound is missing. The 600-2k band (89.7% against 62.3 to 82.3%) is also over. The spectrogram matches: the energy sits in the 600 Hz to 2 kHz blobs and the low end is nearly empty. The 2-5k band (10.3%) is in range."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The onset count (11) matches the picture's 11 drips, so the hits are right. Flatness is 0.002 against 0.05 to 0.15, far too pure. The spectrogram shows each drip's decay as a horizontal, tone-like streak rather than noise, which fits the measure. The tonal character is clearly off, not a near miss."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measured and passing: engineFaults is empty, clipped 0, dc 0, peak -0.5 dBFS, and the name sound/ambience/fw_drips.wav is correct. Not shown: sample rate, bit depth and channel count, and whether the loop cue is present and where it sits, though the waveform is silent at both ends so the wrap looks clean. Those cannot be confirmed, so it cannot score 2."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

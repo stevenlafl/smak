@@ -6,33 +6,33 @@
    64,
    64
   ],
-  "frames": 16,
-  "type": "parallel",
-  "format": "additive",
+  "frames": 12,
+  "type": "parallel oriented",
+  "format": "index alpha",
   "measures": {
-   "frames": 16,
+   "frames": 12,
    "size": [
     64,
     64
    ],
    "border": {
-    "max": 0.253,
-    "mean": 0.003
+    "max": 0.341,
+    "mean": 0.005
    },
    "envelope": {
-    "peakAt": 0.2,
-    "first": 0.2,
+    "peakAt": 0.36,
+    "first": 0,
     "last": 0
    },
-   "dark": 0.79,
-   "wrap": 0.88,
-   "jitter": 1.48
+   "dark": 0.74,
+   "wrap": 0.11,
+   "jitter": 1.19
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.48,
+    "value": 1.19,
     "range": [
      0.9,
      1.5
@@ -42,7 +42,7 @@
    },
    {
     "measure": "border",
-    "value": 0.003,
+    "value": 0.005,
     "range": [
      0,
      0.005
@@ -52,7 +52,7 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.2,
+    "value": 0.36,
     "range": [
      0.2,
      0.6
@@ -62,7 +62,7 @@
    },
    {
     "measure": "first",
-    "value": 0.2,
+    "value": 0,
     "range": [
      0,
      0.35
@@ -88,34 +88,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frames show a steam column rising from a bright base, widening and thinning, then drifting up and dissolving into the dark. That is the steam puff the brief asks for, animated, not a disc or a flat glow."
+   "reason": "Reads as a steam puff. Frames 1 to 7 show a pale, lumpy cloud that swells and then breaks up, which is the effect the brief asks for (frames.png, cells 1 to 11)."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "All 16 frames are 64 by 64. The column sits centred and rises through the frame; border mean is 0.003 and max 0.253, inside the class's 0 to 0.005 mean range. Frames 2 to 4 come close to the top edge, a minor point that the measures do not flag."
+   "reason": "The 64 by 64 frames are filled the way a puff should fill them: the cloud sits mostly central at about 40 to 50 percent of the frame, with no content cut at the frame edge beyond the measured border max of 0.341 on frame 8. The measured mean border of 0.005 is within the class range."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Grey-white steam on a near-black ground, dim and soft, brighter at the base in frames 2 to 7 and fading to nothing by frame 13. This reads as steam blended additively, the colour the brief implies. No measure is given, so this is judged by eye."
+   "reason": "By eye, the puff is a warm-neutral grey-white with soft grey shading, which reads as steam against the grey backdrop. Nothing in the frames is off-palette, such as tinted or saturated colour."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The class's envelope holds: peak at frame 3 (0.2 of 16, within 0.2 to 0.6), first frame 0.2 (within 0 to 0.35), last frame 0 (within 0 to 0.1). Jitter is 1.48 (class 0.9 to 1.5). Motion is a rise and thin, and the one-shot ends dark. The frame count is 16 as measured."
+   "reason": "Twelve frames, matching the class. The envelope is within range: peak at 0.36, first and last frames empty (0). Jitter is 1.19, inside the class's 0.9 to 1.5. The motion is a swell from frame 1 to 4, a slow drift across frames 4 to 7, then a break-up and thinning in frames 8 to 11, which is the grows-and-fades kind the class takes. The rise is modest rather than strong, and no frame shows a loop closing, so this is the one place a close look could push it down."
   },
   "R5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Name, additive format and 64 by 64 size are as the class expects, and the file reads back. But the type is measured as 'parallel', and the amendment records the game's steam sprite (steam1) as 'parallel oriented'. A steam puff built 'parallel' is off the game's type for its class. The brief gives no type for fw_steam, so this is a fault against the game's steam class, not a contradiction of the brief."
+   "score": 2,
+   "reason": "The measures report type parallel oriented and format index alpha, and the frames show a 64 by 64 index-alpha style with no stray colour outside the cloud. The file name cannot be read from the pictures; that is the measurement's to confirm, and nothing visible contradicts it."
   }
  },
- "total": 9,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

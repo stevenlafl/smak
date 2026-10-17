@@ -1,0 +1,126 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 12,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel",
+      "format": "index alpha",
+      "colour": [
+        0.82,
+        0.86,
+        0.82
+      ],
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "smoke",
+          "density": 0.8,
+          "spread": 0.5,
+          "rise": 0.35,
+          "colour": [
+            0.82,
+            0.86,
+            0.82
+          ],
+          "env": {
+            "attack": 0.2,
+            "decay": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.95,
+          "core": 0.12,
+          "colour": [
+            1,
+            0.55,
+            0.16
+          ],
+          "at": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 8,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel",
+      "format": "index alpha",
+      "colour": [
+        0.55,
+        0.72,
+        0.3
+      ],
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "sparks",
+          "count": 24,
+          "speed": 1.2,
+          "gravity": 0.6,
+          "trail": 0.5,
+          "colour": [
+            0.55,
+            0.72,
+            0.3
+          ],
+          "env": {
+            "attack": 0.1,
+            "decay": 0.9
+          }
+        },
+        {
+          "kind": "blobs",
+          "count": 9,
+          "radius": 0.3,
+          "spread": 0.6,
+          "core": 0.4,
+          "soft": 0.5,
+          "colour": [
+            0.55,
+            0.72,
+            0.3
+          ],
+          "env": {
+            "attack": 0.05,
+            "decay": 0.9
+          }
+        }
+      ]
+    }
+  ]
+}

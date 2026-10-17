@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.369,
+    "mean": 0.005
+   },
+   "envelope": {
+    "peakAt": 0.27,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.79,
+   "wrap": 0.33,
+   "jitter": 1.34
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.34,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.005,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.27,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frames show one soft vertical column of pale grey steam that rises from the bottom of the frame (frames 1 to 4), drifts up and thins into the top (frames 5 to 10). Nothing reads as smoke, fire or a lamp glow, so it is the effect the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 12 frames are 64 by 64 as measured, and the plume fills the frames as a narrow central column that starts near the bottom edge and rises. A plume this narrow is consistent with a steam puff. No part of the effect is cut off at the frame edges."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "By eye the plume is light, slightly warm grey-white over the blended grey background, which is what steam looks like in the game. Its brightest pixels are in the lower frames (2 to 4) and it dims cleanly, with no colour cast, neon or stray hue."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measured: 12 frames, which the smoke-puff class takes. The envelope peaks at 0.27 (frame 3) and is dark at both ends (first 0, last 0), within the class's ranges (peak 0.2 to 0.6, first at most 0.35, last at most 0.1). Border is 0.005 mean, inside the class's 0 to 0.005. Jitter is 1.34, inside 0.9 to 1.5. The motion is a plume rising and thinning, as the brief asks."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The file's type is 'parallel' and its format is index alpha. The original steam sprite (steam1) is 'parallel oriented', and the amendment of 2026-10-16 holds a steam replacement to that type, so this 'parallel' type is clearly off for the slot it takes. The name and format are fine. Fix: rebuild fw_steam with the 'parallel oriented' type."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

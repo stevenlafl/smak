@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1548,
+   1548
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard"
+   }
+  ],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard, a start room (bottom left, 17 INFO_PLAYER_START, door 1 into the yard) and a room top right (door 2, trigger_changelevel 3) are all there and joined. But the brief's gatehouse and pump house roles don't read from the plan: the top-right room is the only one with the exit, and it has a single brush door where the brief asks for double doors."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Overall size is 1548 x 1548 against the 1500 asked (3% over, inside 25%). No room sizes were given in the brief, so the check rests on the whole yard, which reads as the brief's yard."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan's height labels run 242 to 304 down the top-right room, a slope the brief does not ask for. The start room is shaded in two tones, which suggests a step inside it. Neither is explained by a section, and the brief names no ramps or stairs to match against."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Start (17 INFO_PLAYER_START) is by the gate, the two func_doors and the trigger_changelevel are present, and the walk test reaches the change (notReached empty). The brief names no weapons or items for this map (itemsAsked empty). The changelevel's landmark is charged to P8."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard walls read as a tan tiled or brick pattern, not the concrete the brief names. The hazard stripe on the drum in view 2 and the dark ground are close to what was asked."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Lamps are placed across the yard, with brighter walls and a dim ground that reads as dusk. But the glows in views 1 and 4 are white-yellow, not the sodium orange the brief names, and the light's colour is not set in the plan."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Drums with hazard bands are in view 2 and at the bottom left of view 5, and a door-like panel is in view 3. The broken truck-sized pipe section the brief asks for is not clear in any view; the tall ringed cylinder in view 2 reads as a column, not a broken pipe."
+  },
+  "P8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "No checkErrors, notReached or reachWarnings, and the changelevel is reached on foot. But the changelevel names landmark fw_lm_yard, and the measured landmarks list is [null], so the arrival in fw_pumphall may not land where the yard left. The leak result is not in the measurements, so it cannot be scored as passed."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show bare flat ground, plain walls with a brick-like pattern, and sky, with glow sprites as bright blobs in the open air. A player might see a Half-Life yard, but the sparse detail and floating glows do not yet read as a finished Half-Life map."
+  }
+ },
+ "total": 11,
+ "of": 18,
+ "passes": false
+}

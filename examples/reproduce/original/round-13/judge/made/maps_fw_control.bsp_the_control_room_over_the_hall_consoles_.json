@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1616,
+   1072
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   "fw_lm2"
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan joins the start room (21 info_player_start, bottom) to the middle room by a short corridor at the top of the start room, and the middle room to the left room through the func_plat (5 FW_LIFT). The consoles under the windows are absent (no console entity or prop in the plan or the views), and the lift's way down to a valve room is not clear from the plan. The left room's circle is a possible valve room, but nothing marks it as one."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no sizes for this map, so this is judged by eye. The middle room is roughly 640 by 380 units, the left room about 380 by 320, and the start room about 130 by 260, all plausible for a control room. The hall to the east is about 510 by 1020 units, which cannot be checked against the brief here, and the walkable floor is not measured for this map."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Floor heights are labelled only sparsely ('3 -8' over the lift, '2 -104' over the pump rings), and the views show no clear drop or stair between the control room and the valve room. Whether the lift really descends, and whether the control room sits above the hall, cannot be read from these pictures."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The start (21, bottom room), both crawlers (monster_headcrab 23 in the middle room and 24 in the left room) and the lift (func_plat 5 FW_LIFT) are present and match the measurement. The valve wheel has no entity or trigger beside it. The trigger_endsection (9) sits at the bottom of the left room, not at a visible wheel, and the lift's landing in the valve room is not shown."
+  },
+  "P5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The views show a pipe-covered wall with a hazard-stripe trim (a line of orange and black at mid-height in the yaw 0, 90 and -90 views), concrete floors and a dark green-grey water surface. Each surface reads as the material the brief names, and nothing looks like a different texture a player would notice."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "About twenty light entities (yellow markers) sit across the middle room, the left room and the hall, and the views are warm and lit in the same places, with darker corners between them. This is consistent with the brief's sodium lamps."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Windows are present (four func_breakable panels on the middle room's east wall, looking onto the hall), and pillars and pipe walls show in the views. The brief's consoles with dials and screens do not appear in the plan or any view, and no valve wheel is visible in the left room or the start room views, so the control room's two defining features are missing."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements report no check errors, no leaks, no unreached entities, no reach warnings and no changelevels. This is the last map, so it has none to make. The brief's crawlers and start are reached."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views read as a Half-Life industrial place (pipes, hazard trim, a flooded hall through the windows, a pump pillar in the yaw 90 view). A player who knew the control room would not recognise it, because the consoles under the windows and the valve wheel are missing, and the yaw 180 view is a plain close-up wall."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
+}

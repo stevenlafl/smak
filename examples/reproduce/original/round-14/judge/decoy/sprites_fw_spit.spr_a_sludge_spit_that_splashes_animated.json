@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a sludge spit that splashes. The one frame is a plain, flat, solid disc with a smooth edge. It shows no spit, no droplets, no splash and no sludge. Nothing in it reads as a splash or a spit."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 by 32 and the disc fills most of it, with the border measured at 0, so the size and placement are right. The shape is a perfect circle rather than a splash spreading from a point, so the effect does not fill the frame the way a splash would."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The disc is a neutral pale grey-white with no green. The brief asks for a green-grey sludge, so the colour is wrong for the substance even though the brightness is in range."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The sprite has one frame, but the brief asks for an animated splash, so there is no motion at all. Against the class's measures, the peak is at frame 0 (the class's range is 0.22 to 0.71), the first frame is at full brightness (the class starts at 0 to 0.22), and the last frame is also full brightness (the class ends at 0 to 0.03). It fails on all three counts."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The file reads back as parallel and additive, 32 by 32, one frame, under the name fw_spit. That is a valid GoldSrc sprite, but the class's type and format are not given to the judge, so whether they match the slot cannot be confirmed here."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

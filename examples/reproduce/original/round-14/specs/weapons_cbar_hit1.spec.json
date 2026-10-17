@@ -1,0 +1,595 @@
+{
+  "spec": "smak.sound/1",
+  "sounds": [
+    {
+      "name": "weapons/cbar_hit1.wav",
+      "class": "metal hit",
+      "seed": 3,
+      "length": 0.75,
+      "layers": [
+        {
+          "id": "click",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 1500
+            }
+          ],
+          "env": {
+            "decay": 0.012
+          },
+          "gain": -2
+        },
+        {
+          "id": "ring",
+          "kind": "modes",
+          "f": 760,
+          "ratios": "bar",
+          "decay": 0.5,
+          "damping": 1.5
+        },
+        {
+          "id": "clank",
+          "kind": "modes",
+          "f": 1180,
+          "ratios": "bar",
+          "decay": 0.18,
+          "damping": 2.5,
+          "gain": -8
+        },
+        {
+          "id": "crack",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 2000
+            }
+          ],
+          "env": {
+            "decay": 0.003
+          },
+          "gain": -4,
+          "post": true
+        }
+      ],
+      "finish": {
+        "saturate": 1.5,
+        "limit": {
+          "crest": 9
+        },
+        "room": {
+          "decay": 0.25,
+          "wet": 0.1
+        }
+      }
+    },
+    {
+      "name": "weapons/cbar_miss1.wav",
+      "class": "swing",
+      "seed": 5,
+      "length": 0.4,
+      "layers": [
+        {
+          "id": "whoosh",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 1000,
+              "q": 0.9,
+              "sweep": {
+                "to": 400,
+                "time": 0.3
+              }
+            }
+          ],
+          "env": {
+            "shape": "bell",
+            "decay": 0.3
+          },
+          "gain": -6
+        },
+        {
+          "id": "air",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 2500
+            }
+          ],
+          "env": {
+            "shape": "bell",
+            "decay": 0.2
+          },
+          "gain": -16,
+          "at": 0.05
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.2,
+          "wet": 0.08
+        }
+      }
+    },
+    {
+      "name": "headcrab/hc_attack1.wav",
+      "class": "flesh hit",
+      "seed": 7,
+      "length": 0.45,
+      "layers": [
+        {
+          "id": "snap",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 1800,
+              "q": 1.2
+            }
+          ],
+          "env": {
+            "decay": 0.03
+          },
+          "gain": -4
+        },
+        {
+          "id": "squelch",
+          "kind": "tone",
+          "f": 210,
+          "wave": "saw",
+          "sweep": {
+            "to": 95,
+            "time": 0.35
+          },
+          "env": {
+            "attack": 0.005,
+            "decay": 0.3
+          },
+          "gain": -10,
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 700
+            }
+          ]
+        },
+        {
+          "id": "wet",
+          "kind": "particles",
+          "rate": 60,
+          "band": [
+            200,
+            1200
+          ],
+          "grain": 0.006,
+          "env": {
+            "attack": 0,
+            "decay": 0.25
+          },
+          "gain": -12
+        }
+      ],
+      "finish": {
+        "saturate": 1.2,
+        "room": {
+          "decay": 0.25,
+          "wet": 0.12
+        }
+      }
+    },
+    {
+      "name": "headcrab/hc_pain1.wav",
+      "class": "flesh hit",
+      "seed": 9,
+      "length": 0.55,
+      "layers": [
+        {
+          "id": "shriek",
+          "kind": "tone",
+          "f": 620,
+          "wave": "saw",
+          "sweep": {
+            "to": 380,
+            "time": 0.45
+          },
+          "env": {
+            "attack": 0.002,
+            "decay": 0.4
+          },
+          "gain": -12,
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 1200,
+              "q": 1.4
+            }
+          ]
+        },
+        {
+          "id": "gurgle",
+          "kind": "particles",
+          "rate": 40,
+          "band": [
+            300,
+            1500
+          ],
+          "grain": 0.008,
+          "env": {
+            "attack": 0,
+            "decay": 0.4
+          },
+          "gain": -12
+        },
+        {
+          "id": "crack",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "highpass",
+              "f": 2000
+            }
+          ],
+          "env": {
+            "decay": 0.004
+          },
+          "gain": -4,
+          "post": true
+        }
+      ],
+      "finish": {
+        "saturate": 1.4,
+        "room": {
+          "decay": 0.25,
+          "wet": 0.12
+        }
+      }
+    },
+    {
+      "name": "ambience/fw_pump.wav",
+      "class": "loop machine",
+      "seed": 11,
+      "length": 3,
+      "loop": true,
+      "layers": [
+        {
+          "id": "drone",
+          "kind": "tone",
+          "f": 58,
+          "wave": "saw",
+          "env": {
+            "attack": 0.1,
+            "hold": 2.7,
+            "decay": 0.2
+          },
+          "gain": -14,
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 320
+            }
+          ]
+        },
+        {
+          "id": "hum",
+          "kind": "tone",
+          "f": 116,
+          "wave": "sine",
+          "env": {
+            "attack": 0.1,
+            "hold": 2.7,
+            "decay": 0.2
+          },
+          "gain": -20
+        },
+        {
+          "id": "beat",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 180,
+              "q": 1.5
+            }
+          ],
+          "env": {
+            "decay": 0.06
+          },
+          "gain": -16,
+          "at": 0
+        },
+        {
+          "id": "beat2",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 180,
+              "q": 1.5
+            }
+          ],
+          "env": {
+            "decay": 0.06
+          },
+          "gain": -16,
+          "at": 1.5
+        },
+        {
+          "id": "clack",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 2600,
+              "q": 1.2
+            }
+          ],
+          "env": {
+            "decay": 0.02
+          },
+          "gain": -22,
+          "at": 0
+        },
+        {
+          "id": "clack2",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 2600,
+              "q": 1.2
+            }
+          ],
+          "env": {
+            "decay": 0.02
+          },
+          "gain": -22,
+          "at": 1.5
+        },
+        {
+          "id": "whine",
+          "kind": "tone",
+          "f": 930,
+          "wave": "sine",
+          "env": {
+            "attack": 0.2,
+            "hold": 2.4,
+            "decay": 0.3
+          },
+          "gain": -30
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.3,
+          "wet": 0.1
+        }
+      }
+    },
+    {
+      "name": "ambience/fw_drips.wav",
+      "class": "loop drips",
+      "seed": 13,
+      "length": 7,
+      "loop": true,
+      "layers": [
+        {
+          "id": "drip_a",
+          "kind": "tone",
+          "f": 1800,
+          "sweep": {
+            "to": 1200,
+            "time": 0.06
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -10,
+          "at": 0.3
+        },
+        {
+          "id": "drip_b",
+          "kind": "tone",
+          "f": 2100,
+          "sweep": {
+            "to": 1400,
+            "time": 0.06
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -12,
+          "at": 0.9
+        },
+        {
+          "id": "drip_c",
+          "kind": "tone",
+          "f": 1600,
+          "sweep": {
+            "to": 1000,
+            "time": 0.07
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -11,
+          "at": 1.45
+        },
+        {
+          "id": "drip_d",
+          "kind": "tone",
+          "f": 2400,
+          "sweep": {
+            "to": 1500,
+            "time": 0.05
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -13,
+          "at": 2.1
+        },
+        {
+          "id": "drip_e",
+          "kind": "tone",
+          "f": 1900,
+          "sweep": {
+            "to": 1100,
+            "time": 0.06
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -10,
+          "at": 2.7
+        },
+        {
+          "id": "drip_f",
+          "kind": "tone",
+          "f": 2200,
+          "sweep": {
+            "to": 1300,
+            "time": 0.06
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -12,
+          "at": 3.4
+        },
+        {
+          "id": "drip_g",
+          "kind": "tone",
+          "f": 1700,
+          "sweep": {
+            "to": 1050,
+            "time": 0.07
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -11,
+          "at": 3.9
+        },
+        {
+          "id": "drip_h",
+          "kind": "tone",
+          "f": 2000,
+          "sweep": {
+            "to": 1250,
+            "time": 0.06
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -10,
+          "at": 4.6
+        },
+        {
+          "id": "drip_i",
+          "kind": "tone",
+          "f": 2300,
+          "sweep": {
+            "to": 1450,
+            "time": 0.05
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -13,
+          "at": 5.1
+        },
+        {
+          "id": "drip_j",
+          "kind": "tone",
+          "f": 1750,
+          "sweep": {
+            "to": 1100,
+            "time": 0.07
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -11,
+          "at": 5.6
+        },
+        {
+          "id": "drip_k",
+          "kind": "tone",
+          "f": 2050,
+          "sweep": {
+            "to": 1300,
+            "time": 0.06
+          },
+          "wave": "sine",
+          "env": {
+            "attack": 0.001,
+            "decay": 0.4
+          },
+          "gain": -12,
+          "at": 6.2
+        },
+        {
+          "id": "splash",
+          "kind": "noise",
+          "filter": [
+            {
+              "type": "bandpass",
+              "f": 3000,
+              "q": 1.2
+            }
+          ],
+          "env": {
+            "decay": 0.02
+          },
+          "gain": -20,
+          "at": 0.31
+        },
+        {
+          "id": "bed",
+          "kind": "particles",
+          "rate": 90,
+          "band": [
+            900,
+            3000
+          ],
+          "grain": 0.004,
+          "env": {
+            "attack": 0,
+            "decay": 0.3
+          },
+          "gain": -24
+        }
+      ],
+      "finish": {
+        "room": {
+          "decay": 0.4,
+          "wet": 0.2
+        }
+      }
+    }
+  ]
+}

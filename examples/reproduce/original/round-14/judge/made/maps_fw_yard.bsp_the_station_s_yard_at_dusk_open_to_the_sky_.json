@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1548,
+   1548
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard"
+   }
+  ],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plan shows the yard with a high wall around it, a gatehouse at the bottom-left with func_door 1 on its east face, and the pump house at top-right with func_door 2 on its west wall. The start (16 INFO_PLAYER_START) sits by the gatehouse door, and the way out is through the pump house. The areas and joins match the brief."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The yard measures 1548 by 1548 against the 1500 asked, well within 25%. The scale bar puts the gatehouse at roughly 300 by 275 units and the pump house at roughly 450 by 370 units, which are plausible for their areas. No overlap figure is given, so this rests on the sizes."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard is flat at 0, but the pump house is labelled with floor heights from 240 to 340 along its corridor (x 780 to 800 on the plan), and the plan shows no stair or ramp from the yard to its double door. The dark raised bands along the top and left edges of the plan and the pitched shapes in views 2 and 3 are not explained. The levels cannot be confirmed as the brief's from these pictures."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The entities the brief names for this map are present: the start by the gate, the gatehouse door (func_door 1), the pump house door (func_door 2) and the trigger_changelevel (3) to fw_pumphall. The walk test reaches them, with no notReached entries. The pump house door is a single brush, though the brief says double doors."
+  },
+  "P5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The walls read as a pale block or concrete texture, the ground as cracked grey concrete, and the drum in view 2 carries a yellow and black hazard stripe. Each surface reads as a plausible texture for the place."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for dusk with sodium lamps. Views 1 to 5 show a bright blue sky with white clouds and flat daylight on every surface. The three lights (19, 20, 21) and light_environment (22) show no visible sodium-orange glow in any view."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's distinctive yard features are only partly there. One drum with a hazard stripe is clear in view 2. The stack of drums does not appear: the plan marks no drum or prop entity. The broken pipe section is at most a fragment (view 3 top right, view 5 bottom left), and the gatehouse interior is never shown."
+  },
+  "P8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The checks are clean: checkErrors is empty, notReached and reachWarnings are empty, and the changelevel is reached. But the landmarks measure is [null]: the changelevel to fw_pumphall names the landmark fw_lm_yard, and the info_landmark (17) is not shown to carry that name, so the level change's landmark is unconfirmed."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the start, the views show a walled yard with concrete walls and cracked ground, and a drum with a hazard stripe, which can pass for a Half-Life place. But the bright daylight sky and the flat, bare surfaces do not show the dusk, sodium-lit, flooded station the brief describes, and the pipe and the drum stack are not seen from the start. A player who knew the original would not recognise this view at once."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
+}

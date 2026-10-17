@@ -1,0 +1,592 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_yard",
+  "size": [
+    1500,
+    1500
+  ],
+  "sky": {
+    "zenith": [
+      0.1,
+      0.11,
+      0.2
+    ],
+    "horizon": [
+      0.8,
+      0.45,
+      0.2
+    ],
+    "ground": [
+      0.1,
+      0.09,
+      0.08
+    ],
+    "haze": 0.6,
+    "clouds": {
+      "cover": 0.35,
+      "colour": [
+        0.45,
+        0.3,
+        0.25
+      ]
+    },
+    "hills": {
+      "height": 4,
+      "colour": [
+        0.08,
+        0.08,
+        0.09
+      ]
+    },
+    "sun": {
+      "size": 4,
+      "glow": 0.6,
+      "colour": [
+        1,
+        0.6,
+        0.3
+      ]
+    }
+  },
+  "sun": {
+    "pitch": -12,
+    "yaw": 235,
+    "brightness": 90,
+    "color": [
+      255,
+      160,
+      90
+    ]
+  },
+  "theme": {
+    "floor": "yardfloor",
+    "wall": "concrete",
+    "ceiling": "concrete",
+    "door": "steeldoor",
+    "furniture": "rust"
+  },
+  "textures": {
+    "yardfloor": {
+      "base": "stone",
+      "picture": "library:brushed_concrete_2",
+      "size": 98,
+      "tone": "dark grey"
+    },
+    "concrete": {
+      "base": "stone",
+      "picture": "library:concrete_layers_02",
+      "size": 79
+    },
+    "steeldoor": {
+      "base": "door",
+      "tone": [
+        0.4,
+        0.45,
+        0.42
+      ]
+    },
+    "rust": {
+      "base": "steel",
+      "picture": "library:rust_coarse_01",
+      "size": 87
+    }
+  },
+  "rooms": [
+    {
+      "id": "yard",
+      "size": [
+        1500,
+        1500,
+        384
+      ],
+      "sky": true,
+      "surfaces": {
+        "floor": "yardfloor",
+        "walls": "concrete"
+      }
+    },
+    {
+      "id": "gatehouse",
+      "size": [
+        256,
+        224,
+        160
+      ],
+      "place": {
+        "in": "yard",
+        "offset": [
+          80,
+          80
+        ],
+        "stand": true
+      },
+      "building": {
+        "walls": "concrete",
+        "roof": {
+          "material": "rust",
+          "pitch": 25,
+          "overhang": 8
+        }
+      }
+    },
+    {
+      "id": "pump",
+      "size": [
+        400,
+        320,
+        224
+      ],
+      "place": {
+        "in": "yard",
+        "offset": [
+          1050,
+          1000
+        ],
+        "stand": true
+      },
+      "building": {
+        "walls": "concrete",
+        "roof": {
+          "material": "rust",
+          "pitch": 20,
+          "overhang": 10
+        }
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "gatehouse",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "east"
+    },
+    {
+      "between": [
+        "pump",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "west",
+      "width": 96,
+      "height": 128,
+      "along": 0.35,
+      "door": {
+        "swing": true
+      }
+    },
+    {
+      "between": [
+        "pump",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "west",
+      "width": 96,
+      "height": 128,
+      "along": 0.65,
+      "door": {
+        "swing": true,
+        "hinge": "end"
+      }
+    }
+  ],
+  "prefabs": {
+    "levelchange": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -40,
+              0
+            ],
+            [
+              24,
+              40,
+              96
+            ]
+          ],
+          "texture": "concrete"
+        }
+      ],
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_pumphall",
+        "landmark": "fw_lm_yard"
+      }
+    }
+  },
+  "models": {
+    "fw_pipesection": {
+      "spec": "smak.model/1",
+      "name": "fw_pipesection.mdl",
+      "kind": "prop",
+      "size": {
+        "height": 96,
+        "length": 260
+      },
+      "materials": {
+        "pipes": {
+          "base": "steel",
+          "picture": "library:rusty_metal_04",
+          "size": 79,
+          "rust": 0.5
+        }
+      },
+      "parts": [
+        {
+          "id": "pipe",
+          "kind": "turn",
+          "axis": "x",
+          "material": "pipes",
+          "rings": [
+            [
+              0,
+              48
+            ],
+            [
+              214,
+              48
+            ],
+            [
+              232,
+              44
+            ],
+            [
+              246,
+              36
+            ],
+            [
+              260,
+              28
+            ]
+          ],
+          "at": [
+            -130,
+            0,
+            48
+          ],
+          "sides": 12
+        },
+        {
+          "id": "flange_a",
+          "kind": "turn",
+          "axis": "x",
+          "material": "pipes",
+          "rings": [
+            [
+              0,
+              56
+            ],
+            [
+              8,
+              56
+            ]
+          ],
+          "at": [
+            -138,
+            0,
+            48
+          ],
+          "sides": 12
+        },
+        {
+          "id": "flange_b",
+          "kind": "turn",
+          "axis": "x",
+          "material": "pipes",
+          "rings": [
+            [
+              0,
+              56
+            ],
+            [
+              8,
+              56
+            ]
+          ],
+          "at": [
+            122,
+            0,
+            48
+          ],
+          "sides": 12
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "levelchange",
+      "room": "pump",
+      "at": [
+        -120,
+        0
+      ]
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -220,
+        -300
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -176,
+        -330
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -200,
+        -250
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -200,
+        -250
+      ],
+      "z": 35,
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -200,
+        -250
+      ],
+      "z": 70,
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -420,
+        360
+      ],
+      "solid": true
+    },
+    {
+      "model": "models/fw_drum.mdl",
+      "room": "yard",
+      "at": [
+        -380,
+        380
+      ],
+      "solid": true
+    },
+    {
+      "model": "fw_pipesection",
+      "room": "yard",
+      "at": [
+        -80,
+        380
+      ],
+      "facing": "east",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "gatehouse",
+      "at": [
+        0,
+        60
+      ],
+      "facing": "east",
+      "solid": true
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": [
+        -727,
+        -200
+      ],
+      "facing": "east",
+      "z": 150
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": [
+        -727,
+        300
+      ],
+      "facing": "east",
+      "z": 150
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": [
+        727,
+        -300
+      ],
+      "facing": "west",
+      "z": 150
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": [
+        727,
+        200
+      ],
+      "facing": "west",
+      "z": 150
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "yard",
+      "at": [
+        -360,
+        -560
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "info_landmark",
+      "room": "pump",
+      "at": [
+        -120,
+        70
+      ],
+      "targetname": "fw_lm_yard"
+    },
+    {
+      "class": "ambient_generic",
+      "room": "pump",
+      "at": [
+        60,
+        0
+      ],
+      "message": "ambience/fw_pump.wav",
+      "health": 6
+    },
+    {
+      "class": "env_glow",
+      "room": "yard",
+      "at": [
+        -722,
+        -200
+      ],
+      "z": 162,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": 3,
+        "renderamt": 90,
+        "rendercolor": "255 150 60",
+        "scale": 1
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "yard",
+      "at": [
+        -722,
+        300
+      ],
+      "z": 162,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": 3,
+        "renderamt": 90,
+        "rendercolor": "255 150 60",
+        "scale": 1
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "yard",
+      "at": [
+        722,
+        -300
+      ],
+      "z": 162,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": 3,
+        "renderamt": 90,
+        "rendercolor": "255 150 60",
+        "scale": 1
+      }
+    },
+    {
+      "class": "env_glow",
+      "room": "yard",
+      "at": [
+        722,
+        200
+      ],
+      "z": 162,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "rendermode": 3,
+        "renderamt": 90,
+        "rendercolor": "255 150 60",
+        "scale": 1
+      }
+    },
+    {
+      "class": "light",
+      "room": "yard",
+      "at": [
+        -700,
+        -200
+      ],
+      "z": 150,
+      "_light": "255 150 60 260"
+    },
+    {
+      "class": "light",
+      "room": "yard",
+      "at": [
+        -700,
+        300
+      ],
+      "z": 150,
+      "_light": "255 150 60 260"
+    },
+    {
+      "class": "light",
+      "room": "yard",
+      "at": [
+        700,
+        -300
+      ],
+      "z": 150,
+      "_light": "255 150 60 260"
+    },
+    {
+      "class": "light",
+      "room": "yard",
+      "at": [
+        700,
+        200
+      ],
+      "z": 150,
+      "_light": "255 150 60 260"
+    }
+  ]
+}

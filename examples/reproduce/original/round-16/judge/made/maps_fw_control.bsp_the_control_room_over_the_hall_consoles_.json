@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1312,
+   944
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan (plan.png) has a lift (func_plat 7) with its button (8) in the upper-right room, a row of six windows (func_breakable 1 to 6) along the room's lower edge, and the two crawlers (19, 20) and start (17) in the open area. The brief's consoles under the windows are not in the plan or the views. The lower panel's two boxed shapes and the lift's lower end are not clearly a valve room, and no valve wheel is marked anywhere, so the lift does not visibly lead to the valve room."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no size for this map and no overlap measure is supplied, so this is judged by eye only. The plan's scale bar (128 units) puts the top panel near 1280 units across, with the control room a small part of it. The lower panel's floor (the valve room) is not clearly bounded, so the areas and their places cannot be checked against the brief."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan shows two storeys: the upper-right floor at 128 (labelled '2 128') with the lift running between it and the floor at 0 ('2 0'), and a lower panel with floors at -32, 60 and -192. The views show a flat corridor with no visible ramp, stair or ledge, and the windows' drop to the hall is not visible in any view, so the storeys cannot be confirmed to match the brief's control-room-over-hall."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Present and placed: the start (info_player_start 17), the lift (func_plat 7) with its button (8), two monster_headcrab (19, 20) and the end trigger (trigger_endsection 9). Missing: no valve wheel entity or prop is marked in the valve room, so the thing that ends the mod has no marked place; the end trigger sits beside the lift's button in the control room, not by a wheel. The measure reports the two crawlers found and nothing unreached."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard-striped trim in the views reads well and the concrete wall is plausible. The floor in the views is one flat grey-brown with no wet or grate character, the big wall at yaw 90 is a single flat grey with no panel or seam detail, and the brown cylinder at yaw 180 is a wood-grain texture rather than a worn red steel wheel."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Light entities (20 to 41) are spread evenly along the ceiling, in the plan and views' ceiling lights. The brief's sodium look is not clear, the control room's upper-right floor is brighter than its surroundings, and the views show no clear bright and dark contrast the brief implies."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The row of six windows (func_breakable 1 to 6) and the lift are present in the plan. The consoles under the windows, the valve wheel and the lower room's pillars are not visible in the plan or the views. The brown cylinder at yaw 180 is not a wheel: it has no spokes, a base like a drum, and the wrong colour."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: checkErrors is empty (it compiles), notReached and reachWarnings are empty (the walk test reaches every marked item), and no changelevel is needed here since this is the last map. The mod's end (the valve wheel) is not an entity in the list, so the way out is not separately checked."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The views read as a grey industrial corridor with hazard trim and ceiling lights, plausibly Half-Life's. But a player who knows the control room would not recognise it: no consoles, no windows onto the hall, no valve wheel, and the yaw 180 view shows a wood-brown drum on a base instead."
+  }
+ },
+ "total": 10,
+ "of": 18,
+ "passes": false
+}

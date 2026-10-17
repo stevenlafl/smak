@@ -1,160 +1,118 @@
 {
   "spec": "smak.map/1",
   "name": "fw_pumphall",
-  "size": {
-    "length": 2650
-  },
-  "wads": [
-    "fw.wad"
-  ],
   "theme": {
     "floor": "wetfloor",
-    "wall": "concwall",
-    "ceiling": "rustplate",
-    "door": "door"
+    "wall": "concrete2",
+    "ceiling": "concrete",
+    "door": "steeldoor",
+    "furniture": "rust"
   },
   "textures": {
-    "concfloor": {
-      "texture": "fw_concfloor"
-    },
-    "concwall": {
-      "texture": "fw_concwall"
-    },
     "wetfloor": {
-      "texture": "fw_concwet"
+      "base": "stone",
+      "picture": "library:concrete_floor_worn_001",
+      "size": 118,
+      "tone": "dark grey"
     },
-    "rustplate": {
-      "texture": "fw_rustplate"
+    "concrete": {
+      "base": "stone",
+      "picture": "library:concrete_layers_02",
+      "size": 79
     },
-    "pipewall": {
-      "texture": "fw_pipewall"
+    "concrete2": {
+      "base": "stone",
+      "picture": "library:concrete_layers_02",
+      "size": 79,
+      "tone": "dark grey"
     },
-    "steel": {
-      "texture": "fw_steel"
+    "steeldoor": {
+      "base": "door",
+      "tone": [
+        0.4,
+        0.45,
+        0.42
+      ]
     },
-    "hazard": {
-      "texture": "fw_hazard"
-    },
-    "door": {
-      "texture": "fw_door"
+    "rust": {
+      "base": "steel",
+      "picture": "library:rust_coarse_01",
+      "size": 87
     },
     "catwalk": {
-      "texture": "fw_catwalk"
+      "base": "steel",
+      "picture": "library:metal_plate_02",
+      "size": 79
     },
-    "grate": {
-      "texture": "{fw_grate"
-    },
-    "water": {
-      "texture": "!fw_water"
-    },
-    "pump3": {
-      "texture": "fw_pump3"
+    "pipes": {
+      "base": "metal",
+      "picture": "library:rusty_metal_03",
+      "size": 53
     }
   },
   "rooms": [
     {
-      "id": "pumphouse",
-      "size": [
-        384,
-        320,
-        192
-      ],
-      "surfaces": {
-        "walls": "pipewall",
-        "floor": "concfloor"
-      },
-      "light": {
-        "count": 2,
-        "brightness": 220,
-        "color": [
-          255,
-          180,
-          100
-        ]
-      }
-    },
-    {
       "id": "hall",
       "size": [
-        640,
-        2048,
-        384
-      ],
-      "place": {
-        "north_of": "pumphouse"
-      },
-      "surfaces": {
-        "walls": "pipewall"
-      },
-      "light": {
-        "count": 10,
-        "brightness": 280,
-        "color": [
-          255,
-          170,
-          90
-        ]
-      }
+        2560,
+        960,
+        448
+      ]
     },
     {
       "id": "pool",
       "size": [
-        640,
-        1504,
-        112
+        1900,
+        400,
+        576
       ],
       "place": {
         "in": "hall",
         "offset": [
-          0,
-          256
+          280,
+          280
         ]
       },
-      "floor": -112,
+      "floor": -128,
       "water": {
-        "depth": 64,
-        "material": "water"
-      },
-      "surfaces": {
-        "walls": "concwall"
-      },
-      "light": "none",
-      "dark": true
+        "depth": 128
+      }
+    },
+    {
+      "id": "entry",
+      "size": [
+        224,
+        480,
+        192
+      ],
+      "place": {
+        "west_of": "hall",
+        "align": "centre"
+      }
     },
     {
       "id": "corridor",
       "size": [
-        128,
-        256,
-        128
+        384,
+        384,
+        224
       ],
       "place": {
-        "north_of": "hall"
+        "east_of": "hall",
+        "align": "centre"
       },
-      "floor": 160,
-      "surfaces": {
-        "walls": "concwall"
-      },
-      "light": {
-        "count": 1,
-        "brightness": 180,
-        "color": [
-          255,
-          180,
-          100
-        ]
-      }
+      "floor": 192
     }
   ],
   "links": [
     {
       "between": [
-        "pumphouse",
+        "entry",
         "hall"
       ],
       "kind": "opening",
       "width": 128,
-      "height": 128
+      "height": 160
     },
     {
       "between": [
@@ -163,39 +121,23 @@
       ],
       "kind": "opening",
       "width": 96,
-      "height": 112
-    }
-  ],
-  "ladders": [
-    {
-      "room": "pool",
-      "side": "west",
-      "along": 0.739,
-      "width": 32,
-      "height": 128
-    },
-    {
-      "room": "pool",
-      "side": "east",
-      "along": 0.154,
-      "width": 32,
       "height": 128
     }
   ],
   "prefabs": {
-    "catwalk_w": {
+    "walkN": {
       "pieces": [
         {
           "box": [
             [
-              -48,
-              -752,
-              104
+              -912,
+              200,
+              128
             ],
             [
-              48,
-              320,
-              112
+              1150,
+              478,
+              144
             ]
           ],
           "texture": "catwalk"
@@ -203,122 +145,366 @@
         {
           "box": [
             [
-              -48,
-              400,
-              104
+              -912,
+              196,
+              144
             ],
             [
-              48,
-              752,
-              112
+              380,
+              204,
+              184
             ]
           ],
-          "texture": "catwalk"
+          "texture": "pipes"
         },
         {
           "box": [
             [
-              44,
-              -752,
-              112
+              500,
+              196,
+              144
             ],
             [
-              48,
-              -304,
-              148
+              1150,
+              204,
+              184
             ]
           ],
-          "texture": "grate"
+          "texture": "pipes"
         },
         {
           "box": [
             [
-              44,
-              -208,
-              112
-            ],
-            [
-              48,
-              752,
-              148
-            ]
-          ],
-          "texture": "grate"
-        },
-        {
-          "box": [
-            [
-              -4,
-              -604,
+              -812,
+              440,
               0
             ],
             [
-              4,
-              -596,
-              104
+              -788,
+              464,
+              128
             ]
           ],
-          "texture": "steel"
+          "texture": "pipes"
         },
         {
           "box": [
             [
-              -4,
-              -104,
+              -512,
+              440,
               0
             ],
             [
-              4,
-              -96,
-              104
+              -488,
+              464,
+              128
             ]
           ],
-          "texture": "steel"
+          "texture": "pipes"
         },
         {
           "box": [
             [
-              -4,
-              146,
+              -212,
+              440,
               0
             ],
             [
-              4,
-              154,
-              104
+              -188,
+              464,
+              128
             ]
           ],
-          "texture": "steel"
+          "texture": "pipes"
         },
         {
           "box": [
             [
-              -4,
-              596,
+              88,
+              440,
               0
             ],
             [
-              4,
-              604,
-              104
+              112,
+              464,
+              128
             ]
           ],
-          "texture": "steel"
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              688,
+              440,
+              0
+            ],
+            [
+              712,
+              464,
+              128
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              988,
+              440,
+              0
+            ],
+            [
+              1012,
+              464,
+              128
+            ]
+          ],
+          "texture": "pipes"
         }
       ]
     },
-    "catwalk_e": {
+    "walkS": {
       "pieces": [
         {
           "box": [
             [
-              -48,
-              -752,
-              104
+              -912,
+              -478,
+              128
             ],
             [
-              48,
-              -560,
+              1150,
+              -200,
+              144
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -912,
+              -204,
+              144
+            ],
+            [
+              380,
+              -196,
+              184
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              500,
+              -204,
+              144
+            ],
+            [
+              1150,
+              -196,
+              184
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              -812,
+              -464,
+              0
+            ],
+            [
+              -788,
+              -440,
+              128
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              -512,
+              -464,
+              0
+            ],
+            [
+              -488,
+              -440,
+              128
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              -212,
+              -464,
+              0
+            ],
+            [
+              -188,
+              -440,
+              128
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              88,
+              -464,
+              0
+            ],
+            [
+              112,
+              -440,
+              128
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              688,
+              -464,
+              0
+            ],
+            [
+              712,
+              -440,
+              128
+            ]
+          ],
+          "texture": "pipes"
+        },
+        {
+          "box": [
+            [
+              988,
+              -464,
+              0
+            ],
+            [
+              1012,
+              -440,
+              128
+            ]
+          ],
+          "texture": "pipes"
+        }
+      ]
+    },
+    "stairN": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -1200,
+              250,
+              0
+            ],
+            [
+              -1168,
+              450,
+              16
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1168,
+              250,
+              0
+            ],
+            [
+              -1136,
+              450,
+              32
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1136,
+              250,
+              0
+            ],
+            [
+              -1104,
+              450,
+              48
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1104,
+              250,
+              0
+            ],
+            [
+              -1072,
+              450,
+              64
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1072,
+              250,
+              0
+            ],
+            [
+              -1040,
+              450,
+              80
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1040,
+              250,
+              0
+            ],
+            [
+              -1008,
+              450,
+              96
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1008,
+              250,
+              0
+            ],
+            [
+              -976,
+              450,
               112
             ]
           ],
@@ -327,13 +513,137 @@
         {
           "box": [
             [
-              -48,
-              -480,
-              104
+              -976,
+              250,
+              0
             ],
             [
-              48,
-              752,
+              -944,
+              450,
+              128
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -944,
+              250,
+              0
+            ],
+            [
+              -912,
+              450,
+              144
+            ]
+          ],
+          "texture": "catwalk"
+        }
+      ]
+    },
+    "stairS": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -1200,
+              -450,
+              0
+            ],
+            [
+              -1168,
+              -250,
+              16
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1168,
+              -450,
+              0
+            ],
+            [
+              -1136,
+              -250,
+              32
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1136,
+              -450,
+              0
+            ],
+            [
+              -1104,
+              -250,
+              48
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1104,
+              -450,
+              0
+            ],
+            [
+              -1072,
+              -250,
+              64
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1072,
+              -450,
+              0
+            ],
+            [
+              -1040,
+              -250,
+              80
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1040,
+              -450,
+              0
+            ],
+            [
+              -1008,
+              -250,
+              96
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -1008,
+              -450,
+              0
+            ],
+            [
+              -976,
+              -250,
               112
             ]
           ],
@@ -342,92 +652,81 @@
         {
           "box": [
             [
-              -48,
-              -752,
-              112
-            ],
-            [
-              -44,
-              -304,
-              148
-            ]
-          ],
-          "texture": "grate"
-        },
-        {
-          "box": [
-            [
-              -48,
-              -208,
-              112
-            ],
-            [
-              -44,
-              752,
-              148
-            ]
-          ],
-          "texture": "grate"
-        },
-        {
-          "box": [
-            [
-              -4,
-              -304,
+              -976,
+              -450,
               0
             ],
             [
-              4,
-              -296,
-              104
+              -944,
+              -250,
+              128
             ]
           ],
-          "texture": "steel"
+          "texture": "catwalk"
         },
         {
           "box": [
             [
-              -4,
-              96,
+              -944,
+              -450,
               0
             ],
             [
-              4,
+              -912,
+              -250,
+              144
+            ]
+          ],
+          "texture": "catwalk"
+        }
+      ]
+    },
+    "eastwalk": {
+      "pieces": [
+        {
+          "box": [
+            [
+              1140,
+              56,
+              212
+            ],
+            [
+              1278,
+              478,
+              228
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              1150,
+              80,
+              0
+            ],
+            [
+              1174,
               104,
-              104
+              212
             ]
           ],
-          "texture": "steel"
+          "texture": "pipes"
         },
         {
           "box": [
             [
-              -4,
-              396,
+              1150,
+              440,
               0
             ],
             [
-              4,
-              404,
-              104
+              1174,
+              464,
+              212
             ]
           ],
-          "texture": "steel"
-        },
-        {
-          "box": [
-            [
-              -4,
-              646,
-              0
-            ],
-            [
-              4,
-              654,
-              104
-            ]
-          ],
-          "texture": "steel"
+          "texture": "pipes"
         }
       ]
     },
@@ -436,14 +735,14 @@
         {
           "box": [
             [
-              -224,
-              -48,
-              104
+              380,
+              -210,
+              128
             ],
             [
-              224,
-              48,
-              112
+              500,
+              210,
+              144
             ]
           ],
           "texture": "catwalk"
@@ -451,141 +750,32 @@
         {
           "box": [
             [
-              -224,
-              -48,
-              112
+              376,
+              -212,
+              144
             ],
             [
-              224,
-              -44,
-              148
+              384,
+              212,
+              184
             ]
           ],
-          "texture": "grate"
+          "texture": "pipes"
         },
         {
           "box": [
             [
-              -224,
-              44,
-              112
+              496,
+              -212,
+              144
             ],
             [
-              224,
-              48,
-              148
+              504,
+              212,
+              184
             ]
           ],
-          "texture": "grate"
-        }
-      ]
-    },
-    "sumpsteps": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -45,
-              0,
-              0
-            ],
-            [
-              45,
-              168,
-              16
-            ]
-          ],
-          "texture": "concwall"
-        },
-        {
-          "box": [
-            [
-              -45,
-              0,
-              0
-            ],
-            [
-              45,
-              144,
-              32
-            ]
-          ],
-          "texture": "concwall"
-        },
-        {
-          "box": [
-            [
-              -45,
-              0,
-              0
-            ],
-            [
-              45,
-              120,
-              48
-            ]
-          ],
-          "texture": "concwall"
-        },
-        {
-          "box": [
-            [
-              -45,
-              0,
-              0
-            ],
-            [
-              45,
-              96,
-              64
-            ]
-          ],
-          "texture": "concwall"
-        },
-        {
-          "box": [
-            [
-              -45,
-              0,
-              0
-            ],
-            [
-              45,
-              72,
-              80
-            ]
-          ],
-          "texture": "concwall"
-        },
-        {
-          "box": [
-            [
-              -45,
-              0,
-              0
-            ],
-            [
-              45,
-              48,
-              96
-            ]
-          ],
-          "texture": "concwall"
-        },
-        {
-          "box": [
-            [
-              -45,
-              0,
-              0
-            ],
-            [
-              45,
-              24,
-              112
-            ]
-          ],
-          "texture": "hazard"
+          "texture": "pipes"
         }
       ]
     },
@@ -597,12 +787,11 @@
               0,
               0
             ],
-            "radius": 72,
+            "radius": 110,
             "from": 0,
-            "to": 128,
-            "sides": 16
-          },
-          "texture": "rustplate"
+            "to": 20,
+            "sides": 12
+          }
         },
         {
           "cylinder": {
@@ -610,602 +799,308 @@
               0,
               0
             ],
-            "radius": 74,
-            "from": 92,
-            "to": 108,
-            "sides": 16
-          },
-          "texture": "hazard"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              0,
-              0
-            ],
-            "radius": 78,
-            "from": 128,
-            "to": 136,
-            "sides": 16
-          },
-          "texture": "steel"
+            "radius": 90,
+            "from": 20,
+            "to": 200,
+            "sides": 14
+          }
         },
         {
           "box": [
             [
-              -48,
-              -48,
-              136
+              -80,
+              -130,
+              200
             ],
             [
-              48,
-              48,
-              224
+              80,
+              40,
+              260
             ]
           ],
-          "texture": "steel"
+          "texture": "rust"
         },
         {
-          "cylinder": {
-            "centre": [
-              0,
-              0
+          "box": [
+            [
+              -40,
+              60,
+              60
             ],
-            "radius": 40,
-            "from": 224,
-            "to": 248,
-            "sides": 12
-          },
-          "texture": "rustplate"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              0,
-              0
-            ],
-            "radius": 20,
-            "from": 248,
-            "to": 496,
-            "sides": 10
-          },
-          "texture": "steel"
+            [
+              40,
+              200,
+              140
+            ]
+          ],
+          "texture": "pipes"
         }
       ]
     },
-    "pump3": {
-      "pieces": [
-        {
-          "cylinder": {
-            "centre": [
-              0,
-              0
-            ],
-            "radius": 72,
-            "from": 0,
-            "to": 128,
-            "sides": 16
-          },
-          "texture": "rustplate"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              0,
-              0
-            ],
-            "radius": 74,
-            "from": 92,
-            "to": 108,
-            "sides": 16
-          },
-          "texture": "hazard"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              0,
-              0
-            ],
-            "radius": 78,
-            "from": 128,
-            "to": 136,
-            "sides": 16
-          },
-          "texture": "steel"
-        },
-        {
-          "box": [
-            [
-              -48,
-              -48,
-              136
-            ],
-            [
-              48,
-              48,
-              224
-            ]
-          ],
-          "texture": "steel"
-        },
-        {
-          "box": [
-            [
-              48,
-              -32,
-              160
-            ],
-            [
-              50,
-              32,
-              192
-            ]
-          ],
-          "texture": "pump3"
-        },
-        {
-          "box": [
-            [
-              -50,
-              -32,
-              160
-            ],
-            [
-              -48,
-              32,
-              192
-            ]
-          ],
-          "texture": "pump3"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              0,
-              0
-            ],
-            "radius": 40,
-            "from": 224,
-            "to": 248,
-            "sides": 12
-          },
-          "texture": "rustplate"
-        },
-        {
-          "cylinder": {
-            "centre": [
-              0,
-              0
-            ],
-            "radius": 20,
-            "from": 248,
-            "to": 496,
-            "sides": 10
-          },
-          "texture": "steel"
-        }
-      ]
-    },
-    "changelevel": {
+    "exitchange": {
       "pieces": [
         {
           "box": [
             [
-              -56,
-              -48,
+              -24,
+              -40,
               0
             ],
             [
-              56,
-              48,
-              112
+              24,
+              40,
+              96
             ]
           ],
-          "texture": "steel"
+          "texture": "concrete"
         }
       ],
       "entity": {
         "class": "trigger_changelevel",
         "map": "fw_control",
-        "landmark": "fw_lm2"
+        "landmark": "fw_lm_hall"
       }
+    }
+  },
+  "models": {
+    "fw_pipesection": {
+      "spec": "smak.model/1",
+      "name": "fw_pipesection.mdl",
+      "kind": "prop",
+      "size": {
+        "height": 96,
+        "length": 260
+      },
+      "materials": {
+        "pipes": {
+          "base": "steel",
+          "picture": "library:rusty_metal_04",
+          "size": 79,
+          "rust": 0.5
+        }
+      },
+      "parts": [
+        {
+          "id": "pipe",
+          "kind": "turn",
+          "axis": "x",
+          "material": "pipes",
+          "rings": [
+            [
+              0,
+              48
+            ],
+            [
+              260,
+              48
+            ]
+          ],
+          "at": [
+            -130,
+            0,
+            48
+          ],
+          "sides": 12
+        }
+      ]
     }
   },
   "furniture": [
     {
-      "prefab": "catwalk_w",
-      "room": "pool",
+      "prefab": "walkN",
+      "room": "hall",
       "at": [
-        -272,
+        0,
         0
       ]
     },
     {
-      "prefab": "catwalk_e",
-      "room": "pool",
+      "prefab": "walkS",
+      "room": "hall",
       "at": [
-        272,
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "stairN",
+      "room": "hall",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "stairS",
+      "room": "hall",
+      "at": [
+        0,
+        0
+      ]
+    },
+    {
+      "prefab": "eastwalk",
+      "room": "hall",
+      "at": [
+        0,
         0
       ]
     },
     {
       "prefab": "bridge",
-      "room": "pool",
-      "at": [
-        0,
-        -256
-      ]
-    },
-    {
-      "prefab": "sumpsteps",
-      "room": "pool",
-      "at": [
-        -165,
-        -752
-      ]
-    },
-    {
-      "prefab": "pump",
-      "room": "pool",
-      "at": [
-        0,
-        -512
-      ]
-    },
-    {
-      "prefab": "pump",
-      "room": "pool",
+      "room": "hall",
       "at": [
         0,
         0
       ]
     },
     {
-      "prefab": "pump3",
+      "prefab": "pump",
       "room": "pool",
       "at": [
-        0,
-        512
+        -700,
+        0
       ]
     },
     {
-      "prefab": "changelevel",
+      "prefab": "pump",
+      "room": "pool",
+      "at": [
+        -300,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "pool",
+      "at": [
+        200,
+        0
+      ]
+    },
+    {
+      "prefab": "exitchange",
       "room": "corridor",
       "at": [
-        0,
-        64
+        130,
+        0
       ]
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "north",
+      "along": 0.92,
+      "width": 40,
+      "height": 160
+    },
+    {
+      "room": "hall",
+      "side": "south",
+      "along": 0.92,
+      "width": 40,
+      "height": 160
     }
   ],
   "props": [
     {
       "model": "models/fw_walllamp.mdl",
-      "room": "hall",
+      "room": "entry",
       "at": [
-        -305,
-        -700
-      ],
-      "z": 130,
-      "facing": "east"
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "hall",
-      "at": [
-        -305,
-        -230
-      ],
-      "z": 130,
-      "facing": "east"
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "hall",
-      "at": [
-        -305,
-        230
-      ],
-      "z": 130,
-      "facing": "east"
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "hall",
-      "at": [
-        -305,
-        700
-      ],
-      "z": 130,
-      "facing": "east"
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "hall",
-      "at": [
-        305,
-        -460
-      ],
-      "z": 130,
-      "facing": "west"
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "hall",
-      "at": [
-        305,
+        -88,
         0
       ],
-      "z": 130,
-      "facing": "west"
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "hall",
-      "at": [
-        305,
-        460
-      ],
-      "z": 130,
-      "facing": "west"
-    },
-    {
-      "model": "models/fw_drum.mdl",
-      "room": "hall",
-      "at": [
-        -250,
-        -960
-      ],
-      "facing": 20,
-      "solid": true
-    },
-    {
-      "model": "models/fw_drum.mdl",
-      "room": "hall",
-      "at": [
-        -222,
-        -940
-      ],
-      "facing": 100,
-      "solid": true
-    },
-    {
-      "model": "models/fw_drum.mdl",
-      "room": "hall",
-      "at": [
-        250,
-        960
-      ],
-      "facing": 60,
-      "solid": true
-    },
-    {
-      "model": "models/fw_pipejunction.mdl",
-      "room": "hall",
-      "at": [
-        240,
-        -930
-      ],
       "facing": "west",
-      "solid": true
-    },
-    {
-      "model": "models/fw_console.mdl",
-      "room": "pumphouse",
-      "at": [
-        -150,
-        -100
-      ],
-      "facing": "east",
-      "solid": true
+      "z": 150
     }
   ],
   "entities": [
     {
       "class": "info_player_start",
-      "room": "pumphouse",
+      "room": "entry",
       "at": [
-        0,
+        -60,
         0
       ],
-      "facing": "north"
+      "facing": "east"
     },
     {
       "class": "info_landmark",
-      "id": "fw_lm1",
-      "room": "pumphouse",
+      "room": "entry",
       "at": [
-        0,
-        40
+        -60,
+        70
       ],
-      "z": 16
+      "id": "fw_lm_yard"
     },
     {
       "class": "info_landmark",
-      "id": "fw_lm2",
+      "room": "corridor",
+      "at": [
+        60,
+        0
+      ],
+      "id": "fw_lm_hall"
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        1000,
+        400
+      ],
+      "z": 144
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "pool",
+      "at": [
+        -600,
+        90
+      ],
+      "z": 40,
+      "angles": "0 90 0"
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "pool",
+      "at": [
+        -150,
+        -110
+      ],
+      "z": 40,
+      "angles": "0 180 0"
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "pool",
+      "at": [
+        400,
+        60
+      ],
+      "z": 40,
+      "angles": "0 0 0"
+    },
+    {
+      "class": "ambient_generic",
+      "room": "hall",
+      "at": [
+        -550,
+        60
+      ],
+      "message": "ambience/fw_pump.wav",
+      "health": 6
+    },
+    {
+      "class": "ambient_generic",
       "room": "corridor",
       "at": [
         0,
         0
       ],
-      "z": 16
-    },
-    {
-      "class": "weapon_crowbar",
-      "room": "pool",
-      "at": [
-        -272,
-        500
-      ],
-      "z": 114
-    },
-    {
-      "class": "monster_headcrab",
-      "room": "pool",
-      "at": [
-        -110,
-        -300
-      ],
-      "z": 4,
-      "facing": "south"
-    },
-    {
-      "class": "monster_headcrab",
-      "room": "pool",
-      "at": [
-        130,
-        220
-      ],
-      "z": 4,
-      "facing": "west"
-    },
-    {
-      "class": "monster_headcrab",
-      "room": "pool",
-      "at": [
-        -90,
-        640
-      ],
-      "z": 4,
-      "facing": "south"
-    },
-    {
-      "class": "env_glow",
-      "room": "hall",
-      "at": [
-        -298,
-        -700
-      ],
-      "z": 137,
-      "keys": {
-        "model": "sprites/fw_glow.spr",
-        "scale": 1,
-        "rendermode": 3,
-        "renderamt": 120,
-        "rendercolor": "255 170 90"
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "hall",
-      "at": [
-        -298,
-        230
-      ],
-      "z": 137,
-      "keys": {
-        "model": "sprites/fw_glow.spr",
-        "scale": 1,
-        "rendermode": 3,
-        "renderamt": 120,
-        "rendercolor": "255 170 90"
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "hall",
-      "at": [
-        298,
-        0
-      ],
-      "z": 137,
-      "keys": {
-        "model": "sprites/fw_glow.spr",
-        "scale": 1,
-        "rendermode": 3,
-        "renderamt": 120,
-        "rendercolor": "255 170 90"
-      }
-    },
-    {
-      "class": "env_sprite",
-      "room": "pool",
-      "at": [
-        24,
-        -512
-      ],
-      "z": 252,
-      "keys": {
-        "model": "sprites/fw_steam.spr",
-        "framerate": 10,
-        "scale": 1,
-        "rendermode": 5,
-        "renderamt": 110,
-        "spawnflags": 1
-      }
-    },
-    {
-      "class": "env_sprite",
-      "room": "pool",
-      "at": [
-        24,
-        512
-      ],
-      "z": 252,
-      "keys": {
-        "model": "sprites/fw_steam.spr",
-        "framerate": 10,
-        "scale": 1,
-        "rendermode": 5,
-        "renderamt": 110,
-        "spawnflags": 1
-      }
-    },
-    {
-      "class": "ambient_generic",
-      "room": "pool",
-      "at": [
-        0,
-        -512
-      ],
-      "z": 232,
-      "keys": {
-        "message": "ambience/fw_pump.wav",
-        "health": 6,
-        "spawnflags": 4
-      }
-    },
-    {
-      "class": "ambient_generic",
-      "room": "pool",
-      "at": [
-        0,
-        512
-      ],
-      "z": 232,
-      "keys": {
-        "message": "ambience/fw_pump.wav",
-        "health": 6,
-        "spawnflags": 4
-      }
-    },
-    {
-      "class": "ambient_generic",
-      "room": "hall",
-      "at": [
-        0,
-        -900
-      ],
-      "z": 64,
-      "keys": {
-        "message": "ambience/fw_drips.wav",
-        "health": 5,
-        "spawnflags": 4
-      }
-    },
-    {
-      "class": "ambient_generic",
-      "room": "hall",
-      "at": [
-        140,
-        880
-      ],
-      "z": 64,
-      "keys": {
-        "message": "ambience/fw_drips.wav",
-        "health": 5,
-        "spawnflags": 4
-      }
+      "message": "ambience/fw_drips.wav",
+      "health": 5
     }
   ]
 }

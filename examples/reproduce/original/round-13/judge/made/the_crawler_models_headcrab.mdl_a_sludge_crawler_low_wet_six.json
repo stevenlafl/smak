@@ -1,0 +1,94 @@
+{
+ "kind": "enemy",
+ "label": "the crawler (models/headcrab.mdl): a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth",
+ "measured": {
+  "size": [
+   26.4,
+   27.7,
+   12.2
+  ],
+  "sizeAsked": {
+   "long": 25.9
+  },
+  "sizeOff": 0.068,
+  "triangles": 448,
+  "halfLifeMedianOfItsKind": 308,
+  "halfLifeThreeQuartersUnder": 340,
+  "halfLifeMost": 655,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, D, D, A where the asset was B, B, B, D: passed for one of the game's",
+  "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2,
+  "C2": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Against the brief's words the outline is right: low (height 12.2 units), wide and flat-backed, with six legs splayed from the sides. In sides.png the front, left, back and right views and the top view all show the same low oval body, legs out to the sides, and the mouth at the front. Nothing sticks out or is missing in any view. The silhouette is not measured against an original, so this rests on the views."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: size [26.4, 27.7, 12.2] against the headcrab's length asked of 25.9, sizeOff 0.068, inside the 15% band."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief names six legs, a ring of teeth and a pale belly; the three Valve models in lineup.png each show legs, and the brief's teeth and belly are not charged by absence. Six legs are present: the top view shows three on each side. The ring of teeth is at the front in the front and front-left/right views, a dark red disc with about ten white teeth around it. The pale belly shows as a strip under the body in the left, back and right views and as a pale shield in the below view. Leg tips are pointed and attached to the body in the top and below views. No named part is missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for grey-green with a pale belly. The body is grey-green in every view and the belly is pale in the back, left and below views, as the brief asks. The brief's 'wet' is not strongly shown as a glossy sheen: the surface is matte with faceting and mottling. That is a weak point, but the colours and materials the brief names are right."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief names no markings or panel lines. The surface has soft mottling and faceting with no stray marks, and the teeth and mouth are readable at the size the game shows. Nothing is added that the brief does not ask for."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 here, as the rubric says for M6. Measured apart by the line-up test: the four judges each picked a model other than the asset (C, D, D, A where the asset was B, B, B, D), so the asset passed for one of the game's. The line-up in lineup.png itself is not scored by me."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the mouth, and it faces forward in the front view and the front-left and front-right views. The creature stands upright on its legs, and in walk.png the legs reach the floor line at every frame, so it stands on its origin."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty, so SMAK's GoldSrc check passes. Triangles are 448, under the bound of 616 (twice the median of 308, which is more than the three-quarter figure of 340). Nothing is open or floating in the views: the mouth is a closed disc, the belly is a closed shape in the below view, and the legs meet the body in the top and below views."
+  },
+  "C1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In walk.png (34 frames at the floor line) the legs and body move together with no part coming apart, sinking or floating, and the legs meet the floor. In attack.png (the jump, 30 frames) the body rotates through vertical and back, and the legs and teeth stay on the body through the whole arc."
+  },
+  "C2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The contract line says the crawler keeps the headcrab's bones, animations, attachments and bodyparts. The measurement reports no fault, so no fault caps C2 here. I have not checked compareContract's output myself: this score rests on the stated contract."
+  }
+ },
+ "total": 20,
+ "of": 20,
+ "passes": true
+}

@@ -1,0 +1,84 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.343,
+   "peak": -0.5,
+   "rms": -16.3,
+   "crest": 15.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.01,
+   "tail": 0.01,
+   "attack": 0.09,
+   "peakAt": 0.17,
+   "t20": 0.065,
+   "t40": 0.105,
+   "centroid": 3691,
+   "rolloff": 8290,
+   "flatness": 0.692,
+   "bands": {
+    "<150": 0.7,
+    "150-600": 11.1,
+    "600-2k": 35.3,
+    "2k-5k": 21,
+    ">5k": 31.9
+   },
+   "onsets": 0
+  },
+  "class": "swing",
+  "against": {
+   "score": 11,
+   "of": 22,
+   "lines": [
+    "rms -16.3 dBFS (-25.8 to -19.8): over the range",
+    "centroid 3691 Hz (608 to 912): too bright: less over 2000 Hz",
+    "flatness 0.692 (0.14 to 0.24): too noisy: more tone (modes)",
+    "band 150-600 11.1% (55.8 to 75.8): under the range",
+    "band 600-2k 35.3% (15 to 35): over the range",
+    "band 2k-5k 21% (0 to 16.7): over the range",
+    "band >5k 31.9% (0 to 11.6): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The waveform is a single swelling burst: it rises from about 0.01 s, peaks at 0.17 s and dies away by 0.34 s, with no sharp strike transient. That envelope reads as a swing through air, not a metal hit, so it is the same event the brief asks for. Listening was not possible, so this rests on the picture."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length is 0.343 s, which matches the swing's roughly 0.34 s length, and attack is 0.09 s with t20 0.065 s and t40 0.105 s. The measured lines flag nothing on length or attack, so both sit inside the class range. The class range numbers themselves are not in the input, so this is the measure's verdict, not a check against the range."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured against the swing class, the spectrum is wrong. Centroid is 3691 Hz against 608 to 912 Hz, about four times too bright. The 150-600 Hz band is 11.1% against 55.8 to 75.8%, 44.7 points under. The >5k band is 31.9% against 0 to 11.6%, 20.3 points over. The 2k-5k band is 21% against 0 to 16.7%, 4.3 points over. The picture agrees: the spectrogram's energy sits in the mid and top bands, with little in the low band."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are 0, so there are no clicks or hits, which is right for a swing. The tone-or-noise character is clearly off: flatness is 0.692 against the class's 0.14 to 0.24. The spectrogram is broadband noise with no visible modes or pitch movement, where the class wants more tone. Not a must-have item."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "engineFaults is empty. The file has no clipping (clipped 0), no DC offset (dc 0) and a peak of -0.5 dBFS, with no lead or tail click. The sample rate, bit depth and channel count are not among the given features, so the format rests on the engine check's empty fault list. The file name is cbar_miss1.wav, the same as the original."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,76 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 7.15,
+   "peak": -2,
+   "rms": -28.2,
+   "crest": 26.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.03,
+   "tail": 0.359,
+   "attack": 3.482,
+   "peakAt": 6.4,
+   "t20": 0.11,
+   "t40": 0.264,
+   "centroid": 806,
+   "rolloff": 711,
+   "flatness": 0.083,
+   "bands": {
+    "<150": 1.1,
+    "150-600": 27.1,
+    "600-2k": 66.3,
+    "2k-5k": 4.5,
+    ">5k": 1
+   },
+   "onsets": 8
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 20,
+   "of": 20,
+   "lines": []
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows eight sharp vertical onsets at roughly 0.9 s spacing (x about 40, 155, 277, 390, 508, 625, 740, 860). Each is followed by a short, falling, tonal ring in the 600 Hz to 2 kHz band, over a faint broadband bed. That is the sound of drops falling into water, which is what the brief asks for."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 7.15 s, t20 0.11 s and t40 0.264 s give a fast attack and short decay, which suits a drip. The harness's brief check passed 20 of 20 with no failing lines. Caveat: the 'attack' value of 3.482 has no unit in the measures, and the loop drips class range is not in the packet, so this rests on the harness's check."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 806 Hz is in the range a drip's resonance would sit. The bands are 66.3% in 600 to 2k, 27.1% in 150 to 600, 4.5% in 2k to 5k, 1% above 5k and 1.1% below 150. The picture agrees: the bright blobs sit in the lower-middle of the spectrogram, and the red band along the bottom is the 150 to 600 share. The harness's brief check passed 20 of 20."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Eight onsets in the features match the eight drips in the picture. Flatness 0.083 means tonal rings over a noise bed, not pure hiss or pure tone. The drips' tone falls in pitch briefly after each onset and that movement is consistent across all eight."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Clipped 0, DC 0 and peak -2 dB are all fine, and the name sound/ambience/fw_drips.wav is correct. But the packet gives no sample rate, bit depth or channel count, so mono PCM at 11025, 22050 or 44100 Hz at 8 or 16 bits cannot be confirmed. The file also ends with 0.359 s of tail and begins with a 0.03 s lead, and no loop cue or seam is measured, so the loop closure is unchecked."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,185 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "size": {
+    "height": 24,
+    "width": 15,
+    "length": 16
+  },
+  "materials": {
+    "backplate": {
+      "base": "steel",
+      "picture": "library:rusty_metal_03",
+      "size": 53
+    },
+    "cage": {
+      "base": "steel",
+      "picture": "library:metal_grate_rusty",
+      "size": 20
+    },
+    "glass": {
+      "base": "glass",
+      "tone": [
+        0.95,
+        0.55,
+        0.1
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "backplate",
+      "size": [
+        3,
+        14,
+        24
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "arm",
+      "kind": "box",
+      "material": "backplate",
+      "size": [
+        6,
+        2,
+        2
+      ],
+      "at": [
+        3,
+        0,
+        11
+      ]
+    },
+    {
+      "id": "glass",
+      "kind": "sphere",
+      "material": "glass",
+      "radius": 6,
+      "sides": 12,
+      "at": [
+        9,
+        0,
+        6
+      ],
+      "finish": false
+    },
+    {
+      "id": "ring",
+      "kind": "tube",
+      "material": "cage",
+      "sides": 6,
+      "path": [
+        [
+          9,
+          6.5,
+          12,
+          0.6
+        ],
+        [
+          9,
+          5.629,
+          15.25,
+          0.6
+        ],
+        [
+          9,
+          3.25,
+          17.63,
+          0.6
+        ],
+        [
+          9,
+          0,
+          18.5,
+          0.6
+        ],
+        [
+          9,
+          -3.25,
+          17.63,
+          0.6
+        ],
+        [
+          9,
+          -5.629,
+          15.25,
+          0.6
+        ],
+        [
+          9,
+          -6.5,
+          12,
+          0.6
+        ],
+        [
+          9,
+          -5.629,
+          8.75,
+          0.6
+        ],
+        [
+          9,
+          -3.25,
+          6.37,
+          0.6
+        ],
+        [
+          9,
+          0,
+          5.5,
+          0.6
+        ],
+        [
+          9,
+          3.25,
+          6.37,
+          0.6
+        ],
+        [
+          9,
+          5.629,
+          8.75,
+          0.6
+        ],
+        [
+          9,
+          6.5,
+          11.75,
+          0.6
+        ]
+      ]
+    },
+    {
+      "id": "bar",
+      "kind": "box",
+      "material": "cage",
+      "size": [
+        8,
+        1,
+        1
+      ],
+      "at": [
+        9,
+        6.5,
+        11.5
+      ],
+      "repeat": {
+        "count": 6,
+        "through": [
+          9,
+          0,
+          12
+        ],
+        "axis": "x"
+      }
+    }
+  ]
+}

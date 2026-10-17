@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.85,
+   "peak": -0.5,
+   "rms": -18.7,
+   "crest": 18.2,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.1,
+   "peakAt": 0.15,
+   "t20": 0.688,
+   "t40": 0.698,
+   "centroid": 900,
+   "rolloff": 1787,
+   "flatness": 0.224,
+   "bands": {
+    "<150": 0.5,
+    "150-600": 67.6,
+    "600-2k": 19.2,
+    "2k-5k": 11,
+    ">5k": 1.6
+   },
+   "onsets": 2
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Same family as the original: a noisy broadband attack with sparse clicks in the tail (0.6 to 0.85 s in the picture). But the waveform is a long sustained rasp from about 0.05 to 0.6 s, where the original is a sharp double hit (about 0.09 s and 0.23 s) that falls away. The features cannot confirm a bite or claw attack by ear, and the limit is stated: the judge cannot listen."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.85 s against the original's 0.906 s, within 25%. The decay is clearly off: t20 is 0.688 against the original's 0.394, about 75% longer, so the sound holds its level for roughly 0.3 s more than the original. The class is null, so the original's own decay sets the range, and this is outside it, which caps S2 at 1. The attack is 0.1 and the original's attack is not measured, so it is not scored."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 900 Hz against the original's 921 Hz (2% off, inside 20%). Band shares match within 0.5 points each: under 150 Hz 0.5 vs 0.5, 150-600 Hz 67.6 vs 68.1, 600-2k 19.2 vs 18.8, 2-5k 11 vs 10.9, over 5k 1.6 vs 1.6. The spectrogram's bright 150-600 Hz body agrees with the original's."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets do not line up with the original's. The made sound has two strong hits, at about 0.15 s and 0.46 s (peakAt 0.15). The original's picture shows about four hits, at about 0.09, 0.23, 0.54 and 0.60 s. The made sound's body is a steady noise where the original's falls off in steps. Flatness is 0.224, and the original's flatness is not given, so the noise character cannot be checked against it. No pitch movement is visible in either spectrogram."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The harness's engine checks report no faults (engineFaults empty). Peak is -0.5 dBFS, clipped is 0, DC is -0.0001, and the lead and tail are 0. The name sound/headcrab/hc_attack1.wav matches the file the game plays. The rate, bit depth and channel count are not in the measures given to the judge, so this rests on the engine check passing."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

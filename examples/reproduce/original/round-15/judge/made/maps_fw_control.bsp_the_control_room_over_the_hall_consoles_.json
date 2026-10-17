@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1776,
+   944
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The control room (top of the plan) is there, with six func_breakable windows (1 to 6) along its south edge onto the hall, and a stair (white lines) to a side room with trigger_changelevel 8. The lift down to a valve room is missing: the plan has no lift or door entity and no shaft, and no valve wheel prop, so the joins the brief names for the control room are not all there."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no sizes for this map. By the plan's 256-unit scale bar the control room is about 1,290 by 450 units and the side room about 450 by 450, both approximate. The valve room the brief's areas include is not in the plan, so the areas cannot be matched to it."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan has no floor-height readout, and the control room and the hall beneath it are drawn as one level. The only level change shown is the stair to the side room (bottom-right of the top room). The brief's drop from the control room to the valve room by a lift is absent, so the control room's height above the hall is not shown."
+  },
+  "P4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Present: the start (info_player_start 14), the two crawlers (monster_headcrab 16 and 17, the two the brief asks for), and the consoles' func_button 7. Missing: the lift and the valve wheel that ends the mod. There is no func_door or lift entity and no wheel in the plan's entity list, so the brief's named ending is not there."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls and floor read as concrete, which suits the brief. Most surfaces are plain, though, and the rusted steel, grate and hazard trim the brief names do not show in the views, except a small yellow stripe at the console bases."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "There are many lamps (19 to 38 in the plan), placed evenly across the ceiling. Their light reads white-grey, not the sodium-orange the brief asks for, and the room is lit evenly, with no bright and dark areas to suit a control room above a hall."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The six windows and the consoles with hazard stripes are there. The brief's lift, valve room and valve wheel, the main features of this map, are missing, and the pipes and trim the brief describes are not visible in the views."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: no check errors, no unreached places, no reach warnings, and both crawlers asked for are found (2 of 2). The walk test reaches the changelevel. The landmarks field reads [null] for this map's level change, which is a wiring fault under O2, not a P8 fault."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside (views.png), the room reads as a Half-Life-like concrete box with ceiling lamps, but it is sparse: the yaw 90 view is a bare blank wall, the windows are small blue-grey panes on the wall rather than a row over the hall, and the consoles are small boxes at floor level. The lift and valve room that would make it recognisable as the brief's control room are not in the views."
+  }
+ },
+ "total": 9,
+ "of": 18,
+ "passes": false
+}

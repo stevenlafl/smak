@@ -3,29 +3,76 @@
  "label": "models/fw_walllamp.mdl: a caged wall lamp with a sodium-orange glass",
  "measured": {
   "size": [
-   14.4,
-   9.8,
-   14
+   15.5,
+   14,
+   24
   ],
   "sizeAsked": null,
   "sizeOff": null,
-  "triangles": 220,
+  "triangles": 172,
   "halfLifeMedianOfItsKind": 56,
   "halfLifeThreeQuartersUnder": 116,
   "halfLifeMost": 194,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/scigun.mdl, models/w_battery.mdl, models/w_squeak.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, C, D, D where the asset was A, B, D, C: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_357.mdl, models/w_shotbox.mdl, models/w_satchel.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, A, B, C where the asset was A, B, D, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 1,
+  "M8": 2,
   "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M8"
- ],
- "total": 0,
- "of": 16
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Six views (front, left, back, right, top, below) show the outline the brief's words describe: a flat wall plate at the back, a steel cage around a round orange glass, and a bracket joining cage to plate. The plate is upright and the cage sits centred on it in every side view, with no part sticking out or missing."
+  },
+  "M2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no size for the wall lamp, so there is no number to hold the 15.5 x 14 x 24 box against. The size is plausible for a wall lamp (about 24 units tall, 14 deep), but the check cannot be made, so it cannot score 2."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief names a cage and a glass. The cage is there: a rectangular steel frame around the glass shows in the left, top and below views, with bars and arms at the front in the front view. The glass is a single orange round part, and a bracket and tab join the cage to the plate. Nothing the brief names is missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Sodium-orange glass on the sphere, grey steel on the cage and bracket, and a green-grey rust-streaked plate. Each region reads as its material, and the palette fits the brief's sodium-lamp, rusted-steel setting. No measured colour difference is given to check against."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plate carries rust blotches and grime, the cage is worn grey steel, and the glass has a mottled orange shade. The brief names no other markings on the lamp, and what it asks for (rust, wear, sodium orange) is there at a similar sharpness."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the line-up test. In the line-up of four, the asset was picked as the odd one out once in four readings, at chance level, so it does not fall under the rule that it is caught twice or more. Beside Valve's shotbox, pistol and satchel, it reads as one of the game's wall props."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The lamp is upright, with the plate at the back and the glass and cage facing forward, as a wall lamp mounts. The origin is not given in the measurements, and nothing in the views shows it placed wrongly."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. The triangle count is 172, above the warning line of about 116 but below the 194 that Half-Life's most-built props of this size use, so it does not fail. Nothing is open, inside out or floating: the cage meets the plate through its bracket, and the glass sits inside the cage frame in the top and below views."
+  }
+ },
+ "total": 15,
+ "of": 16,
+ "passes": false
 }

@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.428,
+   "peak": -0.5,
+   "rms": -17.1,
+   "crest": 16.6,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.015,
+   "attack": 0.005,
+   "peakAt": 0.005,
+   "t20": 0.145,
+   "t40": 0.269,
+   "centroid": 1114,
+   "rolloff": 1227,
+   "flatness": 0.041,
+   "bands": {
+    "<150": 0,
+    "150-600": 17,
+    "600-2k": 79.6,
+    "2k-5k": 3.2,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a single sharp attack at 0.005 s (waveform, left) that decays over 0.43 s into a harmonic stack (spectrogram, top panel, bands at roughly 1 to 3 kHz). The game's own hc_pain1 (bottom panel, 0.80 s) is a train of wet, pulsed bursts across its whole length. A listener would hear a generic tonal hurt sound, not the crawler's pulsed, wet pain, so it is the same kind of event but reads as a different one."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measure fails a must-have. Length is 0.428 s against the game's 0.795 s, 46% short where the limit is 25%. T20 is 0.145 s against 0.544 s, far outside the class's range. The attack of 0.005 s is fine, but the decay is not."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measure fails a must-have. Centroid is 1114 Hz against 2682 Hz, 58% low where the limit is 20%. Band shares are off by more than 10 points in three bands: 150-600 Hz (17 against 0), 600-2k Hz (79.6 against 15.6) and 2k-5k Hz (3.2 against 83.8). Only <150 Hz and >5k Hz agree."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must-have, but clearly off in two of its three parts. Onsets are 0 where the game's sound has a dense run of pulses (visible as repeated peaks along its waveform). Flatness is 0.041, which is tonal, while the game's pulsed wet sound is noisier. Pitch movement is roughly steady in the spectrogram, which is not the game's. The only clear match is the single attack."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured clean. Clipped is 0, DC is 0, peak is -0.5 dBFS, and engineFaults is empty. The name sound/headcrab/hc_pain1.wav is the game's. The features list does not print the sample rate or bit depth, so the format rests on the engine check passing with no faults. The waveform shows no flat-topped clipping."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

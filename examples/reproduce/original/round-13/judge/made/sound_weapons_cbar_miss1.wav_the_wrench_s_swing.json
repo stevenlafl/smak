@@ -1,0 +1,79 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.418,
+   "peak": -0.5,
+   "rms": -18,
+   "crest": 17.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.015,
+   "attack": 0.065,
+   "peakAt": 0.13,
+   "t20": 0.11,
+   "t40": 0.229,
+   "centroid": 768,
+   "rolloff": 883,
+   "flatness": 0.168,
+   "bands": {
+    "<150": 1.1,
+    "150-600": 64.7,
+    "600-2k": 25.9,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 1
+  },
+  "class": "swing",
+  "against": {
+   "score": 20,
+   "of": 22,
+   "lines": [
+    "crest 17.5 dB (10.43 to 17.38): too spiky: saturate more, or hold its body longer",
+    "rms -18 dBFS (-25.8 to -19.8): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture reads as a swing: no hard onset at the start, a rise from about 0.05 s to a peak at about 0.13 s (waveform x≈295 of 960), then a long fade to about 0.4 s. The energy is a broadband noise burst, which is what a wrench moving through air should sound like. It does not read as a metal strike, which would show a sharp transient and a ring."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.418 s, attack 0.065 s and t20 0.11 s are all inside the swing class's range. The measured failures (crest, rms) are not envelope lines, so the envelope holds by measure."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 768 Hz is inside the class range, and the band shares (<150 1.1%, 150-600 64.7%, 600-2k 25.9%, 2k-5k 6.7%, >5k 1.6%) are inside it too. The spectrogram matches: the yellow mass sits in roughly 150-600 Hz with a thinner top, and nothing is cut off above 5 kHz. The measures flag no spectral line."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform has sharp spikes clustered around the peak (around x≈280-320 in the waveform strip), where a swing's energy should swell smoothly. The measure agrees: crest 17.5 dB is over the class's top of 17.38 and is flagged 'too spiky'. The spectrogram shows no clear pitch sweep, and flatness 0.168 has no class reference here. Onsets (1) are right. The spikes are a clear character fault, though not a large one."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Clipped 0, DC 0, peak -0.5 dBFS (no clipping), and the engine-fault list is empty. The name is sound/weapons/cbar_miss1.wav. The sample rate and bit depth are not among the listed features, so this rests on the empty engine-fault check rather than a direct read of the format."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

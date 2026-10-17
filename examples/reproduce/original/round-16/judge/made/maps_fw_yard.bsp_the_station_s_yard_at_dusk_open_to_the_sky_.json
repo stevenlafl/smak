@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1548,
+   1548
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard"
+   }
+  ],
+  "landmarks": [
+   null
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief's areas are all there and joined as it says: the start is in the gatehouse at the bottom left (info_player_start 18), the gatehouse door (func_door 1) opens onto the yard, and the pump house (top right) is entered by its double doors (func_door_rotating 2 and 3). The changelevel sits inside the pump house. The yard is one open area with the drums and the pipe section in it."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The map is 1548 by 1548 against the 1500 asked, within 25%. Scaling the plan (256 units is about 153 px), the gatehouse is roughly 300 by 270 units and the pump house roughly 450 by 370, both plausible for their roles. The yard's walkable floor fills the walls as the brief describes."
+  },
+  "P3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for an open-to-sky yard, and the views show a flat yard floor with walls at a height a player can see over, with no stray ledges. The plan's two-tone floors in the gatehouse and pump house are not explained by any entity, so this is a 2 only on the brief's own terms; the level differences could be checked in a section."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The named entities are present: the start (18), the gate door (1), the double doors (2, 3), and the changelevel (4) inside the pump house. The measurement says landmarks: [null]. The landmark entity (19, INFO_LANDMARK) is listed without a name, so the changelevel's landmark fw_lm_yard does not resolve. The way out is placed correctly but cannot be taken as built."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the views the walls take a pale tan tiled pattern that reads as generic, the ground is one flat dark grey with no wet or grate character, and the drum's hazard stripe is the only clear texture work. It is plausible but generic, and the yard floor does not wear the brief's wet concrete."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The lighting does not read as dusk with sodium lamps. The views show a daylight gradient and a bright patch on the top of the far wall, with env_glow and light entities scattered in open air (for example 21 to 24 and 25 to 28 along the wall edges and 32 in the middle of the yard). The lamps are not placed where a lit yard would have them."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The gatehouse, the pump house, stacked drums with a hazard stripe (view 2) and a pipe are present, but the yard is bare. There is no wall trim, grate, pillar, sign or other feature a player would use to know the yard, and the pipe section is a plain column."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements show checkErrors empty, notReached empty and reachWarnings empty, so the map compiles and the walk test reaches its changelevel from the start. No leak result is given, so the mark rests on the walk and compile measures."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show a bare yard under a clear blue daytime sky, not the dusk the brief asks for. The walls are a generic tan brick, the floor is flat dark grey, and the only landmark object is a drum. A player who knows Half-Life would not place it as the station yard at dusk, though the room shapes match the brief."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
+}

@@ -1,0 +1,78 @@
+{
+ "kind": "model",
+ "label": "models/fw_pipejunction.mdl: two pipes meeting at a flanged elbow, bolted",
+ "measured": {
+  "size": [
+   16.6,
+   48.5,
+   41
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 304,
+  "halfLifeMedianOfItsKind": 238,
+  "halfLifeThreeQuartersUnder": 291,
+  "halfLifeMost": 439,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_egon.mdl, models/sentry.mdl, models/floater.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, D, A where the asset was C, A, A, C: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The words ask for two pipes meeting at a flanged elbow. In the front, left and top views the corner is a faceted ball, larger than the pipes, sitting where the pipes meet. The pipes butt into it rather than turning through an elbow, so the outline reads as a ball joint, not an elbow. Both pipes and the base are there."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief gives no size for the pipe junction, so there is no brief size to be within 15% of (sizeAsked is null). The measured 16.6 x 48.5 x 41 is a plausible pipe-junction size beside Half-Life's props, and nothing is off against a stated size."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names bolts. Small bumps show on the base flange (front-left and back-left views), but the two pipe flanges on the horizontal pipe and the elbow's octagonal flange show no bolts at any angle, and the mid-height flange on the vertical pipe is bare. The bolting the brief asks for is only partly there. The pipes, the elbow and the flanges are present."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for rusted steel. The pipes and flanges are grey galvanised-looking steel with rust-brown streaks at the elbow and along the horizontal pipe, which matches it. The pale blue patches read as worn coating rather than a different material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Wear is there as the brief asks: rust streaks, scuffs and worn highlights on the pipes and flanges, in plausible places, at a sharpness that suits the size. Nothing is added that the brief does not ask for."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the line-up test. In the lineup.png line-up the asset (C) sits beside three Valve models and reads as a plausible pipe prop of the same kind and scale. It was never picked as the one not made by Valve in the four readings."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The base flange sits on the floor and the vertical pipe stands upright from it, so it stands on its origin. The horizontal pipe runs off the elbow in one plane, with a clear front. No part hangs or floats."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check has no errors. At 304 triangles it is under the bound for a prop of its kind and size: the bound is the larger of twice the median (476) and the most Valve spends on its kind and size (439). The underside of the elbow is a closed fan of faces, and the pipe ends and the base read as closed from the views given, so nothing open or inside out is visible to a player."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false
+}

@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.531,
+   "peak": -0.5,
+   "rms": -14.7,
+   "crest": 14.2,
+   "dc": 0.0031,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0.145,
+   "t20": 0.205,
+   "t40": 0.279,
+   "centroid": 1371,
+   "rolloff": 1895,
+   "flatness": 0.191,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 7.4,
+    "600-2k": 73.1,
+    "2k-5k": 13.8,
+    ">5k": 0.9
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 19,
+   "of": 22,
+   "lines": [
+    "crest 14.2 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
+    "rms -14.7 dBFS (-12.9 to -5.7): under the range",
+    "t20 0.205 s (0.24 to 0.7): dies too soon: a longer decay"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a loud broadband noise burst at the start, about 0.25 s of body, then a fade to about 0.53 s. It reads as a thud or scrape. There is no visible metallic ring, no bright high-frequency crack above about 5 kHz (the spectrogram's top is dark blue), and the strike does not sound like a wrench on metal from the picture alone. Plausible, not clearly off."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 0.531 s is in range, but t20 is 0.205 s against the metal hit class's 0.24 to 0.7 s, so the sound dies too soon (the measure's own line: 'dies too soon: a longer decay'). Attack is 0 ms, which fits a strike. Decay is outside the class range, so S2 is capped at 1."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid is 1371 Hz and 73.1% of energy sits in 600 Hz to 2 kHz. Only 13.8% is in 2 to 5 kHz and 0.9% above 5 kHz, so the spectrum is narrow and dull for a metal strike. The spectrogram's upper rows are dark, with no bright top end. The class's own reference bands were not given to me, so this is judged from the measured shares, not against the class's band range."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets is 0, so no distinct hit or click is counted at the strike. Flatness 0.191 is noise-like, which is right for a metal strike's body, but the spectrogram shows no ring or partials and no pitch movement. The character of a clang with a bright, ringing onset is missing, so this is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No engine faults are reported. Peak is -0.5 dBFS with clipped 0, and DC is 0.0031, which is small. The file is named sound/weapons/cbar_hit1.wav, the name the game plays. The measures do not state the sample rate or bit depth, so those are not confirmed here, but nothing measured fails the engine's requirements."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

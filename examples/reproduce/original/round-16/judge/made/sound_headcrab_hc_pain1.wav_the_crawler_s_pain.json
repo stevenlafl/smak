@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.716,
+   "peak": -0.5,
+   "rms": -13.2,
+   "crest": 12.7,
+   "dc": 0.0003,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 0.549,
+   "t40": 0.629,
+   "centroid": 2671,
+   "rolloff": 3359,
+   "flatness": 0.19,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 0,
+    "600-2k": 16.3,
+    "2k-5k": 83,
+    ">5k": 0.4
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Judged from the picture only, since it cannot listen. The original's waveform is a run of about 30 separate pulses across its 0.8 s, the warbling cry of a pained creature. The made file (sound.png, top panel) is one continuous noisy swell that starts at full level and decays, closer to a hiss or exhale than a pain cry. The event is near but not the same, so it is clearly off."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.716 s against the game's 0.795 s is within 25% (about 10% short). The t20 decay of 0.549 s against 0.544 s is within the class range, and the attack is 0 with no lead, which matches the original. The measure holds; the decay range itself is not stated, so this rests on the measured figures."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 2671 Hz against 2682 Hz is well inside 20%. Band shares match within 10 points: under 150 Hz 0.2 against 0.2, 150-600 Hz 0 against 0, 600-2k 16.3 against 15.6, 2k-5k 83 against 83.8, over 5k 0.4 against 0.3. The spectrogram's energy looks more spread than the original's, but the measured bands agree."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Not a must-have, but the onsets are clearly off: the made file reports 0 onsets, while the original's waveform (bottom panel) shows about 30 distinct pulses. The character of a pulsed cry is missing. Flatness (0.19) and the pitch line in the spectrogram are not checked against the original's flatness, which is not given, so the score rests on the onsets alone."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Peak -0.5 dBFS with clipped 0, DC 0.0003 and an empty engineFaults list, so the engine's checks pass. The name sound/headcrab/hc_pain1.wav matches the game's. Sample rate, bit depth and channel count are not printed in the measures, so the format is taken from the empty fault list rather than read directly. No loop cue is needed for a pain sound."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

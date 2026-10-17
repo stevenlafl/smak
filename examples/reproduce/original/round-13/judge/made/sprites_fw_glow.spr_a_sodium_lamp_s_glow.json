@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.81,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a sodium lamp's glow: a soft, round, orange-amber radial bloom, brightest at the centre and fading out evenly to the edges, with no shape or hard feature that would make it something else."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "64 by 64 as measured. The glow fills the frame the way a glow should: the measured border is 0 and the bloom reaches close to the frame's edge without any hard cut-off. The number '1' in the top-left corner is the contact-sheet label, not part of the sprite."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "By eye the colour is a warm sodium orange (bright amber core fading to dark), matching the brief's sodium lamp. Nothing in it reads as neon or sci-fi blue or green. The faint grey tail around the bloom is the same orange at low value, not a separate colour."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One frame, which is what the glow class takes: the frame count is 1, the envelope is steady (first and last both 1), and the border is 0, so it is within the class's measures. The brief asks for a glow, not an animation. The dark share of 0.81 is what an additive glow on black should show."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measured as parallel and additive, with the file name fw_glow matching the brief's sprite slot. Additive is the right format for a light glow, so it blends as the engine intends. I could only see the rendered frames here, not the file's header, so the name and type come from the measurements given."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

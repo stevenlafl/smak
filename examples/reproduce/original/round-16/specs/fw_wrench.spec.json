@@ -1,0 +1,301 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_wrench.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "crowbar",
+    "views": [
+      "v",
+      "p",
+      "w"
+    ],
+    "size": "own",
+    "rig": "carry"
+  },
+  "materials": {
+    "handle": {
+      "base": "paint",
+      "picture": "library:rusty_painted_metal",
+      "size": 87,
+      "tone": [
+        0.6,
+        0.12,
+        0.08
+      ]
+    },
+    "iron": {
+      "base": "iron",
+      "picture": "library:metal_plate_02",
+      "size": 79
+    }
+  },
+  "parts": [
+    {
+      "id": "pommel",
+      "kind": "turn",
+      "axis": "z",
+      "material": "iron",
+      "rings": [
+        [
+          0,
+          1.6
+        ],
+        [
+          1,
+          1.6
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "sides": 8
+    },
+    {
+      "id": "grip_low",
+      "kind": "turn",
+      "axis": "z",
+      "material": "handle",
+      "rings": [
+        [
+          1,
+          1.2
+        ],
+        [
+          2.5,
+          1.2
+        ],
+        [
+          4,
+          1.2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "sides": 8,
+      "finish": {
+        "wear": 0.9,
+        "grime": 0.3
+      }
+    },
+    {
+      "id": "grip_worn",
+      "kind": "turn",
+      "axis": "z",
+      "material": "iron",
+      "rings": [
+        [
+          4,
+          1.2
+        ],
+        [
+          5.5,
+          1.2
+        ],
+        [
+          7,
+          1.2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "sides": 8
+    },
+    {
+      "id": "grip_high",
+      "kind": "turn",
+      "axis": "z",
+      "material": "handle",
+      "rings": [
+        [
+          7,
+          1.2
+        ],
+        [
+          8.5,
+          1.2
+        ],
+        [
+          10,
+          1.2
+        ],
+        [
+          11.5,
+          1.2
+        ],
+        [
+          12.5,
+          1.2
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "sides": 8,
+      "finish": {
+        "wear": 0.9,
+        "grime": 0.3
+      }
+    },
+    {
+      "id": "head",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        4,
+        3.2,
+        6
+      ],
+      "at": [
+        0,
+        0,
+        12.5
+      ]
+    },
+    {
+      "id": "jaw",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        7.6,
+        3.4,
+        2.2
+      ],
+      "at": [
+        4.8,
+        0,
+        16.8
+      ]
+    },
+    {
+      "id": "jaw_moving",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        7.6,
+        3.2,
+        2
+      ],
+      "at": [
+        4.8,
+        0,
+        11.6
+      ]
+    },
+    {
+      "id": "tooth_a",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.4,
+        1
+      ],
+      "at": [
+        3,
+        0,
+        15.8
+      ]
+    },
+    {
+      "id": "tooth_b",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.4,
+        1
+      ],
+      "at": [
+        5,
+        0,
+        15.8
+      ]
+    },
+    {
+      "id": "tooth_c",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.4,
+        1
+      ],
+      "at": [
+        7,
+        0,
+        15.8
+      ]
+    },
+    {
+      "id": "tooth_d",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.2,
+        1
+      ],
+      "at": [
+        3,
+        0,
+        13.6
+      ]
+    },
+    {
+      "id": "tooth_e",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.2,
+        1
+      ],
+      "at": [
+        5,
+        0,
+        13.6
+      ]
+    },
+    {
+      "id": "tooth_f",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3.2,
+        1
+      ],
+      "at": [
+        7,
+        0,
+        13.6
+      ]
+    }
+  ]
+}

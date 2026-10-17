@@ -1,0 +1,80 @@
+{
+ "kind": "model",
+ "label": "models/fw_valvewheel.mdl: a valve wheel, red paint worn to steel at the rim",
+ "measured": {
+  "size": [
+   14.2,
+   32.4,
+   32.4
+  ],
+  "sizeAsked": {
+   "across": 32
+  },
+  "sizeOff": 0.011,
+  "triangles": 376,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_longjump.mdl, models/rip.mdl, models/uplant1.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, C, D where the asset was C, A, B, D: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The outline is a round hand wheel: a ring rim with four spokes meeting an octagonal hub, reading as a valve wheel in FRONT, BACK and the oblique views. Nothing sticks out or is missing. The brief names only a round valve wheel, and the outline matches that."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Across is 32.4 units against the brief's 32 (sizeOff 0.011, within the 15% band). Thickness is 14.2, which the brief does not give, so it is not charged."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief names a valve wheel and red paint worn to steel at the rim. Both are there: the ring rim, with silver wear bands on its inner face (FRONT, FRONT-LEFT, BACK-RIGHT) and steel at the side blocks. The spokes, hub and spindle are not named by the brief and are not charged. None of the three Valve models in the line-up shares a wheel or a part that a wheel should have, so no part is required by that test."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The rim and spokes are red painted metal, with dark streaks on the red. The worn areas are steel grey on the inner rim and on the side blocks, and the hub's hex face is bright steel. This matches the brief's red worn to steel at the rim. No region is the wrong material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The wear is in the right place: silver steel showing through the red along the rim's inner face (FRONT, BACK), with dark crack-like lines on the red rim (FRONT top, BACK bottom). The wear reads as worn paint and not as an out-of-place stripe. The steel bands are fairly clean-edged, but that is a small point."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 as instructed. In the four-way line-up the asset was picked as the odd one out in 1 of 4 readings (the reading where it stood at D), so the line-up result does not show it as clearly not Valve's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The face points to the viewer in FRONT, the wheel stands upright in LEFT and RIGHT, and the hub sits at the centre of the bounding box in TOP and BELOW, so it reads as standing on its origin. The brief gives no facing, and the origin was not measured directly."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's checks pass with no errors. The views show the rim, spokes, hub and spindle closed, with no open or inside-out faces visible. At 376 triangles it is under the 422 that Valve spends on its largest prop of this size, so the 'most Valve spends' ceiling is not exceeded. It is well above the median of 99 and above the third quartile of 156, which is a warning and not a fault."
+  }
+ },
+ "total": 16,
+ "of": 16,
+ "passes": true
+}

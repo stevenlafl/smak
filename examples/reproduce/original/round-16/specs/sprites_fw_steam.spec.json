@@ -1,0 +1,147 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 12,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel oriented",
+      "format": "index alpha",
+      "colour": [
+        0.82,
+        0.86,
+        0.82
+      ],
+      "origin": "centre",
+      "finish": {
+        "edge": 3
+      },
+      "layers": [
+        {
+          "kind": "billow",
+          "count": 22,
+          "spread": 0.5,
+          "size": 0.3,
+          "rise": 0.25,
+          "drift": 0.12,
+          "dissolve": 0.7,
+          "colour": [
+            0.82,
+            0.86,
+            0.82
+          ],
+          "env": {
+            "attack": 0.2,
+            "decay": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "type": "parallel",
+      "format": "additive",
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.95,
+          "core": 0.12,
+          "colour": [
+            1,
+            0.55,
+            0.16
+          ],
+          "at": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 8,
+      "loop": false,
+      "fps": 10,
+      "type": "parallel",
+      "format": "index alpha",
+      "colour": [
+        0.56,
+        0.63,
+        0.48
+      ],
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "smoke",
+          "density": 0.5,
+          "spread": 0.2,
+          "rise": 0.1,
+          "colour": [
+            0.5,
+            0.56,
+            0.44
+          ],
+          "env": {
+            "attack": 0.3,
+            "decay": 0.7
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 12,
+          "speed": 1.4,
+          "gravity": 1,
+          "trail": 0.3,
+          "colour": [
+            0.56,
+            0.63,
+            0.48
+          ],
+          "env": {
+            "attack": 0.3,
+            "decay": 0.7
+          }
+        },
+        {
+          "kind": "blobs",
+          "count": 18,
+          "radius": 0.2,
+          "spread": 0.55,
+          "core": 0.4,
+          "soft": 0.4,
+          "colour": [
+            0.56,
+            0.63,
+            0.48
+          ],
+          "env": {
+            "attack": 0.3,
+            "decay": 0.7
+          }
+        }
+      ]
+    }
+  ]
+}

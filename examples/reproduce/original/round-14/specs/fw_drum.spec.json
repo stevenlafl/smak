@@ -1,0 +1,90 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_drum.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 35,
+    "width": 23
+  },
+  "materials": {
+    "drum": {
+      "base": "steel",
+      "picture": "library:rust_coarse_01",
+      "size": 87,
+      "rust": 0.6
+    },
+    "hoop": {
+      "base": "steel",
+      "picture": "library:metal_plate_02",
+      "size": 79
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.85,
+        0.65,
+        0.08
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "cylinder",
+      "material": "drum",
+      "radius": 11.5,
+      "height": 35,
+      "sides": 14
+    },
+    {
+      "id": "hoop_top",
+      "kind": "band",
+      "material": "hoop",
+      "on": {
+        "part": "body",
+        "s": 0.1
+      },
+      "width": 2,
+      "height": 0.6
+    },
+    {
+      "id": "hoop_bottom",
+      "kind": "band",
+      "material": "hoop",
+      "on": {
+        "part": "body",
+        "s": 0.9
+      },
+      "width": 2,
+      "height": 0.6
+    },
+    {
+      "id": "stripe",
+      "kind": "band",
+      "material": "hazard",
+      "on": {
+        "part": "body",
+        "s": 0.5
+      },
+      "width": 9,
+      "height": 0.5
+    },
+    {
+      "id": "bung",
+      "kind": "cylinder",
+      "material": "hoop",
+      "radius": 1.6,
+      "height": 2.2,
+      "attach": {
+        "to": "body",
+        "toAt": "top",
+        "at": "bottom",
+        "offset": [
+          4,
+          0,
+          -0.5
+        ]
+      }
+    }
+  ]
+}

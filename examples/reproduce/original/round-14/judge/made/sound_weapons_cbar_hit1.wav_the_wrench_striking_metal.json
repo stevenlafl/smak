@@ -1,0 +1,81 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.781,
+   "peak": -0.5,
+   "rms": -8.4,
+   "crest": 7.9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.065,
+   "peakAt": 0.249,
+   "t20": 0.344,
+   "t40": 0.499,
+   "centroid": 768,
+   "rolloff": 775,
+   "flatness": 0,
+   "bands": {
+    "<150": 0,
+    "150-600": 0,
+    "600-2k": 99.6,
+    "2k-5k": 0.4,
+    ">5k": 0
+   },
+   "onsets": 1
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 17,
+   "of": 22,
+   "lines": [
+    "centroid 768 Hz (1074 to 1654): too dark: more 600 to 5000 Hz",
+    "flatness 0 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 99.6% (63.7 to 83.8): over the range",
+    "band 2k-5k 0.4% (3.7 to 24.6): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a dense burst of transients from 0 to about 0.25 s, peaking at 0.249 s, then a decay to 0.78 s. That fits a strike on metal, but the body is one pure horizontal ring running the whole length of the spectrogram, which reads more like a struck bell or ping than a wrench's clang. The event is recognisable but clearly off in character."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.781 s, attack 0.065 s, t20 0.344 s and t40 0.499 s. The measured against-lines flag only centroid, flatness and the two bands, so no envelope item is flagged. The class's own range numbers were not shown to me, so this rests on the absence of a flag, not on a stated range."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured failures: centroid 768 Hz, outside the 1074 to 1654 Hz range (more than 20% below its lower bound). Band 600-2k holds 99.6% against 63.7 to 83.8%, which is 15.8 points over the range. The 2k-5k band at 0.4% is 3.3 points under its range, within the 10-point allowance. The picture agrees: the energy sits almost wholly in one low-mid line, with little above 2 kHz."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0 against a class range of 0.16 to 0.28, so the sound is far too pure, with no noise in the hit. The picture shows a dense onset cluster in the first 0.25 s, so the hit itself has some character, but the tone is clearly too clean. Onsets and pitch movement were not measured."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No engine faults were reported. Clipped is 0, DC is 0, and peak is -0.5 dBFS, so no clipping. The sample rate and bit depth were not in the measures, so the format is taken as passing the engine's check. It is not a loop, so no cue applies."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

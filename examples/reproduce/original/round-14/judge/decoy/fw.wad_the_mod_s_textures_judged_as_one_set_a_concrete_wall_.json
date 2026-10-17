@@ -1,0 +1,158 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_plain0",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain1",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain2",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain3",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain4",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain5",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain6",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain7",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain8",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain9",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain10",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain11",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "All twelve pictures (fw_plain0 to fw_plain11) are one flat mid-grey with no pattern, so none reads as the brief's material: no concrete wall or floor, grate, catwalk, pipe wall, hazard trim, rusted plate, control panel, lit lamp face, water, PUMP 3 sign or door. The names say 'plain' and the surfaces are plain."
+  },
+  "T2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The mean colour is neutral grey everywhere. The brief asks for yellow hazard paint, a sodium-orange lamp face and green-grey water, and none of those colours appears in any of the twelve. Grey matches only the concrete and steel, so most of the set is wrong."
+  },
+  "T3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "No panels, seams, bricks, tiles, holes, stripes or lettering exist in any of the twelve (fw_plain0 to fw_plain11), so nothing lines up at the scale of a wall of the game's. The sign's text and the grate's holes are absent."
+  },
+  "T4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "No seam shows where the textures would repeat, since each is a uniform field, so the step across its edges is zero and the measure holds. But there is no pattern to tile, so the absence of a seam says nothing about the brief's surfaces; this is a 1, not a 2."
+  },
+  "T5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The measured fine detail is 0 on every texture. The band is 10.8 to 75 and the brief asks for concrete, grate, rust, panels and dials, none of which is plain, so flat is wrong here and not the right reading. Beside Half-Life's own textures of these kinds, none is as sharp, detailed or believable."
+  },
+  "T6": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "All twelve are 64x64, which meets the size the brief implies, and there are twelve of them. But the kinds are not kept: no '{' grate with holes, no '!' water, no '+' animated frames, no lit lamp face, and no door or sign. The names fw_plain0 to fw_plain11 say nothing of what each is, so the map's faces could not be told apart by kind."
+  }
+ },
+ "total": 1,
+ "of": 12,
+ "passes": false
+}

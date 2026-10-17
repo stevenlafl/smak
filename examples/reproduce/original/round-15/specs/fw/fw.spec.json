@@ -1,0 +1,357 @@
+{
+  "spec": "smak.wad/1",
+  "name": "fw.wad",
+  "materials": {
+    "concrete": {
+      "base": "stone",
+      "picture": "library:concrete_layers_02",
+      "size": 79
+    },
+    "wetconc": {
+      "base": "stone",
+      "picture": "library:concrete_floor_worn_001",
+      "size": 118,
+      "tone": "dark grey"
+    },
+    "grate": {
+      "base": "mesh",
+      "cell": 8,
+      "tone": "dark grey"
+    },
+    "catwalk": {
+      "base": "steel",
+      "picture": "library:metal_plate",
+      "size": 64,
+      "filter": "literal",
+      "tile": true
+    },
+    "pipes": {
+      "base": "iron",
+      "tone": [
+        0.36,
+        0.33,
+        0.28
+      ]
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.85,
+        0.65,
+        0.08
+      ],
+      "stripe": 12,
+      "angle": 1.06
+    },
+    "rust": {
+      "base": "steel",
+      "picture": "library:rust_coarse_01",
+      "size": 87
+    },
+    "panel": {
+      "base": "metal",
+      "picture": "library:blue_metal_plate",
+      "size": 98
+    },
+    "lamp": {
+      "base": "glass",
+      "tone": [
+        1,
+        0.6,
+        0.18
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    },
+    "water": {
+      "base": "water",
+      "tone": [
+        0.3,
+        0.38,
+        0.32
+      ]
+    },
+    "sign": {
+      "base": "paint",
+      "tone": [
+        0.85,
+        0.7,
+        0.1
+      ]
+    },
+    "door": {
+      "base": "door",
+      "tone": [
+        0.4,
+        0.45,
+        0.42
+      ]
+    }
+  },
+  "textures": [
+    {
+      "name": "fw_concrete",
+      "size": [
+        128,
+        128
+      ],
+      "material": "concrete",
+      "grime": 0.5
+    },
+    {
+      "name": "fw_concrete2",
+      "size": [
+        128,
+        128
+      ],
+      "material": "concrete",
+      "grime": 0.6,
+      "wear": {
+        "stains": 0.6,
+        "cracks": 0.4
+      }
+    },
+    {
+      "name": "fw_wetfloor",
+      "size": [
+        128,
+        128
+      ],
+      "material": "wetconc",
+      "grime": 0.6,
+      "wear": {
+        "stains": 0.7,
+        "streaks": 0.6,
+        "speckle": 0.8
+      }
+    },
+    {
+      "name": "{fw_grate",
+      "size": [
+        64,
+        64
+      ],
+      "material": "grate"
+    },
+    {
+      "name": "fw_catwalk",
+      "size": [
+        128,
+        128
+      ],
+      "material": "catwalk",
+      "grime": 0.4
+    },
+    {
+      "name": "fw_pipes",
+      "size": [
+        128,
+        128
+      ],
+      "material": "pipes",
+      "grime": 0.5,
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              40
+            ],
+            [
+              128,
+              40
+            ]
+          ],
+          "radius": 12
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              96
+            ],
+            [
+              128,
+              96
+            ]
+          ],
+          "radius": 12
+        }
+      ]
+    },
+    {
+      "name": "fw_hazard",
+      "size": [
+        128,
+        64
+      ],
+      "material": "hazard"
+    },
+    {
+      "name": "fw_rust",
+      "size": [
+        128,
+        128
+      ],
+      "material": "rust"
+    },
+    {
+      "name": "fw_panel",
+      "size": [
+        128,
+        128
+      ],
+      "material": "panel",
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            40,
+            84
+          ],
+          "size": [
+            22,
+            22
+          ],
+          "colour": [
+            0.9,
+            0.7,
+            0.2
+          ]
+        },
+        {
+          "kind": "lamp",
+          "at": [
+            88,
+            84
+          ],
+          "size": [
+            22,
+            22
+          ],
+          "colour": [
+            0.9,
+            0.7,
+            0.2
+          ]
+        },
+        {
+          "kind": "lamp",
+          "at": [
+            64,
+            44
+          ],
+          "size": [
+            30,
+            30
+          ],
+          "colour": [
+            0.8,
+            0.8,
+            0.75
+          ]
+        },
+        {
+          "kind": "louvre",
+          "at": [
+            20,
+            14
+          ],
+          "size": [
+            88,
+            12
+          ],
+          "count": 6
+        }
+      ]
+    },
+    {
+      "name": "~fw_lamp",
+      "size": [
+        64,
+        64
+      ],
+      "material": "lamp",
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            32,
+            32
+          ],
+          "size": [
+            46,
+            46
+          ],
+          "colour": [
+            1,
+            0.6,
+            0.18
+          ]
+        },
+        {
+          "kind": "bars",
+          "at": [
+            2,
+            2
+          ],
+          "size": [
+            60,
+            60
+          ],
+          "count": 7,
+          "width": 3,
+          "axis": "x"
+        }
+      ]
+    },
+    {
+      "name": "!fw_water",
+      "size": [
+        128,
+        128
+      ],
+      "material": "water",
+      "wear": {
+        "streaks": 0.7,
+        "stains": 0.4
+      }
+    },
+    {
+      "name": "fw_sign",
+      "size": [
+        128,
+        64
+      ],
+      "material": "sign",
+      "print": {
+        "text": "PUMP 3",
+        "size": 0.55,
+        "ink": [
+          0.1,
+          0.1,
+          0.08
+        ]
+      }
+    },
+    {
+      "name": "fw_door",
+      "size": [
+        128,
+        128
+      ],
+      "material": "door",
+      "grime": 0.6,
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.5
+      }
+    }
+  ],
+  "preview": {
+    "views": 6
+  }
+}

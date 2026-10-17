@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 16,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 16,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.253,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.2,
+    "first": 0.2,
+    "last": 0
+   },
+   "dark": 0.79,
+   "wrap": 0.88,
+   "jitter": 1.48
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.48,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.2,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.2,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frames show a steam column rising from a bright base, widening and thinning, then drifting up and dissolving into the dark. That is the steam puff the brief asks for, animated, not a disc or a flat glow."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 16 frames are 64 by 64. The column sits centred and rises through the frame; border mean is 0.003 and max 0.253, inside the class's 0 to 0.005 mean range. Frames 2 to 4 come close to the top edge, a minor point that the measures do not flag."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Grey-white steam on a near-black ground, dim and soft, brighter at the base in frames 2 to 7 and fading to nothing by frame 13. This reads as steam blended additively, the colour the brief implies. No measure is given, so this is judged by eye."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The class's envelope holds: peak at frame 3 (0.2 of 16, within 0.2 to 0.6), first frame 0.2 (within 0 to 0.35), last frame 0 (within 0 to 0.1). Jitter is 1.48 (class 0.9 to 1.5). Motion is a rise and thin, and the one-shot ends dark. The frame count is 16 as measured."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Name, additive format and 64 by 64 size are as the class expects, and the file reads back. But the type is measured as 'parallel', and the amendment records the game's steam sprite (steam1) as 'parallel oriented'. A steam puff built 'parallel' is off the game's type for its class. The brief gives no type for fw_steam, so this is a fault against the game's steam class, not a contradiction of the brief."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

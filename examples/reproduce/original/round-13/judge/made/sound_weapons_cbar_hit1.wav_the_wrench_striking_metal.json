@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.765,
+   "peak": -0.5,
+   "rms": -13.3,
+   "crest": 12.8,
+   "dc": 0.0017,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.025,
+   "peakAt": 0.025,
+   "t20": 0.559,
+   "t40": 0.673,
+   "centroid": 1548,
+   "rolloff": 1744,
+   "flatness": 0.042,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 6.9,
+    "600-2k": 73.3,
+    "2k-5k": 14,
+    ">5k": 0.9
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 18,
+   "of": 22,
+   "lines": [
+    "crest 12.8 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
+    "rms -13.3 dBFS (-12.9 to -5.7): under the range",
+    "flatness 0.042 (0.16 to 0.28): too pure: more noise"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The waveform has one sharp attack at about 0.025 s and a ring decaying over 0.7 s, and the spectrogram shows bright, sustained horizontal partials. That is a metal strike ringing, consistent with a wrench on metal. The sound is more tonal than a clank would be, which is scored under S4, not here."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.765 s, attack 0.025 s, t20 0.559 s and t40 0.673 s. The measure's fault lines (crest, rms, flatness) do not include the envelope, so the decay is within the metal hit class's range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 1548 Hz, with 73.3% of energy in 600 Hz to 2 kHz, 14% in 2 to 5 kHz, 6.9% in 150 to 600 Hz, 4.9% under 150 Hz and 0.9% over 5 kHz. The measure flags no spectrum line for this class. Narrow spread and a rolloff at 1744 Hz are as measured; I cannot see the class range itself, so this rests on the measure."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness 0.042 against the class's 0.16 to 0.28: the spectrogram shows clear horizontal tonal bands from about 600 Hz up, so the hit is too pure, with too little noise in the strike. Onsets are 0, so the spectrogram shows one attack and no clack or second hit. Pitch is steady across the bands, with no glide, which is correct for this class."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Engine faults are empty and clipped is 0. Peak is -0.5 dBFS, so there is headroom. DC is 0.0017 (0.17% of full scale), which is small and within the measure's pass. The picture alone does not show the format, so this rests on the engine checks and the measure, not on the waveform."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

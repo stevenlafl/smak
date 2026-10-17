@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.593,
+   "peak": -0.5,
+   "rms": -15,
+   "crest": 14.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.234,
+   "peakAt": 0.234,
+   "t20": 0.155,
+   "t40": 0.254,
+   "centroid": 2765,
+   "rolloff": 3165,
+   "flatness": 0.122,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 0,
+    "600-2k": 16.5,
+    "2k-5k": 82.9,
+    ">5k": 0.3
+   },
+   "onsets": 1
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Same kind of event (a creature's pain cry), but the shape is wrong. The game's own is a run of about 30 rapid, regular pulses across the full 0.8 s, which is the chittering character of the pain. The replacement (top panel) is one heavy swell peaking at 0.234 s and then a smeared decay, with no repeated pulses."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.593 s against the game's 0.795 s, 25.4% short, just outside the 25% allowance. The envelope also differs: t20 is 0.155 s against the game's 0.544 s, so the replacement rises to 20% of its peak about three and a half times faster. The attack and decay do not sit in the same range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 2765 Hz against 2682 Hz is 3% off, inside 20%. Every band is within 10 points of the game's: <150 0.2 vs 0.2, 150-600 0 vs 0, 600-2k 16.5 vs 15.6, 2k-5k 82.9 vs 83.8, >5k 0.3 vs 0.3."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are wrong: the replacement has 1 onset where the game's pain is a series of many pulses, visible as a run of peaks in the waveform. Flatness is 0.122, inside the tonal-to-noisy range the game's sounds occupy, and the spectrogram shows a steady tonal band, so the tone is roughly right. The pulsed character is missing."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Same name (sound/headcrab/hc_pain1.wav). No clipping (clipped 0), no DC (0), no lead silence, peak -0.5 dBFS, and engineFaults is empty. The sample rate and bit depth are not in the measures given; the pass rests on the empty fault list and on the rolloff and >5k share (0.3%) being consistent with a low rate."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}
