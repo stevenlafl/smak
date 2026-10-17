@@ -70,16 +70,18 @@ export const band = (value, two, one, lowerIsBetter = false) =>
   value === null || value === undefined || Number.isNaN(value) ? 0 : lowerIsBetter ? (value <= two ? 2 : value <= one ? 1 : 0) : value >= two ? 2 : value >= one ? 1 : 0;
 
 /** The end of every judge's prompt: score these items, each reason naming what is wrong and where (rubric.md, "Keeping the judge honest"), as JSON alone. */
-export const askScores = (items) =>
-  `Score every item, ${items.join(", ")}, 0, 1 or 2, each with a reason that names what is wrong and where (or what makes it right). Reply with JSON alone, of this form:
-{${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}`;
+export function askScores(items, { each } = {}) {
+  const one = `{${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}`;
+  return `Score ${each ? `EVERY ${each}, items` : "every item,"} ${items.join(", ")}, 0, 1 or 2, each with a reason that names what is wrong and where (or what makes it right). Reply with JSON alone, of this form:
+${each ? `{ "<${each} name>": ${one}, ... }` : one}`;
+}
 
 /**
  * What every judge of a model is told before it scores (rubric.md, amendment "the model judge's prompt", from
  * Steven's reviews: the headcrab's missing claws and the battery's 7-sided cylinder seen by neither judge, texture
  * faults charged to shape). `against`: what it is held to, "the original" or "what the brief asks".
  */
-export const MODEL_GUIDE = (against = "the original") => `For M3, first list the parts of ${against} down to the small ones${against === "the original" ? ", as the close angles show them" : ""}: claws, teeth, rivets, handles, tabs, the number of sides or facets of a round part. Then find each in the ${against === "the original" ? "reproduction" : "asset"}. A small part missing, or a round part with a different number of sides, makes M3 at most 1.
+export const MODEL_GUIDE = (against = "the original") => `For M3, first list ${against === "the original" ? "the original's parts down to the small ones, as the close angles show them" : "the parts the brief asks for down to the small ones"}: claws, teeth, rivets, handles, tabs, the number of sides or facets of a round part. Then find each in the ${against === "the original" ? "reproduction" : "asset"}. A small part missing, or a round part with a different number of sides, makes M3 at most 1.
 
 Tell paint from shape. A difference only in the painted picture (stripes in another place, softer detail, a smear, wear) is M4 or M5, not M1 or M3; a shape that is really different (a part missing, too big, the wrong form) is M1 or M3. Before you charge a shape item, check in the side and angle views that the outline itself differs, not just the paint on it.`;
 

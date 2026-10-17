@@ -30,6 +30,7 @@ import { sheetOf } from "../../src/sprite/draw.mjs";
 import { measureSprite } from "../../src/sprite/measure.mjs";
 import { toLab } from "../../src/spec/colours.mjs";
 import { writeSpr } from "../../src/sprite/spr.mjs";
+import { itemsOf, parseAnswer, settle, combine, askScores, band } from "./scoring.mjs";
 
 const { maps, audio: A } = smak;
 const ROOT = join(HERE, "assets");
@@ -359,7 +360,6 @@ function meanLab(picture, ground) {
   return n ? s.map((v) => v / n) : null;
 }
 const deltaE = (a, b) => (a && b ? round(Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2])) : null);
-const band = (v, two, one, lowerBetter = true) => (v === null || v === undefined ? 0 : lowerBetter ? (v <= two ? 2 : v <= one ? 1 : 0) : v >= two ? 2 : v >= one ? 1 : 0);
 
 export function measureSpriteCopy(original, copy, dir, { sameName = true } = {}) {
   const o = maps.readSpr(original);
@@ -381,7 +381,7 @@ export function measureSpriteCopy(original, copy, dir, { sameName = true } = {})
     sameName,
     readsBack: c.frames.length > 0 && c.frames.every((f) => f.pixels?.length === f.width * f.height),
   };
-  const caps = { R2: o.width === c.width && o.height === c.height ? 2 : 1, R3: band(colour, 15, 25), R4: band(frameShare, 0.25, 0.5), R5: o.type === c.type && o.format === c.format ? (sameName && measured.readsBack ? 2 : 1) : 0 };
+  const caps = { R2: o.width === c.width && o.height === c.height ? 2 : 1, R3: band(colour, 15, 25, true), R4: band(frameShare, 0.25, 0.5, true), R5: o.type === c.type && o.format === c.format ? (sameName && measured.readsBack ? 2 : 1) : 0 };
   return { measured, caps, pictures: `${dir}/original.png (the original's frames as the engine blends them, numbered) and ${dir}/reproduction.png (the reproduction's, the same way)` };
 }
 
@@ -401,7 +401,7 @@ export function measureSoundCopy(original, copy, dir, subject, { sameName = true
   const t20Range = loop ? null : subject.class ? A.rangesOf(subject.class).t20 : [fo.t20 - Math.max(0.05, fo.t20 * 0.25), fo.t20 + Math.max(0.05, fo.t20 * 0.25)];
   const t20In = !t20Range || (fc.t20 >= t20Range[0] && fc.t20 <= t20Range[1]);
   const measured = { original: fo, reproduction: fc, envelope: { class: subject.class ?? "none: the original's own decay", t20Range: t20Range && t20Range.map((v) => round(v, 3)), t20: round(fc.t20, 3), inRange: t20In }, lengthOff: round(lengthShare, 3), centroidOff: round(centroidShare, 3), bandsOffMost: round(bandsOff), engineFaults: checks.faults, sameName, format: { rate: c.rate, bits: c.bits, channels: c.channels } };
-  const caps = { S2: Math.min(band(lengthShare, 0.25, 0.5), t20In ? 2 : 1), S3: Math.min(band(centroidShare, 0.2, 0.4), band(bandsOff, 10, 20)), S5: checks.faults.length ? 0 : sameName ? 2 : 1 };
+  const caps = { S2: Math.min(band(lengthShare, 0.25, 0.5, true), t20In ? 2 : 1), S3: Math.min(band(centroidShare, 0.2, 0.4, true), band(bandsOff, 10, 20, true)), S5: checks.faults.length ? 0 : sameName ? 2 : 1 };
   return { measured, caps, pictures: `${dir}/sounds.png (the original's waveform over its spectrogram above, the reproduction's below, at one time scale)` };
 }
 
@@ -461,28 +461,9 @@ export function measureTexturesCopy(originalBsp, wadBytes, dir) {
 
 // ── the judge ─────────────────────────────────────────────────────────────
 
-const ITEMS = { sprites: ["R1", "R2", "R3", "R4", "R5"], sounds: ["S1", "S2", "S3", "S4", "S5"], textures: ["T1", "T2", "T3", "T4", "T5", "T6"] };
-const MUST = { sprites: ["R1", "R2", "R3", "R4", "R5"], sounds: ["S1", "S2", "S3", "S5"], textures: ["T1", "T2", "T3", "T5", "T6"] };
+/** The rubric's table each kind of this test is scored on. */
+const TABLE = { sprites: "sprite", sounds: "sound", textures: "texture" };
 const TITLE = { sprites: "Sprites (each sprite)", sounds: "Sounds (each sound)", textures: "Textures (each texture)" };
-
-function settle(kind, judged, caps) {
-  const items = ITEMS[kind];
-  const scores = {};
-  for (const item of items) {
-    const given = Math.max(0, Math.min(2, Number(judged?.[item]?.score ?? 0)));
-    scores[item] = { judge: given, cap: caps[item] ?? null, score: Math.min(given, caps[item] ?? 2), reason: judged?.[item]?.reason ?? "", ...(judged?.[item]?.of ? { judges: judged[item].of } : {}) };
-  }
-  const total = items.reduce((s, i) => s + scores[i].score, 0);
-  return { scores, total, of: 2 * items.length, passes: MUST[kind].every((i) => scores[i].score === 2) && total >= 0.85 * 2 * items.length };
-}
-
-const parse = (answer) => {
-  try {
-    return JSON.parse(answer.slice(answer.indexOf("{"), answer.lastIndexOf("}") + 1));
-  } catch {
-    return null;
-  }
-};
 
 /**
  * The judge asked JUDGES times over the same pictures and measures (--judges n; 1 unless told), each item's score
@@ -490,24 +471,8 @@ const parse = (answer) => {
  * about three textures of 25 (2026-10-16): the middle of three steadies the reading without changing the rubric.
  */
 async function judged(ask) {
-  const answers = (await Promise.all(Array.from({ length: JUDGES }, (_, draw) => runJudge({ ...ask, draw })))).map((r) => ({ r, json: parse(r.answer) }));
-  const good = answers.filter((a) => a.json);
-  if (!good.length) return { json: null, r: answers[0].r };
-  if (good.length === 1) return { json: good[0].json, r: good[0].r };
-  const middle = (list) => {
-    const scored = list.filter((x) => x && Number.isFinite(x.score)).sort((a, b) => a.score - b.score);
-    return scored.length ? { ...scored[Math.floor((scored.length - 1) / 2)], of: scored.map((x) => x.score) } : undefined;
-  };
-  // one level of items ({ R1: { score } }), or two (textures: { name: { T1: { score } } })
-  const merge = (objects) => {
-    const keys = [...new Set(objects.flatMap((o) => Object.keys(o ?? {})))];
-    return Object.fromEntries(keys.map((k) => {
-      const vals = objects.map((o) => o?.[k]);
-      const leaf = vals.some((v) => v && typeof v === "object" && "score" in v);
-      return [k, leaf ? middle(vals) : merge(vals)];
-    }));
-  };
-  return { json: merge(good.map((a) => a.json)), r: good[0].r };
+  const answers = await Promise.all(Array.from({ length: JUDGES }, (_, draw) => runJudge({ ...ask, draw })));
+  return { json: combine(answers.map((r) => r.answer), "middle"), r: answers.find((r) => parseAnswer(r.answer)) ?? answers[0] };
 }
 
 async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
@@ -516,19 +481,19 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
   mkdirSync(dir, { recursive: true });
   const original = readFileSync(join(GAME, subject.file));
   const copy = readFileSync(copyFile);
-  const items = ITEMS[kind];
+  const { items, must } = itemsOf(TABLE[kind]);
   const head = `You are an independent judge. A ${kind === "textures" ? "set of replacement textures" : kind === "sounds" ? "replacement sound" : "reproduction of a sprite"} was made of a game's own by someone who could not open the original's files. Judge it strictly by the rubric below (the "${TITLE[kind]}" table, and "Passing" and "Keeping the judge honest"). A measured item may score lower than its measurement allows, never higher.`;
   if (kind === "textures") {
     const m = measureTexturesCopy(original, copy, dir);
     const { json: textureJudged } = await judged({
       read: dir,
       hours: 1,
-      prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; flatDeltaE: the same of the textures themselves, flat; present and sizeKept: the replacement has the name and its size; frames: an animation's frames or a random set's tiles, the original's and those the replacement has, allKept true when it has every one, each frame shown flat as its own tile labelled "frame n of m of <name>"):\n${JSON.stringify(m.rows)}\n\nScore EVERY texture, items ${items.join(", ")}, 0, 1 or 2 each with a reason. Reply with JSON alone: { "<texture name>": { ${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")} }, ... }\n\nTHE RUBRIC\n${RUBRIC}`,
+      prompt: `${head}\n\nThe pictures: ${m.pictures}. Look at every picture closely.\n\nThe measurements, texture by texture (deltaE: the mean colour of its view, original against replacement; flatDeltaE: the same of the textures themselves, flat; present and sizeKept: the replacement has the name and its size; frames: an animation's frames or a random set's tiles, the original's and those the replacement has, allKept true when it has every one, each frame shown flat as its own tile labelled "frame n of m of <name>"):\n${JSON.stringify(m.rows)}\n\n${askScores(items, { each: "texture" })}\n\nTHE RUBRIC\n${RUBRIC}`,
     });
     const byTexture = textureJudged ?? {};
     const results = m.rows.map((row) => {
-      const caps = { T2: band(Math.max(row.deltaE ?? 0, row.flatDeltaE ?? 0), 15, 25), T6: row.sizeKept ? 2 : 0 };
-      return { texture: row.name, measured: row, caps, ...settle(kind, byTexture[row.name], caps) };
+      const caps = { T2: band(Math.max(row.deltaE ?? 0, row.flatDeltaE ?? 0), 15, 25, true), T6: row.sizeKept ? 2 : 0 };
+      return { texture: row.name, measured: row, caps, ...settle(TABLE[kind], byTexture[row.name], caps) };
     });
     const passed = results.filter((x) => x.passes).length;
     return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, judges: JUDGES, textures: results, passed, of: results.length, passes: passed >= 0.8 * results.length, total: passed, error: Object.keys(byTexture).length ? undefined : "the judge's answer was not JSON" };
@@ -538,15 +503,15 @@ async function judgeOne(kind, subject, leg, copyFile, { decoy } = {}) {
   const ran = !decoy && existsSync(join(folderOf(kind, subject.id), leg, "run.json")) ? JSON.parse(readFileSync(join(folderOf(kind, subject.id), leg, "run.json"), "utf8")) : null;
   const sameName = ran ? ran.built === basename(subject.file) : true;
   const m = kind === "sprites" ? measureSpriteCopy(original, copy, dir, { sameName }) : measureSoundCopy(original, copy, dir, subject, { sameName });
-  const failed = failedByMeasure(m.caps, MUST[kind]);
-  if (failed.length) return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, measured: m.measured, caps: m.caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * ITEMS[kind].length };
+  const failed = failedByMeasure(m.caps, must);
+  if (failed.length) return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, measured: m.measured, caps: m.caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * items.length };
   const { json: itemJudged, r } = await judged({
     read: dir,
     hours: 0.5,
-    prompt: `${head}\n\nThe pictures: ${m.pictures}. Look closely.\n\nThe measurements:\n${JSON.stringify(m.measured, null, 1)}\n\n${kind === "sounds" ? "You cannot listen: judge S1 and S4 from the pictures and features, and say so in their reasons.\n\n" : ""}Score every item, ${items.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}\n\nTHE RUBRIC\n${RUBRIC}`,
+    prompt: `${head}\n\nThe pictures: ${m.pictures}. Look closely.\n\nThe measurements:\n${JSON.stringify(m.measured, null, 1)}\n\n${kind === "sounds" ? "You cannot listen: judge S1 and S4 from the pictures and features, and say so in their reasons.\n\n" : ""}${askScores(items)}\n\nTHE RUBRIC\n${RUBRIC}`,
   });
   if (!itemJudged) return { kind, subject: subject.id, leg, error: "the judge's answer was not JSON", answer: r.answer };
-  return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, judges: JUDGES, measured: m.measured, caps: m.caps, ...settle(kind, itemJudged, m.caps) };
+  return { kind, subject: subject.id, leg: decoy ? `decoy: ${decoy}` : leg, judges: JUDGES, measured: m.measured, caps: m.caps, ...settle(TABLE[kind], itemJudged, m.caps) };
 }
 
 /** The decoys: a plain square sprite of the original's size, a hiss of the original's length, flat textures. */

@@ -20,20 +20,14 @@ import { buildModelSpec } from "../../src/spec/model.mjs";
 import { maps, unpng } from "../../src/index.mjs";
 import { buildMapSpec } from "../../src/spec/map.mjs";
 import { findCompilers } from "../../src/maps/compile.mjs";
+import { itemsOf, parseAnswer, settle, lowered, combine, askScores, band, PASS_SHARE, MODEL_GUIDE } from "./scoring.mjs";
 
 const words = process.argv.slice(2);
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
 const chosen = (id, leg) => !words.length || words.some((w) => w === id || w === `${id}:${leg}`);
 const RUBRIC = readFileSync(join(HERE, "rubric.md"), "utf8");
-const MODEL_ITEMS = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8"];
-const MODEL_MUST = ["M1", "M2", "M3", "M4", "M6", "M8"];
-const MAP_ITEMS = ["P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9"];
-const MAP_MUST = ["P1", "P2", "P3", "P4", "P8", "P9"];
-const PASS_SHARE = 0.85;
-
-/** What a measurement allows an item: 2, 1 or 0, by the rubric's line for a 2 and twice as far for a 1. */
-const band = (value, two, one, lowerIsBetter = false) =>
-  value === null || value === undefined || Number.isNaN(value) ? 0 : lowerIsBetter ? (value <= two ? 2 : value <= one ? 1 : 0) : value >= two ? 2 : value >= one ? 1 : 0;
+const { items: MODEL_ITEMS, must: MODEL_MUST } = itemsOf("model");
+const { items: MAP_ITEMS, must: MAP_MUST } = itemsOf("map");
 
 // ── models ────────────────────────────────────────────────────────────────
 
@@ -104,18 +98,21 @@ export function comparePictures(dir, pictures) {
   savePng(join(dir, "compare-angles.png"), tile(angles.map((p) => p.pair), 2, angles.map((p) => `${p.name}: ORIGINAL | REPRODUCTION`)));
 }
 
-/** M6's line-up: which original is this? Returns { picked, right, letters }. */
-async function lineup(dir, copy, rightFile) {
-  const files = [...SUBJECTS.models.map((m) => m.file), ...SUBJECTS.lineupExtras];
-  // shuffled by a fixed rule from the folder's name, so a run can be repeated
-  let seed = [...dir].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+/**
+ * M6's line-up: which original is this? `files` are the originals shown (the props' subjects and five other props
+ * unless told), read from `root`, shuffled by a fixed rule from `seedOf` so a run can be repeated. Returns
+ * { picked, right, letters }.
+ */
+export async function lineup(dir, copy, rightFile, { files = [...SUBJECTS.models.map((m) => m.file), ...SUBJECTS.lineupExtras], root = GAME, seedOf = dir, cols = 5 } = {}) {
+  mkdirSync(dir, { recursive: true });
+  let seed = [...seedOf].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
   const order = files.map((f) => ({ f, k: (seed = (seed * 1103515245 + 12345) >>> 0) })).sort((a, b) => a.k - b.k).map((x) => x.f);
   const letters = "ABCDEFGHIJKLMNOP";
   const shots = order.map((f) => {
-    const src = readModel(join(GAME, f));
+    const src = readModel(join(root, f));
     return render(src, { ...POSE, view: "orbit", within: framing(src, [POSE]), yaw: 35, pitch: 20, width: 256, height: 256 });
   });
-  savePng(join(dir, "lineup.png"), tile(shots, 5, order.map((_, i) => letters[i])));
+  savePng(join(dir, "lineup.png"), tile(shots, cols, order.map((_, i) => letters[i])));
   savePng(join(dir, "mystery.png"), render(copy, { ...POSE, view: "orbit", within: framing(copy, [POSE]), yaw: 35, pitch: 20, width: 384, height: 384 }));
   // asked again when no letter comes back (a session cut off, or an answer of words): a pick never made caps M6
   let r;
@@ -147,38 +144,21 @@ The pictures: ${pictures} Look at every picture closely before you score.
 The harness's measurements (computed from the files; a measured item may score lower than its measurement allows, never higher):
 ${JSON.stringify(measured, null, 1)}
 
-${kind === "model" ? `For M3, first list the original's parts down to the small ones, as the close angles show them: claws, teeth, rivets, handles, tabs, the number of sides or facets of a round part. Then find each in the reproduction. A small part missing, or a round part with a different number of sides, makes M3 at most 1.
-
-Tell paint from shape. A difference only in the painted picture (stripes in another place, softer detail, a smear, wear) is M4 or M5, not M1 or M3; a shape that is really different (a part missing, too big, the wrong form) is M1 or M3. Before you charge a shape item, check in the side and angle views that the outline itself differs, not just the paint on it.
+${kind === "model" ? `${MODEL_GUIDE()}
 
 For M6, judge only whether a player would take it for the original side by side at the size the game shows it; the line-up is run separately.` : ""}
 
-Score every item, ${items.join(", ")}, 0, 1 or 2, each with a reason that names what is wrong and where (or what makes it right). Reply with JSON alone, of this form:
-{${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}
+${askScores(items)}
 
 THE RUBRIC
 ${RUBRIC}`;
 }
 
 /** The judge's scores, held to the measurements, totalled and passed or not by the rubric. */
-function settle(kind, answer, caps, extra = {}) {
-  const items = kind === "model" ? MODEL_ITEMS : MAP_ITEMS;
-  const must = kind === "model" ? MODEL_MUST : MAP_MUST;
-  let judged = {};
-  try {
-    judged = JSON.parse(answer.slice(answer.indexOf("{"), answer.lastIndexOf("}") + 1));
-  } catch {
-    return { error: "the judge's answer was not JSON", answer };
-  }
-  const scores = {};
-  for (const item of items) {
-    const given = Math.max(0, Math.min(2, Number(judged[item]?.score ?? 0)));
-    const cap = Math.min(caps[item] ?? 2, extra[item] ?? 2);
-    scores[item] = { judge: given, cap: cap < 2 ? cap : (caps[item] ?? null), score: Math.min(given, cap), reason: judged[item]?.reason ?? "" };
-  }
-  const total = items.reduce((s, i) => s + scores[i].score, 0);
-  const passes = must.every((i) => scores[i].score === 2) && total >= PASS_SHARE * 2 * items.length;
-  return { scores, total, of: 2 * items.length, passes };
+function settleAnswer(kind, answer, caps, extra = {}) {
+  const judged = typeof answer === "string" ? parseAnswer(answer) : answer;
+  if (!judged) return { error: "the judge's answer was not JSON", answer };
+  return settle(kind, judged, lowered(caps, extra));
 }
 
 /** The items where Haiku scored under Opus on the calibration: a point lower on some legs, higher on none. */
@@ -202,23 +182,6 @@ export function closeCall(settled) {
   return raisable > 0 && settled.total + raisable >= PASS_SHARE * settled.of;
 }
 
-/** Judges' answers as one: each item the higher score of those given, with that answer's reason. */
-function betterOf(answers) {
-  const parsed = answers.map((a) => {
-    try {
-      return JSON.parse(a.slice(a.indexOf("{"), a.lastIndexOf("}") + 1));
-    } catch {
-      return null;
-    }
-  }).filter(Boolean);
-  if (!parsed.length) return answers[0];
-  const out = {};
-  for (const item of MODEL_ITEMS) {
-    const best = parsed.map((p) => p[item]).filter(Boolean).sort((a, b) => Number(b.score) - Number(a.score))[0];
-    if (best) out[item] = best;
-  }
-  return JSON.stringify(out);
-}
 
 export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   const original = readModel(join(GAME, model.file));
@@ -237,12 +200,12 @@ export async function judgeModel(model, leg, copyFile, { decoy } = {}) {
   // two readings, each item scored the better of the two: Haiku, given an original against itself, docks surface
   // detail it made up about half the time (rubric, the judge's control) but a fault that is there shows in both
   const readings = await Promise.all([prompt, `${prompt}\n\n(Second reading.)`].map((p) => runJudge({ read: dir, hours: 0.5, prompt: p })));
-  let settled = settle("model", betterOf(readings.map((r) => r.answer)), caps, extra);
-  settled.readings = readings.map((r) => settle("model", r.answer, caps, extra)).map((x) => (x.scores ? Object.fromEntries(Object.entries(x.scores).map(([k, v]) => [k, v.judge])) : x.error));
+  let settled = settleAnswer("model", combine(readings.map((r) => r.answer), "better") ?? readings[0].answer, caps, extra);
+  settled.readings = readings.map((r) => settleAnswer("model", r.answer, caps, extra)).map((x) => (x.scores ? Object.fromEntries(Object.entries(x.scores).map(([k, v]) => [k, v.judge])) : x.error));
   // a close call on Haiku goes to Opus (calibration-haiku.md: Haiku stood a point under Opus on these, never over)
   if (closeCall(settled)) {
     const second = await runJudge({ read: dir, hours: 0.5, prompt, model: "opus" });
-    settled = { ...settle("model", second.answer, caps, extra), first: { model: JUDGE_MODEL, total: settled.total, passes: settled.passes, scores: settled.scores }, judgedBy: "opus" };
+    settled = { ...settleAnswer("model", second.answer, caps, extra), first: { model: JUDGE_MODEL, total: settled.total, passes: settled.passes, scores: settled.scores }, judgedBy: "opus" };
   }
   return { subject: model.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, lineup: line, ...settled };
 }
@@ -432,7 +395,7 @@ export async function judgeMap(map, leg, copyFile, { decoy } = {}) {
   const failed = failedByMeasure(caps, MAP_MUST);
   if (failed.length) return { subject: map.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, passes: false, failedByMeasure: failed };
   const r = await runJudge({ read: dir, hours: 0.75, prompt: judgePrompt("map", dir, measured) });
-  return { subject: map.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, ...settle("map", r.answer, caps) };
+  return { subject: map.id, leg: decoy ? `decoy: ${decoy}` : leg, measured, caps, ...settleAnswer("map", r.answer, caps) };
 }
 
 /** A single room the size of the original's floor, with one place to start: the decoy that must fail. */

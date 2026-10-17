@@ -11,10 +11,11 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, statSync, copyFileSync, rmSync, renameSync } from "node:fs";
 import { join, basename } from "node:path";
 import { execFileSync } from "node:child_process";
-import { HERE, GAME, POSE, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides } from "./lib.mjs";
-import { runAgent, runJudge, JUDGE_MODEL, failedByMeasure } from "./agents.mjs";
-import { measureModel } from "./judge.mjs";
-import { tile, render, framing, strip } from "../../src/render.mjs";
+import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides } from "./lib.mjs";
+import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
+import { measureModel, lineup } from "./judge.mjs";
+import { itemsOf, settle, lowered, combine, askScores, MODEL_GUIDE } from "./scoring.mjs";
+import { tile, render, strip } from "../../src/render.mjs";
 import { sequences } from "../../src/index.mjs";
 import { contractOf, compareContract } from "../../src/contract.mjs";
 import { buildModelSpec } from "../../src/spec/model.mjs";
@@ -211,25 +212,8 @@ async function reproduce(kind, s, leg) {
 
 // ── the judge ─────────────────────────────────────────────────────────────
 
-const ITEMS = ["M1", "M2", "M3", "M4", "M5", "M6", "M7", "M8"];
-const MUST = ["M1", "M2", "M3", "M4", "M6", "M8"];
-
-async function lineup(kind, s, copy, dir) {
-  const files = [...SUBJECTS[kind].map((x) => x.file), ...LINEUP_EXTRAS[kind]].filter((f) => existsSync(join(rootOf(s), f)));
-  let seed = [...s.id].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
-  const order = files.map((f) => ({ f, k: (seed = (seed * 1103515245 + 12345) >>> 0) })).sort((a, b) => a.k - b.k).map((x) => x.f);
-  const letters = "ABCDEFGHIJKLMNOP";
-  const shots = order.map((f) => {
-    const src = game(f, rootOf(s));
-    return render(src, { ...POSE, view: "orbit", within: framing(src, [POSE]), yaw: 35, pitch: 20, width: 256, height: 256 });
-  });
-  mkdirSync(join(dir, "lineup"), { recursive: true });
-  savePng(join(dir, "lineup", "lineup.png"), tile(shots, 4, order.map((_, i) => letters[i])));
-  savePng(join(dir, "lineup", "mystery.png"), render(copy, { ...POSE, view: "orbit", within: framing(copy, [POSE]), yaw: 35, pitch: 20, width: 384, height: 384 }));
-  const r = await runAgent({ model: JUDGE_MODEL, read: join(dir, "lineup"), hours: 0.25, prompt: `${dir}/lineup/mystery.png shows a model made to copy one of the game models in ${dir}/lineup/lineup.png (labelled ${letters.slice(0, order.length).split("").join(", ")}). Which one is it a copy of? Reply with the one letter alone.` });
-  const picked = (r.answer.match(/\b([A-P])\b/) ?? [])[1] ?? null;
-  return { picked, right: letters[order.indexOf(s.file)] };
-}
+/** The rubric's table a held subject is scored on: a weapon's, a character's, or a player's with its contract. */
+const tableOf = (kind, s) => (kind === "weapons" ? "weapon" : s.stunt ? "contracted" : "character");
 
 async function judgeOne(kind, s, leg, built, { decoy } = {}) {
   const dir = join(folderOf(kind, s.id), "judge", decoy ? "decoy" : leg);
@@ -243,7 +227,6 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
   savePng(join(dir, "compare-sides.png"), tile(pairs.filter((p) => SIDES.some(([n]) => n === p.name)).map((p) => p.pair), 2, pairs.filter((p) => SIDES.some(([n]) => n === p.name)).map((p) => `${p.name}: ORIGINAL | REPRODUCTION`)));
   savePng(join(dir, "compare-angles.png"), tile(pairs.filter((p) => ANGLES.some(([n]) => n === p.name)).map((p) => p.pair), 2, pairs.filter((p) => ANGLES.some(([n]) => n === p.name)).map((p) => `${p.name}: ORIGINAL | REPRODUCTION`)));
   let extra;
-  let item;
   if (kind === "weapons") {
     const vo = firstPerson(game(s.files[0]));
     const vc = firstPerson(readModel(join(built, basename(s.files[0]))));
@@ -253,7 +236,6 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
     const pc = readModel(join(built, basename(s.files[1])));
     savePng(join(dir, "in-hand.png"), besides([render(po, { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 }), render(pc, { seq: 0, frame: 0, yaw: 35, pitch: 20, width: 384, height: 384 })]));
     extra = `${dir}/first-person.png (the player's view, ORIGINAL left, REPRODUCTION right), ${dir}/first-person-attack.png (the attack frame by frame, the ORIGINAL's above) and ${dir}/in-hand.png (the model another player holds, ORIGINAL left). The world model (w_) is the one measured and drawn in compare-sides.png and compare-angles.png.`;
-    item = "W1";
   } else {
     const motionOf = (src, name = s.motion) => strip(src, { seq: animation(src, new RegExp(`^${name}`)), count: 8, cols: 4, view: "side", ground: true, width: 192, height: 192 });
     savePng(join(dir, "motion.png"), tile([motionOf(original), motionOf(copy)], 1, [`ORIGINAL ${s.motion}`, `REPRODUCTION ${s.motion}`]));
@@ -266,32 +248,20 @@ async function judgeOne(kind, s, leg, built, { decoy } = {}) {
       measured.contract = faults.length ? faults : "keeps every bone, animation, attachment and bodypart of the base";
       caps.C2 = faults.length ? 0 : 2;
     }
-    item = "C1";
   }
-  const items = [...ITEMS, item, ...(s.stunt ? ["C2"] : [])];
+  const { items, must } = itemsOf(tableOf(kind, s));
   // failed already by a measure of a must-have item: no line-up and no judge are asked
-  const failed = failedByMeasure(caps, [...MUST, item, ...(s.stunt ? ["C2"] : [])]);
+  const failed = failedByMeasure(caps, must);
   if (failed.length) return { kind, subject: s.id, leg: decoy ? "decoy: box" : leg, measured, caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * items.length };
-  const line = await lineup(kind, s, copy, dir);
-  const r = await runJudge({
-    read: dir,
-    hours: 0.5,
-    prompt: `You are an independent judge. A reproduction was made of a game ${kind === "weapons" ? "weapon" : kind === "players" ? "player model" : "character"} by someone who could not open the original's files. Judge it strictly by the rubric below (the "Models" table, the "Weapons, characters and creatures" section, "Passing", "Keeping the judge honest" and the "Amendments"). A measured item may score lower than its measurement allows, never higher.\n\nThe pictures: ${dir}/compare-sides.png and ${dir}/compare-angles.png (each view twice, the same camera and scale, ORIGINAL left, REPRODUCTION right), ${extra} Look at every picture closely.\n\nThe measurements:\n${JSON.stringify(measured, null, 1)}\n\nFor M6, judge only whether a player would take it for the original; the line-up is run separately.\n\nScore every item, ${items.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${items.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}\n\nTHE RUBRIC\n${RUBRIC}`,
-  });
-  let judged = null;
-  try {
-    judged = JSON.parse(r.answer.slice(r.answer.indexOf("{"), r.answer.lastIndexOf("}") + 1));
-  } catch {}
+  const files = [...SUBJECTS[kind].map((x) => x.file), ...LINEUP_EXTRAS[kind]].filter((f) => existsSync(join(rootOf(s), f)));
+  const line = await lineup(join(dir, "lineup"), copy, s.file, { files, root: rootOf(s), seedOf: s.id, cols: 4 });
+  const prompt = `You are an independent judge. A reproduction was made of a game ${kind === "weapons" ? "weapon" : kind === "players" ? "player model" : "character"} by someone who could not open the original's files. Judge it strictly by the rubric below (the "Models" table, the "Weapons, characters and creatures" section, "Passing", "Keeping the judge honest" and the "Amendments"). A measured item may score lower than its measurement allows, never higher.\n\nThe pictures: ${dir}/compare-sides.png and ${dir}/compare-angles.png (each view twice, the same camera and scale, ORIGINAL left, REPRODUCTION right), ${extra} Look at every picture closely.\n\nThe measurements:\n${JSON.stringify(measured, null, 1)}\n\n${MODEL_GUIDE()}\n\nFor M6, judge only whether a player would take it for the original; the line-up is run separately.\n\n${askScores(items)}\n\nTHE RUBRIC\n${RUBRIC}`;
+  // two readings, each item the better of the two (rubric.md, "two readings"), as every model is judged
+  const readings = await Promise.all([prompt, `${prompt}\n\n(Second reading.)`].map((p) => runJudge({ read: dir, hours: 0.5, prompt: p })));
+  const judged = combine(readings.map((r) => r.answer), "better");
   if (!judged) return { kind, subject: s.id, leg, error: "the judge's answer was not JSON" };
-  const capped = { ...caps, M6: Math.min(caps.M6 ?? 2, line.picked === line.right ? 2 : 1) };
-  const scores = {};
-  for (const i of items) {
-    const given = Math.max(0, Math.min(2, Number(judged[i]?.score ?? 0)));
-    scores[i] = { judge: given, cap: capped[i] ?? null, score: Math.min(given, capped[i] ?? 2), reason: judged[i]?.reason ?? "" };
-  }
-  const total = items.reduce((t, i) => t + scores[i].score, 0);
-  const passes = [...MUST, item, ...(s.stunt ? ["C2"] : [])].every((i) => scores[i].score === 2) && total >= 0.85 * 2 * items.length;
-  return { kind, subject: s.id, leg: decoy ? "decoy: box" : leg, measured, caps: capped, lineup: line, scores, total, of: 2 * items.length, passes };
+  const capped = lowered(caps, { M6: line.picked === line.right ? 2 : 1 });
+  return { kind, subject: s.id, leg: decoy ? "decoy: box" : leg, measured, caps: capped, lineup: line, ...settle(tableOf(kind, s), judged, capped) };
 }
 
 /** A plain box of the original's size, for a character; for a weapon a box in each of its three files' place. */
