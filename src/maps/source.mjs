@@ -944,6 +944,9 @@ export function subtract(solidBox, hole) {
  *
  * `texture`: `{ floor, ceiling, wall }` (or one for all): every piece of rock wears the floor on its top,
  * the ceiling on its underside and the wall on its sides, which is what is seen from inside a room.
+ * A room may carry `bands`, `[{ z0, z1, wall }]` (heights in the world, foot to head): the rock beside it is cut
+ * at their edges, and each slice's face to the room wears the band it is in, its picture standing on the band's
+ * foot, so a wall's texture joins fall on brush edges as Valve's do (src/maps/families.mjs).
  * It returns the list of brushes.
  */
 export function carve(rooms, wall, texture) {
@@ -958,6 +961,16 @@ export function carve(rooms, wall, texture) {
   const max = [0, 1, 2].map((i) => Math.max(...rooms.map((room) => room.max[i])) + wall);
   let rock = [{ min, max }];
   for (const room of rooms) rock = rock.flatMap((piece) => subtract(piece, room));
+  // a banded room's walls: each piece of rock beside it cut at its bands' edges, so that each slice's face to
+  // the room is one band
+  const beside = (piece, room) =>
+    [0, 1].some((axis) => (Math.abs(piece.max[axis] - room.min[axis]) < 1e-6 || Math.abs(piece.min[axis] - room.max[axis]) < 1e-6) && [0, 1, 2].filter((k) => k !== axis).every((k) => Math.min(piece.max[k], room.max[k]) - Math.max(piece.min[k], room.min[k]) > 0));
+  if (rooms.some((room) => room.bands?.length))
+    rock = rock.flatMap((piece) => {
+      const cuts = [...new Set(rooms.filter((room) => room.bands?.length && beside(piece, room)).flatMap((room) => room.bands.slice(1).map((band) => band.z0)))].filter((z) => z > piece.min[2] + 1e-6 && z < piece.max[2] - 1e-6).sort((a, b) => a - b);
+      const edges = [piece.min[2], ...cuts, piece.max[2]];
+      return edges.slice(1).map((z1, k) => ({ min: [piece.min[0], piece.min[1], edges[k]], max: [piece.max[0], piece.max[1], z1] }));
+    });
   const wears = roomTextures(texture);
   // a wall's picture stands on the floor of the room it faces, as a mapper lines it up: its bands, its skirting
   // and its seams then fall where they were painted to, whatever the room's height (Steven's play-test of the
@@ -975,8 +988,10 @@ export function carve(rooms, wall, texture) {
           if (shared > most) [best, most] = [room, shared];
         }
         // and from the room's corner along the wall (the walls facing x run their picture along y, the others along x)
-        const wall = best?.wears?.wall ?? wears.wall;
-        return [name, best ? onFloor(wall, best.min[2], best.min[axis === 0 ? 1 : 0]) : wall];
+        const middle = (piece.min[2] + piece.max[2]) / 2;
+        const band = best?.bands?.find((b) => middle >= b.z0 && middle <= b.z1);
+        const wall = band?.wall ?? best?.wears?.wall ?? wears.wall;
+        return [name, best ? onFloor(wall, band ? band.z0 : best.min[2], best.min[axis === 0 ? 1 : 0]) : wall];
       }),
     );
   // a room may wear its own (`wears: { floor, ceiling, wall }`): the face under it, over it and beside it then
