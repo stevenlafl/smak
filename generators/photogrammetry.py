@@ -3,11 +3,17 @@ camera from 2D-3D matches (solvePnPRansac), and structure from motion with bundl
 then fitted with axis-aligned planes by RANSAC. Called by src/maps/photo.mjs, one job a run, its answer one line of
 JSON on stdout. Runs on the CPU: the venv is made by generators/install-photogrammetry.sh.
 
-  python photogrammetry.py locate <job.json>   job: { picture, render, points, width, height, fov }
-      the picture's camera against the map as built: SIFT features of the picture matched to those of a render of
-      the map at a guessed camera (ratio test), each matched render pixel's point of the map read from `points`
-      (Float32 x, y, z a pixel, NaN where nothing is drawn), and the camera from them by PnP with RANSAC.
+  python photogrammetry.py locate <job.json>   job: { picture, render, points, width, height, fov, matcher }
+      the picture's camera against the map as built: features of the picture matched to those of a render of the
+      map at a guessed camera, each matched render pixel's point of the map read from `points` (Float32 x, y, z a
+      pixel, NaN where nothing is drawn), and the camera from them by PnP with RANSAC. `matcher`: "sift" (OpenCV,
+      ratio test; the default) or "lightglue" (DISK keypoints matched by LightGlue, learned; it needs the
+      learned-match venv, generators/install-learned-match.sh).
       -> { ok, from, yaw, pitch, roll, matches, inliers, error }
+  python photogrammetry.py vggt <job.json>     job: { pictures: [...], eye: 64, conf: 50 }
+      cameras and dense points from the pictures in one pass of VGGT-1B (bf16, on the GPU; the learned-match venv),
+      its points kept over the `conf` percentile of their confidence, then stood up, scaled and planed as sfm's
+      are. -> as sfm, with { seconds, peak } (the model's pass, and the card's peak memory in GB)
   python photogrammetry.py sfm <job.json>      job: { pictures: [...], fov, work, eye: 64 }
       cameras and sparse points from the pictures alone (pycolmap: SIFT, exhaustive matching, incremental mapping,
       bundle adjustment, the intrinsics held at the given fov); the scene turned so that the cameras' up is +z (a
@@ -48,6 +54,45 @@ def camera_of(R, t):
     return [round(float(v), 2) for v in eye], round(yaw, 2), round(pitch, 2), round(roll, 2)
 
 
+def sift_pairs(picture, render):
+    """SIFT features matched by the ratio test: [(picture x, y), ...], [(render x, y), ...]."""
+    sift = cv2.SIFT_create(nfeatures=4000)
+    kp1, d1 = sift.detectAndCompute(picture, None)
+    kp2, d2 = sift.detectAndCompute(render, None)
+    if d1 is None or d2 is None or len(kp1) < 8 or len(kp2) < 8:
+        raise ValueError(f"too few features: {len(kp1 or [])} in the picture, {len(kp2 or [])} in the render")
+    pairs = cv2.BFMatcher(cv2.NORM_L2).knnMatch(d1, d2, k=2)
+    good = [m for m, n in (p for p in pairs if len(p) == 2) if m.distance < 0.8 * n.distance]
+    return [kp1[m.queryIdx].pt for m in good], [kp2[m.trainIdx].pt for m in good]
+
+
+_learned = {}
+
+
+def lightglue_pairs(picture, render):
+    """DISK keypoints matched by LightGlue (cvg/LightGlue, Apache-2.0; DISK through kornia, Apache-2.0), on the GPU
+    when there is one: [(picture x, y), ...], [(render x, y), ...]. The models are loaded once a process."""
+    import torch
+    from lightglue import LightGlue, DISK
+    from lightglue.utils import rbd
+    dev = "cuda" if torch.cuda.is_available() else "cpu"
+    if "disk" not in _learned:
+        _learned["disk"] = DISK(max_num_keypoints=2048).eval().to(dev)
+        _learned["glue"] = LightGlue(features="disk").eval().to(dev)
+    tensor = lambda g: torch.from_numpy(cv2.cvtColor(g, cv2.COLOR_GRAY2RGB)).permute(2, 0, 1).float().div(255).to(dev)
+    with torch.no_grad():
+        f0 = _learned["disk"].extract(tensor(picture))
+        f1 = _learned["disk"].extract(tensor(render))
+        out = _learned["glue"]({"image0": f0, "image1": f1})
+    f0, f1, out = rbd(f0), rbd(f1), rbd(out)
+    m = out["matches"]
+    k0 = f0["keypoints"][m[:, 0]].cpu().numpy()
+    k1 = f1["keypoints"][m[:, 1]].cpu().numpy()
+    if len(k0) < 8:
+        raise ValueError(f"too few matches: {len(k0)}")
+    return [tuple(map(float, p)) for p in k0], [tuple(map(float, p)) for p in k1]
+
+
 def locate(job):
     picture = cv2.imread(job["picture"], cv2.IMREAD_GRAYSCALE)
     render = cv2.imread(job["render"], cv2.IMREAD_GRAYSCALE)
@@ -55,23 +100,19 @@ def locate(job):
     if picture.shape[1] != width:
         picture = cv2.resize(picture, (width, height), interpolation=cv2.INTER_AREA)
     points = np.fromfile(job["points"], dtype=np.float32).reshape(height, width, 3)
-    sift = cv2.SIFT_create(nfeatures=4000)
-    kp1, d1 = sift.detectAndCompute(picture, None)
-    kp2, d2 = sift.detectAndCompute(render, None)
-    if d1 is None or d2 is None or len(kp1) < 8 or len(kp2) < 8:
-        return {"ok": False, "error": f"too few features: {len(kp1 or [])} in the picture, {len(kp2 or [])} in the render", "matches": 0, "inliers": 0}
-    pairs = cv2.BFMatcher(cv2.NORM_L2).knnMatch(d1, d2, k=2)
-    good = [m for m, n in (p for p in pairs if len(p) == 2) if m.distance < 0.8 * n.distance]
+    try:
+        ours, theirs = (lightglue_pairs if job.get("matcher") == "lightglue" else sift_pairs)(picture, render)
+    except ValueError as e:
+        return {"ok": False, "error": str(e), "matches": 0, "inliers": 0}
     image_pts, world_pts, render_px = [], [], []
-    for m in good:
-        x, y = kp2[m.trainIdx].pt
+    for (u, v), (x, y) in zip(ours, theirs):
         p = points[min(height - 1, int(y)), min(width - 1, int(x))]
         if np.all(np.isfinite(p)):
-            image_pts.append(kp1[m.queryIdx].pt)
+            image_pts.append((u, v))
             world_pts.append(p)
             render_px.append((min(width - 1, int(x)), min(height - 1, int(y))))
     if len(world_pts) < 6:
-        return {"ok": False, "error": f"{len(world_pts)} features matched to points of the map: too few for a camera", "matches": len(good), "inliers": 0}
+        return {"ok": False, "error": f"{len(world_pts)} features matched to points of the map: too few for a camera", "matches": len(ours), "inliers": 0}
     K = intrinsics(width, height, job.get("fov", 90))
     ok, rvec, tvec, inliers = cv2.solvePnPRansac(np.array(world_pts, dtype=np.float64), np.array(image_pts, dtype=np.float64), K, None, reprojectionError=4.0, iterationsCount=2000, flags=cv2.SOLVEPNP_EPNP)
     if not ok or inliers is None or len(inliers) < 6:
@@ -177,6 +218,13 @@ def sfm(job):
         t = np.array(pose.translation)
         cams.append((image.name, R, t))
     pts = np.array([p.xyz for p in rec.points3D.values()]) if rec.points3D else np.zeros((0, 3))
+    return stand_up(cams, pts, job)
+
+
+def stand_up(cams, pts, job):
+    """Cameras [(name "NNN...", R, t)] (OpenCV's world-to-camera) and points of a scene in its own frame: turned so
+    the cameras' up is +z, turned about z to the walls' main way, scaled so that the cameras stand `eye` over the
+    floor (the lowest large level plane), and the level and upright planes RANSAC finds. As sfm answers."""
     if len(cams) < 2 or len(pts) < 20:
         return {"ok": False, "error": f"{len(cams)} cameras and {len(pts)} points: too few", "registered": len(cams)}
     # the world's up: a game's camera has no roll, so every camera's up (minus OpenCV's y) is the world's +z
@@ -233,11 +281,46 @@ def sfm(job):
     return {"ok": True, "registered": len(cams), "of": len(job["pictures"]), "points": int(len(P)), "cameras": out_cams, "planes": planes, "turn": [T.tolist(), Rz.tolist()], "scale": k}
 
 
+def vggt(job):
+    """VGGT-1B (facebook/VGGT-1B: CC-BY-NC-4.0, non-commercial) over the pictures in one pass, bf16 on the GPU: its
+    cameras (OpenCV's world-to-camera) and its depth unprojected to points, kept over the `conf` percentile of their
+    confidence, then stood up, scaled and planed as sfm's are."""
+    import time
+    import torch
+    from vggt.models.vggt import VGGT
+    from vggt.utils.load_fn import load_and_preprocess_images
+    from vggt.utils.pose_enc import pose_encoding_to_extri_intri
+    from vggt.utils.geometry import unproject_depth_map_to_point_map
+    model = VGGT.from_pretrained("facebook/VGGT-1B").to("cuda").eval()
+    images = load_and_preprocess_images(job["pictures"]).to("cuda")
+    torch.cuda.reset_peak_memory_stats()
+    t0 = time.time()
+    with torch.no_grad(), torch.autocast("cuda", dtype=torch.bfloat16):
+        preds = model(images)
+    seconds = time.time() - t0
+    extri, intri = pose_encoding_to_extri_intri(preds["pose_enc"], images.shape[-2:])
+    extri = extri.squeeze(0).float().cpu().numpy()
+    intri = intri.squeeze(0).float().cpu().numpy()
+    depth = preds["depth"].squeeze(0).float().cpu().numpy()
+    conf = preds["depth_conf"].squeeze(0).float().cpu().numpy()
+    peak = torch.cuda.max_memory_allocated() / 1e9
+    world = unproject_depth_map_to_point_map(depth, extri, intri)
+    keep = conf > np.percentile(conf, job.get("conf", 50))
+    pts = world[keep].reshape(-1, 3)
+    # a dense cloud is far more than planes need
+    if len(pts) > 200000:
+        pts = pts[np.random.default_rng(1).choice(len(pts), 200000, replace=False)]
+    cams = [(f"{i:03d}", extri[i][:, :3].astype(np.float64), extri[i][:, 3].astype(np.float64)) for i in range(len(extri))]
+    answer = stand_up(cams, pts.astype(np.float64), job)
+    answer.update({"seconds": round(seconds, 2), "peak": round(peak, 2)})
+    return answer
+
+
 if __name__ == "__main__":
     step, path = sys.argv[1], sys.argv[2]
     job = json.load(open(path))
     try:
-        answer = {"locate": locate, "sfm": sfm}[step](job)
+        answer = {"locate": locate, "sfm": sfm, "vggt": vggt}[step](job)
     except Exception as e:  # said in the answer, never a crash the caller cannot read
         answer = {"ok": False, "error": f"{type(e).__name__}: {e}"}
     print(json.dumps(answer))

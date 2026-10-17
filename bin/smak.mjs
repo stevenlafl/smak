@@ -1670,7 +1670,7 @@ function cameraFlags(flags) {
   return { from, yaw: numberOf(flags, "yaw") ?? 0, pitch: numberOf(flags, "pitch") ?? 0, fov: numberOf(flags, "fov") ?? 90 };
 }
 /** What a map is drawn with to be matched to pictures: its game folders, a .wad's textures, its light. */
-const matchOptions = (file, flags, listed) => ({ folders: gameFolders(file, listed), ...(listed.wad?.length ? { textures: wadTextures(listed) } : {}), ...(flags.light === false ? { light: false } : {}), python: typeof flags.python === "string" ? flags.python : undefined });
+const matchOptions = (file, flags, listed) => ({ folders: gameFolders(file, listed), ...(listed.wad?.length ? { textures: wadTextures(listed) } : {}), ...(flags.light === false ? { light: false } : {}), python: typeof flags.python === "string" ? flags.python : undefined, ...(typeof flags.matcher === "string" ? { matcher: flags.matcher } : {}) });
 /** A plane told off, as a line prints it. */
 const planeLine = (p) => `${p.axis} ${p.texture}: ${p.move > 0 ? "+" : ""}${p.move} units along its normal (${p.matches ?? p.shots} ${p.matches ? "features" : "shots"})`;
 
@@ -1728,10 +1728,11 @@ async function mapShots({ file, rest, flags, listed }) {
 async function mapSfm({ file, rest, flags }) {
   const { structureOf } = await import("../src/maps/photo.mjs");
   const files = [file, ...rest];
-  const r = structureOf(files, { fov: numberOf(flags, "fov") ?? 90, eye: numberOf(flags, "eye") ?? 64, python: typeof flags.python === "string" ? flags.python : undefined });
+  const method = typeof flags.method === "string" ? flags.method : "sfm";
+  const r = structureOf(files, { method, fov: numberOf(flags, "fov") ?? 90, eye: numberOf(flags, "eye") ?? 64, python: typeof flags.python === "string" ? flags.python : undefined });
   if (!r.ok) fail(`map-sfm: ${r.error}`);
   if (flags.json) return console.log(JSON.stringify(r, null, 1));
-  console.log(`${r.registered} of ${r.of} pictures placed, ${r.points} points (stood up by the cameras' up, scaled by an eye ${numberOf(flags, "eye") ?? 64} over the floor)`);
+  console.log(`${r.registered} of ${r.of} pictures placed, ${r.points} points, by ${method === "vggt" ? `VGGT (${r.seconds} s, ${r.peak} GB on the card)` : "structure from motion"} (stood up by the cameras' up, scaled by an eye ${numberOf(flags, "eye") ?? 64} over the floor)`);
   for (const c of r.cameras) console.log(`  ${files[c.picture]}: ${placeText(c.from)} yaw ${c.yaw} pitch ${c.pitch}`);
   for (const p of r.planes) console.log(`  plane ${p.axis} = ${p.at}: ${p.inliers} points, over ${p.extent.map((e) => `${e[0]} to ${e[1]}`).join(" and ")}`);
 }
@@ -2542,12 +2543,14 @@ const COMMANDS = {
                                             picture's own and red where not, how far apart, and the faces the edges say are
                                             off; --locate finds the camera first from that guess (by the picture's features against
                                             a render of the map, with --python <photogrammetry venv's python> or
-                                            SMAK_PHOTOGRAMMETRY; else by the edges). --game, --wad, --no-light as map-view`,
+                                            SMAK_PHOTOGRAMMETRY; else by the edges). --matcher lightglue: DISK and LightGlue
+                                            in place of SIFT (SMAK_LEARNED_MATCH, generators/install-learned-match.sh).
+                                            --game, --wad, --no-light as map-view`,
   },
   "map-shots": {
     run: mapShots,
     own: true,
-    help: `  map-shots <map|bsp> <picture> [picture ...] [--from x,y,z --yaw n] [-o dir]
+    help: `  map-shots <map|bsp> <picture> [picture ...] [--from x,y,z --yaw n] [--matcher sift|lightglue] [-o dir]
                                             every picture against the map as built, shot by shot: each one's camera, and over
                                             them all each plane the pictures say is off and by how much (OFF lines): build
                                             against them, and call it again. -o: each shot's overlay`,
@@ -2555,10 +2558,11 @@ const COMMANDS = {
   "map-sfm": {
     run: mapSfm,
     own: true,
-    help: `  map-sfm <picture> <picture> [...] [--fov 90] [--eye 64] [--json]
+    help: `  map-sfm <picture> <picture> [...] [--method sfm|vggt] [--fov 90] [--eye 64] [--json]
                                             cameras and planes from the pictures alone, by structure from motion and bundle
-                                            adjustment (pycolmap): stood up by the cameras' up, scaled by the eye's height over
-                                            the floor; the level and upright planes found in its points (the photogrammetry venv)`,
+                                            adjustment (pycolmap), or --method vggt in one pass of VGGT-1B (dense points, few
+                                            views; SMAK_LEARNED_MATCH): stood up by the cameras' up, scaled by the eye's height
+                                            over the floor; the level and upright planes found in its points`,
   },
   "map-sweep": {
     run: async ({ file, flags }) => {

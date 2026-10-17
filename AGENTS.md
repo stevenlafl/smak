@@ -154,9 +154,11 @@ node bin/smak.mjs map-decompile <bsp> -o out.map [--game <folder> ...]   a compi
 node bin/smak.mjs map-light <bsp> [--rooms rooms.json]   the light on the floors, room by room: what the game lights a figure by
 node bin/smak.mjs map-overlay <map|bsp> <picture> --from x,y,z --yaw n [--locate] -o o.png   the map's edges over a picture of it
                                                    from that camera, how far apart, and the faces off; --locate finds the camera first
-node bin/smak.mjs map-shots <map|bsp> <picture ...> [--from x,y,z --yaw n] [-o dir]   each picture against the map as built: its
-                                                   camera (features and PnP, SMAK_PHOTOGRAMMETRY; else edges) and each wall off (OFF)
-node bin/smak.mjs map-sfm <picture ...>            cameras and planes from the pictures alone, by structure from motion (docs/MAPS.md)
+node bin/smak.mjs map-shots <map|bsp> <picture ...> [--from x,y,z --yaw n] [--matcher sift|lightglue] [-o dir]   each picture against
+                                                   the map as built: its camera (features and PnP, SMAK_PHOTOGRAMMETRY; LightGlue in
+                                                   SMAK_LEARNED_MATCH; else edges) and each wall off (OFF)
+node bin/smak.mjs map-sfm <picture ...> [--method sfm|vggt]   cameras and planes from the pictures alone, by structure from motion
+                                                   or in one pass of VGGT (docs/MAPS.md)
 node bin/smak.mjs scripts <script folders, maps...> --mod <profile> [--shipped <folder>]
                                                    each script of one's own: replaces a game's, is named, or is named by nothing
 node bin/smak.mjs item <piece.mjs> --mod <profile> --game <mod> --family <name> --name <word> -o dir [--pictures]
