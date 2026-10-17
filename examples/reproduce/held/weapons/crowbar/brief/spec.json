@@ -3,100 +3,139 @@
   "name": "crowbar.mdl",
   "kind": "held",
   "size": {
-    "length": 32
+    "length": 20
   },
   "weapon": {
     "like": "crowbar",
     "size": "own"
   },
   "materials": {
-    "redpaint": {
+    "red": {
       "base": "paint",
       "tone": [
         0.62,
-        0.08,
-        0.07
+        0.1,
+        0.08
       ]
     },
-    "bare": {
+    "steel": {
       "base": "steel"
+    },
+    "wrap": {
+      "base": "flat",
+      "tone": [
+        0.07,
+        0.07,
+        0.07
+      ]
     }
+  },
+  "finish": {
+    "wear": 0.6,
+    "grime": 0.2
   },
   "parts": [
     {
       "id": "shaft",
-      "kind": "tube",
-      "material": "redpaint",
+      "kind": "turn",
+      "axis": "x",
+      "material": "red",
       "sides": 8,
-      "path": [
+      "rings": [
         [
-          2,
-          0,
-          0,
-          0.95
+          1.25,
+          0.75
         ],
         [
-          24,
-          0,
-          0,
-          0.95
+          18.4,
+          0.75
         ]
+      ],
+      "caps": [
+        true,
+        true
       ]
     },
     {
-      "id": "grip_tip",
-      "kind": "tube",
-      "material": "bare",
+      "id": "grip",
+      "kind": "turn",
+      "axis": "x",
+      "material": "steel",
       "sides": 8,
-      "path": [
+      "rings": [
         [
           0,
-          0,
-          0,
-          0.9
+          1
         ],
         [
-          2.5,
-          0,
-          0,
-          0.95
+          0.375,
+          0.75
+        ],
+        [
+          1.5,
+          0.75
         ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "wrap",
+      "kind": "turn",
+      "axis": "x",
+      "material": "wrap",
+      "sides": 6,
+      "rings": [
+        [
+          1.5,
+          1.1
+        ],
+        [
+          4,
+          1.1
+        ]
+      ],
+      "caps": [
+        true,
+        true
       ]
     },
     {
       "id": "claw",
       "kind": "tube",
-      "material": "bare",
+      "material": "steel",
       "sides": 8,
       "path": [
         [
-          23.5,
+          18.1,
           0,
           0,
-          0.95
+          0.8
         ],
         [
-          27,
+          19.1,
           0,
-          0,
-          0.9
+          0.2,
+          0.8
         ],
         [
-          29.8,
+          19.6,
           0,
-          -1,
-          0.7
+          1.2,
+          0.6
         ],
         [
-          31.2,
+          19.75,
           0,
-          -2.8,
-          0.45
+          2.4,
+          0.4
         ],
         [
-          31.8,
+          19.3,
           0,
-          -4.5,
+          3.3,
           0
         ]
       ]
