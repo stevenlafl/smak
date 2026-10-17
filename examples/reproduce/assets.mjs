@@ -491,7 +491,8 @@ async function judgeBrief(kind, subject, copyFile, { decoy, control } = {}) {
     try {
       c = maps.readSpr(copy);
     } catch {}
-    const ran = !decoy && existsSync(join(folderOf(kind, subject.id), "brief", "run.json")) ? JSON.parse(readFileSync(join(folderOf(kind, subject.id), "brief", "run.json"), "utf8")) : null;
+    // the control is the game's own file under its own name, whatever the maker did
+    const ran = !decoy && !control && existsSync(join(folderOf(kind, subject.id), "brief", "run.json")) ? JSON.parse(readFileSync(join(folderOf(kind, subject.id), "brief", "run.json"), "utf8")) : null;
     const sameName = ran ? ran.built === basename(subject.file) : true;
     const kept = { type: c?.type ?? null, format: c?.format ?? null, gameType: o.type, gameFormat: o.format, sameName, readsBack: Boolean(c) };
     const R5 = c && o.type === c.type && o.format === c.format ? (sameName ? 2 : 1) : 0;
