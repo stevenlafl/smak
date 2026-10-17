@@ -293,6 +293,12 @@ on each hand (the carve's report names the thin pieces it lost), a jaw as a part
   triangles past three times their length, against 7.4% for one drawn from words alone with its hands on its
   thighs), and Haiku picked it out of a line-up beside the gman, the scientist and the assassin 1 reading in 4,
   chance, against 4 in 4 for one built of primitives (research/generated-characters.md).
+- The picture is the character's paint: its face, its vest, its lettering, its boots are what the picture has,
+  and no more. Draw the pictures first, `generate { kind: "shape", prompt, base, only: "picture" }` (seconds a
+  picture, no shape), look at each against what was asked part by part, draw again with other words or seeds
+  until one has it all, then make the shape of that one, `generate { kind: "shape", picture: "work:<it>", base }`,
+  and paint the body with `project` from its cut-out. A body painted one flat colour with boxes on it for what
+  the picture lacked (a run's guard: a box vest, a box helmet, no face) is what a line-up picks out.
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 

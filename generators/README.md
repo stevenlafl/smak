@@ -57,7 +57,8 @@ Hunyuan3D-2mini loads in about 2 minutes and makes a shape (a picture drawn, cut
 leave it room: not beside a game, or another heavy job. A character's take (`generate`'s `base`) is drawn over
 its base's figure in the stance it will be built in, image to image (`GUIDE_STRENGTH` 0.7 of `GUIDE_STEPS` 6 in
 `worker.py`), so its limbs stand clear of its body: from words alone SD-Turbo drew a guard's hands on its thighs,
-and the mesh fused there tore in every run.
+and the mesh fused there tore in every run. `only: "picture"` draws the pictures and stops (seconds each, the
+model loaded): look at them first, and make the shape of the one chosen with `picture`.
 
 ## A library of materials
 

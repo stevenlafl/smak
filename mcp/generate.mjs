@@ -247,9 +247,12 @@ function seedsOf(args, unless = 4) {
  * the picture it was made from and a sidecar. Drawn from the three-quarter side, each beside its picture.
  */
 async function generateShapes(folders, generators, model, args) {
-  const { prompt, picture, base } = args;
+  const { prompt, picture, base, only } = args;
   if (!(typeof prompt === "string" && prompt.trim()) && typeof picture !== "string") throw new Error("prompt: the thing in words (\"a wooden kitchen chair\"), or picture: a picture of it in the folders");
-  if (base !== undefined && (typeof base !== "string" || picture)) throw new Error("base: a character's base model (player/gordon/gordon.mdl), whose stance the picture is drawn in from the prompt; not with picture");
+  if (base !== undefined && typeof base !== "string") throw new Error("base: a character's base model (player/gordon/gordon.mdl), whose stance the picture is drawn in from the prompt (or was, a picture drawn by only: \"picture\")");
+  // the pictures alone: drawn, looked at against the brief, drawn again, before any shape is made of one (the
+  // picture is all the paint a character gets: a maker that saw it only after the shape painted its guard flat)
+  if (only !== undefined && (only !== "picture" || picture)) throw new Error('only: "picture": the pictures drawn from the prompt and no shape; then a shape of the one chosen, picture: "work:<it>"');
   const seeds = seedsOf(args, picture ? 1 : 2);
   const given = picture ? pathOf(folders, picture) : null;
   const words = prompt?.trim() || picture;
@@ -260,13 +263,17 @@ async function generateShapes(folders, generators, model, args) {
   const loaded = worker.told ? null : load;
   worker.told = true;
   // a character: its base drawn in GENERATED_STANCE as a plain grey figure on white, the picture drawn over it
-  const guide = base ? guideOf(folders, base, pathOf(folders, `${stem}_guide.png`, { write: true })) : null;
+  const guide = base && !given ? guideOf(folders, base, pathOf(folders, `${stem}_guide.png`, { write: true })) : null;
   const takes = [];
   for (const seed of seeds) {
     const out = pathOf(folders, `${stem}_s${seed}.obj`, { write: true });
-    const said = await ask(worker, { prompt: prompt ?? "", picture: given, guide, seed, out, steps: args.steps });
+    const said = await ask(worker, { prompt: prompt ?? "", picture: given, guide: given ? null : guide, seed, out, steps: args.steps, ...(only ? { only } : {}) });
     if (!said.ok) {
       takes.push({ seed, error: said.error });
+      continue;
+    }
+    if (only) {
+      takes.push({ seed, picture: relative(folders.work, said.picture) });
       continue;
     }
     const from = given ? relative(folders.work, given) : said.picture ? relative(folders.work, said.picture) : null;
@@ -278,6 +285,16 @@ async function generateShapes(folders, generators, model, args) {
     takes.push({ seed, file: relative(folders.work, out), from, said, view, front });
   }
   idleLater(worker);
+  if (only) {
+    const drawn = takes.filter((t) => t.picture);
+    const said = [
+      `${drawn.length} of ${seeds.length} pictures of "${prompt}" by ${model.name}${loaded !== null ? `; the model loaded in ${loaded} s` : ""}; ${round((Date.now() - started) / 1000, 10)} s in all`,
+      ...takes.map((t) => (t.error ? `seed ${t.seed}: failed: ${t.error}` : `work:${t.picture}`)),
+      `Look at each against what was asked, part by part (a vest's lettering, a belt, boots, the face): what a picture lacks the model lacks, for the picture is its paint. Draw again with other words or seeds until one has it all, then make its shape: generate { kind: "shape", picture: "work:<it>"${base ? `, base: "${base}"` : ""} }.`,
+    ];
+    const shown = drawn.map((t) => fitted(unpicture(readFileSync(join(folders.work, t.picture))), 320));
+    return [text(said.join("\n")), ...(shown.length ? [(({ width, height, rgba }) => image(png(width, height, rgba)))(tile(shown, Math.min(4, shown.length), drawn.map((t) => `seed ${t.seed}`)))] : [])];
+  }
   const made = takes.filter((t) => t.view);
   const size = (b) => b[1].map((v, k) => round(v - b[0][k], 100));
   const lines = [

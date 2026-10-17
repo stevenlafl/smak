@@ -6,7 +6,8 @@ It loads one model once, then reads requests from stdin, one JSON object a line:
 
   { "id": 1, "prompt": "...", "length": 2.5, "seed": 3, "out": "/abs/gen/hit_s3.wav",
     "bpm": 120, "key": "D minor", "loop": false }
-  { "id": 2, "prompt": "...", "picture": "/abs/refs/chair.png", "seed": 0, "out": "/abs/gen/chair_s0.obj" }  (a shape)
+  { "id": 2, "prompt": "...", "picture": "/abs/refs/chair.png", "seed": 0, "out": "/abs/gen/chair_s0.obj" }  (a shape;
+    "only": "picture" draws its picture from the prompt and stops there)
 
 and for each writes the take (the model's own rate and channels, 32-bit float) and answers on stdout, one line:
 
@@ -225,6 +226,9 @@ def load_hunyuan(root, model):
         else:
             image = picture_of(r["prompt"], r["seed"], r.get("guide"))
             image.save(out.with_suffix(".png"))
+        # the picture alone, to be looked at against the brief before any shape is made of it: seconds, not a minute
+        if r.get("only") == "picture":
+            return {"picture": str(out.with_suffix(".png"))}
         cut = remove(image, session=session, bgcolor=[255, 255, 255, 0])
         cut.save(out.with_name(out.stem + "_cut.png"))
         mesh = pipe(image=cut, num_inference_steps=r.get("steps") or 30, octree_resolution=256, num_chunks=20000,

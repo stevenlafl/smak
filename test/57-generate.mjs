@@ -39,6 +39,12 @@ process.stdin.on("data", (chunk) => {
     const r = JSON.parse(buffer.slice(0, at));
     buffer = buffer.slice(at + 1);
     if (r.prompt.includes("fail")) { say({ id: r.id, ok: false, error: "RuntimeError: asked to" }); continue; }
+    if (r.out.endsWith(".obj") && r.only === "picture") {
+      fs.mkdirSync(require("node:path").dirname(r.out), { recursive: true });
+      fs.copyFileSync(${JSON.stringify(join(folder, "seen.png"))}, r.out.replace(/\\.obj$/, ".png"));
+      say({ id: r.id, ok: true, picture: r.out.replace(/\\.obj$/, ".png"), took: 0.01 });
+      continue;
+    }
     if (r.out.endsWith(".obj")) {
       if (r.guide) fs.appendFileSync(${JSON.stringify(join(folder, "guides.txt"))}, r.guide + "\\n");
       // a shape: a box twice as tall as it is wide, Y up, and the picture it was "made from"
@@ -144,13 +150,21 @@ async function generateCase() {
   sure(/Drawn in biped\.mdl's stance \(work:people\/guard_guide\.png\): build it on that base in the same one, "base": \{ "file": "biped\.mdl" \}, "pose": \{ "aim": \{"L arm":\{"out":30/.test(guided[0].text), guided[0].text);
   sure(existsSync(join(folders.work, "people", "guard_guide.png")) && readFileSync(join(folder, "guides.txt"), "utf8").includes("guard_guide.png"), "the guide drawn and handed to the worker");
   sure(JSON.parse(readFileSync(join(folders.work, "people", "guard_s0.json"), "utf8")).stance?.["L arm"]?.out === 30, "its sidecar keeps the stance");
-  let both = "";
+  // the pictures alone first, looked at against the brief; then the shape of the one chosen, in the base's stance
+  const drawn = await tools.generate.call({ kind: "shape", prompt: "a security guard", base: "biped.mdl", only: "picture", seeds: 2, name: "people/look" });
+  sure(/2 of 2 pictures of "a security guard"/.test(drawn[0].text) && /work:people\/look_s0\.png/.test(drawn[0].text) && drawn[1]?.type === "image" && !existsSync(join(folders.work, "people", "look_s0.obj")), drawn[0].text);
+  sure(/then make its shape: generate \{ kind: "shape", picture: "work:<it>", base: "biped\.mdl" \}/.test(drawn[0].text), drawn[0].text);
+  const guidesBefore = readFileSync(join(folder, "guides.txt"), "utf8");
+  const chosen = await tools.generate.call({ kind: "shape", picture: "work:people/look_s1.png", base: "biped.mdl", seeds: 1, name: "people/chosen" });
+  sure(/1 of 1 shapes of the picture work:people\/look_s1\.png/.test(chosen[0].text) && /Drawn in biped\.mdl's stance/.test(chosen[0].text), chosen[0].text);
+  sure(readFileSync(join(folder, "guides.txt"), "utf8") === guidesBefore, "a picture already drawn is not drawn over the guide again");
+  let wrong = "";
   try {
-    await tools.generate.call({ kind: "shape", picture: "work:gen/crate_s0.png", base: "biped.mdl", seeds: 1 });
+    await tools.generate.call({ kind: "shape", picture: "work:people/look_s1.png", only: "picture" });
   } catch (error) {
-    both = error.message;
+    wrong = error.message;
   }
-  sure(/base: a character's base model .* not with picture/.test(both), both);
+  sure(/only: "picture": the pictures drawn from the prompt and no shape/.test(wrong), wrong);
   stopWorkers();
   const none = toolsFor(openFolders({ work: join(tmp, "gen-work") }));
   sure(!none.some((t) => t.name === "generate"), "no generators, no tool");
