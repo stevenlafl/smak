@@ -426,3 +426,9 @@ walk test, not the game.
   Valve's has a folding stock hooked at its end, which it took for a bent fault (M1, M3). The brief now says
   so. The 9mm's control still fails on parts no brief names (a front sight, a magazine base) and on Valve's
   own streaked slide; that is the judge's, open. Results judged before keep their scores.
+- **2026-10-17, later: M3 of a brief leg asks for what the brief names and what all of Valve's own show.**
+  Steven's call. Valve's own shotgun and 9mm failed their brief controls on M3 in every weapon round: the judge
+  listed parts the brief implies "down to the small ones" and docked a front sight and a magazine's base no brief
+  names and Valve's own does not show plainly. M3 of a brief leg now lists the parts the brief names, and those
+  every one of the game's own of its kind in the line-up shows; another part's absence is not charged. M3 of a
+  leg held to its original is unchanged. Results judged before keep their scores.
