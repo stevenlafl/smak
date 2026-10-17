@@ -421,3 +421,8 @@ walk test, not the game.
   wrench of every round was "told apart" by all four readings. A line-up may now keep the game's own of the very
   kind among its three (`beside`): the wrench's keeps the crowbar, and two weapons nearest its size. Results
   judged before keep their scores.
+- **2026-10-17, later: the shotgun's stock.** Valve's own shotgun failed its brief control in every weapon round
+  (15, then 16 of 18): the judge read "a pump-action combat shotgun ... and stock" as a straight stock, and
+  Valve's has a folding stock hooked at its end, which it took for a bent fault (M1, M3). The brief now says
+  so. The 9mm's control still fails on parts no brief names (a front sight, a magazine base) and on Valve's
+  own streaked slide; that is the judge's, open. Results judged before keep their scores.
