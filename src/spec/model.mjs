@@ -121,7 +121,7 @@ const PROP_BUDGET = 576;
  * units: the triangles of their first body at the median and the third quartile. Measured on the game's 74 such
  * models (2026-10-14); numbers only.
  */
-const PROP_TRIANGLES = [
+export const PROP_TRIANGLES = [
   { under: 16, median: 20, q3: 32 },
   { under: 32, median: 51, q3: 88 },
   { under: 64, median: 62, q3: 156 },

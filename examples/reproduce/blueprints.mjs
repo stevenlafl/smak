@@ -19,6 +19,7 @@ import * as smak from "../../src/index.mjs";
 import { tile } from "../../src/render.mjs";
 import { buildMapSpec } from "../../src/spec/map.mjs";
 import { findCompilers } from "../../src/maps/compile.mjs";
+import { itemsOf, parseAnswer, settle, askScores, dryAnswer } from "./scoring.mjs";
 
 const { maps } = smak;
 const ROOT = join(HERE, "blueprints");
@@ -236,8 +237,7 @@ function shareOf(a, b, [dx, dy, dz]) {
 
 // ── judging ────────────────────────────────────────────────────────────────
 
-const ITEMS = ["P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9"];
-const MUST = ["P1", "P2", "P3", "P4", "P8", "P9"];
+const { items: ITEMS, must: MUST } = itemsOf("map");
 
 async function judgeHouse(house, file, { decoy = false } = {}) {
   const asKeyed = keyOf(house);
@@ -322,7 +322,7 @@ async function judgeHouse(house, file, { decoy = false } = {}) {
   if (failed.length) return { house, decoy, measured, caps, passes: false, failedByMeasure: failed, total: 0, of: 2 * ITEMS.length };
   const given = givenOf(house).map((f) => join(ROOT, house, "input", f));
   // DRY=1: the measures and pictures alone, every judge's score a 1, with no agent run
-  const r = process.env.DRY ? { answer: JSON.stringify(Object.fromEntries(ITEMS.map((i) => [i, { score: 1, reason: "dry run" }]))) } : await runJudge({
+  const r = process.env.DRY ? { answer: dryAnswer(ITEMS) } : await runJudge({
     read: join(ROOT, house),
     hours: 0.75,
     prompt: `You are an independent judge. A real house was built as a GoldSrc map from its measured drawings and photographs, by someone who never saw the key. Judge it strictly by the rubric below: the "Houses from their drawings" section, the Maps table read against the house, "Passing" and "Keeping the judge honest". A measured item may score lower than its measurement allows, never higher.
@@ -332,23 +332,14 @@ The house's drawings and photos: ${given.join(", ")}. The key, drawn over its sh
 The measurements (floorOverlap: the map's walked floor against the key's rooms, aligned; floorFoundByStorey: the share of each storey's rooms the map has floor in; doors and windows: the key's matched in the map):
 ${JSON.stringify(measured, null, 1)}
 
-Score every item, ${ITEMS.join(", ")}, 0, 1 or 2, each with a reason. Reply with JSON alone: {${ITEMS.map((i) => `"${i}": { "score": 0, "reason": "..." }`).join(", ")}}
+${askScores(ITEMS)}
 
 THE RUBRIC
 ${RUBRIC}`,
   });
-  let judged = null;
-  try {
-    judged = JSON.parse(r.answer.slice(r.answer.indexOf("{"), r.answer.lastIndexOf("}") + 1));
-  } catch {}
+  const judged = parseAnswer(r.answer);
   if (!judged) return { house, decoy, error: "the judge's answer was not JSON", measured };
-  const scores = {};
-  for (const i of ITEMS) {
-    const given = Math.max(0, Math.min(2, Number(judged[i]?.score ?? 0)));
-    scores[i] = { judge: given, cap: caps[i] ?? null, score: Math.min(given, caps[i] ?? 2), reason: judged[i]?.reason ?? "" };
-  }
-  const total = ITEMS.reduce((t, i) => t + scores[i].score, 0);
-  return { house, decoy, measured, caps, scores, total, of: 2 * ITEMS.length, passes: MUST.every((i) => scores[i].score === 2) && total >= 0.85 * 2 * ITEMS.length };
+  return { house, decoy, measured, caps, ...settle("map", judged, caps) };
 }
 
 /** The decoy: the house's outer box as one room a storey, a start, no inner walls, doors or windows. */
