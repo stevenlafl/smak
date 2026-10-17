@@ -433,6 +433,16 @@ c2a3     212 x 258    6       128      6264     0.742      0.797      0.828     
   `terrain` (triangles from heights), which the same picture would feed.
 - It is an upper bound for a picture a tool reads exactly; a person's sketch carries less. It says the
   geometry part of P2 is solved once the heights reach the maker per place and per layer.
+- 2026-10-16, the kit's own path (`smak map-heights`, then a spec of `floorplan: { dir }` and one start,
+  compiled draft): frenzy 0.840 on every floor, the bound above. The height-plan leg's round 12 (Haiku) built
+  0.826, so the maker is within 0.014 of it and P2 (2 from 0.7) has no more to give. Of the 3,112 floor cells
+  the bound misses, 1,463 are not in the plan and 1,443 are in it and lost in the carve. 1,062 of the plan's
+  12,357 columns tell one floor twice and the ledge over it not at all: a player standing on a ledge's edge
+  has the middle over the floor below, and the plan draws the surface under the middle. Drawing the ledge's
+  height there instead lowered the bound to 0.795 (the reader's one cell of growth then widens every ledge
+  twice), so it was not kept. The judge's P3 of 1 on round 12 ("lower rooms at about 64 in the original and
+  128 in the reproduction") is not in the floors: both have their floors at 0, 160, 320 and 512 in the same
+  shares.
 
 ### 6.2 C: screenshots with known cameras
 
