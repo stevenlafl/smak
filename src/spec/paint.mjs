@@ -22,6 +22,7 @@ import { referencePicture, FILTERS, DEFAULT_UNITS } from "./reference.mjs";
  * wood, iron and steel keep theirs, since a given tone is painted as its share of them.
  */
 export const MATERIALS = {
+  flat: { tone: [0.5, 0.5, 0.5], what: "one plain colour and nothing on it, as the game's own BLACK and YELLOW are: give its tone" },
   wood: { tone: [0.46, 0.32, 0.19], what: "planks, a barrel, a handle" },
   leaves: { tone: [0.2, 0.27, 0.12], what: "a tree's crown or a bush on cards: leaves with holes between, seen through" },
   darkwood: { tone: [0.25, 0.16, 0.1], what: "old oak, a dark stained post" },
@@ -148,6 +149,7 @@ function pictureOf(material, where) {
   if (!(typeof picture === "string" && picture) && !isImage)
     throw new Error(`${where}.picture: a picture file of the work folder or beside the spec ("work:refs/plaster.jpg"; PNG, BMP or JPEG)`);
   if (material.base === "mesh") throw new Error(`${where}.picture: a mesh is its cords and holes; give a picture to another base`);
+  if (material.base === "flat") throw new Error(`${where}.picture: a flat colour is its tone alone; give a picture to another base`);
   if (!FILTERS.includes(filter)) throw new Error(`${where}.filter: one of ${FILTERS.join(", ")} ("${filter}" is not)`);
   const number = (v) => typeof v === "number" && Number.isFinite(v);
   if (rect !== undefined && !(Array.isArray(rect) && rect.length === 4 && rect.every(number) && rect[2] > rect[0] && rect[3] > rect[1]))
@@ -462,7 +464,7 @@ function roundNoise(x, y, w, h, cell, s) {
 /**
  * Bases a map's picture is left even on: light passes through or comes out of them, or they move.
  */
-export const UNWORN = new Set(["glass", "flame", "neon", "water"]);
+export const UNWORN = new Set(["glass", "flame", "neon", "water", "flat"]);
 /**
  * How much a used surface varies, as Valve's walls and floors do (research/texture-stats.mjs: 347 of
  * halflife.wad's): patches 16 to 64 texels across a little lighter and darker (`MOTTLE`), each tile or panel a
@@ -585,7 +587,8 @@ export function surfacePicture(given, size = 64, height = size, { readPicture } 
   for (let y = 0; y < height; y++)
     for (let x = 0; x < size; x++) {
       // the picture's detail where one is given (a door's is under its panels, drawn by colourAt)
-      let c = detail && base !== "door" ? detail(x, y) : seamless(x, y);
+      // a flat colour is its tone and nothing else, as the game's own BLACK and YELLOW are
+      let c = base === "flat" ? tone : detail && base !== "door" ? detail(x, y) : seamless(x, y);
       if (base === "brick") {
         // courses 16 high, bricks 32 long (`course`, `length`), every other course moved half a brick
         const course = Math.floor(y / courseH);

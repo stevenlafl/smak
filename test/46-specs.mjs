@@ -519,6 +519,20 @@ test("a map spec keeps its ways through at ease: no furniture in front of a door
   sure(short.some((f) => /links\[0\]: the wall a and b share is 40 long/.test(f)), short.join("; "));
 });
 
+test("a flat colour is its tone alone, as the game's own BLACK and YELLOW are, and takes no picture", () => {
+  const p = surfacePicture({ base: "flat", tone: [0.8, 0.7, 0.1] }, 16, 16);
+  const colours = new Set();
+  for (let i = 0; i < p.rgb.length; i += 3) colours.add(`${p.rgb[i]},${p.rgb[i + 1]},${p.rgb[i + 2]}`);
+  sure(colours.size === 1 && colours.has("204,179,26"), [...colours].slice(0, 4).join(" "));
+  let refused = "";
+  try {
+    surfacePicture({ base: "flat", picture: "work:x.png" }, 16, 16, { readPicture: () => ({ width: 1, height: 1, rgb: new Uint8Array(3) }) });
+  } catch (error) {
+    refused = error.message;
+  }
+  sure(/a flat colour is its tone alone/.test(refused), refused);
+});
+
 test("a map's pictures look as Valve's walls do: grain, patches, colour and brightness within nine in ten of theirs", () => {
   // every base the kit paints, at its own tone, passes, held to Valve's of its kind; it did not while the pictures
   // were even. The softest are told they have less grain than nine in ten of Valve's, and nothing else: their grain

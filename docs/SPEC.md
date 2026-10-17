@@ -335,7 +335,7 @@ player sees it. `examples/prompts/22-weapon-wrench` is a worked one.
 
 `base` is one of: `wood`, `darkwood`, `planks`, `iron`, `steel`, `brass`, `gold`, `copper`, `leather`,
 `cloth`, `rope`, `stone`, `brick`, `plaster`, `tile`, `metal`, `grass`, `dirt`, `glass`, `flame`, `neon`,
-`hazard` (stripes of its tone and black), `leaves` (pointed leaves on two layers with holes between, a masked texture: a crown's `cards`; `cell` a leaf's size in units, 2.5, `fill` the share of places that hold one, 0.75), `asphalt`, `water`, `paint`, `bone`, `door` (maps: a panelled door with
+`hazard` (stripes of its tone and black), `flat` (its tone and nothing else: no grain, patches or wear, as the game's own BLACK and YELLOW are; a plain colour a person asks for), `leaves` (pointed leaves on two layers with holes between, a masked texture: a crown's `cards`; `cell` a leaf's size in units, 2.5, `fill` the share of places that hold one, 0.75), `asphalt`, `water`, `paint`, `bone`, `door` (maps: a panelled door with
 its handle, fitted to the leaf), `mesh` (a net, a wire fence,
 a grille: cords in its tone with holes between, seen through as in the game; `cell` the holes' size, 2;
 `weave: "diamond"` runs the cords on the diagonals, as chain-link's do). `tone: [r, g, b]` (0 to 1)
