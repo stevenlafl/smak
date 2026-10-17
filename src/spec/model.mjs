@@ -21,7 +21,7 @@ import { readFileSync, existsSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { shape, sheet, allot } from "../workshop.mjs";
 import { buildMdl, swapMesh } from "../build.mjs";
-import { HANDS } from "../fit.mjs";
+import { HANDS, measure as measureWeapon } from "../fit.mjs";
 import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
 import { readStudio } from "../studio-file.mjs";
@@ -2631,11 +2631,39 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
       soundLengths.set(file.name, built.report.sounds[file.name].features.length);
     }
   }
+  // the game's own first: a weapon is fitted to the file whose animations the game's code plays, and a copy of
+  // this build's own beside the spec (a maker putting its files where the mod keeps them) is not that (2026-10-17)
+  const placeOf = (fileName) => [...games.map((game) => join(game, "models", fileName)), resolve(folder ?? ".", fileName)].find((p) => existsSync(p));
+  const isWeapon = (mesh) => Boolean(mesh.texture) && !HANDS.test(mesh.texture.name);
+  // how long the game draws this very weapon in each file: the longest side of its weapon's box, in the space of
+  // the bone that carries it. Valve's crowbar is 0.8 of life in first person where its guns are 1.24 (HELD_SCALE's
+  // median): a crowbar made at the brief's length sat half again too large in the hands, and a maker that shrank
+  // it to look right failed the brief's length (2026-10-17). A file the build may not show is never measured
+  const drawn = {};
   for (const view of views) {
     const fileName = `${view}_${like}.mdl`;
-    // the game's own first: a weapon is fitted to the file whose animations the game's code plays, and a copy of
-    // this build's own beside the spec (a maker putting its files where the mod keeps them) is not that (2026-10-17)
-    const place = [...games.map((game) => join(game, "models", fileName)), resolve(folder ?? ".", fileName)].find((p) => existsSync(p));
+    const place = placeOf(fileName);
+    if (!place || hidden(fileName)) continue;
+    try {
+      const src = readStudio(place).src;
+      const bodyparts = readMdl(src).bodyparts;
+      const tris = (model) => model.meshes.filter(isWeapon).reduce((n, m) => n + m.numtris, 0);
+      const bodypart = bodyparts.map((part) => part.models.reduce((n, model) => n + tris(model), 0)).reduce((best, n, k, all) => (n > all[best] ? k : best), 0);
+      const j = bodyparts[bodypart].models.findIndex((model) => tris(model) > 0);
+      if (j < 0) continue;
+      const points = measureWeapon(src, j * bodyparts[bodypart].base, isWeapon, fileName, bodypart).original.flat().map((corner) => corner.p);
+      drawn[view] = Math.max(...[0, 1, 2].map((k) => Math.max(...points.map((p) => p[k])) - Math.min(...points.map((p) => p[k]))));
+    } catch {
+      // a file whose weapon cannot be measured keeps the median
+    }
+  }
+  /** A view's share of life: as the game draws this weapon there against in another's hands, else the median. */
+  const scaleOf = (view) => (drawn[view] && drawn.p ? (HELD_SCALE.p * drawn[view]) / drawn.p : HELD_SCALE[view]);
+  if (drawn.p && Object.keys(drawn).length > 1)
+    report.facts.push(`the game's ${like} is drawn ${Object.entries(drawn).map(([view, length]) => `${Math.round(length * 10) / 10} long in ${view}_`).join(", ")}: a weapon at its real size is laid in each at ${views.map((view) => `${view}_ ${Math.round(scaleOf(view) * 100) / 100}`).join(", ")} of life`);
+  for (const view of views) {
+    const fileName = `${view}_${like}.mdl`;
+    const place = placeOf(fileName);
     if (!place) {
       report.errors.push(`weapon: ${fileName} is neither in the game folders given nor beside the spec (${games.join(", ") || "none"})`);
       continue;
@@ -2663,7 +2691,7 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
         // at its own size (asked for, or a hidden file's, whose weapon lends nothing of its shape) the piece is the
         // real weapon, laid in each file at the size Valve draws a weapon there against the real one (HELD_SCALE)
         const own = hidden(fileName) || size === "own";
-        const scaled = own ? { ...inView, tris: inView.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * HELD_SCALE[view]) }))) } : inView;
+        const scaled = own ? { ...inView, tris: inView.tris.map((t) => t.map((c) => ({ ...c, p: c.p.map((v) => v * scaleOf(view)) }))) } : inView;
         // in the hands of another and in the world, the lighter mesh Valve gives a weapon there
         // against the first person's triangles (the whole piece), not this file's: a part shown in v_ only leaves p_ lighter already
         const light = view === "v" ? scaled.tris.length : Math.min(scaled.tris.length, Math.round(piece.tris.length * HELD_LIGHTER), HELD_LIGHT_MOST);

@@ -99,6 +99,9 @@ test("a weapon spec names the firearm kit: its stock left out of the first-perso
   writeFileSync(join(folder, "v_boomstick.mdl"), fileOf([glove]));
   const fromGame = buildModelSpec(spec, { folder, games: [game] });
   sure(fromGame.report.ok && fromGame.files.length === 2, `the game's own fitted to: ${[...fromGame.report.errors, ...fromGame.report.faults].join("; ")}`);
+  // each file at the share of life the game draws this very weapon at, against in another's hands: the stand-in
+  // draws its gun at one length in both, so the first person is 0.82 too, not the guns' median 1.24
+  sure(fromGame.report.facts.some((f) => /a weapon at its real size is laid in each at v_ 0\.82, p_ 0\.82 of life/.test(f)), fromGame.report.facts.filter((f) => /drawn/.test(f)).join(" | "));
 });
 
 test("upright: a piece that knows its up and front keeps them where its outline cannot choose, and only there", () => {
