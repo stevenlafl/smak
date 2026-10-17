@@ -32,3 +32,4 @@ export * from "./texlights.mjs";
 export * from "./places.mjs";
 export * from "./match.mjs";
 export * from "./fidelity.mjs";
+export * from "./describe.mjs";

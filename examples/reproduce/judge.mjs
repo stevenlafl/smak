@@ -221,7 +221,7 @@ async function judgeModelBrief(model, file, { decoy } = {}) {
   const dir = join(HERE, model.id, "judge", decoy ? `decoy-brief-${decoy}` : "brief");
   rmSync(dir, { recursive: true, force: true });
   const list = ownOfKind(kind).filter((x) => x.file !== model.file);
-  const r = await judgeModelAgainstBrief("model", `${model.id}.mdl, in the place of the game's ${model.file}`, readModel(file), dir, { brief, asked, list });
+  const r = await judgeModelAgainstBrief("model", `${model.id}.mdl, in the place of the game's ${model.file}`, readModel(file), dir, { brief, asked, list, byKind: Boolean(model.lineup) });
   return { subject: model.id, leg: decoy ? `decoy: brief ${decoy}` : "brief", ...r };
 }
 

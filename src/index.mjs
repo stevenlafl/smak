@@ -1,6 +1,8 @@
 // SMAK, the Studio Model Agent Kit: everything, from one place.
 //   import { readMdl, swapMesh, render, png } from "smak";       (or from "./src/index.mjs")
 export * from "./mdl.mjs";
+export * from "./studio-file.mjs";
+export * from "./describe.mjs";
 export * from "./image.mjs";
 export * from "./vec.mjs";
 export * from "./mesh.mjs";

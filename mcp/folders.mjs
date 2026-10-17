@@ -41,7 +41,7 @@ export function openFolders({ models, work }) {
  * The whole path of a file a client named, which must be in the work folder, or (unless `write`) among the
  * models. It throws, in words, for a path outside both, and for a file that is to be read and is not there.
  */
-export function pathOf(folders, name, { write = false } = {}) {
+export function pathOf(folders, name, { write = false, folder = false } = {}) {
   if (typeof name !== "string" || !name) throw new Error("a file's name is needed");
   // the material library (--materials): read only, by a name the tool `materials` lists ("library:concrete_wall_006")
   if (name.startsWith("library:")) {
@@ -65,6 +65,12 @@ export function pathOf(folders, name, { write = false } = {}) {
       `${name} is outside the ${write ? "work folder" : "models and work folders"}: refused. Name files by their path under one of them`,
     );
   if (write) return allowed[0];
+  // a folder, where one is asked for (a command's --game, a folder of maps to learn from)
+  if (folder) {
+    const there = allowed.find((path) => existsSync(path) && statSync(path).isDirectory());
+    if (!there) throw new Error(`no such folder: ${name} (the tool \`models\` lists what there is)`);
+    return there;
+  }
   let found = allowed.find((path) => existsSync(path) && statSync(path).isFile());
   // a game's model by its path in the game (player/gordon/gordon.mdl), found where the build finds a base: in the
   // game folders (--wads). A maker that asked `info` for its base and was told "no such file" stopped there,

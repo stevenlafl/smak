@@ -3,8 +3,10 @@
 SMAK is used by an agent that reads `AGENTS.md` and writes short Node scripts with a shell. This folder is the
 same kit for a client that has **no shell**: a [Model Context Protocol](https://modelcontextprotocol.io) server
 that Claude Desktop, Claude Code or any other MCP client starts and talks to. The client's model reads the
-guide a section at a time, looks at models and maps, and makes or changes them by sending scripts for the
-server to run.
+guide a section at a time, looks at models and maps, and makes or changes them with specs, with the command line's
+own commands, or by sending scripts for the server to run. Everything the command line does, a client does through
+`command`; what was made it reads, sees and hears through `file`; the person's viewer and editor it opens with
+`page`.
 
 It needs Node 18 or later and nothing else: no `npm install`, no SDK. The protocol (JSON-RPC 2.0 over stdin and
 stdout, one message a line) is written out in `protocol.mjs`.
@@ -19,7 +21,7 @@ node mcp/server.mjs --models <folder> --work <folder> [--no-run] [--compilers <f
 | ---------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | `--models` | The files to work from: a mod's `models` folder, say, or its `maps` folder (or the mod's own folder, for both). Only ever read. May be left out when everything is made from nothing. |
 | `--work`   | Where everything made is written (models, pictures, kept scripts). Made when it is not there.                                |
-| `--no-run` | Without the tool `run`: the server can then only read, check, draw and build from specs (which runs no code of the client's). |
+| `--no-run` | Without the tool `run`, and `command` refuses what would load code (a `.mjs` module, a `layers` expression): the server then runs no code of the client's. |
 | `--compilers` | The map compilers' folder (SDHLT or VHLT), for `build` of a map. `VHLT_DIR` and the PATH are looked in unless told.         |
 | `--fgd`    | An entity definitions file: the game's `.fgd` (Half-Life's is in the SDK, `Hammer Editor/fgd/half-life/halflife.fgd`) and the compilers' own (`sdhlt.fgd`). `build` holds a map's entities against them; `entities` lists them. Again for more. |
 | `--wads`   | A game folder whose `.wad` files a map spec's `wads` name (`valve`, a mod's folder). Again for more.                            |
@@ -58,34 +60,41 @@ claude mcp add smak -- node <path>/mcp/server.mjs --models <dir> --work <dir>
 **`run` runs whatever code the client's model sends, on your machine, as you.** It is Node with no sandbox: the
 script can read and write any file you can and reach the network. Nothing holds it inside the two folders; the
 tool's description asks the model to write to the work folder only, and that is a request, not a wall. Start
-the server with `run` only for a model and a conversation you would hand a shell to. With `--no-run` the server
-never writes or runs anything: it lists, describes, checks and draws.
+the server with `run` only for a model and a conversation you would hand a shell to. With `--no-run` the server runs no
+code of the client's: it lists, describes, checks, draws, builds from specs and runs the command line's commands,
+writing to the work folder only.
 
-Every other tool takes a file only from inside `--models` or `--work`, and refuses anything else in words.
+Every other tool takes a file only from inside `--models` or `--work` (and the game and library folders it was
+given, read only), and refuses anything else in words.
 
 ## The tools
 
-Few on purpose: a client is sent every tool's description in every conversation (about 1300 tokens for all
-eight, maps included), so the long guidance stays behind `guide` and is read only when a task needs it.
+Few on purpose: a client is sent every tool's description in every conversation (about 2900 tokens for the
+twelve, maps included), so the long guidance stays behind `guide` and is read only when a task needs it.
 
 | Tool     | What it does                                                                                                                                                      | Arguments                                                                                                                                                           |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `guide`  | The kit's guide (`AGENTS.md`), cut at its headings when asked. With nothing: the list of sections, a line each, and the table of what the kit can and cannot do.  | `topic` (section numbers `"12,20"`, or words of one title), `doc` (`"api"`, `"engines"`, `"maps"`, `"maps-making"`, or an example's or a kit's path), `find` (the lines that hold these words) |
+| `guide`  | The kit's guide (`AGENTS.md`), cut at its headings when asked. With nothing: the list of sections, a line each, and the table of what the kit can and cannot do.  | `topic` (section numbers `"12,20"`, or words of one title), `doc` (`"api"`, `"spec"`, `"engines"`, `"maps"`, `"maps-making"`, `"maps-checks"`, `"import"`, `"items"`, `"play"`, `"editor"`, or an example's or a kit's path), `find` (the lines that hold these words) |
 | `models` | The files there are: the models folder's `.mdl`, `.bsp`, `.map` and `.wad` files and everything in the work folder, with their sizes.                              | `match`                                                                                                                                                             |
 | `info`   | What a model holds: bones, bodies with their body numbers, textures, animations. Of a map (`.bsp`): its size, entities, textures, light; of a `.map` or a `.wad`, what is in it. | `model`, `full` (bone places, events, attachments; a map: every entity with its keys)                                                                               |
 | `check`  | The errors and warnings an engine would have with a model or a compiled map; of a `.map`, what its plan has wrong before a compile. With `walk`, a map's walk test: what a player cannot reach on foot, what stands in something solid, the openings. With `against`, a map's entities held against its mod: classes, keys, values, names, the mod's rules. | `model`, `engine` (`goldsrc`, `xash`), `walk`, `goal` (entities to tell the walk to, `"9, keeper"`), `doors` (`open`, `closed`), `against` (files of the folders, with commas: `.fgd` files, what `smak map-learn` wrote, a profile that is a `.json` file; or `goldsrc`. A profile that is a module is code: `run`)                                      |
 | `render` | A picture of a model or a map, returned as an image. A map's kinds are `plan` (from above, every entity marked with its pixel), `view` (from inside), `views`, `section` (a side cut along a line), `storeys` (a plan for each storey) and `openings` (a view through each doorway). | `model`, `kind` (`view`, `sheet`, `strip`, `uv`; a map: `plan`, `view`, `views`, `section`, `storeys`, `openings`), `body`, `seq`, `frame`, `side` or `yaw` / `pitch`, `zoom`, `dist`, `first`, `count`, `texture`, `at`, `z`, `from` and `to` (a section's ends, `"x y"`), `heights`, `legend`, `reach` (a plan), `size` |
 | `build`  | A model, a map, textures, a sound, music, a sprite or a video from a spec (`docs/SPEC.md`, `guide { doc: "spec" }`): what a person's words, or drawing, are turned into. Built, checked (holes, gaps, faces turned inwards, parts floating apart; a map's leaks, walk, light, entities against the FGD), compiled, drawn. Says `OK` or what to fix, and what changed since the last build of the same name. Writes the result and its spec to the work folder. Runs no code of the client's. | `spec` (an object, JSON text, or a `.json` file of the folders), `reference` (a PNG drawn beside the result), `focus` (a model's parts to see close) |
+| `decompile` | A compiled map made back into brush source in the work folder, with a `.wad` of the textures it carries, and compiled again (unless `compile: false`). | `map`, `name`, `compile` |
 | `entities` | The entity classes of the server's FGDs, a line each; with `class`, its keys, types, defaults, choices and flags by name. | `match`, `class` |
 | `run`    | Runs an ES module with Node in the work folder, with the kit importable. Returns what it printed, the files it wrote, and up to three of its PNG files as images. | `script`, `show`, `timeout` (seconds; 120 unless told, 600 at most), `name` (keep the script as `<name>.mjs`), `edits` (change a kept script in place)              |
+| `command` | Any command of the command line, run as it runs there with every flag it has (`guide { topic: "The command line" }` lists them): retexture, animations, re-skins, pieces, layers, a map's entities changed and compiled, its walk test with jumps, height plans, light, measures, .wad files, imports. Files are named `work:`, `models:`, `library:`, and `game:<folder>` for a game folder of the server's; what it writes goes to the work folder; nothing outside the folders is named. | `name`, `args` (its words and flags), `show`, `timeout` |
+| `file` | A file of the folders read back as what it is: words (`.map`, `.json`, `.txt`, `.fgd` ...), a picture, or a sound to listen to (`.wav`, `.mp3`, as the protocol's audio). With `text`: a text file written into the work folder (a `.map` to compile, rules for `reskin`, steps for `play`). | `name`, `text`, `from` (a long text read on from there) |
+| `page` | The person's own pages, which stay up after the call, on this machine: the viewer (`view`: models side by side, turning, animated) or the editor (`edit`: animations, events and textures by hand, its projects in the work folder). Returns the address; `stop` closes it. One of each at a time; they stop with the server. | `kind`, `files`, `port`, `stop` |
 | `materials` | With `--materials` only. The library searched by words or category, each material with its real size in units; `show` draws up to twelve side by side. A map's or a .wad's material then takes one as `picture: "library:<name>"` (read only, nothing outside the library). | `match`, `category`, `show` |
 | `generate` | With `--generators` only. A sound, music or a shape made by a model run on this machine, a take a seed: each written to `work:gen/<name>_s<seed>` (`.wav`, or `.obj` with the picture it was made from and its cut-out) with a sidecar `.json` (model, prompt, seed, licence). Sounds are measured at the game's rate (against a class of the game's sounds when given) and drawn one under another; shapes are drawn beside their pictures. The first call to a model loads it (a minute or three) and keeps it loaded; later calls take seconds. A sound spec takes the chosen take as a `sample` layer, a model spec the chosen shape as a `mesh` part. | `prompt`, `length` (seconds; not for a shape), `kind` (`sound`, `music`, `shape`), `model`, `seeds` (a count, or a list), `from` (the first seed), `name`, `class`; music: `bpm`, `key`, `loop`; a shape: `picture` (of the folders, in place of drawing one from the prompt) |
 
 A map's `.wad` files are looked for beside it and in the models folder; when that folder is the game's own
 (it has `gfx/env` and `sprites`), a view shows the sky's picture and the sprites too. Models in a map's
-pictures, jumps in its walk test and a way out named for it are options of the library, used by `run`. Changing a map's entities, making
-one from brushes and compiling it go by `run`, as everything that makes or changes does (`guide { doc: "maps" }`
-and `"maps-making"`).
+pictures, jumps in its walk test and a way out named for it are flags of the command line's map commands, used by
+`command` (`map-plan --models`, `map-reach --jump --exit`). Changing a map's entities (`map-set`) and compiling a
+`.map` written with `file` (`map-compile`) go by `command`; making one from brushes goes by a spec (`build`) or
+`run` (`guide { doc: "maps" }` and `"maps-making"`).
 
 A file is named by its path under one of the two folders. `work:pot.mdl` and `models:player/gordon.mdl` say
 which; a bare `pot.mdl` is looked for in the work folder first, so that a changed model is found before the one
@@ -96,6 +105,12 @@ unless asked: 512 pixels on the longer side for one view or a texture, 768 for a
 most (`size`). They are sent with 32 levels of each colour in place of 256, which more than halves the file
 and changes nothing a model is checked for. A picture a script wrote and asked to `show` is treated the same; the file
 on the disk is left as the script wrote it.
+
+**Commands.** `command` is the command line itself, run in the work folder: a client has every command and every
+flag the day the command line has it, and nothing about them is written twice. `command { name: "retexture", args:
+["models:barney.mdl", "vest.bmp", "work:vest.png", "-o", "barney_vest.mdl"] }` is `smak retexture ...`; what it
+prints comes back, then the files it wrote, then up to three of the pictures it wrote. `view` and `edit` stay up,
+so they are `page`, and the server is not run from itself.
 
 **Scripts.** There is no tool for each thing the kit does, because building a shape or painting by place takes
 functions (a colour for every pixel, a ring for every height), and a function is written in code. A script
@@ -166,9 +181,13 @@ What a person might ask, and the calls a client makes for it.
 | `guide.mjs`    | The guide and the reference cut at their headings, read from the kit's own files each time.         |
 | `tools.mjs`    | The tools: their descriptions as a client is told them, and `models`, `info`, `check`, `render`, `build`, `entities`. |
 | `run.mjs`      | The tool `run`: the link to the kit, the child process, its time limit, what it wrote.              |
+| `command.mjs`  | The tool `command`: a command line's words with their names resolved to the folders, run through `run.mjs`'s child process. |
+| `file.mjs`     | The tool `file`: a file read back as words, a picture or a sound; a text file written.              |
+| `page.mjs`     | The tool `page`: the viewer or the editor started inside the server, and stopped.                   |
 | `materials.mjs` | The tool `materials`: the library's index searched, its pictures drawn. |
 | `generate.mjs` | The tool `generate`: the generators folder's manifest, the worker (`generators/worker.py`) kept loaded, the takes and their sidecars. |
 
 The cases that start the server and speak to it are in `test/16-mcp.mjs`, `test/22-maps-draw.mjs`,
-`test/46-specs.mjs`, `test/57-generate.mjs` (with a stand-in for the model) and `test/58-materials.mjs`; `examples/prompts/run.mjs` builds every worked case through it, and
+`test/46-specs.mjs`, `test/57-generate.mjs` (with a stand-in for the model), `test/58-materials.mjs` and
+`test/63-mcp-command.mjs` (`command`, `file`, `page`); `examples/prompts/run.mjs` builds every worked case through it, and
 `examples/prompts/blind.mjs` hands a case's words to a fresh agent that has nothing else.

@@ -14,9 +14,10 @@
 // A model is drawn with its own origin at the entity's FEET (for a place to start: 36 under its origin).
 // Whether the game stands it just there (it may drop it to the floor) is for the game to show, and so is
 // what a script makes of it afterwards: another body, another animation.
-import { readFileSync, existsSync, statSync } from "node:fs";
+import { statSync } from "node:fs";
 import { posed, TEXTURE } from "../render.mjs";
-import { withTextures, sequences } from "../mdl.mjs";
+import { sequences } from "../mdl.mjs";
+import { readStudio } from "../studio-file.mjs";
 import { FRONT } from "../mesh.mjs";
 import { bytesOf } from "../pixels.mjs";
 import { sub, dot, cross } from "../vec.mjs";
@@ -87,10 +88,8 @@ function modelOf(name, folders) {
   if (kept?.stamp === stamp) return kept;
   let made;
   try {
-    let bytes = readFileSync(file);
-    // a model whose textures are in a file of their own, `name`t.mdl beside it
-    const own = file.replace(/\.mdl$/i, "t.mdl");
-    if (existsSync(own)) bytes = withTextures(bytes, readFileSync(own));
+    // a model whose textures are in a file of their own, `name`t.mdl beside it, read with them
+    const bytes = readStudio(file).src;
     made = { file, stamp, bytes, textures: new Map(), shapes: new Map() };
     shapeOf(made, {});
   } catch (error) {

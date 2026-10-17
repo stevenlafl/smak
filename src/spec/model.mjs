@@ -24,7 +24,8 @@ import { buildMdl, swapMesh } from "../build.mjs";
 import { HANDS } from "../fit.mjs";
 import { indexed, shrink, masked } from "../image.mjs";
 import { check } from "../check.mjs";
-import { readMdl, bones as bonesOf, sequences as sequencesOf, withTextures, addMesh, replaceMesh, inverse34, apply34, mul34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
+import { readStudio } from "../studio-file.mjs";
+import { readMdl, bones as bonesOf, sequences as sequencesOf, addMesh, replaceMesh, inverse34, apply34, mul34, readSequence, replaceSequence, events as eventsOf, setEvents } from "../mdl.mjs";
 import { buildSoundSpec } from "./sound.mjs";
 import * as A from "../animate.mjs";
 import { posed, render } from "../render.mjs";
@@ -2397,9 +2398,7 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
       report.errors.push(`weapon: ${fileName} is neither beside the spec nor in the game folders given (${games.join(", ") || "none"})`);
       continue;
     }
-    let mdl = readFileSync(place);
-    const textures = place.replace(/\.mdl$/i, "t.mdl");
-    if (existsSync(textures) && !readMdl(mdl).textures.length) mdl = withTextures(mdl, readFileSync(textures));
+    let mdl = readStudio(place).src;
     const original = mdl;
     const info = readMdl(mdl);
     const weaponTris = (model) => model.meshes.filter((m) => m.texture && !HANDS.test(m.texture.name)).reduce((n, m) => n + m.numtris, 0);
@@ -2518,9 +2517,7 @@ function skeletonOf(given, folder, games, refuse = []) {
   const places = [resolve(folder ?? ".", options.file), ...games.flatMap((game) => [join(game, "models", options.file), join(game, options.file)])];
   const file = places.find((place) => existsSync(place));
   if (!file) throw new Error(`${options.file} is neither beside the spec nor in the game folders given (${games.join(", ") || "none: --wads <game folder>"})`);
-  let src = readFileSync(file);
-  const textures = file.replace(/\.mdl$/i, "t.mdl");
-  if (existsSync(textures) && !readMdl(src).textures.length) src = withTextures(src, readFileSync(textures));
+  const { src } = readStudio(file);
   const pose = options.pose ?? { seq: 0, frame: 0 };
   const matrices = posed(src, pose).pose;
   const joints = new Map(bonesOf(src).map((bone, i) => [bone.name, apply34(matrices[i], [0, 0, 0])]));

@@ -92,7 +92,7 @@ await testAsync(
 
     const listed = (await server.request("tools/list")).result.tools;
     sure(
-      listed.map((tool) => tool.name).join() === "guide,models,info,check,render,build,decompile,entities,run" &&
+      listed.map((tool) => tool.name).join() === "guide,models,info,check,render,build,decompile,entities,run,command,file,page" &&
         listed.every((tool) => tool.description && tool.inputSchema.type === "object"),
       `the tools are ${listed.map((tool) => tool.name).join()}`,
     );

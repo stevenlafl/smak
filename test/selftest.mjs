@@ -78,6 +78,7 @@ const areas = [
   "61-floorplan", // height plans read back into a map's space, storeys over storeys; a spec's floorplan
   "60-props-look", // a tree of crossed leaf cards (masked), a model's pictures against Valve's models' (whites, toy colours)
   "62-reproduce-scoring", // the reproduction harness's scoring: the rubric's tables, caps, the pass rule, judges combined
+  "63-mcp-command", // the MCP tool command: the command line's commands on the server's folders, names outside refused, no code under --no-run
 ];
 
 // one after another: each file runs its cases as it is loaded, and the servers' cases wait for their answers

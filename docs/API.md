@@ -2,7 +2,7 @@
 
 Everything is exported from `src/index.mjs`. A model is a Node `Buffer` holding the whole `.mdl` file. Functions
 that change a model return a **new** buffer and leave the one they were given alone. Nothing here touches the
-disk: read with `readFileSync`, write with `writeFileSync`.
+disk but `readStudio` and `modelsIn` (below): read with `readFileSync`, write with `writeFileSync`.
 
 ```js
 import { readFileSync, writeFileSync } from "node:fs";
@@ -32,6 +32,17 @@ Words used below: `which` is a texture's or an animation's number or its name. `
 | `hitboxes(b)` | `[{ bone, group, min, max }]`: `bone` a number, the box in that bone's space, `group` what was hit (`HITGROUP`: generic 0, head 1, chest 2, stomach 3, leftArm 4, rightArm 5, leftLeg 6, rightLeg 7; a mod may have more). |
 | `boneControllers(b)` | `[{ bone, type, start, end, rest, index }]`: the bones the game's code turns itself (a head that follows). `type`: which of the bone's six values (`MOTION.X` ... `MOTION.ZR`, with `MOTION.RLOOP`); `start`, `end`: its range, degrees for an angle; `index`: which of the entity's controllers (0 to 3; 4 the mouth). |
 | `drawnCorners(b)` | `[{ name, corners }]` for each submodel: how many corners the engine draws for it. |
+| `texturesInside(b)` | How many textures the model holds inside itself, from its header: 0 for one that keeps them in `<name>t.mdl`. |
+| `describeModel(b, file)` (`src/describe.mjs`) | Everything `smak info` tells, as data (what `smak info --json` prints): bones, bodyparts with their body numbers, textures, skin families, eyes and the header's boxes, each animation with its activity, travel, speed, box and events, attachments, hit boxes (`hitboxList`, each with its group's name), bone controllers. |
+| `modelInfoLines(b, data, { compact, full, hitboxes, boxes, name })` | Those as the lines `smak info` prints (`hitboxes`: each hit box; `boxes`: each animation's box), or `compact` as the MCP server's `info` gives them (bones on one line and events counted, unless `full`). `flagNames`, `motionNames`, `HITGROUP_NAMES` name the bits and numbers. |
+
+### From the disk (`src/studio-file.mjs`)
+
+| Function | Gives |
+| --- | --- |
+| `readStudio(file, { read, exists })` | `{ src, textures }`: the model, with the textures of `<name>t.mdl` put inside it when it holds none of its own and that file is there; `textures` is that file, or null. How the command line, the MCP server, the viewer, the editor and the specs all read a model. `read` and `exists` stand in for the disk. |
+| `texturesFileOf(file)` | `<name>t.mdl` for `<name>.mdl`. |
+| `modelsIn(folder, { deep })` | The models of a folder (and those under it, `deep`), but for the side files of another beside them: `<name>t.mdl` and `<name>01.mdl` when `<name>.mdl` is there. A model whose own name ends in t or two digits (`filecabinet.mdl`) is a model. |
 
 ## Poses
 
@@ -66,7 +77,7 @@ For a whole body made from triangles, `putBody` (under "Working by place") does 
 | --- | --- |
 | `replaceTexture(src, which, texture, { quiet }?)` | Another picture on an existing texture: `{ width, height, pixels, palette, name?, flags? }`. Of the same size it is written in place; of another size, the corners that wear it are moved to match. With several skin families: a mesh has one set of corners, in pixels of the texture it wears in the **first** family, so those are the meshes whose corners move, and the textures a mesh wears in the other families have to be of the same size. A new size that leaves a mesh with pictures of different sizes in different skins is told on the console (unless `quiet`): replace the others at that size too, in any order. |
 | `retexture(src, where, texture, uvOf?)` | Gives **one mesh** another texture; the others that wore the old one keep it. `texture` is added to the file unless one of that name is there, as in `replaceMesh`: the file's own is then worn as it is, at its own size, so calling it twice adds nothing twice. `uvOf(triangle, corner)` returns `[u, v]` (0 to 1) to lay it out again. |
-| `withTextures(src, tfile)` | For a model whose textures are in `<name>t.mdl`: a copy with them inside. |
+| `withTextures(src, tfile)` | For a model whose textures are in `<name>t.mdl`: a copy with them inside. `readStudio` reads both from the disk. |
 | `ownPixels(src, { islands, body, mesh, tex, name, most = 512, pad = 2 })` | Some triangles given a picture of their own (`src/reskin.mjs`): moved into a new mesh of their submodel (one for each mesh they were in), wearing a new texture that begins as a copy of the box of pixels they lay on, `pad` pixels about it. For one plate of an armour whose one rust is laid over every plate, one body of several that share a picture. `islands`: an id or a list (`uvIslands`); `body`: a body number; `mesh`: `{ bodypart, model, mesh }`; `tex`: only what wears that texture. What is given is asked for together, and must come to one texture. A box that runs past the picture's edge (a picture laid over and over) goes on from its other side. At its own size the palette's numbers are copied as they are; a box with a side over `most` is made smaller to fit (cut to 256 colours again; a masked one keeps its holes) and the corners follow. The new texture keeps the old one's flags; `name` unless told is the old one's with `_own`. Every mesh, submodel and body keeps its number; the islands are numbered again, the moved ones last. → `{ mdl, texture, width, height, scale, box, moved, meshes, islands (their new ids), warnings }`. Throws when nothing, or more than one texture, is asked for, and when the result has a `check` error the original had not. Several skin families: the moved triangles wear the copy in each. |
 | `moveTriangles(src, where, pick, texture, uvOf?)` | What `ownPixels` is made of: the triangles `pick(i)` accepts of one mesh moved into a new mesh after the others of its submodel, wearing `texture` (added unless the file has one of that name), their points and normals copied into it (the engine lights normals mesh by mesh). `uvOf(i, corner, [s, t])`: the corner's place in the new picture, in its pixels. → `{ mdl, mesh, moved }`. |
 
@@ -658,7 +669,9 @@ change a model call it themselves: use it on files that came from elsewhere.
 `import { maps } from "smak"` (or `"smak/maps"`, or `./smak/src/maps/index.mjs`). Their functions are listed in
 two documents of their own: `docs/MAPS.md` (a compiled map read and checked, its entities, textures and `.wad`
 files, its pictures: `drawMap`, `planOf`, `viewsOf`, `compareOf`, `drawSource`, `planOfSource`, `sectionOf`, `storeysOf`,
-`openingViews`, what they draw of the game's files: `figuresOf`, `spritesOf`, `readSpr`, `skyOf`, `readTga`, a
+`openingViews`, what a compiled map holds as data and as `smak map-info` and `map-entities` print it: `describeMap(bsp,
+bytes, file)`, `mapInfoLines(bsp, data, { compact, full, name, most })`, `entityParts(entity, number)`,
+`textureAreas(bsp)` (each texture's share of the world's faces, and whether walls, floors or ceilings), what they draw of the game's files: `figuresOf`, `spritesOf`, `readSpr`, `skyOf`, `readTga`, a
 sky made from words: `makeSky(desc)` → `{ sides, mean }` (six sides drawn from the way out of the eye, so they
 meet with no seam; `SKY_DAY`, `SKY_NIGHT`, `SKY_KEYS`), `skyFiles(name, sides)` (the `gfx/env/<name><side>.tga`
 files), `writeTga`, `wayOfSide`,
@@ -713,8 +726,10 @@ profile's `play.target.prefer` / `unprefer`: `docs/PLAY.md`, "A fight"; `play.fi
 
 ## The viewer (`viewer/serve.mjs`)
 
-`view(roots, port = 8098)` starts it over folders or single files and resolves to the Node server (`.close()` stops
-it). From the command line: `smak view <folder|mdl> ... [--port n]`. It listens on this machine only.
+`view(roots, port = 8098, { say })` starts it over folders or single files and resolves to the Node server
+(`.close()` stops it); `say` is handed the line with its address (the console's unless told). From the command
+line: `smak view <folder|mdl> ... [--port n]`; through the MCP server, `page { kind: "view" }`. It listens on this
+machine only.
 
 ## Vectors (`src/vec.mjs`)
 

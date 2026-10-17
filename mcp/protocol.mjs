@@ -29,6 +29,13 @@ export const image = (pngBytes) => ({
   mimeType: "image/png",
 });
 
+/** A piece of a tool's result: a sound, from the bytes of a WAV or MP3 file (the protocol's audio, 2025-03-26 on). */
+export const audio = (bytes, mimeType = "audio/wav") => ({
+  type: "audio",
+  data: Buffer.from(bytes).toString("base64"),
+  mimeType,
+});
+
 /** What a call that the client took back is answered with inside this file: nothing is sent for it. */
 const TAKEN_BACK = Symbol("taken back");
 

@@ -52,13 +52,8 @@ export function sourceAt(path) {
   const kept = sources.get(file);
   if (kept && kept.stamp === stamp) return kept;
   const raw = readFileSync(file);
-  let buf = raw;
-  const notes = [];
-  const textureFile = file.replace(/\.mdl$/i, "t.mdl");
-  if (!smak.readMdl(buf).textures.length && existsSync(textureFile)) {
-    buf = smak.withTextures(buf, readFileSync(textureFile));
-    notes.push(`its textures are kept in ${basename(textureFile)}: the saved model has them inside`);
-  }
+  const { src: buf, textures } = smak.readStudio(file, { read: (f) => (f === file ? raw : readFileSync(f)) });
+  const notes = textures ? [`its textures are kept in ${basename(textures)}: the saved model has them inside`] : [];
   // the animations' frames, read when first asked for
   const frames = new Map();
   const seqs = smak.sequences(buf).map((seq, number) => ({ ...seq, events: smak.events(buf, number) }));

@@ -29,6 +29,9 @@ import { buildVideoSpec } from "../src/spec/video.mjs";
 import { buildMapSpec } from "../src/spec/map.mjs";
 import { summaryOf, changesOf } from "../src/spec/changes.mjs";
 import { run, pictureWithin, TIMEOUT_SECONDS, OUTPUT_MOST, SHOWN_MOST, PICTURE_MOST } from "./run.mjs";
+import { command } from "./command.mjs";
+import { file } from "./file.mjs";
+import { page } from "./page.mjs";
 import { generate } from "./generate.mjs";
 import { materials } from "./materials.mjs";
 
@@ -55,12 +58,6 @@ const ENTITIES_MOST = 40;
 const isCompiledMap = (file) => /\.bsp$/i.test(file);
 const isMapSource = (file) => /\.map$/i.test(file);
 const isWad = (file) => /\.wad$/i.test(file);
-/** A studio model's header: its length in bytes, and where in it the number of textures is written. */
-const HEADER_BYTES = 184;
-const TEXTURE_COUNT_AT = 180;
-/** The name the model gives itself: 64 bytes of the header, from byte 8. */
-const NAME_AT = 8;
-const NAME_END = 72;
 /** The sides `render` knows by name: where the camera stands, [yaw, pitch] in degrees. */
 const SIDES = {
   front: [0, 0],
@@ -78,11 +75,7 @@ const SIDES = {
  */
 function readModel(folders, name) {
   const file = pathOf(folders, name);
-  let src = readFileSync(file);
-  const textureFile = file.replace(/\.mdl$/i, "t.mdl");
-  const hasNone = src.length > HEADER_BYTES && !src.readInt32LE(TEXTURE_COUNT_AT);
-  if (hasNone && existsSync(textureFile)) src = smak.withTextures(src, readFileSync(textureFile));
-  return { src, file };
+  return { src: smak.readStudio(file).src, file };
 }
 
 /** An animation as a call names it: "rest" is the bones at rest, digits a number, anything else a name. */
@@ -115,13 +108,6 @@ function listModels(folders, { match } = {}) {
 }
 
 // ── info ───────────────────────────────────────────────────────────────────
-/** The names of a texture's flags, joined with +. */
-const flagNames = (flags) =>
-  Object.entries(smak.TEXTURE)
-    .filter(([, bit]) => flags & bit)
-    .map(([name]) => name)
-    .join("+");
-
 /**
  * What is in a model, in few words: its bones (each with its parent's number), its bodies with their body
  * numbers, its textures and its animations. `full` adds where each bone is, the events and the attachments.
@@ -135,139 +121,19 @@ function info(folders, { model, full = false, like, rect }) {
   if (isMapSource(named)) return sourceInfo(named);
   if (isWad(named)) return wadInfo(named);
   const { src, file } = readModel(folders, model);
-  const mdl = smak.readMdl(src);
-  const bones = smak.bones(src);
-  const sequences = smak.sequences(src);
-  const attachments = smak.attachments(src);
-  const selfName = src.toString("latin1", NAME_AT, NAME_END).replace(/\0.*$/s, "");
-  const place = (point) => point.map((value) => value.toFixed(2)).join(" ");
-  const lines = [`${basename(file)}: "${selfName}", ${src.length} bytes`];
-
-  lines.push(`BONES (${bones.length}): number name<parent`);
-  if (full)
-    for (const [i, bone] of bones.entries())
-      lines.push(`  ${i} ${bone.name}<${bone.parent} at ${place(bone.pos)}`);
-  else
-    lines.push(
-      `  ${bones.map((bone, i) => `${i} ${bone.name}${bone.parent < 0 ? "" : `<${bone.parent}`}`).join(", ")}`,
-    );
-
-  lines.push(`BODYPARTS (${mdl.bodyparts.length}): a body number is the sum of one from each part`);
-  for (const bodypart of mdl.bodyparts) {
-    lines.push(`  ${bodypart.name}`);
-    bodypart.models.forEach((model, k) => {
-      const meshes = model.meshes.map((mesh) => `${mesh.numtris} on ${mesh.texture?.name ?? null}`);
-      lines.push(
-        `    body ${k * bodypart.base} ${model.name}: ${model.numverts} points, triangles ${meshes.join(", ") || "none (empty)"}`,
-      );
-    });
-  }
-
-  const families = smak.skinFamilies(src).length;
-  lines.push(`TEXTURES (${mdl.textures.length}${families > 1 ? `, ${families} skin families` : ""})`);
-  for (const [i, texture] of mdl.textures.entries())
-    lines.push(
-      `  ${i} ${texture.name} ${texture.width}x${texture.height}${texture.flags ? ` ${flagNames(texture.flags)} (flags ${texture.flags})` : ""}`,
-    );
-
-  lines.push(`ANIMATIONS (${sequences.length}): the game asks for them by number`);
-  for (const [i, seq] of sequences.entries()) {
-    const notes = `${seq.loops ? ", loops" : ""}${seq.blends > 1 ? `, ${seq.blends} blends` : ""}${seq.group ? ", KEPT IN ANOTHER FILE" : ""}`;
-    const events = smak.events(src, i);
-    lines.push(
-      `  ${i} ${seq.name}: ${seq.frames} frames at ${seq.fps} fps${notes}${events.length && !full ? `, ${events.length} events` : ""}`,
-    );
-    if (full)
-      for (const event of events)
-        lines.push(
-          `      frame ${event.frame}: event ${event.event}${event.options ? ` "${event.options}"` : ""}`,
-        );
-  }
-
-  lines.push(`${attachments.length} attachments, ${smak.hitboxes(src).length} hit boxes`);
-  if (full)
-    for (const [i, attachment] of attachments.entries())
-      lines.push(
-        `  attachment ${i} on ${bones[attachment.bone]?.name ?? attachment.bone} at ${place(attachment.pos)}`,
-      );
-  return [text(lines.join("\n"))];
+  return [text(smak.modelInfoLines(src, smak.describeModel(src, file), { compact: true, full, name: basename(file) }).join("\n"))];
 }
 
 // ── info of a map ──────────────────────────────────────────────────────────
-/** An entity in a line: its number, its class, where it is, and (`full`) its other keys. */
-function entityLine(entity, number, full) {
-  const model = maps.brushModelOf(entity);
-  const origin = maps.originOf(entity);
-  const place = model !== null && number ? `brushes *${model}` : origin ? `at ${origin.join(" ")}` : "";
-  const others = entity
-    .filter(([key]) => !["classname", "origin"].includes(key) && !(key === "model" && model !== null))
-    .map(([key, value]) => `${key}=${/\s/.test(value) ? `"${value}"` : value}`);
-  const keys = full && others.length ? ` ${others.join(" ")}` : "";
-  return `  ${number} ${maps.valueOf(entity, "classname") ?? "(no classname)"} ${place}${keys}`;
-}
 /**
  * What is in a compiled map, in few words: its size, its entities by class and one by one (the first
- * forty; `full`: all, with their keys), its textures and which are wanted from .wad files, its light.
+ * forty; `full`: all, with their keys, and each texture's share of the world), its textures and which are
+ * wanted from .wad files, its light.
  */
 function mapInfo(file, full) {
   const bytes = readFileSync(file);
   const bsp = maps.readBsp(bytes);
-  const { mins, maxs } = maps.worldBounds(bsp);
-  const classes = new Map();
-  for (const entity of bsp.entities) {
-    const classname = maps.valueOf(entity, "classname") ?? "(no classname)";
-    classes.set(classname, (classes.get(classname) ?? 0) + 1);
-  }
-  const byCount = [...classes]
-    .sort((a, b) => b[1] - a[1])
-    .map(([classname, count]) => `${classname} ${count}`);
-  const wanted = maps.wantedTextures(bsp);
-  const shown = full ? bsp.entities : bsp.entities.slice(0, ENTITIES_MOST);
-  const textures = bsp.textures.map(
-    (texture) => `${texture.name} ${texture.width}x${texture.height}${texture.embedded ? "" : " WANTED"}`,
-  );
-  const lines = [
-    `${basename(file)}: a GoldSrc map, ${bytes.length} bytes; the world from ${mins.join(" ")} to ${maxs.join(" ")} (+z up)`,
-    `${bsp.faces.length} faces, ${bsp.leaves.length} leaves, ${bsp.models.length - 1} brush entities; light ${bsp.lumps.lighting.length} bytes, visibility ${bsp.lumps.visibility.length} bytes`,
-    `ENTITIES (${bsp.entities.length}): ${byCount.join(", ")}`,
-    ...shown.map((entity, number) => entityLine(entity, number, full)),
-  ];
-  if (shown.length < bsp.entities.length)
-    lines.push(`  and ${bsp.entities.length - shown.length} more: \`full\` lists all, with their keys`);
-  lines.push(`TEXTURES (${bsp.textures.length}): ${textures.join(", ")}`);
-  if (full) {
-    // which texture covers how much of the world's faces, the most first, and where each is mostly
-    const area = new Map();
-    const world = bsp.models[0];
-    for (let f = world.firstFace; f < world.firstFace + world.faceCount; f++) {
-      const name = maps.faceTexture(bsp, f).name;
-      const corners = maps.facePolygon(bsp, f);
-      let a = [0, 0, 0];
-      for (let i = 1; i + 1 < corners.length; i++) {
-        const u = corners[i].map((v, k) => v - corners[0][k]);
-        const w = corners[i + 1].map((v, k) => v - corners[0][k]);
-        a = a.map((s, k) => s + [u[1] * w[2] - u[2] * w[1], u[2] * w[0] - u[0] * w[2], u[0] * w[1] - u[1] * w[0]][k] / 2);
-      }
-      const size = Math.hypot(...a);
-      const n = maps.faceNormal(bsp, f);
-      const facing = Math.abs(n[2]) > 0.7 ? (n[2] > 0 ? "floors" : "ceilings") : "walls";
-      const entry = area.get(name) ?? { total: 0, walls: 0, floors: 0, ceilings: 0 };
-      entry.total += size;
-      entry[facing] += size;
-      area.set(name, entry);
-    }
-    const all = [...area.values()].reduce((s, e) => s + e.total, 0) || 1;
-    const shares = [...area].sort((a, b) => b[1].total - a[1].total).map(([name, e]) => {
-      const where = ["walls", "floors", "ceilings"].filter((k) => e[k] / e.total > 0.25).join(" and ");
-      return `${name} ${((100 * e.total) / all).toFixed(1)}% (${where})`;
-    });
-    lines.push(`TEXTURES BY AREA of the world's faces: ${shares.join(", ")}`);
-  }
-  if (wanted.textures.length)
-    lines.push(
-      `${wanted.textures.length} are WANTED from .wad files: ${wanted.wads.join(", ") || "none listed"}`,
-    );
-  return [text(lines.join("\n"))];
+  return [text(maps.mapInfoLines(bsp, maps.describeMap(bsp, bytes, file), { compact: true, full, name: basename(file), most: ENTITIES_MOST }).join("\n"))];
 }
 /** What is in brush source: its brushes, its entities and the textures its faces name. */
 function sourceInfo(file) {
@@ -1131,7 +997,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
         doc: {
           type: "string",
           description:
-            'another document: "api" (every function), "engines", "maps", "maps-making", or a path the list names',
+            'another document: "api" (every function), "spec", "engines", "maps", "maps-making", "maps-checks", "import" (bought models), "items" (a weapon in a mod), "play" (the game in a browser), "editor" (the person\'s editor), or a path the list names',
         },
         find: { type: "string", description: "instead of topic: the lines holding these words" },
       }),
@@ -1283,6 +1149,47 @@ export function toolsFor(folders, { allowRun = true } = {}) {
         [],
       ),
       call: (args, extra) => run(folders, args, extra),
+    },
+    {
+      name: "command",
+      description: `Any command of the command line (bin/smak.mjs), run as it runs there, with every flag it has: what the other tools do not offer (retexture, sequence-add, reskin, islands, layers, pieces, contract, map-set, map-reach --jump, map-heights, map-light, map-measure, map-compare, map-compile, wad-make, import, item ...). \`guide { topic: "The command line" }\` lists them. Name files as work:<name> (a bare name is the work folder's), models:<name>, library:<name>, and game:<folder> for a game folder of the server's; what it writes goes to the work folder. Returns what it printed, the files it wrote, and up to ${SHOWN_MOST} of the pictures it wrote.`,
+      inputSchema: object(
+        {
+          name: { type: "string", description: "the command: info, check, map-plan, retexture ..." },
+          args: { type: "array", items: { type: "string" }, description: 'its words and flags, as the command line takes them: ["models:knife.mdl", "--seq", "attack", "-o", "attack.png"]' },
+          show: { type: "array", items: { type: "string" }, description: `up to ${SHOWN_MOST} PNG files of the work folder to return as pictures (unless told: the ones it wrote)` },
+          timeout: { type: "number", description: `seconds (${TIMEOUT_SECONDS})` },
+        },
+        ["name"],
+      ),
+      call: (args, extra) => command(folders, args, { ...extra, allowCode: allowRun }),
+    },
+    {
+      name: "file",
+      description: "A file of the folders read back as what it is: words (a .map, .json, .txt, .fgd, .qc ...), a picture (.png, .bmp, .jpg), or a sound to listen to (.wav, .mp3). With text: a text file written into the work folder (a .map to compile, rules or steps for a command).",
+      inputSchema: object(
+        {
+          name: { type: "string", description: "work:<name> (or a bare name), models:<name>, library:<name>" },
+          text: { type: "string", description: "write this as the file's whole text (work folder only)" },
+          from: { type: "number", description: "a long text file read from this character on" },
+        },
+        ["name"],
+      ),
+      call: (args) => file(folders, args),
+    },
+    {
+      name: "page",
+      description: "The person's own pages, which stay up after the call, on this machine: the viewer (kind view: models side by side, turning and animated) or the editor (kind edit: animations, events and textures touched up by hand; its projects in the work folder; `guide { doc: \"editor\" }` says how you share them). Returns the address to give the person; stop: true closes it.",
+      inputSchema: object(
+        {
+          kind: { type: "string", enum: ["view", "edit"] },
+          files: { type: "array", items: { type: "string" }, description: "view: models or folders (the work and models folders unless told); edit: a model or a folder of them" },
+          port: { type: "number", description: "in place of the page's own (8098 the viewer, 8097 the editor)" },
+          stop: { type: "boolean", description: "close the page of that kind" },
+        },
+        ["kind"],
+      ),
+      call: (args) => page(folders, args),
     },
   ];
   if (folders.materials)

@@ -109,11 +109,16 @@ const tidy = (printed, script) =>
     .join("\n")
     .trim();
 
-/** Runs a script's file with Node in the work folder. Resolves to { code, stopped, seconds, out, err }. */
-function runNode(script, folders, seconds, signal) {
+/**
+ * Runs Node in the work folder on `args`: a script's file, or a module and its arguments (the command line's
+ * own, for the tool `command`). What it prints is told with the address of `args[0]` cut to its name. Resolves
+ * to { code, stopped, seconds, out, err }.
+ */
+export function runNode(args, folders, seconds, signal) {
+  const script = args[0];
   return new Promise((done) => {
     const began = Date.now();
-    const child = spawn(process.execPath, [script], {
+    const child = spawn(process.execPath, args, {
       cwd: folders.work,
       env: { ...process.env, SMAK_WORK: folders.work, SMAK_MODELS: folders.models ?? "" },
       stdio: ["ignore", "pipe", "pipe"],
@@ -144,7 +149,7 @@ function runNode(script, folders, seconds, signal) {
 }
 
 /** What a run wrote, as words: the files that are new or changed, and those that are gone. */
-function writtenSince(before, after) {
+export function writtenSince(before, after) {
   const was = new Map(before.map((file) => [file.name, file]));
   const now = new Set(after.map((file) => file.name));
   const written = after.filter((file) => {
@@ -214,15 +219,23 @@ export async function run(folders, { script, edits, timeout, name, show = [] }, 
   const others = () => filesUnder(folders.work).filter((one) => join(folders.work, one.name) !== file);
   const before = others();
   if (toRun !== null) writeFileSync(file, toRun);
-  const ended = await runNode(file, folders, seconds, signal);
+  const ended = await runNode([file], folders, seconds, signal);
   if (!kept) rmSync(file, { force: true });
+  return endedAnswer(ended, folders, { before, after: others(), show });
+}
 
+/**
+ * How a process the server ran ended, as the answer to a call: how and how long, what it printed, what it wrote
+ * (`before` and `after` the work folder's files), and up to SHOWN_MOST of the PNG files `show` names. A process
+ * that ends with an error, or is stopped, is an error of the tool.
+ */
+export function endedAnswer(ended, folders, { before, after, show = [] }) {
   const failed = Boolean(ended.stopped) || ended.code !== 0;
   const how = ended.stopped || (failed ? `it ended with an error (exit code ${ended.code})` : "it ran");
   const words = [`${how}, in ${ended.seconds.toFixed(1)} s`];
   if (ended.out) words.push(`stdout:\n${ended.out}`);
   if (ended.err) words.push(`stderr:\n${ended.err}`);
-  words.push(writtenSince(before, others()));
+  words.push(writtenSince(before, after));
   const content = [text(words.join("\n"))];
   for (const picture of show) {
     try {

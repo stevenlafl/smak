@@ -23,6 +23,11 @@ const DOCUMENTS = {
   maps: "docs/MAPS.md",
   "maps-making": "docs/MAPS-MAKING.md",
   spec: "docs/SPEC.md",
+  import: "docs/IMPORT.md",
+  items: "docs/ITEMS.md",
+  play: "docs/PLAY.md",
+  "maps-checks": "docs/MAPS-CHECKS.md",
+  editor: "editor/AGENTS.md",
 };
 /** The folders whose modules are documents too, each by its path. */
 const CODE_FOLDERS = ["examples", "kits"];

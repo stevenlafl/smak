@@ -16,15 +16,8 @@ import { heightPlanOf } from "../src/maps/heightplan.mjs";
 // the ports the two pages listen on unless told with --port
 const VIEWER_PORT = 8098;
 const EDITOR_PORT = 8097;
-// a studio model's header: its length in bytes, and where in it the number of textures is written. A model
-// with none there keeps them in <name>t.mdl beside it
-const HEADER_BYTES = 184;
-const TEXTURE_COUNT_AT = 180;
-// the name the model gives itself: 64 bytes of the header, from byte 8
-const NAME_AT = 8;
-const NAME_END = 72;
-// where the model sees from (eyeposition), three floats; its four boxes follow
-const HDR_EYES_AT = 76;
+/** A length as the commands print it: to a hundredth of a unit. */
+const round2 = (v) => +v.toFixed(2);
 // pieces, islands and regions smaller than this are counted and not listed, unless told with --min
 const PIECES_MIN_TRIANGLES = 6;
 const ISLANDS_MIN_TRIANGLES = 1;
@@ -244,7 +237,6 @@ function seqAsked(flags) {
 /** The same, with the model's first animation when the flag is not given. */
 const seqOf = (src, flags) => (flags.seq === undefined ? firstSeq(src) : seqAsked(flags));
 /** The file that holds a model's textures when they are not inside it. */
-const textureFileOf = (file) => file.replace(/\.mdl$/i, "t.mdl");
 /** A box in pixels as the lists print it. */
 const boxText = (box) => `${box[0]},${box[1]} to ${box[2]},${box[3]}`;
 
@@ -253,13 +245,9 @@ const boxText = (box) => `${box[0]},${box[1]} to ${box[2]},${box[3]}`;
  * does that).
  */
 function readModel(file, command) {
-  let src = readFileSync(file);
-  const textureFile = textureFileOf(file);
-  const hasNone = src.length > HEADER_BYTES && !src.readInt32LE(TEXTURE_COUNT_AT);
-  if (command !== "inline" && hasNone && existsSync(textureFile)) {
-    src = smak.withTextures(src, readFileSync(textureFile));
-    console.error(`(textures read from ${basename(textureFile)})`);
-  }
+  if (command === "inline") return readFileSync(file);
+  const { src, textures } = smak.readStudio(file);
+  if (textures) console.error(`(textures read from ${basename(textures)})`);
   return src;
 }
 /** What render, sheet and strip are asked for, from the flags. */
@@ -289,196 +277,10 @@ function viewOptions(src, flags) {
 
 // ── info ───────────────────────────────────────────────────────────────────
 /** Everything `info` tells of a model, as `--json` prints it. */
-function describe(src, file) {
-  const mdl = smak.readMdl(src);
-  const bones = smak.bones(src);
-  const boneName = (number) => bones[number]?.name ?? number;
-  const boxes = smak.hitboxes(src);
-  // studiohdr_t's eyeposition and its four boxes (min and max: the box it moves with; bbmin and bbmax: the
-  // box it is clipped by), which follow its name and length: floats from byte 76 (studio.h)
-  const floats = (at) => [0, 1, 2].map((axis) => round2(src.readFloatLE(at + axis * 4)));
-  const header = {
-    eyes: floats(HDR_EYES_AT),
-    box: {
-      min: floats(HDR_EYES_AT + 12),
-      max: floats(HDR_EYES_AT + 24),
-      bbmin: floats(HDR_EYES_AT + 36),
-      bbmax: floats(HDR_EYES_AT + 48),
-    },
-  };
-  return {
-    file,
-    bytes: src.length,
-    name: src.toString("latin1", NAME_AT, NAME_END).replace(/\0.*$/s, ""),
-    bones: bones.map((bone, i) => ({
-      i,
-      name: bone.name,
-      parent: bone.parent,
-      pos: bone.pos.map((v) => +v.toFixed(3)),
-      rot: bone.rot.map((v) => +v.toFixed(4)),
-    })),
-    bodyparts: mdl.bodyparts.map((bodypart) => ({
-      name: bodypart.name,
-      base: bodypart.base,
-      models: bodypart.models.map((model, k) => ({
-        body: k * bodypart.base,
-        name: model.name,
-        verts: model.numverts,
-        meshes: model.meshes.map((mesh) => ({ tris: mesh.numtris, texture: mesh.texture?.name ?? null })),
-      })),
-    })),
-    textures: mdl.textures.map((texture, i) => ({
-      i,
-      name: texture.name,
-      width: texture.width,
-      height: texture.height,
-      flags: texture.flags,
-    })),
-    skinFamilies: smak.skinFamilies(src).length,
-    eyes: header.eyes,
-    box: header.box,
-    sequences: smak.sequences(src).map((seq, i) => ({
-      i,
-      name: seq.name,
-      frames: seq.frames,
-      fps: seq.fps,
-      loops: seq.loops,
-      blends: seq.blends,
-      external: Boolean(seq.group),
-      activity: seq.activity,
-      activityName: smak.ACTIVITY[seq.activity] ?? null,
-      actweight: seq.actweight,
-      movement: seq.movement.map(round2),
-      speed: round2(seq.speed),
-      motiontype: seq.motiontype,
-      bbmin: seq.bbmin.map(round2),
-      bbmax: seq.bbmax.map(round2),
-      events: smak.events(src, i),
-    })),
-    attachments: smak.attachments(src).map((a) => ({ ...a, bone: boneName(a.bone) })),
-    hitboxes: boxes.length,
-    hitboxList: boxes.map((box, i) => ({
-      i,
-      bone: boneName(box.bone),
-      group: box.group,
-      groupName: HITGROUP_NAMES[box.group] ?? null,
-      min: box.min.map(round2),
-      max: box.max.map(round2),
-      size: box.max.map((v, axis) => round2(v - box.min[axis])),
-    })),
-    boneControllers: smak.boneControllers(src).map((c) => ({ ...c, bone: boneName(c.bone) })),
-  };
-}
-/** A length as `info` prints it: to a hundredth of a unit. */
-const round2 = (v) => +v.toFixed(2);
-/** The names of the hit groups, by their numbers. */
-const HITGROUP_NAMES = Object.fromEntries(
-  Object.entries(smak.HITGROUP).map(([name, group]) => [group, name]),
-);
-/** The names of the bits of a motion type, joined with +. */
-const motionNames = (motiontype) =>
-  Object.entries(smak.MOTION)
-    .filter(([, bit]) => motiontype & bit)
-    .map(([name]) => name)
-    .join("+");
-/** The names of a texture's flags, joined with +. */
-const flagNames = (flags) =>
-  Object.entries(smak.TEXTURE)
-    .filter(([, bit]) => flags & bit)
-    .map(([name]) => name)
-    .join("+");
 function info({ file, src, flags }) {
-  const data = describe(src, file);
-  if (flags.json) {
-    console.log(JSON.stringify(data, null, 1));
-    return;
-  }
-  const pad = (value, width) => String(value).padStart(width);
-  console.log(`${file}: "${data.name}", ${src.length} bytes`);
-
-  console.log(`\nBONES (${data.bones.length})`);
-  // the places as the file has them, not as --json rounds them
-  smak
-    .bones(src)
-    .forEach((bone, i) =>
-      console.log(
-        `  ${pad(i, 3)} ${bone.name.padEnd(28)} parent ${pad(bone.parent, 3)}  at ${bone.pos.map((v) => v.toFixed(2)).join(" ")}`,
-      ),
-    );
-
-  console.log(
-    `\nBODYPARTS (${data.bodyparts.length})   a body number is the sum of one "body" from each part`,
-  );
-  for (const bodypart of data.bodyparts) {
-    console.log(`  ${bodypart.name}`);
-    for (const model of bodypart.models) {
-      const meshes = model.meshes.map((mesh) => `${mesh.tris} on ${mesh.texture}`).join(", ") || "(empty)";
-      console.log(
-        `    body ${pad(model.body, 4)}  ${model.name.padEnd(28)} ${pad(model.verts, 5)} points  ${meshes}`,
-      );
-    }
-  }
-
-  const families = data.skinFamilies > 1 ? `, ${data.skinFamilies} skin families` : "";
-  console.log(`\nTEXTURES (${data.textures.length}${families})`);
-  for (const texture of data.textures) {
-    const flagText = texture.flags ? `  ${flagNames(texture.flags) || ""} (flags ${texture.flags})` : "";
-    console.log(
-      `  ${pad(texture.i, 3)} ${texture.name.padEnd(32)} ${texture.width}x${texture.height}${flagText}`,
-    );
-  }
-
-  console.log(`\nANIMATIONS (${data.sequences.length})   the game asks for them by number: keep their order`);
-  for (const seq of data.sequences) {
-    const activity = seq.activity
-      ? `, activity ${seq.activity}${seq.activityName ? ` ${seq.activityName}` : ""}${seq.actweight !== 1 ? ` (weight ${seq.actweight})` : ""}`
-      : "";
-    const travel = seq.movement.some((v) => v)
-      ? `, moves ${seq.movement.join(" ")} (${motionNames(seq.motiontype) || "no motion type"}): ${seq.speed} units a second`
-      : "";
-    const notes = `${seq.loops ? ", loops" : ""}${seq.blends > 1 ? `, ${seq.blends} blends` : ""}${activity}${travel}${seq.external ? ", KEPT IN ANOTHER FILE" : ""}`;
-    console.log(
-      `  ${pad(seq.i, 3)} ${seq.name.padEnd(28)} ${pad(seq.frames, 4)} frames at ${seq.fps} fps${notes}`,
-    );
-    if (flags.boxes) console.log(`        box ${seq.bbmin.join(" ")} to ${seq.bbmax.join(" ")}`);
-    for (const event of seq.events)
-      console.log(
-        `        frame ${event.frame}: event ${event.event}${event.options ? ` "${event.options}"` : ""}`,
-      );
-  }
-
-  if (data.attachments.length) {
-    console.log(`\nATTACHMENTS (${data.attachments.length})`);
-    data.attachments.forEach((a, i) =>
-      console.log(
-        `  ${i}${a.name ? ` "${a.name}"` : ""} on ${a.bone} at ${a.pos.map((v) => v.toFixed(2)).join(" ")}`,
-      ),
-    );
-  }
-  if (data.boneControllers.length) {
-    console.log(`\nBONE CONTROLLERS (${data.boneControllers.length})`);
-    data.boneControllers.forEach((c, i) =>
-      console.log(
-        `  ${i} turns ${c.bone} on ${motionNames(c.type) || c.type} from ${c.start} to ${c.end}, the entity's controller ${c.index}`,
-      ),
-    );
-  }
-  if (data.eyes.some((v) => v)) console.log(`\nEYES at ${data.eyes.join(" ")}`);
-
-  // the hit boxes: how many, on how many bones and in which groups; each one with --hitboxes
-  const groups = [...new Set(data.hitboxList.map((box) => box.group))].sort((a, b) => a - b);
-  const inGroups = groups
-    .map((group) => `${group}${HITGROUP_NAMES[group] ? ` ${HITGROUP_NAMES[group]}` : ""}`)
-    .join(", ");
-  const summary = data.hitboxes
-    ? ` on ${new Set(data.hitboxList.map((box) => box.bone)).size} bones, in the groups ${inGroups}${flags.hitboxes ? "" : "   (--hitboxes lists them)"}`
-    : "";
-  console.log(`\n${data.hitboxes} hit boxes${summary}`);
-  if (flags.hitboxes)
-    for (const box of data.hitboxList)
-      console.log(
-        `  ${pad(box.i, 3)} ${String(box.bone).padEnd(28)} group ${box.group}${box.groupName ? ` ${box.groupName}` : ""}  ${box.size.join(" x ")}  from ${box.min.join(" ")} to ${box.max.join(" ")}`,
-      );
+  const data = smak.describeModel(src, file);
+  if (flags.json) console.log(JSON.stringify(data, null, 1));
+  else console.log(smak.modelInfoLines(src, data, { hitboxes: flags.hitboxes, boxes: flags.boxes }).join("\n"));
 }
 
 // ── check ──────────────────────────────────────────────────────────────────
@@ -597,7 +399,7 @@ function retexture({ command, src, rest, flags }) {
 }
 function inline({ command, file, src, flags }) {
   const to = need(command, flags.o, "-o out.mdl");
-  const textureFile = textureFileOf(file);
+  const textureFile = smak.texturesFileOf(file);
   if (!existsSync(textureFile)) fail(`no ${textureFile} beside it`);
   const out = smak.withTextures(src, readFileSync(textureFile));
   save(to, out);
@@ -1274,10 +1076,11 @@ async function edit({ file, flags }) {
 
 // ── the MCP server ─────────────────────────────────────────────────────────
 /** mcp: the kit as an MCP server on stdin and stdout, until the client closes stdin (see mcp/README.md). */
-async function mcp({ flags, listed }) {
-  const { start } = await import("../mcp/server.mjs");
+async function mcp() {
+  const { start, parseArgs: serverArgs } = await import("../mcp/server.mjs");
   try {
-    await start({ models: flags.models, work: flags.work, run: flags.run !== false, compilers: flags.compilers, fgd: listed?.fgd ?? [], wads: listed?.wads ?? [], ...(flags.generators ? { generators: flags.generators } : {}), ...(flags.materials ? { materials: flags.materials } : {}) });
+    // the server's own flags, read by the server: what it takes (--hide, --refuse ...) is said in one place
+    await start(serverArgs(process.argv.slice(process.argv.indexOf("mcp") + 1)));
   } catch (error) {
     fail(`mcp: ${error.message}`);
   }
@@ -1328,12 +1131,7 @@ async function contractCommand({ file, flags }) {
   console.log(`HIT GROUPS: ${made.hitgroups.join(", ") || "none"}; CONTROLLERS: ${made.controllers.map((c) => c.bone).join(", ") || "none"}`);
 }
 /** A model read with its <name>t.mdl textures, as the other model commands read it. */
-const readModelWithTextures = (file) => {
-  let src = readFileSync(file);
-  const side = file.replace(/\.mdl$/i, "t.mdl");
-  if (src.length > 184 && !src.readInt32LE(180) && existsSync(side)) src = smak.withTextures(src, readFileSync(side));
-  return src;
-};
+const readModelWithTextures = (file) => smak.readStudio(file).src;
 
 /**
  * video: a smak.video/1 spec made into a video (MP4 with ffmpeg, a GIF without), or with --preview its contact
@@ -1492,92 +1290,10 @@ function savePicture(to, picture, shows) {
 
 // ── map-info, map-check ────────────────────────────────────────────────────
 /** Everything `map-info` tells of a map, as `--json` prints it. */
-function describeMap(file, bytes, bsp) {
-  const world = maps.worldBounds(bsp);
-  const wanted = maps.wantedTextures(bsp);
-  const classes = {};
-  for (const entity of bsp.entities) {
-    const classname = maps.valueOf(entity, "classname") ?? "(no classname)";
-    classes[classname] = (classes[classname] ?? 0) + 1;
-  }
-  const styles = new Set();
-  for (const face of bsp.faces)
-    if (maps.hasLightmap(bsp, face)) for (const style of face.styles) if (style !== 255) styles.add(style);
-  const world0 = bsp.entities[0] ?? [];
-  return {
-    file,
-    bytes: bytes.length,
-    version: bsp.version,
-    title: maps.valueOf(world0, "maptitle") ?? maps.valueOf(world0, "message") ?? "",
-    bounds: world,
-    lumps: Object.fromEntries(
-      maps.LUMP_NAMES.map((name) => {
-        const size = maps.ENTRY_SIZES[name];
-        const entries = size ? bsp.lumps[name].length / size : undefined;
-        return [name, defined({ bytes: bsp.lumps[name].length, entries })];
-      }),
-    ),
-    entities: bsp.entities.length,
-    brushEntities: bsp.models.length - 1,
-    classes,
-    textures: bsp.textures.map((texture) => ({
-      name: texture.name,
-      width: texture.width,
-      height: texture.height,
-      inside: Boolean(texture.embedded),
-    })),
-    wads: wanted.wads,
-    light: { bytes: bsp.lumps.lighting.length, styles: [...styles].sort((a, b) => a - b) },
-    visibility: bsp.lumps.visibility.length,
-  };
-}
 function mapInfo({ file, flags }) {
   const { bytes, bsp } = readCompiled(file);
-  const data = describeMap(file, bytes, bsp);
-  if (flags.json) {
-    console.log(JSON.stringify(data, null, 1));
-    return;
-  }
-  const pad = (value, width) => String(value).padStart(width);
-  const { mins, maxs } = data.bounds;
-  const size = maxs.map((value, axis) => Math.round(value - mins[axis])).join(" x ");
-  console.log(
-    `${file}: a GoldSrc map (version ${data.version}), ${data.bytes} bytes${data.title ? `, "${data.title}"` : ""}`,
-  );
-  console.log(`the world: from ${placeText(mins)} to ${placeText(maxs)} (${size} units; +z is up)`);
-
-  console.log("\nLUMPS");
-  for (const [name, lump] of Object.entries(data.lumps))
-    console.log(
-      `  ${name.padEnd(14)} ${pad(lump.bytes, 9)} bytes${lump.entries === undefined ? "" : ` ${pad(lump.entries, 7)}`}`,
-    );
-
-  console.log(
-    `\nENTITIES (${data.entities}): ${data.brushEntities} of them made of brushes   map-entities lists them, each with its number`,
-  );
-  const commonest = Object.entries(data.classes).sort((a, b) => b[1] - a[1]);
-  for (const [classname, count] of commonest) console.log(`  ${pad(count, 5)} ${classname}`);
-
-  const inside = data.textures.filter((texture) => texture.inside).length;
-  console.log(
-    `\nTEXTURES (${data.textures.length}): ${inside} with their pixels inside the map, ${data.textures.length - inside} wanted from .wad files`,
-  );
-  for (const texture of data.textures)
-    console.log(
-      `  ${texture.name.padEnd(16)} ${`${texture.width}x${texture.height}`.padEnd(9)} ${texture.inside ? "inside" : "WANTED from a .wad"}`,
-    );
-  if (data.wads.length) console.log(`  the worldspawn lists: ${data.wads.join(", ")}`);
-
-  console.log(
-    data.light.bytes
-      ? `\nLIGHT  ${data.light.bytes} bytes, baked; styles ${data.light.styles.join(" ")}   (0 always on, 1 to 31 flicker, 32 and up are switched)`
-      : "\nLIGHT  none: the map was not passed through hlrad, and is drawn fully bright",
-  );
-  console.log(
-    data.visibility
-      ? `VISIBILITY  ${data.visibility} bytes`
-      : "VISIBILITY  none: the whole map is drawn from everywhere (a leak, or no hlvis)",
-  );
+  const data = maps.describeMap(bsp, bytes, file);
+  console.log(flags.json ? JSON.stringify(data, null, 1) : maps.mapInfoLines(bsp, data).join("\n"));
 }
 /**
  * The mod's profile a command is given with --mod: `goldsrc` for the kit's own, or a profile's file (.mjs or
@@ -1738,17 +1454,8 @@ function mapEntities({ file, flags }) {
   }
   const wide = Math.max(9, ...wanted.map(({ entity }) => (maps.valueOf(entity, "classname") ?? "").length));
   for (const { number, entity } of wanted) {
-    const classname = maps.valueOf(entity, "classname") ?? "(no classname)";
-    const origin = maps.originOf(entity);
-    const model = maps.brushModelOf(entity);
-    const place = model !== null && number ? `brushes *${model}` : origin ? `at ${placeText(origin)}` : "";
-    const others = entity
-      .filter(
-        ([key]) => !["classname", "origin", "model"].includes(key) || (key === "model" && model === null),
-      )
-      .map(([key, value]) => `${key}=${/\s/.test(value) ? `"${value}"` : value}`)
-      .join(" ");
-    console.log(`${String(number).padStart(4)}  ${classname.padEnd(wide)}  ${place.padEnd(22)} ${others}`);
+    const e = maps.entityParts(entity, number);
+    console.log(`${String(number).padStart(4)}  ${e.classname.padEnd(wide)}  ${e.place.padEnd(22)} ${e.keys.join(" ")}`);
   }
   const ofClass = flags.class === undefined ? "" : ` of the class ${flags.class}`;
   console.log(`${wanted.length} entities${ofClass}, of ${bsp.entities.length} in the map`);
@@ -2917,8 +2624,10 @@ if (!command || command === "help" || flags.help) {
 }
 // the MCP server is given folders by flags, not a file
 if (command === "mcp") await mcp({ flags, listed });
-if (!file) fail(HELP);
 const entry = Object.hasOwn(COMMANDS, command) ? COMMANDS[command] : null;
+// an unknown command is said first, with the ones there are: a missing file after it would say the wrong thing
+if (!entry) fail(`no command ${command}: the commands are ${Object.keys(COMMANDS).join(", ")} (smak help says what each does)`);
+if (!file) fail(HELP);
 // `address: true`: what follows the command is a page's address, not a file
 if (!entry?.address && !existsSync(file)) fail(`no such file: ${file}`);
 // a page is handed a folder as readily as a model; every other command reads a file
@@ -2933,7 +2642,6 @@ try {
   }
   // the file is read before the command is looked up: what cannot be read is said first
   const src = readModel(file, command);
-  if (!entry) fail(`no command ${command}\n\n${HELP}`);
   await entry.run({ command, file, rest, flags, src });
 } catch (error) {
   fail(`${command}: ${sayOf(error)}`);

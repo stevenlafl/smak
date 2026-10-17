@@ -1582,6 +1582,9 @@ export function replaceTexture(src, which, texture, { quiet = false } = {}) {
   if (texture.flags !== undefined) out.writeInt32LE(texture.flags, entry + TEXTURE.flags);
   return engineLayout(out);
 }
+/** How many textures a model holds inside itself, read from its header: none for one that keeps them in `name`t.mdl. */
+export const texturesInside = (src) => (src.length > HDR.numtextures + 4 ? int32(src, HDR.numtextures) : 0);
+
 /**
  * A model whose textures are kept in a file of their own (`name`t.mdl beside `name`.mdl: the model itself
  * says it has none), with them put inside it: returns a copy of `src` holding the textures and the skin

@@ -34,11 +34,11 @@ import { KIT } from "./guide.mjs";
 
 /** What a client's model is told beside the tools, once. */
 const INSTRUCTIONS =
-  "SMAK makes and changes GoldSrc studio models (.mdl) and maps. Call `guide` first and read only the sections the task needs. To make a model or a map from a person's words (or a drawing), read `guide { doc: \"spec\" }`, write a spec and `build` it; change models in other ways with `run`. Look at every result's pictures before reporting it.";
-const USAGE = "node mcp/server.mjs --models <dir> --work <dir> [--no-run] [--compilers <dir>] [--fgd <file> ...] [--wads <dir> ...] [--generators <dir>] [--materials <dir>]";
+  "SMAK makes and changes GoldSrc studio models (.mdl) and maps. Call `guide` first and read only the sections the task needs. To make a model or a map from a person's words (or a drawing), read `guide { doc: \"spec\" }`, write a spec and `build` it; change models and maps in other ways with `command` (any command of the command line, every flag) or `run`. `file` reads back what was made (a sound to listen to), `page` opens the viewer or the editor for the person. Look at every result's pictures before reporting it.";
+export const USAGE = "node mcp/server.mjs --models <dir> --work <dir> [--no-run] [--compilers <dir>] [--fgd <file> ...] [--wads <dir> ...] [--generators <dir>] [--materials <dir>]";
 
 /** The server's flags read: { models, work, run }. `--name value`, and `--no-run`. */
-function parseArgs(argv) {
+export function parseArgs(argv) {
   const flags = { run: true };
   for (let i = 0; i < argv.length; i++) {
     const word = argv[i];

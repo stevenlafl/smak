@@ -724,14 +724,15 @@ await testAsync("the MCP server lists, describes, checks and draws maps", "mcp: 
   });
   const tools = (await server.request("tools/list")).result.tools;
   sure(
-    tools.map((tool) => tool.name).join() === "guide,models,info,check,render,build,decompile,entities",
+    tools.map((tool) => tool.name).join() === "guide,models,info,check,render,build,decompile,entities,command,file,page",
     "a map needed a tool of its own",
   );
   // the descriptions of all the tools: a guard against creep, not a hard limit. Claude Code loads a server's
   // tool schemas when they are wanted, so their size costs little there; a client that loads every tool up
-  // front pays it each conversation, so they stay plain and to the point
+  // front pays it each conversation, so they stay plain and to the point. 9500 since command, file and page
+  // (2026-10-16, Steven's call: their fuller words over a tighter limit)
   sure(
-    JSON.stringify(tools).length < 8000,
+    JSON.stringify(tools).length < 9500,
     `the tools are described in ${JSON.stringify(tools).length} characters`,
   );
 
@@ -745,7 +746,7 @@ await testAsync("the MCP server lists, describes, checks and draws maps", "mcp: 
   );
   const told = wordsOf(await server.tool("info", { model: "tworooms.bsp" }));
   sure(
-    /a GoldSrc map, 26276 bytes/.test(told) &&
+    /a GoldSrc map \(version 30\), 26276 bytes/.test(told) &&
       /1 info_player_start at 96 96 40/.test(told) &&
       /\{smakgrate 32x32/.test(told),
     told,

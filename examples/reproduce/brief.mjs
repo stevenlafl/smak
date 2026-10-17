@@ -7,8 +7,8 @@
 //   judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra, extraPictures, sizeFrom })
 //   judgeSpriteAgainstBrief, judgeSoundAgainstBrief, judgeTexturesAgainstBrief (as one set, or each texture alone)
 //   weaponSizeIn(src)                                   -> a weapon's size in its first-person model, hands left out
-import { readFileSync, readdirSync, existsSync, mkdirSync } from "node:fs";
-import { join } from "node:path";
+import { readFileSync, existsSync, mkdirSync } from "node:fs";
+import { join, basename } from "node:path";
 import { HERE, GAME, POSE, readModel, boxOf, picturesOf, savePng, flatOf, scaled, onCanvas } from "./lib.mjs";
 import { runJudge, failedByMeasure } from "./agents.mjs";
 import { itemsOf, settle, combine, askScores, dryAnswer, band, MODEL_GUIDE } from "./scoring.mjs";
@@ -41,11 +41,22 @@ const MODELS = ["model", "weapon", "character", "enemy", "player"];
 
 const CREATURES = ["headcrab", "babycrab", "leech", "roach", "snark", "chumtoad", "houndeye", "bullsquid"];
 const PEOPLE = ["barney", "scientist", "gman", "hgrunt", "zombie", "islave", "hassassin", "otis"];
+/** Half-Life's weapons, by their world models: an ammunition box or a pickup is not one of them. */
+const WEAPONS = ["crowbar", "9mmhandgun", "357", "9mmar", "shotgun", "crossbow", "rpg", "gauss", "egon", "hgun", "grenade", "satchel", "sqknest"];
 /**
- * Half-Life's own models of a kind, each with its size: props (three bones or fewer, no weapon's file), weapons
- * (their w_ models), creatures, people, and players (models/player/*). The line-ups pick from these.
+ * Models that are not a thing standing in the world, by name (the game's models carry no kind): pieces flung off a
+ * break, templates and tests, spent shells, sprite holders, projectiles in flight, a body's bones, effects, aircraft.
  */
-export function ownOfKind(kind, root = GAME) {
+const NOT_PROPS = /gib|template|test|shell|shrapnel|sprites|bolt|hornet|rocket|spit|hvr|^models\/grenade|bones|pelvis|rib|hair|skeleton|bubbles|teleport|protozoa|osprey|apache|stealth|sphere/i;
+/** An animation a prop has: none, or idle (activity 0 or 1). A creature's or a person's walk, run or attack is not. */
+const PROP_ACTIVITY = new Set([0, 1]);
+/**
+ * Half-Life's own models of a kind, each with its size: props (what stands in the world, pickups too; no
+ * creature, no person, no gibs), weapons (their world models), creatures and people; or the files named, read
+ * from `root` (`files`: a mod's stock players). The line-ups pick from these. Side files (<name>t.mdl,
+ * <name>01.mdl) are never models.
+ */
+export function ownOfKind(kind, root = GAME, files) {
   const read = (file) => {
     try {
       const src = readModel(join(root, file));
@@ -55,14 +66,18 @@ export function ownOfKind(kind, root = GAME) {
     }
   };
   const models = join(root, "models");
-  let files;
-  if (kind === "model") files = readdirSync(models).filter((f) => /\.mdl$/.test(f) && !/t\.mdl$|\d\d\.mdl$|^(v_|p_|w_)/.test(f)).map((f) => `models/${f}`);
-  else if (kind === "weapon") files = readdirSync(models).filter((f) => /^w_.*\.mdl$/.test(f) && !/t\.mdl$/.test(f)).map((f) => `models/${f}`);
-  else if (kind === "enemy") files = CREATURES.map((n) => `models/${n}.mdl`);
-  else if (kind === "character") files = [...PEOPLE, ...CREATURES].map((n) => `models/${n}.mdl`);
-  else if (kind === "player") files = existsSync(join(models, "player")) ? readdirSync(join(models, "player")).map((d) => `models/player/${d}/${d}.mdl`) : [];
-  else throw new Error(`ownOfKind: no models of kind ${kind}`);
-  return files.filter((f) => existsSync(join(root, f))).map(read).filter((x) => x && (kind !== "model" || smak.readMdl(x.src).bones.length <= 3));
+  const named = (names) => names.map((n) => `models/${n}.mdl`).filter((f) => existsSync(join(root, f)));
+  if (files) return files.filter((f) => existsSync(join(root, f))).map(read).filter(Boolean);
+  if (kind === "model")
+    return smak.modelsIn(models)
+      .map((f) => `models/${basename(f)}`)
+      .filter((f) => !/^models\/(v_|p_)/i.test(f) && !NOT_PROPS.test(f))
+      .map(read)
+      .filter((x) => x && smak.sequences(x.src).every((q) => PROP_ACTIVITY.has(q.activity)));
+  if (kind === "weapon") return named(WEAPONS.map((n) => `w_${n}`)).map(read).filter(Boolean);
+  if (kind === "enemy") return named(CREATURES).map(read).filter(Boolean);
+  if (kind === "character") return named([...PEOPLE, ...CREATURES]).map(read).filter(Boolean);
+  throw new Error(`ownOfKind: no models of kind ${kind}`);
 }
 
 /** The three of `list` nearest in size, drawn at one scale with ours, in a shuffled line-up; where ours is. */
@@ -143,19 +158,30 @@ export function weaponSizeIn(src) {
   return [0, 1, 2].map((k) => Math.max(...points.map((p) => p[k])) - Math.min(...points.map((p) => p[k])));
 }
 
-/** A model judged against its brief: its sides, a line-up beside Half-Life's own of its kind, its size and triangles measured. */
-export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom }) {
+/** The median and third quartile of the triangles a list of models spends. */
+function spentBy(list) {
+  const all = list.map((x) => trianglesOf(x.src)).sort((a, b) => a - b);
+  return { median: all[Math.floor((all.length - 1) / 2)], q3: all[Math.floor(0.75 * (all.length - 1))] };
+}
+
+/**
+ * A model judged against its brief: its sides, a line-up beside Half-Life's own of its kind, its size and triangles
+ * measured. `byKind`: a model that is no prop (a creature built as a model) is held to the triangles of `list`.
+ */
+export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, what, asked, list, extra = {}, extraPictures = "", sizeFrom, byKind = false }) {
   mkdirSync(dir, { recursive: true });
   const pictures = picturesOf(src, { size: 384 });
   savePng(join(dir, "sides.png"), tile(pictures.map((p) => p.picture), 5, pictures.map((p) => p.name)));
   const size = sizeFrom ?? boxOf(src).size;
   const line = lineupOf(src, list, dir, label);
   const triangles = trianglesOf(src);
-  const { median, q3 } = PROP_TRIANGLES.find((b) => Math.hypot(...size) < b.under);
+  // what Half-Life's own of its kind spend: a prop by its size (PROP_TRIANGLES, measured over the game's props); any
+  // other kind (a weapon, a creature, a person) by the models it is lined up from
+  const { median, q3 } = kind === "model" && !byKind ? PROP_TRIANGLES.find((b) => Math.hypot(...size) < b.under) : spentBy(list);
   const off = sizeOff(asked, size);
   const check = smak.check(src);
-  const measured = { size: size.map((v) => round(v)), sizeAsked: asked ?? null, sizeOff: off, triangles, ...(kind === "model" ? { halfLifeMedianOfThisSize: median, halfLifeThreeQuartersUnder: q3 } : {}), checkErrors: check.errors, lineup: `ours is one of A to D in lineup.png beside ${line.others.join(", ")}: the judge does not know which`, ...extra.measured };
-  const caps = { M2: off === null ? 2 : band(off, 0.15, 0.3, true), M8: check.errors.length ? 0 : kind === "model" && triangles > 2 * median && triangles > q3 ? 1 : 2, ...extra.caps };
+  const measured = { size: size.map((v) => round(v)), sizeAsked: asked ?? null, sizeOff: off, triangles, halfLifeMedianOfItsKind: median, halfLifeThreeQuartersUnder: q3, checkErrors: check.errors, lineup: `ours is one of A to D in lineup.png beside ${line.others.join(", ")}: the judge does not know which`, ...extra.measured };
+  const caps = { M2: off === null ? 2 : band(off, 0.15, 0.3, true), M8: check.errors.length ? 0 : triangles > 2 * median && triangles > q3 ? 1 : 2, ...extra.caps };
   return judgeAgainstBrief(kind, label, dir, `${dir}/sides.png (ten views at one scale), ${dir}/lineup.png (four models at one scale: one is the asset, three are Half-Life's own of its size; M6 asks whether a player would take the asset for one of the game's)${extraPictures}`, measured, caps, { brief, what });
 }
 

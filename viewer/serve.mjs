@@ -6,7 +6,7 @@
 // the page (view.html) only draws them, so what it shows is what the kit reads. Every .mdl under the folders
 // given is listed, and a file written later shows up after a reload. It listens on this machine only.
 import { createServer } from "node:http";
-import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, relative, basename, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as smak from "../src/index.mjs";
@@ -15,10 +15,6 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 // this machine only, and the port unless told
 const HOST = "127.0.0.1";
 const VIEWER_PORT = 8098;
-// a studio model's header: its length in bytes, and where in it the number of textures is written. A model
-// with none there keeps them in <name>t.mdl beside it
-const HEADER_BYTES = 184;
-const TEXTURE_COUNT_AT = 180;
 // a texture's flag for "masked": its last colour is a hole
 const MASKED = 64;
 // what the page is sent of a triangle: for each of its 3 corners a place in the picture (2 numbers), and,
@@ -32,25 +28,6 @@ const FRAMES_KEPT = 400;
 const withoutMdl = (name) => name.replace(/\.mdl$/i, "");
 const round4 = (value) => Math.round(value * 1e4) / 1e4;
 
-/**
- * Every .mdl under a folder, but for the side files of another model beside them: <name>t.mdl (its textures)
- * and <name>01.mdl (its animations).
- */
-function modelsUnder(dir) {
-  const entries = readdirSync(dir, { withFileTypes: true });
-  const files = new Set(
-    entries.filter((entry) => !entry.isDirectory()).map((entry) => entry.name.toLowerCase()),
-  );
-  const isSideFile = (name) => {
-    const parts = /^(.+?)(t|\d\d)\.mdl$/i.exec(name);
-    return Boolean(parts) && files.has(`${parts[1].toLowerCase()}.mdl`);
-  };
-  return entries.flatMap((entry) => {
-    const path = join(dir, entry.name);
-    if (entry.isDirectory()) return modelsUnder(path);
-    return /\.mdl$/i.test(entry.name) && !isSideFile(entry.name) ? [path] : [];
-  });
-}
 /**
  * The models the roots hold, as the page lists them: { id (the root's number, then the path under it), group
  * (what it is listed under), name, file }.
@@ -66,7 +43,7 @@ function listModels(roots) {
           file: root,
         },
       ];
-    return modelsUnder(root).map((file) => {
+    return smak.modelsIn(root, { deep: true }).map((file) => {
       const under = relative(root, file).replace(/\\/g, "/");
       // grouped by the first folder under the root
       const folder = under.includes("/") ? under.split("/")[0] : "";
@@ -88,11 +65,8 @@ function openModel(roots, opened, id) {
   const stamp = statSync(listed.file).mtimeMs;
   const kept = opened.get(id);
   if (kept?.stamp === stamp) return kept;
-  let src = readFileSync(listed.file);
-  // textures kept in the file beside it
-  const textureFile = listed.file.replace(/\.mdl$/i, "t.mdl");
-  if (src.length > HEADER_BYTES && !src.readInt32LE(TEXTURE_COUNT_AT) && existsSync(textureFile))
-    src = smak.withTextures(src, readFileSync(textureFile));
+  // textures kept in the file beside it read with it
+  const { src } = smak.readStudio(listed.file);
   const info = smak.readMdl(src);
   const seqs = smak.sequences(src);
   const textureNames = info.textures.map((texture) => texture.name);
@@ -211,9 +185,10 @@ const MODEL_CALLS = {
 
 /**
  * Starts the viewer over `roots` (folders, or single .mdl files). Resolves to the server once it listens;
- * rejects when it cannot (the port is taken).
+ * rejects when it cannot (the port is taken). `say` is told its address (the console's unless told: the MCP
+ * server's stdout is its protocol's).
  */
-export function view(roots, port = VIEWER_PORT) {
+export function view(roots, port = VIEWER_PORT, { say = console.log } = {}) {
   roots = roots.map((root) => resolve(root));
   const opened = new Map();
   const answer = (req, res) => {
@@ -254,7 +229,7 @@ export function view(roots, port = VIEWER_PORT) {
     const server = createServer(answer);
     server.once("error", refuse);
     server.listen(port, HOST, () => {
-      console.log(
+      say(
         `smak viewer: http://${HOST}:${port}/   (${listModels(roots).length} models; Ctrl+C stops it)`,
       );
       ready(server);

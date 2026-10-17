@@ -279,7 +279,8 @@ async function judgeBrief(kind, s, built, { decoy, from = s } = {}) {
   // `from`: whose files the folder holds (another subject's, for the swap decoy)
   const copy = readModel(join(built, basename(from.file)));
   const ownKind = { weapons: "weapon", characters: "character", players: "player" }[kind];
-  const list = ownOfKind(ownKind, rootOf(s)).filter((x) => x.file !== s.file);
+  // a mod's players: its stock ones (LINEUP_EXTRAS), its folder holding thousands more from packs
+  const list = ownOfKind(ownKind, rootOf(s), kind === "players" ? [...SUBJECTS.players.map((x) => x.file), ...LINEUP_EXTRAS.players] : undefined).filter((x) => x.file !== s.file);
   if (kind === "weapons") {
     const v = readModel(join(built, basename(from.files[0])));
     const mine = firstPerson(v);

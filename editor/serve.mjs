@@ -470,14 +470,14 @@ async function answer(site, req, res) {
  * Starts the editor over a folder of models (or one model: its folder, and that model opened first). Resolves
  * to the server once it listens; rejects when it cannot (the port is taken).
  */
-export function serve(modelsPath, { port = EDITOR_PORT, work = "smak-projects", engine = "goldsrc" } = {}) {
+export function serve(modelsPath, { port = EDITOR_PORT, work = "smak-projects", engine = "goldsrc", say = console.log } = {}) {
   const site = siteOf(modelsPath, work, engine);
   return new Promise((ready, refuse) => {
     const server = createServer((req, res) => answer(site, req, res));
     server.once("error", refuse);
     server.listen(port, HOST, () => {
       const opened = site.first ? `?model=${encodeURIComponent(site.first)}` : "";
-      console.log(
+      say(
         `smak editor: http://${HOST}:${port}/${opened}   (Ctrl+C stops it)\n  models from ${site.models} (only read)\n  projects and saved models in ${site.work}, checked for ${engine}`,
       );
       ready(server);

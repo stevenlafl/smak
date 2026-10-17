@@ -329,3 +329,14 @@ walk test, not the game.
   pictures legs are unchanged and stay likeness copies. Decoys: a plain box (or one flat colour, or one disc) of
   the brief's size, and another subject's brief build judged against this brief: both must fail. The words legs'
   results stand as they were judged.
+- **2026-10-16, later: the line-up of Half-Life's own, and triangles by kind (after the first brief round of props).**
+  M6's line-up drew "Half-Life's own nearest in size" from every model of three bones or fewer, and a filter for
+  texture files (`<name>t.mdl`) dropped every model whose name ends in t: the pool was 44 models, nearly all gibs,
+  bones and test spheres, and filecabinet.mdl, w_medkit.mdl and rocket.mdl were never in it. A filing cabinet was set
+  beside a rock, a test sphere and a rocket, a forklift beside gibs ("the three Valve props are dark, grimy and
+  organic"). The pool is now what stands in the world: every model (side files told by their main file, as the
+  viewer tells them) but first-person ones, those whose animations do more than idle (creatures, people), and those
+  named as pieces, projectiles, bones, effects or aircraft; weapons are Half-Life's thirteen by name; a mod's players
+  its stock ones. M8 held only props to triangles; a weapon, a creature or a person is now held to twice the median
+  and the third quartile of its own kind's pool, as "Original creation" always said. The original mod's assets are
+  judged on the same pools. Results judged before this keep their scores.
