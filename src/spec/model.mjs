@@ -559,6 +559,9 @@ function leastStretched(skeleton, tris, candidates) {
   return (p) => bone[index.get(keyOf(p))] ?? candidates(p)[0];
 }
 
+/** Units a mirrored part may share with its own copy across the middle: halves that meet there, not run into each other. */
+const MIRROR_OVERLAP_MOST = 1;
+
 /** An edge longer than this many times its length in some frame of motion is torn: its triangle goes to the hips. */
 const TORN = 2;
 
@@ -1350,6 +1353,7 @@ function kitPiece(part) {
  */
 function piecesOf(given, context) {
   const warnings = [];
+  const faults = [];
   const facts = [];
   const spec = context.skeleton ? { ...given, parts: given.parts.map((part) => (part.span ? atSpanLength(part, context.skeleton) : part)) } : given;
   const prefabs = { ...context.prefabs, ...(spec.prefabs ?? {}) };
@@ -1613,6 +1617,12 @@ function piecesOf(given, context) {
     };
     if (part.mirror) {
       const axis = part.mirror === "x" ? 0 : 1;
+      // a part that reaches across the middle runs into its own copy: two boots made one block over both legs
+      let [lo, hi] = [Infinity, -Infinity];
+      for (const { mesh, i } of list) for (const c of meshes[mesh].tris[i]) [lo, hi] = [Math.min(lo, c.p[axis]), Math.max(hi, c.p[axis])];
+      const shared = 2 * Math.min(hi, -lo), tenth = (v) => Math.round(v * 10) / 10;
+      if (shared > MIRROR_OVERLAP_MOST)
+        (skeleton ? faults : warnings).push(`${part.id}: it reaches ${tenth(Math.min(hi, -lo))} across the middle (${"xy"[axis]} 0), so it and its mirrored copy share ${tenth(shared)} units: one block where two should stand apart. Make it narrower, or move it out to its own side`);
       const added = copy((p) => p.map((v, k) => (k === axis ? -v : v)), true);
       // a copy across y on a skeleton hangs on the other side's bone
       if (skeleton && axis === 1)
@@ -1644,7 +1654,7 @@ function piecesOf(given, context) {
       }
     }
   }
-  return { meshes, warnings, facts };
+  return { meshes, warnings, faults, facts };
 }
 
 /**
@@ -1921,6 +1931,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
     return { mdl: null, report };
   }
   warnings.push(...pieces.warnings);
+  report.faults.push(...pieces.faults);
   report.facts.push(...(pieces.facts ?? []));
   const { meshes } = pieces;
   // parts painted into what they sit on: built, baked into the faces under them, and left out

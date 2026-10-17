@@ -215,7 +215,9 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   hand, a foot, a knob at a knee. Parts attached to it hang on its bone.
 - `bone`: the bone a part placed by `at` hangs on (a rib built in the chest's space).
 - Left and right are given apart, each on its own side's bones; `mirror: "y"` of a part on a middle bone
-  copies it across, and a mirrored part on an `L` bone hangs its copy on the `R` one.
+  copies it across, and a mirrored part on an `L` bone hangs its copy on the `R` one. A mirrored part stays on
+  its own side: one that reaches across the middle runs into its copy (a boot 24 wide on a calf 5 off the
+  middle made both boots one block over both legs), a FAULT on a character and a warning elsewhere.
 - `pose`: the stance it is built and judged in, when the original stands otherwise than the base:
   `"pose": { "keys": { "Bip01 L Thigh": { "turn": { "y": 20 } }, "Bip01 R UpperArm": { "turn": { "y": -10 } } } }`,
   degrees about the model's axes as each bone stands in the first frame (`y` over 0 swings a hanging limb back,

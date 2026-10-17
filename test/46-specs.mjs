@@ -158,6 +158,13 @@ test("a model spec: repeat turns the part itself to `start` and copies it round 
   sure(report.parts["cap.knob"] && report.parts["cap.knob"].from[1] < -2 && report.parts["cap.knob"].to[1] > 2, "the prefab mirrored to both sides");
 });
 
+test("a mirrored part that reaches across the middle runs into its copy, and is told (the seal's boots)", () => {
+  const built = (width) => buildModelSpec({ spec: "smak.model/1", kind: "piece", parts: [{ id: "boot", kind: "box", size: [6, width, 4], at: [0, 4, 0], mirror: "y" }] }).report;
+  const wide = built(24), narrow = built(6);
+  sure(wide.warnings.some((w) => /boot: it reaches 8 across the middle \(y 0\), so it and its mirrored copy share 16 units/.test(w)), wide.warnings.join(" | "));
+  sure(!narrow.warnings.some((w) => /across the middle/.test(w)), narrow.warnings.join(" | "));
+});
+
 test("a character spec: a place on a part laid along a limb is where the part went (the cowboy's shirt)", () => {
   // a base of two bones, the second 10 up the first: a limb along z from 0 to 10
   const M = W.shape(64, 64);
