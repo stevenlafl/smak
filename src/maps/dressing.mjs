@@ -277,7 +277,7 @@ const said = (key, v) => (v === null ? "not measured" : MEASURES[key]?.share ? `
  * A map's dressing beside Valve's: `rows` one a measure ({ key, value, valve, off }), `facts` a line each,
  * `warnings` for a measure outside Valve's least to most, saying which way to go.
  */
-export function dressingOf(bsp, { source = null, views = null, against = VALVE_DRESSING } = {}) {
+export function dressingOf(bsp, { source = null, views = null, against = VALVE_DRESSING, landmark = null } = {}) {
   const { measures, counts } = measureDressing(bsp, { source, views });
   const rows = [];
   const facts = [];
@@ -291,6 +291,11 @@ export function dressingOf(bsp, { source = null, views = null, against = VALVE_D
     facts.push(line);
     const way = off && MEASURES[key][off];
     if (way) warnings.push(`${line}: ${off === "under" ? "under the 5th" : "over the 95th"} in 100 of Valve's campaign maps; ${way}`);
+  }
+  // the map's one main area and its landmark (a map spec's focus), seen from the ways into its room or not
+  if (landmark) {
+    facts.push(`dressing: landmark ${landmark.name} in ${landmark.room}, seen from ${landmark.seen} of ${landmark.of} ways into its room`);
+    if (landmark.seen < landmark.of) warnings.push(`dressing: the landmark ${landmark.name} is hidden from ${landmark.of - landmark.seen} of the ${landmark.of} ways into ${landmark.room}: Valve's main areas show their centre from each entrance`);
   }
   facts.push(`dressing counts: ${counts.faces} world faces, ${counts.tallWalls} tall walls, ${counts.lampFaces} lamp faces, ${counts.lights} light entities, ${counts.planes} planes over ${counts.floorArea} square units of floor`);
   return { measures, counts, rows, facts, warnings };

@@ -27,6 +27,8 @@ import { sweepOf, SAFE_DROP, LIGHT_REACH } from "../maps/sweep.mjs";
 import { planOfSource, planOf, drawMap, sectionOf, viewsOf, aimedStands } from "../maps/draw.mjs";
 import { dressingOf } from "../maps/dressing.mjs";
 import { familyOf } from "../maps/families.mjs";
+import { spaceOf } from "../maps/space.mjs";
+import { focusSpec, focusSeen } from "./focus.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png, unpicture } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "./paint.mjs";
@@ -41,7 +43,7 @@ export const MAP_SPEC = "smak.map/1";
 const MAP_SIZE_WARN = 0.1;
 const MAP_SIZE_ERROR = 0.25;
 
-const TOP = ["spec", "name", "size", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music", "floorplan", "frame", "lighting"];
+const TOP = ["spec", "name", "size", "wall", "grid", "theme", "textures", "rooms", "links", "entities", "props", "furniture", "prefabs", "models", "layout", "sky", "sun", "night", "include", "replace", "sounds", "fgd", "wads", "compile", "detail", "note", "ladders", "fidelity", "music", "floorplan", "frame", "lighting", "focus"];
 /** A ladder's depth off its wall, and its width unless told: Valve's frenzy's are 32 wide. */
 const LADDER = { depth: 6, width: 32 };
 const ROOM = ["id", "size", "at", "place", "floor", "sky", "surfaces", "light", "water", "test", "building", "dark", "note", "frame"];
@@ -466,6 +468,7 @@ export function validateMapSpec(spec) {
     }
   if (!(spec.entities ?? []).some((e) => /^info_player_(start|deathmatch)$/.test(e.class)))
     errors.push("entities: a place to start (info_player_start) in one room at least");
+  if (spec.focus !== undefined) errors.push(...focusSpec(spec).errors);
   return { errors, warnings };
 }
 
@@ -690,7 +693,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
   spec = replaced.spec;
   const { errors, warnings } = validateMapSpec(spec);
   errors.push(...replaced.errors);
-  const report = { ok: false, errors, faults: [], warnings, facts: [...replaced.facts], rooms: {} };
+  // the main room and its landmark put in (src/spec/focus.mjs): a centrepiece, its plinth, its lamp, the light's goal
+  const focused = errors.length ? { spec, focus: null, facts: [] } : focusSpec(spec);
+  spec = focused.spec;
+  const report = { ok: false, errors, faults: [], warnings, facts: [...replaced.facts, ...focused.facts], rooms: {} };
   const files = {};
   if (spec.fidelity !== undefined && !["game", "high"].includes(spec.fidelity)) errors.push('fidelity: "game" or "high"');
   const frameFaults = (given, at) => {
@@ -1049,7 +1055,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     hole.min[along] = w0;
     hole.max[along] = w0 + width;
     holes.push(hole);
-    frameWays.push({ hole, axis, along, kind, lo, hi, ceiling });
+    frameWays.push({ hole, axis, along, kind, lo, hi, ceiling, link: i });
     if (high) trimOfWay(hole, axis, along, kind, lo, hi, ceiling);
     // the threshold: rooms with a floor of their own are carved a lining deeper under it, and the way between
     // them was carved down with them, a slot across the doorway a foot catches in. A slab fills it to the floor
@@ -1613,7 +1619,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
         const name = thing.prefab ?? thing.model ?? thing.class ?? (thing.box ? `box ${thing.box.join("x")}` : what);
         // (not its id: giving a thing an id, to put another beside it, is no change to the thing)
         const key = `${what} ${name} #${(counted[`${what} ${name}`] = (counted[`${what} ${name}`] ?? 0) + 1)}`;
-        report.placed.push({ key, id: thing.id, what, name, room: room.id, at: [Math.round(xy[0]), Math.round(xy[1]), Math.round(room.min[2] + (thing.z ?? 0))], turn: thing.rotate ?? thing.facing ?? 0 });
+        report.placed.push({ key, id: thing.id, what, index: i, name, room: room.id, at: [Math.round(xy[0]), Math.round(xy[1]), Math.round(room.min[2] + (thing.z ?? 0))], turn: thing.rotate ?? thing.facing ?? 0 });
         each(thing, room, [xy[0], xy[1], room.min[2] + (thing.z ?? 0)], i);
       } catch (error) {
         errors.push(`${what}[${i}]: ${error.message}`);
@@ -2157,6 +2163,19 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       errors.push(error.message);
     }
   }
+  // the landmark seen from each way into its room, on the map as laid out; an info_target named "landmark" at it,
+  // which the views aim a camera at (src/maps/draw.mjs featureTargets), the judges' among them
+  let landmarkSeen = null;
+  if (focused.focus) {
+    const laid = { worldspawn: {}, brushes, entities };
+    const space = spaceOf(laid);
+    const startAt = report.placed.find((p) => p.what === "entities" && /^info_player_(start|deathmatch)$/.test(p.name))?.at;
+    const ways = frameWays.filter((w) => w.kind !== "window").map((w) => ({ name: `links[${w.link}]`, hole: w.hole, axis: w.axis }));
+    landmarkSeen = focusSeen(focused.focus, { sees: (a, b) => space.sees(a, b), placed: report.placed, rooms, ways, start: startAt ? [startAt[0], startAt[1], startAt[2] + 64] : null });
+    report.facts.push(...landmarkSeen.facts);
+    warnings.push(...landmarkSeen.warnings);
+    if (landmarkSeen.at) entities.push(pointEntity("info_target", landmarkSeen.at.map(Math.round), { targetname: "landmark" }));
+  }
   const map = { worldspawn: { wad: [wadFile, ...gameWads], message: spec.note ?? name, skyname }, brushes, entities };
   const mapFile = join(out, `${name}.map`);
   writeFileSync(mapFile, writeMap(map));
@@ -2271,7 +2290,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       report.facts.push(...swept.facts.map((line) => `sweep: ${line}`));
       if (swept.islands.length) report.faults.push(`sweep: ${swept.islands.length} pieces of solid touch nothing, floating in the air: ${swept.islands.slice(0, 4).map((i) => `${i.from.join(" ")} to ${i.to.join(" ")}`).join("; ")}: rest each on something, or take it out`);
       // its dressing beside Valve's own, measured: what a maker revising it is told (research/level-dressing.md)
-      const dressed = dressingOf(bsp, { source: map });
+      const dressed = dressingOf(bsp, { source: map, landmark: landmarkSeen && { name: focused.focus.name, room: focused.focus.room, seen: landmarkSeen.seen, of: landmarkSeen.of } });
       report.facts.push(...dressed.facts);
       warnings.push(...dressed.warnings);
       const seenFloating = swept.floating.filter((f) => f.seen);
@@ -2295,7 +2314,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       // a map of a floor plan has no rooms to look across: its views are from its starts and its largest spaces
       save("views", views.length ? tile(views, Math.min(4, views.length), [...rooms.keys()]) : viewsOf(bsp, drawing));
       // views aimed at what the map has: its water, its largest standing piece, its lamps, its crowd, each storey
-      const aimed = aimedStands(bsp);
+      const aimed = aimedStands(bsp, landmarkSeen ? { landmark: "landmark" } : {});
       if (aimed.length) save("features", viewsOf(bsp, { ...drawing, at: aimed, width: 320, height: 240 }));
       // each building from the open room it stands in, at a man's height, before its front: what no view of a
       // room shows (its walls, its roof, its door and windows)

@@ -1632,6 +1632,8 @@ function standFor(bsp, target, name) {
 function featureTargets(bsp, { landmark } = {}) {
   const targets = [];
   const ents = bsp.entities.map((pairs, number) => ({ number, keys: Object.fromEntries(pairs) }));
+  // a map spec's focus leaves an info_target named "landmark" at its landmark: aimed at unless another is asked
+  if (landmark === undefined && ents.some((e) => e.keys.targetname === "landmark")) landmark = "landmark";
   const centreOf = (e) => {
     const model = e.keys.model?.startsWith("*") ? bsp.models[Number(e.keys.model.slice(1))] : null;
     const origin = (e.keys.origin ?? "0 0 0").split(/\s+/).map(Number);

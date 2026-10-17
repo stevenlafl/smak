@@ -540,6 +540,35 @@ test("composed light: a lamp in each rhythm dimmed with its fixture, pooling und
   sure(buildMapSpec({ ...spec({ goalRoom: "attic" }), name: "composed_bad" }, { out: join(folder, "composed_bad"), compilers: { found: false, message: "" } }).report.errors.some((e) => /lighting\.goalRoom: a room's id/.test(e)), "a goal that is no room refused");
 });
 
+test("a map's focus: a landmark in its main room, on a plinth, lit, seen from each way in; one hidden is told", () => {
+  const spec = (more = {}) => ({
+    spec: "smak.map/1", name: "focus", lighting: true,
+    rooms: [{ id: "hall", size: [640, 512, 256] }, { id: "west", size: [256, 256, 160], place: { west_of: "hall" } }, { id: "south", size: [256, 256, 160], place: { south_of: "hall" } }],
+    links: [{ between: ["hall", "west"], kind: "opening" }, { between: ["hall", "south"], kind: "opening" }],
+    entities: [{ class: "info_player_start", room: "west", at: "against west", facing: "hall" }],
+    focus: { room: "hall", landmark: { kit: "pump" }, from: ["start"] },
+    ...more,
+  });
+  const none = { found: false, message: "" };
+  const open = buildMapSpec(spec(), { out: join(folder, "focus"), compilers: none });
+  const said = [...open.report.facts, ...open.report.warnings].join(" | ");
+  sure(/focus: a pump the kit made/.test(said) && /focus: 1 plinth 8 high/.test(said), said);
+  sure(/focus: the landmark \(pump, 1 piece\) in hall at .*seen from 3 of 3 ways in: links\[0\] sees it, links\[1\] sees it, the start sees it/.test(said), said);
+  sure(/^lighting: composed: .*hall lit 1\.6 times brighter/m.test(open.report.facts.join("\n")), "the main room is the light's goal");
+  const map = smak.maps.readMap(readFileSync(open.files.map, "utf8"));
+  sure(map.entities.some((e) => e.classname === "info_target" && e.targetname === "landmark"), "an info_target named landmark at it, for the views");
+  // a wall of furniture between the west way and the landmark: that way and the start do not see it
+  const hidden = buildMapSpec(spec({ furniture: [{ box: [32, 300, 200], room: "hall", at: [-200, 0] }] }), { out: join(folder, "focus_hidden"), compilers: none });
+  sure(hidden.report.warnings.some((w) => /focus: the landmark is not seen from links\[0\] .*the start/.test(w)), hidden.report.warnings.join(" | "));
+  // the landmark named among what the room has: every pump of the room is of it, each on its own plinth
+  const pumps = buildMapSpec(spec({ prefabs: { pump: { pieces: [{ cylinder: { centre: [0, 0], radius: 24, from: 0, to: 128, sides: 8 }, texture: "furniture" }] } }, furniture: [{ prefab: "pump", room: "hall", at: [-160, 0] }, { prefab: "pump", room: "hall", at: [160, 0] }, { prefab: "pump", room: "west", at: "centre" }], focus: { room: "hall", landmark: "pump" } }), { out: join(folder, "focus_pumps"), compilers: none });
+  sure(pumps.report.facts.some((f) => /focus: 2 plinths 8 high/.test(f)) && pumps.report.facts.some((f) => /landmark \(pump, 2 pieces\)/.test(f)), pumps.report.facts.filter((f) => /focus/.test(f)).join(" | "));
+  // what is no landmark is refused in words
+  sure(validateMapSpec(spec({ focus: { room: "hall", landmark: { kit: "windmill" } } })).errors.some((e) => /focus\.landmark\.kit: pump, machine, reactor, statue, door/.test(e)), "a kind the kit has not");
+  sure(validateMapSpec(spec({ focus: { room: "attic", landmark: { kit: "pump" } } })).errors.some((e) => /focus\.room: the main room's id/.test(e)), "a room the map has not");
+  sure(validateMapSpec(spec({ focus: { room: "hall", landmark: "nothing" } })).errors.some((e) => /no furniture or prop in hall is "nothing"/.test(e)), "a landmark the room has not");
+});
+
 test("a func_detail written by the kit says its detail level: SDHLT takes one without it as world", () => {
   const piece = smak.maps.brushEntity("func_detail", [smak.maps.box([0, 0, 0], [16, 16, 16], "X")]);
   sure(piece.zhlt_detaillevel === "1", JSON.stringify(Object.keys(piece)));
