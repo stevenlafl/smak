@@ -2174,7 +2174,7 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
     landmarkSeen = focusSeen(focused.focus, { sees: (a, b) => space.sees(a, b), placed: report.placed, rooms, ways, start: startAt ? [startAt[0], startAt[1], startAt[2] + 64] : null });
     report.facts.push(...landmarkSeen.facts);
     warnings.push(...landmarkSeen.warnings);
-    if (landmarkSeen.at) entities.push(pointEntity("info_target", landmarkSeen.at.map(Math.round), { targetname: "landmark" }));
+    if (landmarkSeen.aim) entities.push(pointEntity("info_target", landmarkSeen.aim.map(Math.round), { targetname: "landmark" }));
   }
   const map = { worldspawn: { wad: [wadFile, ...gameWads], message: spec.note ?? name, skyname }, brushes, entities };
   const mapFile = join(out, `${name}.map`);

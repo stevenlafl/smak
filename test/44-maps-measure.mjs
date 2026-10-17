@@ -638,6 +638,10 @@ test("viewsOf with aim: views aimed at what the map has, a landmark among them, 
   });
   const firstShut = openness.findIndex((o) => o < 248);
   sure(firstShut < 0 || openness.slice(firstShut).every((o) => o < 248), `open ahead, in order: ${openness.join(", ")}`);
+  // a map spec's focus leaves an info_target named "landmark": aimed at first with no landmark asked
+  const marked = maps.readBsp(maps.withEntities(tworoomsBytes, maps.addEntity(tworooms.entities, "info_target", [96, 96, 64], { targetname: "landmark" })));
+  const first = maps.aimedStands(marked)[0];
+  sure(first?.name === "landmark landmark" && Math.hypot(first.to[0] - 96, first.to[1] - 96) < 1, JSON.stringify(maps.aimedStands(marked)));
 });
 
 test("smak map-dressing: a compiled map's dressing beside Valve's, its source's brush roles", () => {

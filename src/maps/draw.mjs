@@ -1611,12 +1611,23 @@ function standFor(bsp, target, name) {
   for (const distance of AIM_DISTANCES)
     for (let k = 0; k < 16; k++) {
       const a = (k * Math.PI) / 8;
-      const over = [target[0] + Math.cos(a) * distance, target[1] + Math.sin(a) * distance, target[2] + 64];
+      let over = [target[0] + Math.cos(a) * distance, target[1] + Math.sin(a) * distance, target[2] + 64];
+      // under a low ceiling (a landmark aimed at over its top, near the ceiling) the floor is looked for from the
+      // target's own height
+      if (contentsAt(bsp, over) === CONTENTS.SOLID) over = [over[0], over[1], target[2]];
       if (contentsAt(bsp, over) === CONTENTS.SOLID) continue;
       const floor = floorUnder(bsp, over);
       if (floor === null || over[2] - floor > 512) continue;
       const eye = [over[0], over[1], floor + EYE_OVER_FLOOR];
       if (contentsAt(bsp, eye) !== CONTENTS.EMPTY || !clearBetween(bsp, eye, target)) continue;
+      // a landmark is aimed at over its top: its body, lower, must be seen too, or a rail before it hides it (the
+      // pump hall's pumps, low in their pool, behind a catwalk's rail): a line to 48 under the aim, stopping 48 short
+      if (/^landmark/.test(name)) {
+        const body = [target[0], target[1], target[2] - 48];
+        const length = Math.hypot(...sub(body, eye));
+        const short = eye.map((v, k) => v + ((body[k] - v) * Math.max(0, length - 48)) / length);
+        if (!clearBetween(bsp, eye, short)) continue;
+      }
       return { from: eye.map(Math.round), to: target.map(Math.round), name };
     }
   return null;

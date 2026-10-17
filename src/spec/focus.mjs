@@ -167,8 +167,17 @@ export function focusSpec(spec) {
     if (high === 0 || (thing.at && typeof thing.at === "object" && !Array.isArray(thing.at))) continue;
     const half = Array.isArray(asked.plinth) ? asked.plinth.map((v) => v / 2) : [0, 1].map((k) => (piece.box.max[k] - piece.box.min[k]) / 2 + PLINTH.past);
     const middle = [0, 1].map((k) => (piece.box.max[k] + piece.box.min[k]) / 2);
+    const lo = [0, 1].map((k) => middle[k] - half[k]);
+    const hi = [0, 1].map((k) => middle[k] + half[k]);
+    // a piece put at [dx, dy] from the room's middle near a wall: its plinth stops at the wall, not in it (the pump
+    // hall's pumps stand against the pool's side)
+    if (Array.isArray(thing.at) && Array.isArray(room.size))
+      for (const k of [0, 1]) {
+        lo[k] = Math.max(lo[k], -room.size[k] / 2 - thing.at[k]);
+        hi[k] = Math.min(hi[k], room.size[k] / 2 - thing.at[k]);
+      }
     const name = `focus_plinth_${plinths.length + 1}`;
-    prefabs = { ...prefabs, [name]: { pieces: [{ box: [[middle[0] - half[0], middle[1] - half[1], 0], [middle[0] + half[0], middle[1] + half[1], high]], texture }] } };
+    prefabs = { ...prefabs, [name]: { pieces: [{ box: [[lo[0], lo[1], 0], [hi[0], hi[1], high]], texture }] } };
     plinths.push({ prefab: name, room: asked.room, at: thing.at, ...(thing.z !== undefined ? { z: thing.z } : {}), plinthOf: piece });
     list[piece.index] = { ...thing, z: (thing.z ?? 0) + high };
   }
@@ -230,19 +239,24 @@ export function focusSeen(focus, { sees, placed, rooms, ways, start = null }) {
   }).filter(Boolean);
   if (!boxes.length) return { seen: 0, of: 0, at: null, facts, warnings: ["focus: the landmark was not placed: nothing to see"] };
   const centre = [0, 1, 2].map((k) => boxes.reduce((s, b) => s + (b.min[k] + b.max[k]) / 2, 0) / boxes.length);
-  // each way into the main room: a point 24 inside it at a player's eyes
+  // each way into the main room: a point 24 inside it at a player's eyes. A room placed in another (a pool sunk in a
+  // hall's floor, a pit) has no way of its own: the ways into the rooms that hold it in plan are its ways
   const near = (v, w) => Math.abs(v - w) < 64;
-  const into = ways
-    .filter(({ hole, axis }) => {
-      const other = axis === 0 ? 1 : 0;
-      const overlaps = hole.max[other] > room.min[other] && hole.min[other] < room.max[other];
-      return overlaps && (near(hole.max[axis], room.min[axis]) || near(hole.min[axis], room.max[axis]));
-    })
-    .map(({ name, hole, axis }) => {
-      const p = [0, 1].map((k) => (hole.min[k] + hole.max[k]) / 2);
-      p[axis] = near(hole.max[axis], room.min[axis]) ? room.min[axis] + 24 : room.max[axis] - 24;
-      return { name, eye: [p[0], p[1], Math.min(Math.max(room.min[2], hole.min[2]) + EYE, hole.max[2] - 4)] };
-    });
+  const intoRoom = (box) =>
+    ways
+      .filter(({ hole, axis }) => {
+        const other = axis === 0 ? 1 : 0;
+        const overlaps = hole.max[other] > box.min[other] && hole.min[other] < box.max[other];
+        return overlaps && (near(hole.max[axis], box.min[axis]) || near(hole.min[axis], box.max[axis]));
+      })
+      .map(({ name, hole, axis }) => {
+        const p = [0, 1].map((k) => (hole.min[k] + hole.max[k]) / 2);
+        p[axis] = near(hole.max[axis], box.min[axis]) ? box.min[axis] + 24 : box.max[axis] - 24;
+        return { name, eye: [p[0], p[1], Math.min(Math.max(box.min[2], hole.min[2]) + EYE, hole.max[2] - 4)] };
+      });
+  const holds = (outer) => outer !== room && [0, 1].every((k) => outer.min[k] <= room.min[k] + 1 && outer.max[k] >= room.max[k] - 1);
+  let into = intoRoom(room);
+  if (!into.length) into = [...rooms.values()].filter(holds).flatMap((outer) => intoRoom(outer).map((w) => ({ ...w, name: `${w.name} (into ${outer.id})` })));
   if (start && focus.from.includes("start")) into.push({ name: "the start", eye: start });
   const seenFrom = into.map(({ name, eye }) => {
     const seen = boxes.some((b) => {
@@ -260,5 +274,8 @@ export function focusSeen(focus, { sees, placed, rooms, ways, start = null }) {
   const own = new Set(focus.pieces.map((piece) => `${piece.list} ${piece.index}`));
   const crowding = things.filter((p) => !/^focus_plinth_/.test(p.name) && !own.has(`${p.what} ${p.index}`) && !boxes.some((b) => p.at[0] >= b.min[0] && p.at[0] <= b.max[0] && p.at[1] >= b.min[1] && p.at[1] <= b.max[1]) && grown.some((g) => p.at[0] > g.min[0] && p.at[0] < g.max[0] && p.at[1] > g.min[1] && p.at[1] < g.max[1]));
   if (crowding.length) warnings.push(`focus: ${crowding.length} things stand within ${focus.clear} of the landmark (${crowding.slice(0, 4).map((p) => p.name).join(", ")}): keep the floor round it clear, so it reads as the room's one centre`);
-  return { seen, of: seenFrom.length, at: centre, facts, warnings };
+  // where a camera aims: over the landmark's top, in open air (its middle is inside it, and a view needs a clear
+  // line to what it aims at)
+  const aim = [centre[0], centre[1], Math.max(...boxes.map((b) => b.max[2])) + 8];
+  return { seen, of: seenFrom.length, at: centre, aim, facts, warnings };
 }
