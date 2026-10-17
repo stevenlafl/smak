@@ -98,6 +98,23 @@ test("a sound spec: built the same every time, its variants, held against its cl
   sure(/name: the file's path under sound\/, lower case/.test(said) && /class: one of metal hit/.test(said) && /kind: noise, tone, fm, modes, particles/.test(said) && /ratios: bar, clamped/.test(said), said);
 });
 
+test("finish.fit brings a sound's power to its bands: those asked, or its class's middle; with nothing to fit to, refused", () => {
+  const want = { "<150": 5, "150-600": 10, "600-2k": 60, "2k-5k": 20, ">5k": 5 };
+  const noise = [{ kind: "noise", color: "pink", env: { attack: 0.002, decay: 0.3 } }];
+  const fitted = A.buildSoundSpec({ spec: "smak.sound/1", name: "x/fit.wav", length: 0.5, layers: noise, bands: want, finish: { fit: "bands" } });
+  const got = A.features({ x: A.readWav(fitted.files[0].bytes).x, rate: RATE }).bands;
+  sure(Object.keys(want).every((k) => Math.abs(got[k] - want[k]) < 2.5), `the bands asked: ${JSON.stringify(got)}`);
+  sure(fitted.report.facts.some((f) => /fit\.wav: fitted to the bands of the bands asked, [\d.]+ points off at most; gains <150/.test(f)), fitted.report.facts.join(" | "));
+  const classed = A.buildSoundSpec({ spec: "smak.sound/1", name: "x/swing.wav", class: "swing", length: 0.4, layers: noise, finish: { fit: "bands" } });
+  sure(classed.report.facts.some((f) => /fitted to the bands of the middle of the swing class/.test(f)), classed.report.facts.join(" | "));
+  const ranges = A.rangesOf("swing");
+  const swung = A.features({ x: A.readWav(classed.files[0].bytes).x, rate: RATE }).bands;
+  sure(Object.keys(swung).every((k) => swung[k] >= ranges[`band ${k}`][0] && swung[k] <= ranges[`band ${k}`][1]), `inside the class's bands: ${JSON.stringify(swung)}`);
+  const none = A.buildSoundSpec({ spec: "smak.sound/1", name: "x/none.wav", length: 0.3, layers: noise, finish: { fit: "bands" } });
+  sure(none.report.errors.some((e) => /nothing to fit to/.test(e)), none.report.errors.join(" | "));
+  sure(A.validateSoundSpec({ spec: "smak.sound/1", name: "x/a.wav", layers: noise, finish: { fit: "eq" } }).errors.some((e) => /finish\.fit: "bands"/.test(e)), "another fit refused");
+});
+
 await testAsync("the tool build makes sounds: the files under work:sound/, their report and their picture", "sound build", async () => {
   const work = join(tmp, "sound-work");
   const tools = toolsFor({ work, models: tmp, wads: [] });

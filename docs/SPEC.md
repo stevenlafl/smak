@@ -539,7 +539,7 @@ told), checked as the engine needs them, and measured against the game's own sou
 | `seed` | Every random choice: the same spec makes the same bytes |
 | `length`, `pitch` | Seconds (unless told, the longest layer's end); a pitch in percent |
 | `layers` | Each `{ id, kind, at (s), length (s), gain (dB), env, filter }` (below) |
-| `finish` | `room: { decay, wet, tone }` (keep it short: the map's `env_sound` adds the room), then `saturate` (a drive, 1 to 8: what makes a shot loud, its room's tail squashed up to its blast), then `limit: { crest, release }` (a peak limiter squashing the mix until its peak over its RMS is `crest` dB: Valve's weapons are 6 to 10, steps 15 to 21; `release` 0.002 s), `peak` (dBFS, -0.5) |
+| `finish` | `room: { decay, wet, tone }` (keep it short: the map's `env_sound` adds the room), then `saturate` (a drive, 1 to 8: what makes a shot loud, its room's tail squashed up to its blast), then `limit: { crest, release }` (a peak limiter squashing the mix until its peak over its RMS is `crest` dB: Valve's weapons are 6 to 10, steps 15 to 21; `release` 0.002 s), `peak` (dBFS, -0.5); last, `fit: "bands"`: its power brought by arithmetic to the shares of the bands it is to have (its own `bands`, else its `picture`'s, else the game's own sound it takes the place of, else the middle of its class's), a gain a band laid smoothly over the spectrum, to within a point or two; the report says the gains. A band the sound has nothing in is not raised from nothing |
 | `loop` | `true` or `{ crossfade }`: a cue point at its start, its seam crossfaded; the engine loops it |
 | `variants` | More files from the same layers: `{ name, seed, pitch, gain }` (`cbar_hit2`, `pl_step1` to `4`) |
 | `reference` | The game's files to draw beside it (unless told, the first of its class), read from the game folders the server was given and never copied |
@@ -599,8 +599,8 @@ the take that is what was asked for and is clean (the measures flag clipping, a 
 and put it in a `sample` layer `from: "onset"`. Add no `noise` or `modes` layer over a take: it has its texture and
 its ring already. Steady noise added to it is heard as static (and, fading, as reverb; the build warns of it), and
 modes laid on a hit or a step are heard as a bell. Shape it in the spec only
-where it needs it: its `length`, a `filter` (a generated hit is often brighter than the game's: a `lowpass` or a
-`highshelf` cut), the finish's `saturate` and `limit` (a shot is loud for its peak). Layers alone are for what has no
+where it needs it: its `length`, the finish's `fit: "bands"` (a generated hit is often brighter than the game's,
+and a filter by hand rarely lands every band: the fit does), `saturate` and `limit` (a shot is loud for its peak). Layers alone are for what has no
 real source (a beep, a drone) or where no take comes near. Each take's sidecar names its model's licence, and the
 report's facts say when it is non-commercial: tell the person, whose call it is. How a sound sounds is the person's
 to say, by ear: the numbers find faults, not likeness.

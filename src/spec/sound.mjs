@@ -7,11 +7,12 @@
 
 import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
-import { render, MODE_SETS } from "../audio/synth.mjs";
+import { render, MODE_SETS, normalise } from "../audio/synth.mjs";
 import { writeWav, readWav, resample, RATES } from "../audio/wav.mjs";
 import { checks, features } from "../audio/measure.mjs";
 import { CLASSES, scoreAgainst, rangesOf } from "../audio/classes.mjs";
 import { soundPicture } from "../audio/draw.mjs";
+import { fitBands } from "../audio/fit.mjs";
 import { pictureMeasures } from "../audio/picture.mjs";
 import { unpicture } from "../image.mjs";
 
@@ -107,6 +108,9 @@ export function validateSoundSpec(spec) {
     const limit = sound.finish?.limit;
     if (limit !== undefined && !(isNumber(limit?.crest) && limit.crest >= 1 && limit.crest <= 40 && (limit.release === undefined || (isNumber(limit.release) && limit.release > 0))))
       errors.push(`${where("finish.limit")}: { crest: the peak over the RMS it is squashed to, in dB (Valve's weapons 6 to 10), release: seconds (0.05) }`);
+    const fit = sound.finish?.fit;
+    if (fit !== undefined && fit !== "bands")
+      errors.push(`${where("finish.fit")}: "bands": its power brought to the shares it is to have (its own \`bands\`, its picture's, the game's own sound it takes the place of, or its class's)`);
     if (sound.bands !== undefined && !(sound.bands && typeof sound.bands === "object" && Object.entries(sound.bands).every(([k, v]) => BAND_NAMES.includes(k) && isNumber(v) && v >= 0 && v <= 100)))
       errors.push(`${where("bands")}: the share of its power in each band, in %, as a description of the sound gives it: { ${BAND_NAMES.map((k) => `"${k}": n`).join(", ")} } (any of them)`);
     if (sound.onsets !== undefined && !(Number.isInteger(sound.onsets) && sound.onsets >= 0 && sound.onsets <= 64))
@@ -265,6 +269,28 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
       } catch (error) {
         errors.push(`${take.name}: ${error.message}`);
         continue;
+      }
+      // its power brought to the shares it is to have: the bands asked, its picture's, the game's own it takes the
+      // place of, or the middle of its class's ranges, the first there is
+      if (sound.finish?.fit === "bands") {
+        const own = referenceOf(take.name, games);
+        const ranges = sound.class ? rangesOf(sound.class) : null;
+        const [target, from] = sound.bands
+          ? [sound.bands, "the bands asked"]
+          : seen
+            ? [seen.bands, "its picture's"]
+            : own
+              ? [features({ x: own.x, rate: own.rate }).bands, `the game's own ${take.name}`]
+              : ranges
+                ? [Object.fromEntries(Object.entries(ranges).filter(([k]) => k.startsWith("band ")).map(([k, [lo, hi]]) => [k.slice(5), (lo + hi) / 2])), `the middle of the ${sound.class} class`]
+                : [null, null];
+        if (!target) {
+          errors.push(`${take.name}: finish.fit "bands" has nothing to fit to: give it \`bands\`, a \`picture\`, a \`class\`, or the name of the game's own sound it takes the place of`);
+          continue;
+        }
+        const fitted = fitBands(x, rate, target, { loop: !!sound.loop });
+        x = normalise(fitted.x, sound.finish.peak ?? -0.5);
+        report.facts.push(`${take.name}: fitted to the bands of ${from}, ${fitted.off} points off at most; gains ${Object.entries(fitted.gains).map(([k, g]) => `${k} ${g > 0 ? "+" : ""}${g} dB`).join(", ")}`);
       }
       if (take.gain) for (let i = 0; i < x.length; i++) x[i] *= 10 ** (take.gain / 20);
       const loop = sound.loop ? 0 : null;

@@ -239,7 +239,8 @@ function withRoom(x, { decay = 0.3, wet = 0.15, tone = 4000 } = {}, rate, random
   return out;
 }
 
-function normalise(x, dB) {
+/** The sound made louder or softer until its peak is at `dB` dBFS. */
+export function normalise(x, dB) {
   const g = 10 ** (dB / 20) / (peakOf(x) || 1);
   for (let i = 0; i < x.length; i++) x[i] *= g;
   return x;

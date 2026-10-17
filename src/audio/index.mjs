@@ -2,6 +2,7 @@
 export * from "./wav.mjs";
 export * from "./measure.mjs";
 export * from "./synth.mjs";
+export * from "./fit.mjs";
 export * from "./classes.mjs";
 export * from "./draw.mjs";
 export { buildSoundSpec, validateSoundSpec, SOUND_SPEC } from "../spec/sound.mjs";
