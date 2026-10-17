@@ -100,31 +100,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as an explosion throughout: a small bright spark at frame 0, a white-hot burst at frames 2 to 4, lobed billowing at frames 5 to 8, and a dull ember by frame 14. The brief's fireball that bursts, billows into lobes and burns away is what the sheet shows."
+   "reason": "Reads as an explosion throughout: a small hot spark at frame 0, a white-hot fireball bursting at frames 1 to 4, lobes forming and billowing at frames 5 to 7, then yellow-orange lobes at frames 8 to 11 that sink and dim to nothing by frame 14. Debris specks fly off the edges. This matches the brief's 'bursts, billows into lobes, burns away to nothing'."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Each cell is 64 px. The fireball fills roughly the middle half of each frame at peak (frames 2 to 4), with no clipping at the edges (measured border mean 0.005, inside the class range of 0 to 0.005). It is centred and grows as an explosion's does."
+   "reason": "Each 64x64 frame holds the effect in its centre without touching the cell edges (e.g. the frame 2 and 3 blobs span roughly half the cell width). The effect grows and then shrinks to a small ember, as the original's would. The measured border max of 0.818 is most likely the white frame-number labels sitting on each cell's top-left border, not the sprite, since no frame shows light running to an edge; the border mean of 0.005 is within the class."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye the colours run white-hot core (frames 2 to 4), then yellow and orange lobes (5 to 9), then dark orange and brown embers (10 to 14), which is the fire colour an explosion blends to additively. The white core is blown out in frames 2 to 4, but that is how the class's bursts look at peak and not a fault."
+   "reason": "By eye the colour sequence is right for an additive fireball: white-hot core in frames 1 to 4, pale yellow in 5 to 7, golden orange with darker red-brown lobes in 8 to 11, and dull dark red in 12 to 14. Against the black background it blends as additive light should."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "15 frames, against a class that takes the same count. Measured envelope: peak at 0.36 (class range 0.22 to 0.71), first frame 0.08 (range 0 to 0.22), last frame 0.03 (range 0 to 0.03). Jitter 1.25 sits in its range of 1.04 to 1.48. Motion is grow, billow, fade, a one-shot that ends almost dark, as the class does. Frame 14 still holds a faint ember, but it is at the class's measured ceiling of 0.03."
+   "reason": "Fifteen frames, the same count as the class. The envelope sits inside the explosion class: the peak at 0.36 of the run (frame 5), first frame 0.08 and last 0.03, both within their ranges. It grows, then burns away, and the one-shot ends dark (frame 14 is a faint ember, last frame dark). Jitter of 1.25 is inside the class range of 1.04 to 1.48, so the motion is steady rather than flickering."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured type parallel and format additive, matching the game's own file (gameType parallel, gameFormat additive). Same name, and it reads back as written (sameName true, readsBack true)."
+   "reason": "Its type (parallel) and format (additive) match the game's file as measured, under the same name, and it reads back as written. Frames are on a black background, so additive blending adds nothing beyond the effect."
   }
  },
  "total": 10,

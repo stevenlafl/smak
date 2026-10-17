@@ -75,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both pictures show the same effect: a soft radial glow, bright at the centre and fading to the dark background. The reproduction's glow is the same kind of effect as the original's."
+   "reason": "Both frames show the same effect, a soft radial glow with a bright core fading to dark at the edges. The reproduction's core is a little brighter and tighter, but it is still the same glow."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64 with one frame, and the measured border is 0 in both, so the glow stays inside the frame. The glow fills the frame in the same way in both pictures, with a similar falloff radius."
+   "reason": "Both are 64 x 64 frames, and the glow fills the frame the same way in each, fading to the dark background before the edges (border max and mean both 0). The reproduction's falloff looks marginally more compact, which is within the view's resolution."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 0.9 (CIE76), far under the line of 15. Visually the reproduction's hot spot looks slightly whiter and tighter at the centre than the original's, but the colours are the same family and the difference is well within tolerance."
+   "reason": "The measured mean colour difference is 0.9 CIE76 delta E, far under the 15 line. The core looks marginally brighter in the reproduction, but the frames' colours agree."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, with identical envelopes (peak at frame 0, first and last 1) and identical dark fraction (0.47). The motion is a single still frame in both, and wrap and jitter are null in both, so no motion is measured for either; nothing in the reproduction contradicts the original."
+   "reason": "Both are single frames (frames 1 and 1), with the same envelope (first 1, last 1, peak at frame 0). Motion does not apply to a one-frame glow, and the dark fraction matches exactly (0.47 in both)."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are additive, both are sameName true, and both readsBack true. The format matches the original's, and the harness reads the reproduction back as written."
+   "reason": "Both are type parallel, format additive, and the same name, and the reproduction reads back as written (readsBack true). The sizes match at 64 x 64."
   }
  },
  "total": 10,

@@ -60,34 +60,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Not a glow. The whole 64x64 frame is one flat light-grey fill (border and mean both 0.784, so there is no falloff from a centre to the edge). It reads as a plain plate, the same as the plain-disc decoy. The small box with '0' in the top-left corner is the harness's frame label, not part of the asset."
+   "reason": "The brief asks for a soft round white glow. The frame shows a flat light-grey field with no visible glow or disc anywhere, only a small black-outlined box labelled 0 in the top-left corner (the harness's frame label). The effect the brief describes is missing."
   },
   "R2": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "The frame is 64x64 as the original's is, but the effect does not fill it as a glow does. Its edge is as bright as its middle (border 0.784 against the required 0 to 0.005), so the soft round fade the brief asks for is missing and the shape reads as a square."
+   "score": 0,
+   "reason": "No round shape is visible in the 64 x 64 frame, so there is no glow filling it or fading out inside it. The frame reads as an unshaped field, and the measured border (0.784, mean and max) shows light running to the edge rather than a fall to nothing."
   },
   "R3": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "The colour is a flat light grey across the frame, not a white glow with a brighter core. No centre-to-edge gradient can be seen by eye, so the colour asked for cannot be confirmed; it is clearly off in its shape, not just its tint."
+   "score": 0,
+   "reason": "The brief asks for a white glow. By eye the frame is grey throughout, the same tone as the background, with no brighter white centre. The colour the brief asks for is not shown. No colour measure is given, so this rests on the picture alone."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "One frame, which the glow class's measures take (the envelope has peak, first and last at frame 0, one frame, no motion to judge). It fails the class measure on the border (0.784 against 0 to 0.005, ok:false): light at the edge where Half-Life's own glows fade out. So it cannot score 2."
+   "reason": "A single frame, with first, last and peak all on frame 0, which the glow class's frame count and steadiness can take. But the measured border is 0.784 against the class's 0 to 0.005, so the glow does not fade to nothing at its edge. That fails the class's measure, so it cannot score 2."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's file as read back (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back (readsBack true)."
+   "reason": "Type parallel and format additive match the game's own file (gameType and gameFormat both parallel and additive), the name is the same (sameName true), and the file reads back as written (readsBack true)."
   }
  },
- "total": 5,
+ "total": 3,
  "of": 10,
  "passes": false
 }

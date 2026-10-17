@@ -80,31 +80,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a looping flame of tongues licking upward. The frame shows no flame: a light field with one dark-outlined rectangle near the top, no tongues, no upward licking. The picture is too small to resolve fine detail, but nothing in it reads as fire."
+   "reason": "The frame shows a bright rectangle with a dark outline near the top-left, not a flame. There are no tongues licking upward, so it is not a fire effect."
   },
   "R2": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The size matches the original (32 x 96), but the effect does not fill the frame as a flame does. The measured border is 0.784 where the class allows 0 to 0.028, so bright light runs to the frame edges, the fault the measure names. The lit area is a block, not tongues rising from a base."
+   "reason": "The size is right at 32x96, but the effect does not fill the frame as a flame does. Its border measures 0.784 against the fire class's 0 to 0.028, so light runs to the frame's edges, which makes it a filled block rather than a flame shape."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for orange and yellow. The frame reads as grey, white and black, with no orange or yellow anywhere. The colour is wrong for the brief, judged by eye."
+   "reason": "By eye the frame is near-white and grey with no orange or yellow in it. The brief asks for orange and yellow flame colours, and none appear."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "It is one frame, with first and last both at 1, which sits within the class's envelope range (0.57 to 1), so the envelope is not the fault. The frame count of 1 is not one a fire loop takes, and nothing in the frame moves, so no loop closes on any motion. Only the envelope is measured against the class; the count and the motion are not, so this is held to 1 on the picture alone."
+   "reason": "A single frame, with the first and last frames at 1, sits within the fire class's envelope and the loop closes trivially. But the border of 0.784 is far outside the fire class's 0 to 0.028, so the motion and edge profile do not behave like Half-Life's fire sprites. Clearly off, not a pass."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel oriented) and format (additive) match the game's own file, the name is sprites/fire.spr, and the file reads back as written (sameName and readsBack are true). The fit for the game is correct."
+   "reason": "The type is parallel oriented and the format additive, both as the game's own file keeps them. The name is sprites/fire.spr, the same name is read back, and the file reads back as written."
   }
  },
  "total": 3,

@@ -75,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a muzzle-flash star: a bright core with five soft rays. The original's frames in original.png and the reproduction's in reproduction.png show the same effect, with the same ray count and placement."
+   "reason": "Both are the same effect: a five-pointed starburst with a bright white-hot centre and orange rays, one per frame. The reproduction's rays are softer and a little less defined than the original's, but it reads as the same muzzle flash."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64x64 frames (measured) and the star fills them the same way. Border max is 0.02 in the original and 0 in the reproduction, so neither spills past the frame. The rays in reproduction.png look a little softer and wider than the original's sharper rays, but the outline and extent match."
+   "reason": "Both are 64 x 64, and the measured border is 0.02 for the original and 0 for the reproduction, so neither has content at the edges. The star fills the centre of each frame in the same way in both. The reproduction's rays look slightly shorter and softer, but that is not clearly off."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured mean colour difference is 0.7 CIE76 delta E, far under the 15 line. Both are warm orange-yellow cores fading to orange rays on black, and dark fraction is 0.76 vs 0.74."
+   "reason": "The measured mean colour difference is 0.7 CIE76 delta E, far under 15. Both use the same warm orange rays and near-white core, and the reproduction's dark background matches (dark 0.74 against 0.76)."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have 2 frames (matches the original). Envelope peaks at frame 1 in both, first-frame level 0.95 vs 0.96, last-frame level 1 in both, so it grows from frame 0 to frame 1 as the original does. The one-shot ends at the same brightness as the original (measured)."
+   "reason": "Both have 2 frames, which is the original's count. Both are bright in every frame, as a muzzle flash should be: the envelope is first 0.95 (original) and 0.96 (reproduction), last 1 and 1, peak at frame 1 in both. Border dark holds in both (0.02 and 0). Both sit inside the muzzle flash class."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are the additive format and the sprite's name matches (measured: format additive, sameName true, readsBack true). Nothing in the pictures suggests a fault in the file."
+   "reason": "The format is additive in both, the names match (sameName true), and the file reads back as written (readsBack true)."
   }
  },
  "total": 10,

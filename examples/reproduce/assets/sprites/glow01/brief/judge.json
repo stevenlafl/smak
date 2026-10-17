@@ -26,7 +26,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.55,
+   "dark": 0.43,
    "wrap": null,
    "jitter": null
   },
@@ -60,31 +60,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame shows one soft round glow: a bright centre fading outward through grey into the black background. It is the effect the brief asks for, a glow over lights."
+   "reason": "frames.png shows one soft, round, white radial glow, bright at the centre and fading out toward the edge. That is the effect the brief asks for, a glow put over lamps and lights."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The single frame is square, and the glow fills it as a round disc. The brightness falls off to the dark background before the frame edge, so the outer border is empty (measured border 0). The shape fits a 64 x 64 glow sprite."
+   "reason": "The measured frame is 64 x 64, one frame, and the glow fills it. Its border is 0 (the class range is 0 to 0.005), so the glow reaches the edge with no hard rim. The brief gives no size, so this is judged against the glow class."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged by eye: the core is near-white and the falloff is neutral grey, with no tint. That matches the white the brief asks for. The dark surround adds nothing under additive blending."
+   "reason": "By eye the core is white and the falloff is neutral grey to black, with no tint. That matches a plain white glow as the brief asks. No colour measure is given, and none is missing."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One frame, parallel type, with the envelope held at first 1, last 1, peak at 0. Half-Life's own glow sprites of this class also take one frame and no loop, so the measures match the class. The brief asks for no motion."
+   "reason": "One frame, peak at frame 0, first and last frame both 1. That fits the glow class, which is a single steady frame with no loop or one-shot ending. The class's measures are met, and the border is 0 as the class requires."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is parallel and additive, the type and format the brief says it replaces. The name is the same (glow01), and it reads back as written (readsBack true, sameName true)."
+   "reason": "The type is parallel and the format additive, matching the game's own glow01 (gameType and gameFormat both agree). The name is the same and the file reads back as written (sameName and readsBack are both true)."
   }
  },
  "total": 10,

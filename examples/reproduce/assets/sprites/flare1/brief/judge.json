@@ -5,8 +5,8 @@
  "label": "sprites/flare1.spr, in the place of the game's own",
  "measured": {
   "size": [
-   64,
-   64
+   128,
+   128
   ],
   "frames": 1,
   "type": "parallel",
@@ -14,8 +14,8 @@
   "measures": {
    "frames": 1,
    "size": [
-    64,
-    64
+    128,
+    128
    ],
    "border": {
     "max": 0,
@@ -26,7 +26,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.44,
+   "dark": 0.54,
    "wrap": null,
    "jitter": null
   },
@@ -60,31 +60,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is a flare: a bright white core at the centre (about x 64, y 64 in the 128 picture) falling off into a soft, round grey halo that reaches most of the frame. That is the glow a lens flare is for, and it reads as one effect."
+   "reason": "The frame shows a hot white centre (about 6 px, near 255 brightness) inside a soft, round grey halo that fades smoothly outward. That is the lens flare for a bright light the brief asks for. The small '1' in the top-left corner is the harness's frame label, not part of the sprite."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64 x 64 frame, the size the measures give, with the halo filling the frame roughly evenly on all sides and fading out before the edge. The border is 0 (measured, within the class's 0 to 0.005). The picture shows no clipping at the edges."
+   "reason": "The sprite is 128 x 128, matching the measured size. The halo is centred and spans about 100 px of the frame, fading to the background before the edges, so the effect fills the frame as a flare's does. The border measure is 0, so nothing is clipped."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged by eye against the brief: a hot white centre in a soft neutral halo, with no tint and no hard rim. The additive format makes the black background invisible in play, which fits a flare. The brief's colour is met."
+   "reason": "Judged by eye: the centre is white and the halo is neutral grey, with no tint. That matches a hot white centre in a soft halo. The background is a very dark grey-blue, which an additive blend adds almost nothing to, so it does not show as a colour fault."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single static frame (measured: 1 frame, envelope peak at frame 0). A lens flare is a steady glow, not a one-shot, so there is no fade to check. The measures given for the flare class include no frame count or loop that this would fail, so nothing is off against the class."
+   "reason": "One frame, which is what the class 'flare' takes (frames 1, first and last at 1, peak at frame 0). A single still needs no loop or fade, so the motion measures agree with the class."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured: type parallel and format additive, matching the game's own (gameType parallel, gameFormat additive). The name matches (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "The type is parallel and the format is additive, matching the game's own file (gameType parallel, gameFormat additive). The name is the same and the file reads back as written."
   }
  },
  "total": 10,

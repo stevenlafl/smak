@@ -1,22 +1,20 @@
-The muzzle flash builds **OK**: `work:sprites/muzzleflash1.spr`, with a sheet and an animated preview beside it.
+The muzzle flash is built and the build says OK. It is at `work:sprites/muzzleflash1.spr`, beside its `-sheet.png` and `-animated.png`, and the spec is saved as `work:muzzleflash1.json` so it can be rebuilt.
 
-**What I made**
-- A 64×64 parallel, additive sprite, placed as a temporary entity (`tempent`), render mode 5 (additive), 16 frames per second.
-- Frame 1 is a white-hot centre with a peach glow and eight streaks: four long ones on the axes and four shorter ones on the diagonals. That gives the star shape.
-- Frame 2 is fully dark. The build requires a one-shot sprite to end dark, so the flash shows for one frame and then goes out. Frame 2 is not a visible second step.
-- The colour ramp is the `muzzle` preset (white, peach, tan), taken from Half-Life's own muzzle flash.
+**What it is**
+- Name `sprites/muzzleflash1.spr`, class `muzzle flash`, use `tempent`, type `parallel`, format `additive`, 64 by 64, 2 frames, origin centre.
+- Frame 0 is a six-point star, one point every 60°.
+- Frame 1 is a six-point star turned 30°, so the two flashes are different shapes. Each frame is bright on its own.
+- A small glow sits in the middle of both, coloured with the `muzzle` ramp (white, peach, tan).
+- The edge is faded so no square shows at the border.
 
-**How**
-- The spec is `work:muzzleflash.json`, `smak.sprite/1`, with one entry for `sprites/muzzleflash1.spr`. Rebuild it with `build` on that file.
+**How I got there**
+- The first attempts had a bright square edge, and streaks that blurred into a soft ball with no points. Thin, sharp streaks (`taper` 2, no blur, no haze) gave the star.
+- Frame 1 needed its own star. I used two star layers with an envelope each: one fades out over the play and the other rises to the last frame. The envelope's `start`/`attack`/`decay` form works for this. A `points` form I tried was ignored.
 
-**What the build says**
-- OK, with every check passed. It reports 116 colours, no quantising loss, and an envelope that peaks at the first frame and ends at zero.
-- Against Half-Life's flare class it is in range (1 of 1).
+**What the build measured**
+- It is OK with no faults. Against Half-Life's muzzle flash class, all three measures are in range: the colour, the border (0) and the start (first frame 0.94, last 1.0).
 
-**What I could not check**
-- The game's own `sprites/muzzleflash1.spr` is not in this environment, so there is no reference sheet. I could not measure it side by side, and I cannot say it is at least as good as the original. The comparison is only against the class norm.
-- Drop it into the mod beside the original and look at it in game. The modder should judge it there.
-
-**One choice to confirm**
-- If they want the second frame to show as a fainter, smaller star rather than going dark, the one-shot rule has to be relaxed. I would need their say-so before changing that.
-- There is a scratch file `work:muzzleflash-try.json` left in the work folder. It is an unused copy of the spec and can be deleted.
+**What I could not do**
+- I did not compare it with the game's own `muzzleflash1.spr`. No game folder was given to the kit, and the spec's `reference` needs the game's sprite as a picture or a folder. The measures above are against Half-Life's class in general, not that exact file.
+- I did not check the game's own frame size, so 64 by 64 is my choice and not a match.
+- Whether it is as good as the game's is for the modder to judge in the game. The star is clean and bright, but it is stylised and only the in-game view will show how it reads at the gun's scale.

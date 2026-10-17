@@ -100,31 +100,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a soft blue-white glow that flickers in place: a white core with a cyan halo that swells and dims across frames 0 to 10. Nothing in the frames contradicts the brief's electric spark. The halo is lumpy in places (frames 3, 4 and 9 have separate dim lobes), but that is texture, not a different effect."
+   "reason": "The effect is a soft glow with a bright white core and a cyan-blue halo in all 11 frames (frames 0 to 10 of frames.png), which reads as an electric spark's light. It is a glow, not a flame, smoke or beam, as the brief asks."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "32 x 32 frames as the brief's size implies. The glow fills most of each frame, as a sprite of this class does. The border is near-black (measured mean 0.004, max 0.145), so the effect does not clip at the frame edges. The brief says 'small', and the glow is large within its frame, but the frames are the sprite's own size and the glow sits inside them."
+   "reason": "The frames are 32 x 32 as measured. The glow fills the frame the way a soft light does. Border mean is 0.004, inside the class range. Border max is 0.145, and the lower halo of frames 3 and 4 runs close to the bottom edge, but the spill is faint and not clearly cut off."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Cyan-blue halo around a near-white core in every frame, which is the blue-white the brief asks for. The halo is more cyan than blue, but it stays on the blue-white side by eye."
+   "reason": "Judged by eye, the colour is blue-white as the brief asks: a white core in every frame with a cyan-blue halo. No frame turns orange, green or dull. The colour is steady across the loop."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "11 frames, a flicker in place: brightness and halo size change from frame to frame and the glow does not drift. The loop closes (wrap 1.61, within the fire-loop class range 0 to 2.48). Jitter 1.51 is inside the class range 1.33 to 1.79. The envelope (first 0.94, last 1, peak at frame 1) is inside the class range 0.57 to 1. Every measure the class gives is in range."
+   "reason": "Measured against the fire loop class: jitter 1.51 (class 1.33 to 1.79), wrap 1.61 (class 0 to 2.48), first frame 0.94 and last frame 1 (class 0.57 to 1), border mean 0.004 (class 0 to 0.028). The frames flicker in place, varying in brightness and in the shape of the halo, and the loop closes. The class does not measure frame count, so the 11 frames are not checked against Valve's count. The loop itself is right for a flicker, so it is not a one-shot."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive, matching the game's own file (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "The file is parallel and additive, matching the game's gameType and gameFormat. Its name is the same (sameName true) and it reads back as written (readsBack true)."
   }
  },
  "total": 10,

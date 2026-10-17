@@ -22,15 +22,15 @@
     "mean": 0
    },
    "envelope": {
-    "peakAt": 0,
-    "first": 1,
-    "last": 0
+    "peakAt": 1,
+    "first": 0.94,
+    "last": 1
    },
-   "dark": 0.85,
+   "dark": 0.78,
    "wrap": null,
    "jitter": null
   },
-  "class": "flare",
+  "class": "muzzle flash",
   "againstClass": [
    {
     "measure": "border",
@@ -38,6 +38,26 @@
     "range": [
      0,
      0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.94,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.9,
+     1
     ],
     "ok": true,
     "words": ""
@@ -60,34 +80,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frame 0 shows a four-pointed star burst with a soft glow around a bright white core, which is the muzzle flash the brief asks for. Nothing in the picture is a different effect."
+   "reason": "Reads as a muzzle flash: a six-pointed star with a bright white core and orange-yellow spikes, as the brief asks. Both frames are the same effect, so the burst is clear in either one."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 64 x 64 per the measures. In frame 0 the star's arms reach close to the frame's edges (about x 12 to 118 of 128 at the sheet's scale), and the glow fills the frame as a flash should. Frame 1 is empty, but that is R4's fault, not the frame's shape or size."
+   "reason": "Each frame is 64 x 64 and the star fills the centre with a margin of dark on every side (border measured 0). Neither frame is cropped, and the spikes stay inside the frame."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The core is near-white, shading to warm orange at the arm tips and glow, on a black additive background. That reads as a bright gun flash by eye. No colour fault is visible at this size."
+   "reason": "By eye, the colours are right for a muzzle flash: a white-hot core fading to yellow and orange at the spike tips, on black. Nothing is off-hue or muddy, and the dark background drops out under additive blending."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Two frames as the class takes it, and the envelope peaks at frame 0 (first 1, peak at 0). But frame 1 is fully dark (last 0, dark 0.85), so the flash is one bright frame followed by nothing. Half-Life's own muzzle flash is two bright frames, so the ending is clearly off for the class. Frame 1 needs its own bright, smaller flash."
+   "score": 2,
+   "reason": "Two frames, matching the brief and the class's count. Against the muzzle flash class, the border is 0 (dark), the first frame is 0.94 of peak and the last is 1.0, all inside the class's 0.9 to 1 band. Frame 1 is a different rotation and slightly larger, so the two frames read as separate flashes rather than one fading out. Per the class, the second frame does not fade to dark, which is correct for this class."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's own (gameType and gameFormat both match), the name is the same (sameName true), and the file reads back (readsBack true)."
+   "reason": "Type is parallel and format is additive, matching the game's own muzzleflash1 file. The name is the same and the measures report that the file reads back as written."
   }
  },
- "total": 9,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

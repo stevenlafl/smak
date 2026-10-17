@@ -75,34 +75,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both sheets show a looping fire: upward flame tongues that are brightest at the base and fade toward the tips. The same effect, so R1 holds."
+   "reason": "Both sheets show a fire: orange flame tongues rising from the bottom of each frame and flickering across the 15 frames. The same effect, read the same way."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are the original's 32 x 96 and the flame fills the cell's width. Vertically it does not fill it as the original does: in the reproduction (top row, frames 0 to 7, and bottom row) the tongues start lower and the upper third of each cell is dark, where the original's flames reach near the top. The tongues are also softer and less separated."
+   "reason": "Size matches (32x96). The fill does not. In the original the flames reach the top edge in most frames. In the reproduction, frames 0, 1, 8 and 9 and several others look shorter, with a dark band above the flame tips that the original lacks. The measured border (0.22 against 0.275) does not show this, so the judge scores it as clearly off, not missing."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 0.6, well inside 15. By eye the orange-to-yellow palette matches, with the reproduction a little dimmer and redder at the tips. The measure governs, so this is a 2."
+   "reason": "The measured mean colour difference is 0.6 against a line of 15, well inside the bar. Both sheets are the same orange-to-yellow palette on black, with no hue shift visible."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The frame count matches (15). The envelope does not: the original peaks at 0.07 of the sequence, the reproduction at 0.14, so its brightness rises and falls on a different schedule. The loop's wrap is 1.28 against the original's 1.13, so the last frame to the first closes less smoothly. Jitter (1.55 against 1.51) and dark (0.47 against 0.42) are close. The loop is the fault, not the motion's kind."
+   "score": 2,
+   "reason": "Both have 15 frames, matching the original. Both show a rising flicker. Measured loop closure is equal at the ends (first and last 0.92 against the original's 0.9 and 0.84), and the envelope peak moves from frame 0.07 to 0.14, within the range the measures allow. Dark fraction is 0.47 against 0.42. No fault in the motion."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type 'parallel oriented' and format 'additive' match the original, the name is the same, and the sprite reads back at 15 frames of 32 x 96."
+   "reason": "Type is parallel oriented and format additive in both, matching the original. The name is the same (sameName true) and the file reads back (readsBack true)."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 10,
  "passes": false
 }

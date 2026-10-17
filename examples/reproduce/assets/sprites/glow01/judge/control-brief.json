@@ -60,31 +60,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The single frame is a soft radial glow: a bright white core at the centre (about x 60, y 60 of the 128 px picture) falling off in rings to the edge. That is the effect the brief asks for."
+   "reason": "The frame shows one soft, round, white radial glow centred on the frame, which is what the brief asks for. Nothing else is drawn in it."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is 64 x 64, as measured. The glow fills it from centre to edge, and the border is 0 (max 0, mean 0), so it fades to nothing at the edge as the brief asks."
+   "reason": "The frame is 64 x 64, as the measures give. The glow fills the frame, brightest at the centre and fading out toward the corners, with the border at 0 (the class's range is 0 to 0.005)."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged by eye: the core is white and the falloff is neutral grey with no tint, which is what the brief's 'white glow' asks for. No colour measure is given, and none is missing."
+   "reason": "The glow is white at its centre and grey-white through its falloff, against the additive black background, which is the colour the brief asks for. The small box with a '0' in the top-left corner is the harness's frame label, not part of the sprite."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One frame, held static, with first and last frame both 1 (envelope peak at 0). The brief asks for no motion. The class check given (againstClass) covers only the border, which is 0 and within range, so a single frame is the class's measure as far as the measurements show."
+   "reason": "The brief asks for no motion and this is a single frame. Against the glow class, the border is 0, inside the class range, and the envelope is steady (first and last frame both 1, the same as the class's steady glows). No class measure of frame count is given, so nothing else is held against it."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's own file (gameType and gameFormat both parallel and additive), the name is the same (sameName true), and the file reads back as written (readsBack true)."
+   "reason": "Type 'parallel' and format 'additive' match the game's own file (gameType and gameFormat both parallel and additive), the name is the same (sameName true), and the file reads back as written (readsBack true)."
   }
  },
  "total": 10,

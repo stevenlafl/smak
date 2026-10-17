@@ -80,31 +80,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a soft blue-white glow of an electric spark. The one frame in frames.png is a flat light-grey field with no glow, no spark and no falloff from a centre; the only mark is a small dark-bordered box with a '0' at the top-left, which is a frame label, not part of the effect."
+   "reason": "The brief asks for a soft blue-white glow of an electric spark. The one frame in frames.png is a uniform light grey field filling the whole frame, with no glow, core or spark shape visible. The measures agree: the mean (0.784) equals the border (0.784), so the centre is no brighter than the edge. Only the small frame-number box in the top-left corner stands out. The effect the brief describes is missing."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 x 32 as measured, but the effect does not fill it as a glow would. The light covers the whole frame edge to edge (border mean 0.784 against the class's 0 to 0.028), so the picture is a plate, not a light that fades out at the edges."
+   "reason": "The effect fills the 32x32 frame edge to edge instead of being a small glow that fades out at its edges. Border is 0.784 against the glow class's 0 to 0.028 (againstClass, 'border', ok false). Frame size (32x32) is correct, so the fault is the fill, not the size."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged by eye, the frame is pale grey with a faint cool tint, not the soft blue-white of a light's core. No brighter centre or blue-white core is visible, so the colour the brief asks for is not clearly there."
+   "reason": "The only colour in the frame is a neutral light grey (judged by eye). There is no blue tint and no bright white core, so it is not the blue-white the brief asks for. The grey may be partly the engine's blend, but nothing in the frame reads as blue."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Two measured class checks fail. The edge is lit at 0.784 where Half-Life's fire loops are at 0 to 0.028, which the measures put at fault. And the sprite has one frame, so it cannot flicker as the brief asks; the first and last values (1 and 1) show the loop closes but say nothing about motion. The frame count is not in the class measures, so it is judged here only against the brief."
+   "reason": "The brief asks for a glow that flickers in place and loops. The sprite has one frame, so it cannot flicker, and a one-frame loop shows no motion. first and last are both 1, which is within the class range, but the frame count of 1 does not match a flickering fire-loop class. The class's frame count is not in the measures given, so this rests on the single frame and the brief's flicker."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is parallel and additive, matching the game's own type and format for this slot (gameType parallel, gameFormat additive). The name is the same (sameName true) and it reads back as written (readsBack true)."
+   "reason": "Type parallel and format additive match the game's own file (gameType parallel, gameFormat additive). The name is the same (sameName true), and the file reads back as written (readsBack true). Nothing is wrong on fit for the game."
   }
  },
  "total": 4,

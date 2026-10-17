@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "flare1",
+ "leg": "brief",
+ "label": "sprites/flare1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.44,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "flare",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is a flare: a bright white core at the centre (about x 64, y 64 in the 128 picture) falling off into a soft, round grey halo that reaches most of the frame. That is the glow a lens flare is for, and it reads as one effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One 64 x 64 frame, the size the measures give, with the halo filling the frame roughly evenly on all sides and fading out before the edge. The border is 0 (measured, within the class's 0 to 0.005). The picture shows no clipping at the edges."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged by eye against the brief: a hot white centre in a soft neutral halo, with no tint and no hard rim. The additive format makes the black background invisible in play, which fits a flare. The brief's colour is met."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A single static frame (measured: 1 frame, envelope peak at frame 0). A lens flare is a steady glow, not a one-shot, so there is no fade to check. The measures given for the flare class include no frame count or loop that this would fail, so nothing is off against the class."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: type parallel and format additive, matching the game's own (gameType parallel, gameFormat additive). The name matches (sameName true) and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

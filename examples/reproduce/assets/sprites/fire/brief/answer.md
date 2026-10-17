@@ -1,19 +1,22 @@
-The flame sprite builds OK: `sprites/fire.spr` is in the work folder, with a contact sheet (`fire-sheet.png`) and an animated preview (`fire-animated.png`) beside it.
+The build says OK. The sprite is `sprites/fire.spr` in the work folder, with a contact sheet (`fire-sheet.png`) and an animated preview (`fire-animated.png`) beside it.
 
-**What it is**
-- A 64 by 128 looping flame of 16 frames, plus the first frame again at the end for the wrap, at 10 frames a second.
-- Type parallel oriented and format additive, as the game's own. Black is clear, so it shows as light on dark backgrounds.
-- Placed as an `env_sprite`, render mode 5 (additive).
-- Its base is at the bottom of the frame, so it stands on the barrel or wreck it is placed on.
-- The fire layer uses the game's fire colour ramp, which runs from a yellow-white core to orange and dark red at the tips. The tongues are cut so the flame breaks into licks that climb, with dark between them.
-- A faint orange glow sits low in the frame to warm the base.
+**What I made**
 
-**How I made it**
-- I wrote the spec at `work:fire-sprite.json`. The first build failed on two things: a colour given as 0 to 255 instead of 0 to 1, and a frame rate above the 10 an `env_sprite` can change at. I fixed both.
-- The first version read as one narrow cone. I widened it, raised the tongue setting to its maximum, and lowered the taper, so the licks show in the middle frames. The second build passed every check.
+- **Name and use:** `sprites/fire.spr`, placed as an `env_sprite`. The build reports render mode 5 (additive) at 10 frames a second.
+- **Type and format:** parallel oriented, additive, as you asked. Black is clear, so the flame needs no background.
+- **Size and loop:** 64 by 128 pixels, 16 frames. The build writes the first frame again at the end (17 frames in the file) so the loop wraps cleanly.
+- **Origin:** bottom, so the flame sits on its base where it is placed.
+- **Flame:** one fire layer with a tongue-shaped noise (tongues 1, taper 0.3) that rises and flickers. Its colour runs from a dark red edge through orange to a yellow-white hot middle, so the tongues read as orange and yellow licks going up.
+- **Warm light:** a faint orange glow at the base, gain 0.25.
+- **Edge:** faded 2 steps at the border so no square shows.
 
-**What I could not do**
-- I could not put it beside Half-Life's own `fire.spr`. This server has no game folder configured, so I could not read the original. The report only compares the flame against Half-Life's fire-loop class in general (five of five measures in range), not against that file. The modder needs to make the side-by-side comparison in the game.
-- Some frames (around 6 and 13) dim noticeably, which is the flicker the report measures. It loops cleanly (wrap score 0.91).
+The spec is saved as `work:fire.spec.json`, so the sprite can be rebuilt.
 
-To try it, the modder copies `sprites/fire.spr` into their mod's `sprites` folder, which replaces the game's file when the mod loads.
+**What I could not check**
+
+- **No comparison against the game's file.** This server has no game folder set up, so I could not read Half-Life's own `fire.spr`. The build's "5 of 5 in range" compares against its built-in measure of a fire loop, not the real file. The comparison that matters for your modder is the in-game one they plan to do themselves.
+- **Not viewed in the game.** I looked at the contact sheet only. I did not render it in the engine or test it beside the original.
+
+Two build problems came up on the way and are fixed: the first draft had a brown haze filling the square, and the next had light at the border. The fade and a dark first colour stop cleared both.
+
+If the modder wants a comparison against the game's own file, the game folders need to be given to the server, and I can run the reference measure then.

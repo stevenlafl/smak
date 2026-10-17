@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "muzzleflash1",
+ "leg": "brief",
+ "label": "sprites/muzzleflash1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 2,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 2,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 0
+   },
+   "dark": 0.85,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "flare",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Frame 0 shows a four-pointed star burst with a soft glow around a bright white core, which is the muzzle flash the brief asks for. Nothing in the picture is a different effect."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Frames are 64 x 64 per the measures. In frame 0 the star's arms reach close to the frame's edges (about x 12 to 118 of 128 at the sheet's scale), and the glow fills the frame as a flash should. Frame 1 is empty, but that is R4's fault, not the frame's shape or size."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The core is near-white, shading to warm orange at the arm tips and glow, on a black additive background. That reads as a bright gun flash by eye. No colour fault is visible at this size."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Two frames as the class takes it, and the envelope peaks at frame 0 (first 1, peak at 0). But frame 1 is fully dark (last 0, dark 0.85), so the flash is one bright frame followed by nothing. Half-Life's own muzzle flash is two bright frames, so the ending is clearly off for the class. Frame 1 needs its own bright, smaller flash."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the game's own (gameType and gameFormat both match), the name is the same (sameName true), and the file reads back (readsBack true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

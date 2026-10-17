@@ -30,7 +30,7 @@
    "wrap": null,
    "jitter": null
   },
-  "class": "flare",
+  "class": "muzzle flash",
   "againstClass": [
    {
     "measure": "border",
@@ -38,6 +38,26 @@
     "range": [
      0,
      0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.95,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.9,
+     1
     ],
     "ok": true,
     "words": ""
@@ -60,31 +80,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both frames show one star-shaped burst: a bright white-orange core with about five thin rays fading outward, which is the muzzle flash the brief asks for. Nothing in either frame reads as a different effect."
+   "reason": "Both frames show a five-pointed star burst with a bright white-hot core and thin rays fading outward, which is the muzzle flash the brief describes. Nothing in either frame reads as another effect."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 64 by 64 as measured. The star fills the centre and its rays fade out before the edges (border max 0.02, mean 0), so the effect fills the frame as the class does without clipping. Nothing sits outside the frame."
+   "reason": "Each frame is 64 x 64, as measured. The star fills most of each frame with a margin of dark around it, and the rays reach toward the edges without being clipped. Both frames are the same size and centred."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The colour reads as fire: a hot white core, orange mid-rays and dim orange-brown tips on black, which suits the additive blend. The brief gives no colour measure, and by eye it matches a burst of fire."
+   "reason": "By eye the colours are a white-yellow core with orange-amber rays on a near-black ground, which is how a bright additive flash should blend. Both frames carry the same palette, with no colour cast."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Two frames, matching the class's frame count (measured: 2). The envelope peaks at frame 1 (first 0.95, last 1), so the second frame is the brightest and the burst does not end dark. Valve's own flash is two bright frames, so the class measures take this, as the rubric says they should. The change between frames is a small flicker in core brightness, which is the kind of motion a muzzle flash has."
+   "reason": "Two frames, as the class's measures ask. Border is 0.02 max and 0 mean (dark, so the flash does not spill over the edge), and first (0.95) and last (1.0) frames are both at or above the 0.9 bar for a muzzle flash. Frame 1 is a bright flash of its own with slightly different ray angles rather than a fade to dark, so there is no motion fault."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's file (gameType and gameFormat both parallel and additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "The measured type and format match the original's: parallel and additive for both the replacement and the game's file. It keeps the same name (sameName true) and reads back as written (readsBack true). There is no fault in the kept block."
   }
  },
  "total": 10,

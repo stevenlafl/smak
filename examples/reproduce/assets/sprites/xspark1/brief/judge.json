@@ -23,18 +23,18 @@
    },
    "envelope": {
     "peakAt": 0.38,
-    "first": 0.85,
-    "last": 0.85
+    "first": 0.97,
+    "last": 0.97
    },
-   "dark": 0.64,
-   "wrap": 0.98,
-   "jitter": 1.93
+   "dark": 0.62,
+   "wrap": 0.96,
+   "jitter": 1.98
   },
   "class": "fire loop",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.93,
+    "value": 1.98,
     "range": [
      1.33,
      1.79
@@ -44,7 +44,7 @@
    },
    {
     "measure": "wrap",
-    "value": 0.98,
+    "value": 0.96,
     "range": [
      0,
      2.48
@@ -64,7 +64,7 @@
    },
    {
     "measure": "first",
-    "value": 0.85,
+    "value": 0.97,
     "range": [
      0.57,
      1
@@ -74,7 +74,7 @@
    },
    {
     "measure": "last",
-    "value": 0.85,
+    "value": 0.97,
     "range": [
      0.57,
      1
@@ -100,31 +100,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "All nine frames show a soft blue-white glow with a white core and a blue halo, which is what the brief asks for. It reads as the light of a spark rather than a flame or smoke. The lumps in frames 1, 2, 5 and 6 add flicker without changing the effect."
+   "reason": "Each of the nine frames is one soft glowing disc, a bright white core in a blue halo on a dark ground, which is the light of an electric spark as the brief describes. No frame shows anything else."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 32 x 32, small as the brief says. The glow is centred in each frame and fills roughly the middle two-thirds, with dark margins on all sides, as an additive glow should."
+   "reason": "Frames are 32 by 32 as the original's are. The glow sits centred and its halo fades out well inside the edges; the measured border is 0, so nothing is clipped or hard-edged at the frame's border."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The colour is blue-white by eye: a near-white core in every frame, a blue halo, on a near-black background. This matches the brief's colour."
+   "reason": "By eye the colour is the brief's: white-hot core and a blue-white halo across all nine frames. Brightness varies slightly from frame to frame, but the hue holds."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame count (9) and the loop close are right: frame 8 is close to frame 0, and the envelope's first and last values (0.85) match. The measured jitter of 1.93 is above the class range of 1.33 to 1.79, so frame-to-frame change is too large. In frames 1, 2, 5 and 6 the glow throws lumps to different sides (bottom in frame 1, left and right in frame 2, bottom-left in frame 5, left in frame 6), so the flicker reads as the shape shifting rather than a coherent flicker in place. The measure caps this item."
+   "reason": "The loop closes (wrap 0.96, inside the class range) and the envelope holds at both ends (first and last 0.97, inside 0.57 to 1), so the loop and fade-in/out are right. Frame-to-frame jitter is 1.98, above the fire loop class's range of 1.33 to 1.79, so the flicker is too erratic compared with Half-Life's own. Frames 1 and 5 also show small uneven specks in the halo. The frame count (9) is not checked against a class figure here."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type (parallel) and format (additive) match the game's own file, which is also parallel and additive. The name matches, and the file reads back as written."
+   "reason": "Type parallel and format additive match the game's file (gameType parallel, gameFormat additive). The name is the same, and it reads back as written."
   }
  },
  "total": 9,

@@ -75,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are the same effect: a small spark at frame 0, a bright blob that swells through frames 1 to 5, then a yellow-orange cloud that sinks and dims over frames 8 to 14, with flying sparks at the edges. The reproduction's frames 2 to 4 have the same expanding fireball with its outer sparks, so the effect reads as the original's."
+   "reason": "Both are the same effect: a puff that swells from a small point (frame 0), peaks around frames 2 to 4, then breaks up and fades into embers by frame 14. Sparks fly off the cloud in both, in the same early frames (0 to 4)."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both frames are 64 x 64 and the blob fills the frame in the same place. The measured envelope is smaller early and peaks sooner: first 0.04 against the original's 0.08, peak at 0.29 against 0.36. In the reproduction's frame 0 the spark is a small grey smudge, while the original's is a hot white spot. Its frames 1 and 2 are also smaller than the original's, so the blob is not built up as the original's is."
+   "reason": "Both are 64 by 64 frames. The fill differs early: the original's frame 2 is a large white-hot blob that fills most of the frame's width, while the reproduction's frames 0 to 2 are smaller and dimmer (frame 0 is a grey cluster about 15 px across, against the original's bright core at about 20 px). The envelope peak lands at 0.29 against the original's 0.36, so the reproduction fills the frame later than the original does."
   },
   "R3": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The early frames are wrong: the reproduction's frames 0 to 2 are flat grey (frame 2 has a grey cloud with white highlights), where the original's are white-hot with yellow. Frames 3 and 4 are close to the original's white. Its later frames 8 to 9 are a more saturated gold and frames 11 to 13 an olive-brown, where the original is orange-brown with dark red edges. The measured mean colour difference of 10.6 is within the line of 15, but the grey start is clearly off to the eye."
+   "reason": "Early frames are wrong: the original's frames 0 and 1 are warm white and yellow with a bright core, while the reproduction's frames 0 to 2 are flat grey (frame 2 has a grey cloud with white specks). Frames 8 to 10 are more saturated, brighter yellow in the reproduction than the original's orange-brown with dark red edges. The first-frame envelope (0.04 against 0.08) matches that the reproduction starts dimmer. Mean colour was not given as a number, so this is judged by eye."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches at 15, and both grow, peak around frames 4 to 5 and fade. The reproduction peaks about a frame earlier (0.29 against 0.36) and fades faster: its frame 13 is a faint brown smear and frame 14 is empty, while the original still glows faintly at frame 14 (last 0.03 against 0). Its jitter is higher (1.6 against 1.25), so the frame-to-frame texture churns more than the original's. The wrap measure differs widely (0.23 against 0.81); I cannot tell from the pictures what that measure means for a one-shot, so I have not charged it separately."
+   "reason": "Frame count matches (15 each), and the shape is the same: grow, peak, fade to dark. The timing is off: the envelope peaks at 0.29 against the original's 0.36, and the first frame is dimmer (0.04 against 0.08). The reproduction's jitter is 1.6 against 1.25, so its brightness and texture flicker more from frame to frame, where the original's changes more smoothly. The one-shot ends dark in both (last 0 against 0.03), so that part is right. The wrap figures (0.81 against 0.23) differ, but a one-shot has no loop to close, so that difference is noted and not charged."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type and format match the original: parallel and additive. The name is the same (sameName true), and it reads back as written (readsBack true). Background is black and additive, so it blends as the original does."
+   "reason": "Measured: type parallel and format additive in both, same name (sameName true), and the file reads back (readsBack true)."
   }
  },
  "total": 7,

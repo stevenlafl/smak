@@ -1,9 +1,21 @@
-OK, built and every check passed. The sprite is `work:sprites/glow01.spr`.
+I made `sprites/glow01.spr` with a spec and it builds OK. The build passed every check, but I could not put it beside Half-Life's own glow, so the final judgement is yours in game.
 
-**What I made:** a single-frame, 64 x 64 white glow. It is brightest at the centre and falls off smoothly to nothing at the edge of the frame, so there is no visible ring. It is parallel (faces the camera) and additive (black is clear), the same type and format as the game's `glow01.spr`. The build placed it as an `env_glow` with render mode 3 (Glow), so it draws the way the game's glow does.
+**What it is**
+- A single frame, 64×64, white, with a smooth round falloff. The centre is full white and the light fades to nothing at the border (border brightness 0).
+- Type `parallel` and format `additive`, as you asked, so black is clear and the light adds to what is behind it.
+- The build places it as an `env_glow`, render mode 3 (Glow). The spec sets the `use` field to `env_glow`. If your lamps are `env_sprite` entities, the same file still works there, since it is the same picture.
 
-**How:** I wrote a `smak.sprite/1` spec with one `glow` layer: radius 1 (the frame's edge), colour white `[1, 1, 1]`, smooth falloff, gain 1, centred origin. The build's report says it is 91 colours after quantising, with its border at 0 light, and it is in range against Half-Life's own glow on the one measure it compares.
+**How it was made**
+- Spec file: `work:glow01.json`. It has one sprite entry with one `glow` layer: radius 0.95, core 0.5, colour white, centred. The falloff is the default `smooth` one, which fades to nothing between 0.55 and 1 of the radius.
+- Output: `work:sprites/glow01.spr`, with `glow01-sheet.png` and `glow01-animated.png` beside it.
 
-**What I did not check:** I could not put it beside the game's own `glow01.spr` in the game. The tools here only see the work folder and the models folder, and the build's comparison is a set of numeric measures, not a side-by-side look. So the "at least as good" call is for your modder to make in game. The likely differences are size and how far the glow reaches; if it reads too small or too tight, the `radius` and `falloff` values in the spec are where to change it.
+**What the build reported**
+- `OK: built, and every check passed`.
+- 173 colours, quantising loss 0.0012, so no visible banding.
+- Its one frame is within the range of Half-Life's own glow class (1 of 1 in range).
 
-The spec is saved as `work:sprites_glow01.spec.json`, and the preview pictures are `work:sprites/glow01-sheet.png` and `work:sprites/glow01-animated.png`. To use it, the modder copies `sprites/glow01.spr` into their mod's `sprites/` folder, which replaces the game's file of that name.
+**What I could not do**
+- The kit has no game folder set up here (`--wads none`), so I could not read Half-Life's `glow01.spr` and compare the two side by side. The "in range" check is against the kit's built-in figures for that class, not the real file.
+- The sprite viewer returned an error on the 512 px render, so I looked at the sheet image instead. It shows a soft white disc with no hard edge.
+
+To judge it, copy `sprites/glow01.spr` into the mod and put a lamp or light in a test map beside the original. Check how big the glow looks at your usual `scale`, and whether the centre is too hot.

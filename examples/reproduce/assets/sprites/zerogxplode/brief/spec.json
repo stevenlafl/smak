@@ -11,36 +11,35 @@
         128,
         128
       ],
-      "frames": 15,
-      "loop": false,
+      "frames": 16,
       "fps": 15,
-      "finish": {
-        "edge": 2
-      },
       "layers": [
         {
           "kind": "explosion",
           "ramp": "blast",
-          "gain": 1,
           "growth": 0.5,
           "env": {
-            "attack": 0.1,
+            "attack": 0.08,
+            "decay": 0.9,
             "start": 0.1
           }
         },
         {
           "kind": "billow",
-          "ramp": "blast",
           "count": 18,
-          "spread": 0.5,
-          "size": 0.26,
-          "growth": 0.9,
-          "rise": 0.2,
-          "drift": 0.12,
-          "gain": 0.9,
+          "spread": 0.7,
+          "size": 0.3,
+          "growth": 0.6,
+          "blend": 0.4,
+          "lumps": 0.6,
+          "hot": 0.4,
+          "cool": 0.6,
+          "dissolve": 0.8,
+          "ramp": "blast",
           "env": {
-            "attack": 0.3,
-            "start": 0.2
+            "attack": 0.15,
+            "decay": 0.75,
+            "start": 0.05
           }
         }
       ]

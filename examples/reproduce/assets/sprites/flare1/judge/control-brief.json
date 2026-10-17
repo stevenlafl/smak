@@ -60,31 +60,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The single frame reads as a lens flare for a bright light: a hot white centre (about the middle third of the frame) that falls off through a soft, round, radial halo with faint streaks at the edges. That is the effect the brief asks for."
+   "reason": "The frame shows a flare: a hot white centre (roughly the middle third of the frame) falling off into a soft, round halo with faint radiating streaks. That is the effect the brief asks for, a lens flare for a bright light."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64 x 64 frame. The halo fills the frame and fades to black at the edges (border max and mean both 0), so the effect fills its frame as a flare does. Nothing is clipped at the edges."
+   "reason": "One 64x64 frame, as measured. The halo fills the frame and fades to dark before the edges (border mean 0, max 0), so nothing is cut off and the effect fills the frame as a flare's does."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The centre is white and the halo is a soft, slightly mauve-pink tint, which reads as the glow of a bright light. The brief names only a white centre and a soft halo, so the tint is not a fault. The picture is small, so this is judged at a glance rather than at a close look."
+   "reason": "Judged by eye: the centre is hot white, as the brief asks. The halo is a pale pinkish-lavender that fades to dark. Nothing in the brief contradicts that tint, and the colour is consistent with a bright lens flare."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Measured: 1 frame, envelope first 1 and last 1, no wrap or jitter. A flare is a static effect, and the class check (border, range 0 to 0.005) passes at 0. The measures given do not include the class's frame count, so that part is taken as matching but not measured."
+   "reason": "One frame, the same count as the flare class (measured envelope first = last = peak, border 0, within the class's range). The brief asks for a static glow, not motion, so a single steady frame is right."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type 'parallel' and format 'additive' match the game's own values (gameType and gameFormat), the name is the same (sameName true), and the file reads back as written (readsBack true)."
+   "reason": "Type parallel and format additive match the game's own file (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
   }
  },
  "total": 10,

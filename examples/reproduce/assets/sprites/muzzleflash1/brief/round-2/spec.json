@@ -1,0 +1,94 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/muzzleflash1.spr",
+      "class": "flare",
+      "use": "tempent",
+      "type": "parallel",
+      "format": "additive",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 2,
+      "fps": 16,
+      "origin": "centre",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.3,
+          "core": 0.1,
+          "ramp": "muzzle",
+          "gain": 1,
+          "env": {
+            "attack": 0,
+            "decay": 1,
+            "start": 1
+          }
+        },
+        {
+          "kind": "flare",
+          "core": 0.08,
+          "ramp": "muzzle",
+          "gain": 1,
+          "env": {
+            "attack": 0,
+            "decay": 1,
+            "start": 1
+          },
+          "streaks": [
+            {
+              "angle": 0,
+              "length": 0.9,
+              "width": 0.09,
+              "gain": 0.9
+            },
+            {
+              "angle": 45,
+              "length": 0.6,
+              "width": 0.07,
+              "gain": 0.7
+            },
+            {
+              "angle": 90,
+              "length": 0.85,
+              "width": 0.09,
+              "gain": 0.9
+            },
+            {
+              "angle": 135,
+              "length": 0.6,
+              "width": 0.07,
+              "gain": 0.7
+            },
+            {
+              "angle": 180,
+              "length": 0.9,
+              "width": 0.09,
+              "gain": 0.9
+            },
+            {
+              "angle": 225,
+              "length": 0.6,
+              "width": 0.07,
+              "gain": 0.7
+            },
+            {
+              "angle": 270,
+              "length": 0.85,
+              "width": 0.09,
+              "gain": 0.9
+            },
+            {
+              "angle": 315,
+              "length": 0.6,
+              "width": 0.07,
+              "gain": 0.7
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

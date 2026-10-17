@@ -80,31 +80,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame does not read as a laser beam. It is a flat light grey field with a small dark-outlined rectangle near the top-left. There is no bright pale core running down the length, and no grey-blue glow that fades out toward the edges. The beam is missing, so the effect is wrong."
+   "reason": "The frame does not read as a laser beam. It is a near-uniform grey-blue field with no beam form, so the effect the brief asks for (a glow running down a length) is not there. A small dark-outlined mark sits at the top left, which is not part of any beam."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 x 64, the size the sprite's measures give. The effect does not fill it as a beam does: the border measure is 0.784 (the class's range is 0 to 0.27), so light runs to every edge of the frame instead of fading there. The fault is clearly there, so it scores 1."
+   "reason": "The frame is 32 x 64, the original's size. But the effect does not shape itself as a beam does: the fill runs to the edges, and the harness measures the border at 0.784 against the class's 0 to 0.27. The edges are as bright as the middle, so there is no fade to the sides."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Judged by eye, the field is a cool light grey with a faint blue cast, which is near the brief's grey-blue. But the brief's pale core is absent: there is no lighter band down the middle, and the colour is spread evenly across the whole frame. The colour is only partly the one asked for."
+   "reason": "The colour is a grey-blue, which is part of the brief. The bright pale core down the length is not visible, though: the centre is no brighter than the edges, so the colour is only partly as the brief asks. Judged at this small size."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One frame, matching the class's frame count. The first and last frame brightness are both 1.0, inside the beam class's 0.9 to 1.0 range, with no peak, dark frame, wrap or jitter. The motion is steady as the class's beams are, so it meets the measures of Half-Life's own beam sprites."
+   "reason": "There is one frame, and its first and last frame both measure 1.0 (class range 0.9 to 1). A beam is steady from first frame to last, which matches the class measures. The border fault belongs to R2 and R3, not to motion."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file is type parallel with format additive, matching the game's own type and format for this beam. The name is the same (laserbeam), and it reads back as written with no fault in the measures."
+   "reason": "Measured against the game's own file: type parallel and format additive, matching gameType and gameFormat. The name is the same (sameName true), and the file reads back as written (readsBack true)."
   }
  },
  "total": 6,

@@ -18,23 +18,23 @@
     128
    ],
    "border": {
-    "max": 0.02,
+    "max": 0.036,
     "mean": 0.001
    },
    "envelope": {
-    "peakAt": 0.63,
-    "first": 0.84,
-    "last": 0.84
+    "peakAt": 0.69,
+    "first": 0.82,
+    "last": 0.82
    },
-   "dark": 0.84,
-   "wrap": 0.91,
-   "jitter": 1.67
+   "dark": 0.72,
+   "wrap": 0.74,
+   "jitter": 1.61
   },
   "class": "fire loop",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.67,
+    "value": 1.61,
     "range": [
      1.33,
      1.79
@@ -44,7 +44,7 @@
    },
    {
     "measure": "wrap",
-    "value": 0.91,
+    "value": 0.74,
     "range": [
      0,
      2.48
@@ -64,7 +64,7 @@
    },
    {
     "measure": "first",
-    "value": 0.84,
+    "value": 0.82,
     "range": [
      0.57,
      1
@@ -74,7 +74,7 @@
    },
    {
     "measure": "last",
-    "value": 0.84,
+    "value": 0.82,
     "range": [
      0.57,
      1
@@ -100,31 +100,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Every frame (0 to 16) is a flame: tongues of orange and yellow rising from a base at the bottom of each cell, with brighter yellow cores and a dimmer orange halo. That is the effect the brief asks for, a looping flame with tongues licking upwards."
+   "reason": "Reads as fire throughout: each frame shows flame tongues rising from a bright base at the bottom of the 64x128 frame, matching the brief's 'tongues of fire licking upwards'. Frames 5 and 6 are thinner wisps, but they still read as flame."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frames are the 64 by 128 cell the measurements give. The flame is a tall, narrow column anchored at the bottom, with its tips reaching about the upper half to two-thirds of each cell and the dark margin around it. It reads as a fire filling its frame without spilling out of the cell; the original's exact fill is not shown, so this is judged against the brief."
+   "reason": "Each frame is 64x128 and the flame fills the centre column, with its base near the bottom edge and its tips reaching toward the top. The border measure (max 0.036, mean 0.001) confirms nothing spills to the edges. The flame stays within the frame, and the lower half of the sheet is clean."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye, the colours are the ones the brief asks for: orange tongues with yellow-white cores, on a black background, as an additive sprite should blend. Frames 5 and 6 are dim, but they dim in brightness, not in hue."
+   "reason": "The colours are orange and yellow, brightest at the base and fading to red-orange at the tips, as the brief asks. The dark background is the additive blend's black, which is correct. No frame goes off-palette."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Measured against Half-Life's own fire loops: jitter 1.67 (class range 1.33 to 1.79), wrap 0.91 (0 to 2.48), first and last frame brightness 0.84 each (0.57 to 1), and border 0.001 (0 to 0.028), all inside the class. The loop closes: frame 16 is close to frame 0 in height and brightness. Frames 3 to 7 thin and dim, then rebuild by 8 to 9, which is the flicker a burning flame does. Seventeen frames is the class's count."
+   "reason": "Seventeen frames, with a flicker in the dim frames 5, 6 and 7. Frame 16 closes back onto frame 0 (first and last envelope both 0.82, wrap 0.74 and jitter 1.61, both within the fire-loop class range), so it loops. The envelope peaks around frame 11, inside the class's measures. The motion is the flicker and rise a flame has."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements show type parallel oriented and format additive, matching the game's own fire file (gameType and gameFormat both match). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "The file is parallel oriented and additive, the same type and format as the game's fire.spr. It keeps the same name, and the readback matches what was written (kept.readsBack true, sameName true)."
   }
  },
  "total": 10,

@@ -60,34 +60,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "What it is: the brief asks for a lens flare, a hot white centre in a soft round halo. The frame (frames.png, the only frame, numbered 0 in its top-left corner) is a flat light grey field with no centre, no falloff and no round halo. It does not read as a glow at all."
+   "reason": "The frame shows no flare: no hot white centre and no round halo. It is a flat light grey field with only the frame label '0' in the top-left corner, so the effect the brief asks for is missing."
   },
   "R2": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "Shape and size: the frame is 64 x 64, as the measurements give. But the effect does not fill it as a soft round halo. The whole frame is the same bright grey out to the edges, and the measured border is 0.784 (mean 0.784, against a class range of 0 to 0.005), so light sits at the edge and nothing fades out toward it. Clearly off."
+   "score": 0,
+   "reason": "The frame is filled edge to edge with uniform light grey, not a round halo that fades out toward the frame's edges. The measured border (0.784, against a flare's 0 to 0.005) confirms light all the way to the edge."
   },
   "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a hot white centre in a soft round halo. The picture has no centre that reads as hotter than its surround and no halo gradient; the colour is one flat light grey throughout."
+  },
+  "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Colour, judged by eye: the frame is one uniform light grey with no hot white centre. The brief's centre-to-halo colour structure is missing, so the colour is there but clearly not the one asked for. No measure is given for this item."
-  },
-  "R4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Motion, held to the class measures: one frame, envelope peak at frame 0 with first and last both 1, and no againstClass fault on frames, envelope or dark (dark 0). Those measures fit a flare class, which is static. The only class failure is border, which is scored under R2, not here."
+   "reason": "Single frame, matching the flare class's frame count (1), and the envelope (peak at frame 0, first and last at 1) is within the class's measures. But the border measure is 0.784 against the class range of 0 to 0.005, so the frame is light at the edge where a flare's is dark. That is clearly off."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Fit for the game: type parallel and format additive, matching gameType parallel and gameFormat additive (sameName true, readsBack true). The file is the original's type and format, under the same name, and reads back as written."
+   "reason": "The type (parallel) and format (additive) match the game's file, the name is the same (sameName true), and the file reads back as written (readsBack true). This is the only item the picture does not contradict."
   }
  },
- "total": 6,
+ "total": 3,
  "of": 10,
  "passes": false
 }

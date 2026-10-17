@@ -1,18 +1,22 @@
-The build says OK. I made a replacement `sprites/steam1.spr` from a spec, and it's ready for the modder to compare in game.
+The sprite is built and the build says OK. It is at `work/sprites/steam1.spr`, with a contact sheet (`steam1-sheet.png`) and an animated preview (`steam1-animated.png`) beside it.
 
-**What I made**
+**What it is**
 
-- **File:** `work:sprites/steam1.spr`, with `-sheet.png` and `-animated.png` beside it.
-- **Spec:** saved as `work:steam1.json`, so the build can be redone.
-- **Settings:** parallel oriented, index alpha, as they asked. Class `smoke puff`, used as an `env_sprite`, 64 x 64 pixels, 16 frames, one-shot (no loop), 10 frames per second, centred origin.
-- **Look:** one soft lumpy cloud built from 24 spheres (a `billow` layer). It starts small and grey, swells to a near-white middle around frames 4 to 5, then thins and breaks into wisps by frames 13 to 15. The colour runs from near-white at its hot middle to mid-grey at its rim.
+- A 64 by 64 puff of 16 frames, at 10 frames a second, one shot (it starts and ends dark, so it does not loop).
+- Type parallel oriented, format index alpha, as you asked. The game places it as an `env_sprite` entity.
+- The puff is built from a cluster of 24 soft billows. It starts small and grey, swells to a white middle around frames 4 to 7, then breaks into wisps and fades out by frame 14.
+- Colour runs from a mid grey at the rim to near white at the heart. Its edges are lumpy and it drifts and rises slightly.
 
-**What the build reported**
+**How it was made**
 
-- The build reports the sprite as 5 of 5 in range against Half-Life's smoke puff class. Jitter is 1.01 (in its 0.9 to 1.5 range), and the peak is at 0.33 (in its 0.2 to 0.6 range).
-- It is placed as an `env_sprite` in render mode 4 (Solid), at framerate 10.
+I wrote a `smak.sprite/1` spec with one sprite entry and one `billow` layer. The layer's grey-to-white colour is given as a ramp, and the envelope gives a quick swell (attack 0.3) and a long fade (decay 0.7). The first build failed because colour values must be 0 to 1, not 0 to 255, and the frame rate was above the 10 per second an `env_sprite` can change. I fixed both and rebuilt.
 
-**What I could not do**
+**What the check reports**
 
-- **No direct comparison with the game's `steam1.spr`.** There is no game folder on this machine, so I could not give the build the original as a `reference`. The "5 of 5 in range" figures compare against the smoke puff class in general, not against that file.
-- **Not seen in the game.** I checked the sheet and the animated picture here, not in Half-Life. The modder's eye is the real test. If the puff looks too blown-out at its peak or too wispy at the end, the `ramp` stops and the `dissolve` and `growth` values are the knobs to change.
+- OK, every check passed.
+- Against Half-Life's own smoke puff, all 5 measures are in range.
+- The palette has 244 colours, with no loss from quantising.
+
+**What I did not check**
+
+I did not compare it against `steam1.spr` itself. The report measures against Half-Life's smoke puff class, not that exact file, and I have not seen it beside the game's sprite. The modder should judge that side by side in the game, as they planned. I also did not change the entity's render mode. The report says it places the sprite as render mode 4 (solid), so if the puff looks wrong in game, check the `env_sprite` entity's render mode first.

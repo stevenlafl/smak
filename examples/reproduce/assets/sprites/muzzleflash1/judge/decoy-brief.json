@@ -30,7 +30,7 @@
    "wrap": null,
    "jitter": null
   },
-  "class": "flare",
+  "class": "muzzle flash",
   "againstClass": [
    {
     "measure": "border",
@@ -41,6 +41,26 @@
     ],
     "ok": false,
     "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
    }
   ],
   "kept": {
@@ -60,31 +80,31 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame shows no star-shaped burst of fire. It is a flat light-grey field with a small dark-bordered box with a '0' label in the top-left corner. Nothing in the picture reads as a muzzle flash, so the effect the brief asks for is missing."
+   "reason": "The frame (frames.png, the only frame, marked \"0\" in its top-left corner) shows no flash at all: a uniform light grey field with no star-shaped burst, no bright core and no rays. A muzzle flash is what the brief asks for, so this is missing."
   },
   "R2": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame is the measured 64 x 64, but the effect does not fill it. The frame is covered by a flat grey background, and only a tiny box sits in the top-left corner, where a star burst should fill the frame from the centre."
+   "reason": "The frame is the right 64x64 size, but the effect does not fill it as a burst would. The whole frame is one flat fill from edge to edge, not a star shape centred in the frame. The measured border is 0.784 (the class needs about 0), so light covers the edges where a flash should fade out."
   },
   "R3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a short bright burst. By eye the frame is a dull, flat light grey with no bright core, no yellow or white highlight and no fire colour. The border measure of 0.784 confirms that the whole frame is a light, flat fill rather than a glow on dark."
+   "reason": "Judged by eye, the colour is a flat neutral light grey across the whole frame, with no hot centre, no warm or yellow-white burst and no falloff. The brief asks for a short bright burst, and nothing in the picture reads as one."
   },
   "R4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for two frames, and this sprite has one (measured frames 1, against the 2 the brief gives; 1 is outside 25% of 2). The envelope is first 1 and last 1, so the single frame is still bright at its end where a one-shot flash should end dark. Against Half-Life's own flashes, which are two bright frames, the count and the ending both fail."
+   "reason": "Against the muzzle flash class: the first and last frames are at peak (1, within 0.9 to 1), which passes. But the frame count is 1 where the brief asks for two frames, each a flash of its own, and the border is 0.784 where the class needs dark (0 to 0.005, the same as the game's flashes). The frames do not read as a flash that goes out, so this fails."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The sprite is parallel and additive, the same type and format as the game's own muzzleflash1.spr (gameType and gameFormat match). It keeps the same name and reads back as written, so the file itself is fit for the game."
+   "reason": "The measured fit holds: type parallel and format additive match the game's file (gameType parallel, gameFormat additive), the name is the same (sameName true), and the file reads back (readsBack true). The file is a valid one-frame 64x64 additive sprite, so it is fit for the game even though its picture fails the other items."
   }
  },
  "total": 2,

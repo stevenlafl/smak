@@ -18,8 +18,8 @@
     32
    ],
    "border": {
-    "max": 0.884,
-    "mean": 0.262
+    "max": 0.928,
+    "mean": 0.179
    },
    "envelope": {
     "peakAt": 0,
@@ -34,7 +34,7 @@
   "againstClass": [
    {
     "measure": "border",
-    "value": 0.262,
+    "value": 0.179,
     "range": [
      0,
      0.27
@@ -80,31 +80,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame reads as a laser beam: a vertical band with a pale, nearly white core running the full height and a blue-grey glow falling off toward both edges. That is the effect the brief describes."
+   "reason": "A vertical beam: a bright pale core runs the full height of the frame, widening into a soft glow. That is what the brief asks for, a laser beam's texture across its width. The frame's \"0\" label in the top-left corner is the harness's frame number, not part of the sprite."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 32x32 frame. The beam runs top to bottom and fills the frame's height, and its glow reaches both side edges, as the brief asks. The border measure is 0.262 (class range 0 to 0.27), so the edges are lit without being bright."
+   "reason": "One 32x32 frame, as measured. The beam fills the frame top to bottom and sits centred, and the glow spreads across the full width without spilling past the frame. The brief gives no size to compare against, so only the frame's own proportions are judged."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Judged by eye: the core is pale blue-white and the surrounding glow is grey-blue, darkening toward the edges. That matches the brief's bright pale core and grey-blue glow."
+   "reason": "By eye, the core is a bright pale white-blue at the centre column, and the surrounding glow is grey-blue, as the brief describes. The glow fades into dark navy at the left and right edges, which is faint but still reads as the glow running out to both edges."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Single frame, which is the beam class's steady shape. Measured envelope first 1 and last 1 (class range 0.9 to 1), peak at frame 0, and the border measure is inside the class range. Nothing in the measures or the picture departs from a steady beam."
+   "reason": "A single steady frame, so there is no motion to fault. The class measures are met: border mean 0.179 (range 0 to 0.27), first and last frame at 1 (range 0.9 to 1). The border maximum of 0.928 is the core meeting the top and bottom edges, which a full-length beam does."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's own file (gameType and gameFormat both parallel and additive). The name is the same (sameName true) and the file reads back (readsBack true)."
+   "reason": "Type parallel and format additive match the game's own file (gameType and gameFormat both parallel and additive). The name is the same as the game's (sameName true), and the file reads back as written (readsBack true)."
   }
  },
  "total": 10,

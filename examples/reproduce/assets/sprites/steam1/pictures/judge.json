@@ -75,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a steam puff: a white, billowing cloud that swells from a small start, peaks around frames 2 to 5, then thins and drifts downward with a trailing tail. The reproduction reads as the same effect in every frame."
+   "reason": "Both are a steam puff: a small bright puff at frame 0, swelling to a dense cloud by frames 3 to 6, then thinning and sinking into the grey background by frames 12 to 15. The reproduction does the same effect, with the same rise and fade."
   },
   "R2": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Both are 32 x 48 (measured). The cloud fills the frame the same way, centred in the lower two-thirds, with near-zero border spill (original max 0.341, reproduction 0.318). Frame 0 differs, a larger grey disc in the reproduction against the original's small speck, but the frames' size and fill match."
+   "score": 1,
+   "reason": "Frames 1 to 15 fill the 32x48 frames about as the original's do, and the measured envelope agrees (first 0.04, peak 0.4). Frame 0 is wrong: the original is a small bright speck, about 8 px across, while the reproduction's frame 0 is a grey disc about 18 px across. From frame 12 the reproduction's puff also breaks into stippled, patchy pieces, where the original's stays smooth and whole."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 0.1 (CIE76 delta E, far under 15). Visually the peak frames are the same white over the same grey background, and the fade to background matches. Frames 12 to 15 look a little more smudged in the reproduction, but the measure does not show a colour shift."
+   "reason": "The frames' colours match the engine's blend. The measured mean colour difference is 0.1, far under 15. Peak brightness is near white in both (frames 3 to 6), and the grey background is the same. The dark-pixel fraction differs only slightly (0.64 against 0.68)."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "Frame count (16), peak position (0.4), first (0.04) and last (0 against the original's 0.03) match, so the one-shot ends dark as the original does. But the wrap measure is 0.35 against the original's 0.5, so the loop does not close as the original's does. The frame 0 disc is also larger and greyer than the original's speck, so the start of the growth differs."
+   "score": 2,
+   "reason": "Both have 16 frames, and the measured peak (0.4) and first-frame value (0.04) agree. Both grow, then fade. Both end dark: last frame 0.03 in the original and 0 in the reproduction, so the one-shot ends dark as the original does. The wrap measure differs (0.5 against 0.35), but both are on the same side of a loop the judge cannot check from the pictures. The dithered late frames are a detail issue, charged to R2."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type 'parallel oriented' and format 'index alpha' match the original (the same type and format), the name matches (sameName true), and the file reads back (readsBack true)."
+   "reason": "The measures match on type and format (parallel oriented, index alpha). The name is the same (sameName true), and the file reads back as written (readsBack true). Both are 32x48 with 16 frames."
   }
  },
  "total": 9,

@@ -1,21 +1,13 @@
-The laser beam sprite is built and the build says OK. It is at `work:sprites/laserbeam.spr`, with a contact sheet (`laserbeam-sheet.png`) and an animated preview (`laserbeam-animated.png`) beside it.
+The laser beam sprite builds OK: `sprites/laserbeam.spr`, 32x32, one frame. Its spec is `work/laserbeam.json`, and the built sprite and its sheet and animated preview are in `work/sprites/`.
 
-**What it is**
-- Name: `sprites/laserbeam.spr`, so it replaces the game's file by name in the mod.
-- Type `parallel` and format `additive`, as asked. Additive means black is see-through, so the dark rim adds nothing and only the light shows.
-- Class `beam`, used as `beam`, so it tiles along its length.
-- 32×32 pixels, one frame, centred.
+**How it's made**
+- It uses the `beam` class and `use: "beam"`, so the edges stay lit and the texture tiles along the beam's length. Half-Life's own beams are placed the same way.
+- Type is `parallel` and format is `additive`, as you asked. Build places it as render mode 5 (Additive) at 10 fps.
+- One beam layer, round profile, core 0.25 of the width, with a little noise and streaking. Its colour runs from a dark grey-blue at the rim, through a mid blue-grey, to a near-white centre. That gives the pale core down its length and the grey-blue glow out to both edges.
 
-**How it is made**
-- One beam layer with a flat profile: a wide, even core of light down the middle, with soft shoulders out to both edges.
-- Its colour runs by brightness from a dark blue-grey at the rim, through a grey-blue, to a near-white at the centre. That gives the pale core and the grey-blue glow out to the edges that the modder described.
-- The spec is `work:laserbeam.json`, so it can be changed and rebuilt.
+**What the checks said**
+- First build: OK, with one warning. The border light was 0.29, above Half-Life's beam range of 0 to 0.27, so the rim was too bright.
+- Second build (final): OK, with no warnings. The border is now 0.18, and all 3 of 3 measures are in range against Half-Life's beam. The rim is darker than the first try, a dim grey-blue that is close to navy in the preview. If the modder wants a lighter rim, that trade-off is the thing to test in the game.
 
-**What the build reported**
-- Placed as a beam with render mode 5 (Additive).
-- Border light 0.26 against a brightest of 0.88, so the glow reaches the edges and does not fall to black there.
-
-**What I did not check**
-- I could not compare it with Half-Life's own `laserbeam.spr`. The game folders are not available to this tool, so the report says "0 of 0 in range", which means nothing was measured against the original.
-- I do not know the original's exact size or colours, so the 32×32 size and the colour stops are my reading of the description, not measured values.
-- Whether it is "at least as good" is for the modder to judge in the game. If they send a screenshot of the original, or give the path to its folder, I can measure against it and adjust the colours and core width.
+**What I could not do**
+- The server has no game folder, so I could not measure against Half-Life's own `laserbeam.spr` directly. The checks used the class-level Half-Life beam measures instead. The modder's side-by-side in the game is the real test of whether it is at least as good.
