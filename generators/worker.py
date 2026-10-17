@@ -203,7 +203,10 @@ def load_hunyuan(root, model):
         # a prompt with no picture: SD-Turbo draws the thing alone, whole, on white (local-3d's sd_turbo_images.py)
         if "pipe" not in words:
             from diffusers import AutoPipelineForText2Image
-            words["pipe"] = AutoPipelineForText2Image.from_pretrained("stabilityai/sd-turbo", torch_dtype=torch.float16, variant="fp16").to("cuda")
+            # bf16: on this card fp16 matrix multiplies run at a third of bf16's speed, and SD-Turbo draws a picture
+            # in 0.27 s against 0.89 at the same quality (research/character-image-models.md, "Measured after install").
+            # Hunyuan3D-2mini stays fp16: in bf16 it was no faster and its shape drifted
+            words["pipe"] = AutoPipelineForText2Image.from_pretrained("stabilityai/sd-turbo", torch_dtype=torch.bfloat16, variant="fp16").to("cuda")
         if guide:
             # a character: drawn over its base's figure in the stance it will be built in (image to image), so its
             # limbs stand clear of its body where the words alone drew its hands on its thighs; the same weights
