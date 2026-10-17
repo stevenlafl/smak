@@ -835,7 +835,7 @@ test("a weapon spec: the piece in place of a game's weapon in its v_ and p_ file
   const back = smak.animate.valuesOf(rig, smak.animate.poseOfValues(rig, values));
   sure(back.every((bone, i) => bone.every((v, k) => Math.abs(v - values[i][k]) < 1e-3)), "a frame's numbers made a pose and back are the same");
   const missing = buildModelSpec({ ...spec, weapon: { like: "spear" } }, { folder }).report;
-  sure(!missing.ok && /v_spear\.mdl is neither beside the spec nor in the game folders/.test(missing.errors.join()), missing.errors.join());
+  sure(!missing.ok && /v_spear\.mdl is neither in the game folders given nor beside the spec/.test(missing.errors.join()), missing.errors.join());
 });
 
 test("a model spec's smooth: a thin tube of four sides shaded round shares its normals (the skeleton's ribs)", () => {
