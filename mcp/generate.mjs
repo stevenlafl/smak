@@ -142,16 +142,23 @@ function idleLater(worker) {
 // ── the tool ───────────────────────────────────────────────────────────────
 const round = (v, k = 100) => Math.round(v * k) / k;
 
-/** The model asked for, or the kind's default (the first marked `default`, else the first of the kind). */
-function modelOf(generators, { model, kind = "sound" }) {
+/**
+ * The models asked for: one by name, a list of names, or the kind's defaults (every one marked `default`, else the
+ * first of the kind). Several are drawn from in turn: no sound model was better than another across sounds by
+ * Steven's ear (Stable Audio 3 and Woosh-DFlow, five each over two blind listenings, 2026-10-16), each better at some.
+ */
+function modelsOf(generators, { model, kind = "sound" }) {
   if (model) {
-    const found = generators.models.find((m) => m.name === model);
-    if (!found) throw new Error(`model: one of ${generators.models.map((m) => `${m.name} (${m.kind})`).join(", ")}`);
-    return found;
+    return (Array.isArray(model) ? model : [model]).map((name) => {
+      const found = generators.models.find((m) => m.name === name);
+      if (!found) throw new Error(`model: one of ${generators.models.map((m) => `${m.name} (${m.kind})`).join(", ")}`);
+      return found;
+    });
   }
   const own = generators.models.filter((m) => m.kind === kind);
   if (!own.length) throw new Error(`no ${kind} model in generators.json`);
-  return own.find((m) => m.default) ?? own[0];
+  const defaults = own.filter((m) => m.default);
+  return defaults.length ? (kind === "shape" ? defaults.slice(0, 1) : defaults) : [own[0]];
 }
 
 /**
@@ -162,9 +169,18 @@ export async function generate(folders, args) {
   const generators = folders.generators;
   if (!generators) throw new Error("no generators: start the server with --generators <folder>");
   if (args.kind !== undefined && !KINDS.includes(args.kind)) throw new Error(`kind: ${KINDS.join(", ")}`);
-  const model = modelOf(generators, args);
-  if (model.kind === "shape") return generateShapes(folders, generators, model, args);
+  const models = modelsOf(generators, args);
   const { prompt, length } = args;
+  if (models.length > 1) {
+    // each model's takes named after it, one after another (the card holds one model at a time)
+    if (typeof prompt !== "string" || !prompt.trim()) throw new Error("prompt: what to make, in words (\"a wrench hitting a steel pipe, one sharp clang\")");
+    const name = args.name ?? prompt.split(/\s+/).slice(0, 3).join("_");
+    const answers = [];
+    for (const m of models) answers.push(...(await generate(folders, { ...args, model: m.name, name: `${name}_${m.name}` })));
+    return [text(`Takes from ${models.length} models, each better at some sounds than the other: ${models.map((m) => m.name).join(", ")}. Compare them all before choosing.`), ...answers];
+  }
+  const model = models[0];
+  if (model.kind === "shape") return generateShapes(folders, generators, model, args);
   if (typeof prompt !== "string" || !prompt.trim()) throw new Error("prompt: what to make, in words (\"a wrench hitting a steel pipe, one sharp clang\")");
   if (!(typeof length === "number" && length > 0 && length <= 600)) throw new Error("length: seconds, over 0 and at most 600");
   const seeds = seedsOf(args);

@@ -513,8 +513,14 @@ One unpicked take a model (first seed), lettered per sound; his picks, from `~/s
 | Door | Stable Audio 3 ("they're all great") |
 | Drips | Stable Audio 3, Woosh-DFlow second |
 
-Stable Audio 3 small SFX is the default from here (`generators.json`); Woosh-DFlow stays installed and
-selectable. MOSS and EzAudio were never picked.
+Stable Audio 3 small SFX was made the default. MOSS and EzAudio were never picked.
+
+Then a blind A/B on the same ten briefs, Stable Audio 3 against Woosh-DFlow
+(`examples/reproduce/reviews/sounds-2026-10-16.json`, third set): Woosh 4 (the concrete step, the medkit, the
+metal break, the drips, "vastly superior"), Stable Audio 3 3 (the .357, the door, the grenade), neither 3. Over
+both listenings the two are level at five each, each better at some sounds; Stable Audio 3's drips swelled into
+each drop and cut off, heard as played backwards. So both are defaults, and the `generate` tool draws a call's
+seeds from each.
 
 ## Next (not done here)
 

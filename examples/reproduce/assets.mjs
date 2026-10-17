@@ -63,7 +63,7 @@ const SOUND_BRIEF = {
   "weapons/sbarrel1": "a pump shotgun firing",
   "player/pl_step1": "a footstep on concrete",
   "player/pl_metal1": "a light footstep on a thin metal vent, a hollow tinny tap",
-  "doors/doormove1": "a sci-fi sliding door: a rising electronic whine like an alarm, ending in a thud as it stops",
+  "doors/doormove1": "a sci-fi sliding door opening: a smooth electronic hum rising in pitch, then a solid thud as it stops",
   "items/smallmedkit1": "a medkit used: two short electronic beeps, then the hiss of a hypospray",
   "debris/bustmetal1": "a metal panel or crate breaking apart",
   "weapons/explode3": "a grenade exploding",

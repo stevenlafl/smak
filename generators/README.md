@@ -5,8 +5,8 @@ outside service. The kit stays Node alone; the models live in a folder of their 
 venv, and the server is pointed at it: `smak mcp --work <dir> --generators <folder>` (or `SMAK_GENERATORS`).
 
 Which models, and why: `research/local-sound-generators.md` and `research/local-music-generators.md`. In
-short, Stable Audio 3 small SFX for sounds (picked most often in Steven's blind listening of four models;
-Woosh-DFlow next), ACE-Step 1.5
+short, Stable Audio 3 small SFX and Woosh-DFlow for sounds, both (level in Steven's blind listening, each better
+at some sounds: a call draws takes from each), ACE-Step 1.5
 XL for music (the 2B is the fast choice), and for shapes Hunyuan3D-2mini (`research/local-3d-generators.md`):
 a picture of the thing, its subject cut out by BiRefNet, made into a mesh; with words alone, SD-Turbo draws
 the picture first.
@@ -40,7 +40,8 @@ take the CUDA wheels instead. About 150 GB in all. On this machine the folders a
 `kind` `sound`, `music` or `shape`; `root` the model's own folder, from this one (the 3D models live apart);
 `python` the venv's interpreter, from its root; `licence` is written into every take's sidecar, and
 a sound spec built from a take under a non-commercial one says so; `default` the kind's model when a call
-names none; `longest` the most seconds the model makes; `env` more environment for its process.
+names none (marked on several sound or music models, a call draws its seeds from each, the files named after
+the model; a shape takes the first); `longest` the most seconds the model makes; `env` more environment for its process.
 
 ## The worker
 

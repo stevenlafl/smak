@@ -121,3 +121,24 @@ async function generateCase() {
   const none = toolsFor(openFolders({ work: join(tmp, "gen-work") }));
   sure(!none.some((t) => t.name === "generate"), "no generators, no tool");
 }
+
+await testAsync("generate: several default models of a kind each make the takes, their files named after them", "generate", async () => {
+  const two = join(tmp, "generators-two");
+  mkdirSync(two, { recursive: true });
+  writeFileSync(join(two, "generators.json"), JSON.stringify({ models: [{ name: "clang", kind: "sound", root: folder, python: "venv/python", licence: "MIT", default: true }, { name: "bong", kind: "sound", root: folder, python: "venv/python", licence: "MIT", default: true }] }));
+  try {
+    const folders = openFolders({ work: join(tmp, "gen-two") });
+    folders.generators = openGenerators(two);
+    const generate = toolsFor(folders).find((t) => t.name === "generate");
+    const answer = await generate.call({ prompt: "a wrench on a pipe", length: 0.5, seeds: 2, name: "hit" });
+    const said = answer.filter((p) => p.type === "text").map((p) => p.text).join("\n");
+    sure(/^Takes from 2 models, each better at some sounds than the other: clang, bong/.test(said), said);
+    for (const f of ["hit_clang_s0", "hit_clang_s1", "hit_bong_s0", "hit_bong_s1"]) sure(existsSync(join(folders.work, "gen", `${f}.wav`)), f);
+    sure(JSON.parse(readFileSync(join(folders.work, "gen", "hit_bong_s1.json"), "utf8")).model === "bong", "each sidecar names its model");
+    sure(answer.filter((p) => p.type === "image").length === 2, "a picture a model");
+    const one = (await generate.call({ prompt: "a wrench on a pipe", length: 0.5, seeds: 1, name: "solo", model: "bong" }))[0].text;
+    sure(/1 of 1 takes .* by bong/.test(one) && existsSync(join(folders.work, "gen", "solo_s0.wav")), one);
+  } finally {
+    stopWorkers();
+  }
+});

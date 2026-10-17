@@ -309,3 +309,8 @@ walk test, not the game.
   the event's name suggests: a tinny vent step, an electronic whine and a thud, two beeps and a hypospray hiss, drops
   into a pool. Their briefs now say that, as a modder who wanted a sound like it would. The other six are unchanged,
   and the generator's default is Stable Audio 3 small SFX, Steven's blind pick. The first round's verdicts stand.
+- **2026-10-16, later still: both sound models, and the door's brief again.** Steven's blind A/B left Stable
+  Audio 3 and Woosh-DFlow level, so the generator draws takes from both, and the maker chooses among them. The
+  door's brief had said "like an alarm", which steered it to a plain tone ("something you could generate with a
+  simple trick and no model"); it now says "a smooth electronic hum rising in pitch, then a solid thud as it
+  stops".
