@@ -8,7 +8,7 @@ import { testAsync, sure, tmp } from "./helper.mjs";
 import { toolsFor } from "../mcp/tools.mjs";
 import { openFolders } from "../mcp/folders.mjs";
 import { openGenerators, stopWorkers } from "../mcp/generate.mjs";
-import { png } from "../src/image.mjs";
+import { png, unpicture } from "../src/image.mjs";
 import { buildMdl, indexed, workshop as W } from "../src/index.mjs";
 import { openPosePicture } from "../src/openpose.mjs";
 
@@ -42,7 +42,7 @@ process.stdin.on("data", (chunk) => {
     if (r.prompt.includes("fail")) { say({ id: r.id, ok: false, error: "RuntimeError: asked to" }); continue; }
     if (model === "painter") {
       // a picture model: the picture it "drew", and the pose it was held to
-      fs.appendFileSync(${JSON.stringify(join(folder, "controls.txt"))}, (r.control ?? "none") + "\\n");
+      fs.appendFileSync(${JSON.stringify(join(folder, "controls.txt"))}, (r.control ?? "none") + " " + (r.width ?? "-") + "x" + (r.height ?? "-") + "\\n");
       fs.mkdirSync(require("node:path").dirname(r.out), { recursive: true });
       fs.copyFileSync(${JSON.stringify(join(folder, "seen.png"))}, r.out);
       say({ id: r.id, ok: true, picture: r.out, took: 0.01 });
@@ -56,6 +56,8 @@ process.stdin.on("data", (chunk) => {
     }
     if (r.out.endsWith(".obj")) {
       if (r.guide) fs.appendFileSync(${JSON.stringify(join(folder, "guides.txt"))}, r.guide + "\\n");
+      // more pictures to cut out beside it (a turnaround's back)
+      for (const more of r.cuts ?? []) fs.copyFileSync(more, more.replace(/\\.png$/, "_cut.png"));
       // a shape: a box twice as tall as it is wide, Y up, and the picture it was "made from"
       const v = [[-1,0,-1],[1,0,-1],[1,0,1],[-1,0,1],[-1,4,-1],[1,4,-1],[1,4,1],[-1,4,1]];
       const f = [[1,3,2],[1,4,3],[5,6,7],[5,7,8],[1,2,6],[1,6,5],[2,3,7],[2,7,6],[3,4,8],[3,8,7],[4,1,5],[4,5,8]];
@@ -209,6 +211,30 @@ await testAsync("generate: a character from words with a picture model is drawn 
     sure(/1 of 1 shapes of "a security guard" by former/.test(shaped[0].text) && /from work:people\/whole_s0\.png/.test(shaped[0].text) && /Drawn in man\.mdl's stance \(work:people\/whole_pose\.png, by painter\)/.test(shaped[0].text), shaped[0].text);
     const sidecar = JSON.parse(readFileSync(join(folders.work, "people", "whole_s0.json"), "utf8"));
     sure(sidecar.drawnBy === "painter" && sidecar.picture === "people/whole_s0.png" && sidecar.pose === "people/whole_pose.png", JSON.stringify(sidecar));
+    // a turnaround: front and back drawn as one picture over the skeleton from both sides, then cut in two; from
+    // behind the subject's right shoulder is to the picture's right, and no nose or eyes are drawn
+    const behind = openPosePicture(readFileSync(join(folders.work, "man.mdl")), { back: true, width: 256, height: 256 });
+    sure(behind.points[2][0] > behind.points[5][0], `from behind the right shoulder is right of the left: ${JSON.stringify(behind.points.slice(1, 6))}`);
+    const turned = await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", turnaround: true, only: "picture", seeds: 1, name: "people/turn" });
+    sure(/work:people\/turn_s0\.png \(front\), work:people\/turn_s0_back\.png \(its back, drawn with it\)/.test(turned[0].text), turned[0].text);
+    sure(readFileSync(join(folder, "controls.txt"), "utf8").includes("turn_pose.png 2048x1024"), "the sheet twice as wide, held to the pose from both sides");
+    const sheetPose = unpicture(readFileSync(join(folders.work, "people", "turn_pose.png")));
+    sure(sheetPose.width === 2048 && sheetPose.height === 1024, `the pose sheet ${sheetPose.width} x ${sheetPose.height}`);
+    sure(existsSync(join(folders.work, "people", "turn_s0_back.png")) && existsSync(join(folders.work, "people", "turn_s0_sheet.png")), "the back cut from the sheet, and the sheet kept");
+    const turnedShape = await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", turnaround: true, seeds: 1, name: "people/turnshape" });
+    sure(/Its back was drawn with its front, in one picture \(a turnaround\).*"view": "back".*seed 0: work:people\/turnshape_s0_back_cut\.png/.test(turnedShape[0].text), turnedShape[0].text);
+    sure(JSON.parse(readFileSync(join(folders.work, "people", "turnshape_s0.json"), "utf8")).back === "people/turnshape_s0_back.png", "its sidecar names its back");
+    sure(existsSync(join(folders.work, "people", "turnshape_s0_back_cut.png")), "its back cut out with its front");
+    // the front chosen from an earlier look: its back found beside it and cut out too
+    await generate.call({ kind: "shape", picture: "work:people/turn_s0.png", base: "man.mdl", seeds: 1, name: "people/chosen" });
+    sure(existsSync(join(folders.work, "people", "turn_s0_back_cut.png")), "the chosen front's back cut out");
+    let refusedTurn = "";
+    try {
+      await generate.call({ kind: "shape", prompt: "a crate", turnaround: true });
+    } catch (error) {
+      refusedTurn = error.message;
+    }
+    sure(/turnaround: true draws a character's front and back together/.test(refusedTurn), refusedTurn);
     // a base with no neck and head to draw a pose of: the shape model's own drawing over its grey figure
     writeFileSync(join(folders.work, "stub.mdl"), readFileSync(join(tmp, "gen-work", "biped.mdl")));
     const stub = await generate.call({ kind: "shape", prompt: "a security guard", base: "stub.mdl", seeds: 1, name: "people/stub" });

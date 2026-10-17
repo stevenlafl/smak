@@ -236,6 +236,10 @@ def load_hunyuan(root, model):
             return {"picture": str(out.with_suffix(".png"))}
         cut = remove(image, session=session, bgcolor=[255, 255, 255, 0])
         cut.save(out.with_name(out.stem + "_cut.png"))
+        # a turnaround's back, cut out beside it for project: its white background left in drew white streaks
+        for more in r.get("cuts") or []:
+            more = Path(more)
+            remove(Image.open(more).convert("RGB"), session=session, bgcolor=[255, 255, 255, 0]).save(more.with_name(more.stem + "_cut.png"))
         mesh = pipe(image=cut, num_inference_steps=r.get("steps") or 30, octree_resolution=256, num_chunks=20000,
                     generator=torch.manual_seed(r["seed"]), output_type="trimesh")[0]
         mesh = DegenerateFaceRemover()(FloaterRemover()(mesh))
@@ -308,13 +312,15 @@ def load_zimage(root, model):
                 embedded[prompt] = pipe.encode_prompt(prompt, device="cuda", do_classifier_free_guidance=False)[0]
         hold("draw")
         size = r.get("size") or PICTURE_SIZE
-        options = {"prompt_embeds": embedded[prompt], "height": size, "width": size, "num_inference_steps": r.get("steps") or PICTURE_STEPS,
+        # a turnaround (a character's front and back side by side in one picture) is twice as wide as it is high
+        width, height = r.get("width") or size, r.get("height") or size
+        options = {"prompt_embeds": embedded[prompt], "height": height, "width": width, "num_inference_steps": r.get("steps") or PICTURE_STEPS,
                    "guidance_scale": 0.0, "generator": torch.Generator("cuda").manual_seed(r["seed"])}
         if r.get("control"):
-            options.update(control_image=Image.open(r["control"]).convert("RGB").resize((size, size)), controlnet_conditioning_scale=r.get("scale") or CONTROL_SCALE)
+            options.update(control_image=Image.open(r["control"]).convert("RGB").resize((width, height)), controlnet_conditioning_scale=r.get("scale") or CONTROL_SCALE)
         else:
             # no control: the ControlNet adds nothing at a scale of 0, on a black picture
-            options.update(control_image=Image.new("RGB", (size, size)), controlnet_conditioning_scale=0.0)
+            options.update(control_image=Image.new("RGB", (width, height)), controlnet_conditioning_scale=0.0)
         pipe(**options).images[0].save(out)
         return {"picture": str(out)}
     return gen

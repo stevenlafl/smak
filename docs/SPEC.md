@@ -305,6 +305,16 @@ on each hand (the carve's report names the thin pieces it lost), a jaw as a part
   and boots in all four takes. Leave out of the prompt what the character does in the game ("runs and fights"):
   it pulls the figure out of the stance it is built in. A picture you give (a photograph, renders of a model)
   goes to the shape as it is.
+- Its back: with `turnaround: true` the picture model draws the front and the back side by side in one picture,
+  each held to the base's skeleton (from the front, and from behind), and cuts it in two, `<name>_s<seed>.png`
+  and `<name>_s<seed>_back.png`: one drawing, so the two agree on colours, proportions, where a vest ends, the belt
+  and the helmet. Drawn apart, a guard's back was a related but other guard. The shape's call cuts the back out
+  with its front (`<name>_s<seed>_back_cut.png`, also when the front is given from an earlier `only: "picture"`):
+  project both cut-outs, `"project": [{ "picture": "work:<name>_s<seed>_cut.png", "view": "front" }, { "picture":
+  "work:<name>_s<seed>_back_cut.png", "view": "back" }]`. The uncut back's white ground painted white streaks
+  down the inner legs. What neither sees (the flanks under the arms, the sides of the legs) is still pale there;
+  a view of each side painted by Hunyuan3D-Paint, projected at `yaw` 90 and 270, filled it on the guard
+  (`research/zimage/paint_views.py`, research only: not in `generate`).
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 

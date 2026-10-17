@@ -4,9 +4,11 @@
 // The colours tell the right side from the left, so the figure is drawn facing the way the skeleton faces (drawn
 // over a grey figure alone, two takes in four came out from behind: research/generated-characters.md).
 //
-//   openPosePicture(src, { seq, frame, view, width, height }) -> { width, height, rgba, points } | null
+//   openPosePicture(src, { seq, frame, view, back, width, height }) -> { width, height, rgba, points } | null
 // The view is render's (front unless told) and the picture lies over render's of the same options, point for
-// point. Null for a skeleton that is not a biped's (no Biped neck, arms and legs by name).
+// point. `back`: the skeleton seen from behind (the view turned half round), drawn as OpenPose draws a back: no
+// nose and no eyes, the ears kept, the subject's right on the picture's right. Null for a skeleton that is not a
+// biped's (no Biped neck, arms and legs by name).
 import { readMdl, apply34 } from "./mdl.mjs";
 import { boneIn } from "./biped.mjs";
 import { placeIn } from "./render.mjs";
@@ -21,12 +23,12 @@ export const OPENPOSE_LIMBS = [[1, 2], [1, 5], [2, 3], [3, 4], [5, 6], [6, 7], [
 /** The Biped bones of OpenPose's points 1 to 13, the subject's own right and left. */
 const BONES = ["Bip01 Neck", "Bip01 R UpperArm", "Bip01 R Forearm", "Bip01 R Hand", "Bip01 L UpperArm", "Bip01 L Forearm", "Bip01 L Hand", "Bip01 R Thigh", "Bip01 R Calf", "Bip01 R Foot", "Bip01 L Thigh", "Bip01 L Calf", "Bip01 L Foot"];
 
-export function openPosePicture(src, { seq = 0, frame = 0, view = "front", width = 512, height = 512 } = {}) {
+export function openPosePicture(src, { seq = 0, frame = 0, view = "front", back = false, width = 512, height = 512 } = {}) {
   const names = readMdl(src).bones;
   const found = BONES.map((name) => boneIn(name, names));
   const head = boneIn("Bip01 Head", names);
   if (found.some((name) => !name) || !head) return null;
-  const { pose, at } = placeIn(src, { seq, frame, view, width, height });
+  const { pose, at } = placeIn(src, { seq, frame, view, width, height, ...(back ? { yaw: 180 } : {}) });
   const joint = (name) => apply34(pose[names.indexOf(name)], [0, 0, 0]);
   const joints = found.map(joint);
   const [rShoulder, lShoulder] = [joints[1], joints[4]];
@@ -50,7 +52,10 @@ export function openPosePicture(src, { seq = 0, frame = 0, view = "front", width
     const i = (y * width + x) * 4;
     for (let k = 0; k < 3; k++) rgba[i + k] = Math.round(rgba[i + k] * (1 - alpha) + colour[k] * alpha);
   };
+  // from behind the face is not seen: its nose and eyes are left out, and every limb that reaches them
+  const unseen = back ? new Set([0, 14, 15]) : new Set();
   OPENPOSE_LIMBS.forEach(([a, b], n) => {
+    if (unseen.has(a) || unseen.has(b)) return;
     const [ax, ay] = points[a];
     const [bx, by] = points[b];
     const length = Math.hypot(bx - ax, by - ay);
@@ -68,6 +73,7 @@ export function openPosePicture(src, { seq = 0, frame = 0, view = "front", width
       }
   });
   points.forEach(([px, py], n) => {
+    if (unseen.has(n)) return;
     for (let y = Math.floor(py - stick); y <= Math.ceil(py + stick); y++)
       for (let x = Math.floor(px - stick); x <= Math.ceil(px + stick); x++) if (Math.hypot(x - px, y - py) <= stick) blend(x, y, OPENPOSE_COLOURS[n], 1);
   });
