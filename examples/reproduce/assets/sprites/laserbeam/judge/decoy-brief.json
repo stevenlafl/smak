@@ -31,7 +31,38 @@
    "jitter": null
   },
   "class": "beam",
-  "againstClass": [],
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.784,
+    "range": [
+     0,
+     0.27
+    ],
+    "ok": false,
+    "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
   "kept": {
    "type": "parallel",
    "format": "additive",
@@ -49,34 +80,34 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The frame shows a small dark-outlined rectangle with a pale interior, not a beam. No grey-blue glow runs out to both edges of the frame, so the effect the brief asks for (a bright pale core with a glow to both sides) is not there."
+   "reason": "The frame does not read as a laser beam. It is a flat light grey field with a small dark-outlined rectangle near the top-left. There is no bright pale core running down the length, and no grey-blue glow that fades out toward the edges. The beam is missing, so the effect is wrong."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frame is 32 x 64 as the measures give, but the drawn shape is a small block in the upper-left area of the frame. It does not fill the frame across its width as a beam's glow would. The brief gives no size to check against."
+   "reason": "The frame is 32 x 64, the size the sprite's measures give. The effect does not fill it as a beam does: the border measure is 0.784 (the class's range is 0 to 0.27), so light runs to every edge of the frame instead of fading there. The fault is clearly there, so it scores 1."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "By eye, the frame is a pale-to-white interior inside a dark outline on a light grey field. I can't see a grey-blue glow or a graded falloff to the edges, so the colours do not match the brief's pale core with grey-blue glow. The picture is very small (32 x 64), so this reading is limited."
+   "reason": "Judged by eye, the field is a cool light grey with a faint blue cast, which is near the brief's grey-blue. But the brief's pale core is absent: there is no lighter band down the middle, and the colour is spread evenly across the whole frame. The colour is only partly the one asked for."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The sprite is a single frame, with peak, first and last all at frame 0, and no beam motion is visible. The measures give no comparison class (againstClass is empty), so the class's frame count and envelope cannot be checked. I can't confirm this against Half-Life's own laser beam sprites from the measures given."
+   "score": 2,
+   "reason": "One frame, matching the class's frame count. The first and last frame brightness are both 1.0, inside the beam class's 0.9 to 1.0 range, with no peak, dark frame, wrap or jitter. The motion is steady as the class's beams are, so it meets the measures of Half-Life's own beam sprites."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measures show type parallel and format additive, matching the game's file (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+   "reason": "The file is type parallel with format additive, matching the game's own type and format for this beam. The name is the same (laserbeam), and it reads back as written with no fault in the measures."
   }
  },
- "total": 5,
+ "total": 6,
  "of": 10,
  "passes": false
 }

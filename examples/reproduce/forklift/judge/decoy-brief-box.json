@@ -20,7 +20,7 @@
   "halfLifeMost": 749,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/sat_globe.mdl, models/fungus.mdl, models/bm_leg.mdl",
-  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked B, B, B where the asset was C, C, A: passed for one of the game's"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, B, B, C where the asset was C, C, A, B: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -32,49 +32,49 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is a plain rectangular block in all ten views (sides.png: front, left, back, right and top each show one rectangle; the four angled views show one box). A forklift's outline is missing entirely: no mast or uprights, no forks, no overhead guard, no seat, no wheels showing below the body. The brief's silhouette is not there in any view."
+   "reason": "The brief asks for a forklift with a driver in its seat, which has a mast, forks, a driver's overhead guard, wheels and a counterweight. In every one of the ten views (sides.png) the outline is a plain rectangular block: front, back, left, right, top, below and the four isometric views all show the same closed box with no mast, forks, guard, seat or wheels breaking the silhouette."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured size is 186.6 long, 60 wide and 113.4 high against the brief's 187, 60 and 113, with a size offset of 0.003. Each dimension is well within 15%."
+   "reason": "Measured size is 186.6 x 60 x 113 against the brief's 187 long, 60 wide and 113 high (sizeOff 0.003), so each dimension is within 15% of the brief's size. The side views in sides.png confirm the proportions."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a forklift with its driver in the seat. Listing the parts down to the small ones: mast with two uprights, two forks, overhead guard with posts, seat, driver, steering wheel, counterweight, four wheels and tyres, backrest, lift carriage. None of them is in the asset (sides.png shows one solid box in every view). Parts absent: all of them, so the driver, seat, mast, forks and wheels are all missing."
+   "reason": "Parts the brief asks for, none present: two forks, the mast and its uprights, the lift carriage, the overhead guard and its posts, the seat, the driver, the steering wheel, the front and rear wheels, the counterweight. The model is one solid block with no components, so the parts are missing."
   },
   "M4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The whole asset is one flat mid-grey painted surface with faint grain (lineup.png, C; sides.png, every view). The grey reads as painted metal, but the forklift's regions are absent: no body colour distinct from the frame, no tyre rubber, no seat cloth, no driver's skin or clothing. Clearly off for the regions the brief names."
+   "reason": "The brief names no colour, so the grey metal body is not wrong, but the materials it implies are absent: the rubber tyres, the driver's cloth and skin and the seat are missing, and the one flat grey material covers the whole block. Only one region exists, and it is a placeholder grey."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The surface carries only uniform grain and light edge highlights (sides.png, left and top views). No panel lines, lettering, safety striping, grille, lamp or wear is there, though a warehouse forklift would carry some of these. Clearly thinner than the brief implies."
+   "reason": "The brief asks for no specific markings, but an industrial forklift would carry some detail (a guard's bars, a mast's channels, panel lines or a warning mark). The only surface detail is a faint noise grain over the faces and bevelled edges in sides.png and lineup.png (C); nothing else is there."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Capped by the line-up test, as the rubric sets for this judging: the asset was shown among four models (lineup.png, C beside sat_globe, fungus and bm_leg), and the line-up test picked B, B, B, a Valve model, as the one not made by Valve, so the asset passed as one of the game's on that test. This score comes from that test, not from my own look at the box."
+   "reason": "Scored 2 as the rubric directs, since M6 is measured apart by the line-up test: the asset (lineup C) was not picked as the non-Valve model in any of the four readings (the picks were B, B, B, C against the asset's positions C, C, A, B), so the test was passed. Visually, a grey box in the line-up beside the globe, the snail-like fungus and the barnacle-like leg is not a forklift, so my own impression disagrees with the line-up result; the score follows the measured test."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The asset stands upright on its base (front, back, left and right views all show it resting on the bottom edge). It has no front to speak of: the box is symmetrical, with no forks, mast or seat to say which side the front is, so the brief's facing cannot be read."
+   "reason": "The block stands upright on its base in the front, side and below views, so the placement is plausible. A forklift has a front (the mast and forks) and a back (the counterweight and seat); the box has no identifiable front, so the facing cannot be the original's. Clearly off, so 1."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The checkErrors list is empty, so SMAK's GoldSrc check passes. It has 12 triangles, far under twice the median of Half-Life's props of this size. The box is closed: the below view and the four angled views show no open or inside-out faces, and nothing floats."
+   "reason": "SMAK's checks pass with no errors. Triangles are 12, under the 352 limit (twice Half-Life's median of 176 for props of this kind, which is more than the three-quarter mark of 296). The views show a closed box with no open faces, inside-out faces or floating parts."
   }
  },
  "total": 9,

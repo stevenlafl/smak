@@ -31,7 +31,38 @@
    "jitter": null
   },
   "class": "beam",
-  "againstClass": [],
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.262,
+    "range": [
+     0,
+     0.27
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
   "kept": {
    "type": "parallel",
    "format": "additive",
@@ -49,34 +80,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture reads as a laser beam: a long vertical pale core down the frame's full height, with a grey-blue glow around it. The effect is the one the brief names."
+   "reason": "The frame reads as a laser beam: a vertical band with a pale, nearly white core running the full height and a blue-grey glow falling off toward both edges. That is the effect the brief describes."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The one 32 x 32 frame (shown enlarged, with the harness's frame label in the top-left corner) is filled top to bottom by the beam, and the glow reaches both sides. The core sits a little left of centre, which is acceptable for a tiling beam texture."
+   "reason": "One 32x32 frame. The beam runs top to bottom and fills the frame's height, and its glow reaches both side edges, as the brief asks. The border measure is 0.262 (class range 0 to 0.27), so the edges are lit without being bright."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The pale core is right, but the glow does not stay grey-blue out to both edges. Both outer edges fall to a dark navy, which is darker than the brief's grey-blue glow running out to the edges. The border mean of 0.262 supports this. The colour is judged by eye, so this is a visual call and not a measured fault."
+   "score": 2,
+   "reason": "Judged by eye: the core is pale blue-white and the surrounding glow is grey-blue, darkening toward the edges. That matches the brief's bright pale core and grey-blue glow."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single frame, the same as a beam's one frame. The brief asks for no motion. againstClass is empty, so there is no class measure to check the frame count or envelope against, and nothing in the measures shows a fault. Peak, first and last are all frame 0 and show no fade or loop problem."
+   "reason": "Single frame, which is the beam class's steady shape. Measured envelope first 1 and last 1 (class range 0.9 to 1), peak at frame 0, and the border measure is inside the class range. Nothing in the measures or the picture departs from a steady beam."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's own file (gameType and gameFormat). The name is the same (sameName true) and the file reads back as written (readsBack true). It passes SMAK's fit checks for GoldSrc, as the measures report."
+   "reason": "Type parallel and format additive match the game's own file (gameType and gameFormat both parallel and additive). The name is the same (sameName true) and the file reads back (readsBack true)."
   }
  },
- "total": 9,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

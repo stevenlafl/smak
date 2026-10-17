@@ -75,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both show the same effect: a single tall vertical beam of light running the full 64-unit height, brightest in a streak near the middle-left, with a soft falloff at the edges. The reproduction is a beam too, not a different glow or flame."
+   "reason": "Both frames show the same effect, a vertical laser beam: a bright core running the full height, with darker blue-grey falloff toward the edges. The reproduction reads as a beam, not a glow or flame."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 32x64, matching the original. The beam fills the frame edge to edge in each, with the same vertical column shape and no empty margins. The border measures (max 1 vs 0.905, mean 0.261 vs 0.238) are close."
+   "reason": "Both are 32 x 64. The beam fills the frame top to bottom in each, with its bright band in the same central, left-of-middle place. Border measures are close (original max 1, mean 0.261; reproduction max 0.905, mean 0.238)."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are the same blue-grey to white family. The reproduction is slightly more mottled, with a few brighter specks, and a little darker (dark 0.06 vs 0.02). That is within the 15 mean-colour allowance. The frame's mean colour is not given directly, so this rests on the eye and the close border and dark figures."
+   "reason": "Measured mean colour difference is 3.3 CIE76 delta E, well under the 15 line. Visually the blue-grey and white palette matches."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are a single frame, so the frame count matches and there is no loop or fade to check. Both envelopes read first=1 and last=1, and the beam is a steady column in each, not a growing or fading one. The dark-share difference (0.02 vs 0.06) is small."
+   "reason": "Both are single frames (1 and 1), so the frame count matches and there is no motion to get wrong. Envelope is first 1, last 1 in both. The reproduction's dark share is 0.06 against 0.02, a small difference, and it does not change the steady, non-animated kind of the beam."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are type parallel and format additive, the same as the measured fields. The name matches (sameName true) and the file reads back (readsBack true)."
+   "reason": "Both are type parallel, format additive, under the same name, and the reproduction reads back. The type and format match the original's."
   }
  },
  "total": 10,

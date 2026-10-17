@@ -31,7 +31,38 @@
    "jitter": null
   },
   "class": "beam",
-  "againstClass": [],
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.261,
+    "range": [
+     0,
+     0.27
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.9,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
   "kept": {
    "type": "parallel",
    "format": "additive",
@@ -49,34 +80,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture reads as a beam: a pale, bright core running down the strip, with grey-blue glow falling away toward both edges. That is the effect the brief names (a laser beam drawn across its width)."
+   "reason": "A vertical beam: a pale bright core runs down the length of the frame with a grey-blue glow falling off toward both edges. That is the effect the brief describes."
   },
   "R2": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The frame is 32 by 64 and the beam fills it top to bottom and edge to edge, which is right in form. But no original size for the class is given (againstClass is empty), so the frame size cannot be checked against Half-Life's beam sprites, and the brief gives no size. Scored as there but unverified."
+   "score": 2,
+   "reason": "One 32x64 frame, the glow filling the frame's full width and height. The border measure (mean 0.261, max 1) is inside the beam class range of 0 to 0.27. The image is too small to show finer detail, so the core's exact position is only roughly judged."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye, the core is pale and near-white, and the edges carry a blue-grey glow, as the brief asks. The image is very small, so the blue-grey tint is judged from a low-resolution view. The dark measure (0.02) shows the glow runs out to the edges without a dark rim."
+   "reason": "By eye, the core is pale and near-white and the glow is grey-blue, as the brief asks. I can't check the core's exact centring at this size; the frame looks close to centred, so I score it as right to a close look."
   },
   "R4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "A single frame (frames: 1) with a flat envelope (first 1, last 1, peak at frame 0). A still beam is plausible, but againstClass is empty, so the frame count and envelope cannot be held to Half-Life's beam sprites. Nothing wrong is visible; the class comparison is missing."
+   "score": 2,
+   "reason": "One frame, which the beam class takes. The envelope is 1 at first and last frame, inside the class range of 0.9 to 1, so it holds steady from start to end as the game's beams do. A single-frame beam is a steady loop and needs no closing."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type parallel and format additive match the game's own file (gameType parallel, gameFormat additive). The name is the same (sameName true), and the file reads back as written (readsBack true)."
+   "reason": "Type parallel and format additive, the same as the game's laserbeam (gameType and gameFormat match). The name is the same and it reads back as written."
   }
  },
- "total": 8,
+ "total": 10,
  "of": 10,
- "passes": false
+ "passes": true
 }

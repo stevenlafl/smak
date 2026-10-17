@@ -20,17 +20,64 @@
   "halfLifeMost": 422,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/w_crowbar.mdl, models/w_shotgun.mdl, models/snapbug.mdl",
-  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked C, A, C where the asset was C, A, D: told apart"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, D, D, B where the asset was C, A, D, A: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 1
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M6"
- ],
- "total": 0,
- "of": 16
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every view has the outline the brief describes: a flat rectangular case about 35 long, 26 wide and 7 high. Front and side views give the same rectangle, the top view is a 35 by 26 rectangle, and the front-left and front-right views show a flat lid on a low box. No part sticks out or is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 35 x 26 x 7.4 against the brief's 35 x 26 x 7. Length and width match and height is 0.4 over (about 6%), within the 15% band."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Parts the brief asks for: (1) the case, one box with a flat bottom and the lid on top; (2) one red cross, centred on the lid in the top view and on the top in the oblique views; (3) FIRST AID lettering on the 26-wide front face, reading correctly in the front view and the front-left and front-right oblique views; (4) one carry strap, a black band running along the 35-long lid, offset toward one edge in the top view. The cross, lettering and strap are painted rather than modelled as raised shapes, but each reads clearly at the size the game shows it, which counts as there under the rubric. No small parts (handles, rivets, tabs) are asked for, and none are missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The case is a light grey-white, which reads as the brief's white case. The cross and lettering are the same red, and the strap is near-black. Each region reads as one material, with plausible metal or plastic grain. No region is in the wrong colour."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The lettering FIRST AID, the red cross and the black strap are all present in their places and sharp enough at game scale. The lettering is in a pixel-style face and the cross has clean edges, which is in keeping with the game's own markings. The case has a subtle bevel line along its top edges, as the brief does not ask for any other detail, so nothing is added that looks wrong."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the line-up test, which is measured apart. The line-up was asked four times with the asset at a different letter each time: judges picked A, D, D, B where the asset was C, A, D, A. The asset was picked as the odd one out in one of four readings (the third), so it passed for one of the game's in three of four, which is the bar for a 2."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front is the front: the FIRST AID lettering reads correctly and upright in the front view, with the lid up and the case lying flat on its bottom, as the brief's pickup lying flat on the floor describes. The bottom view shows a flat underside that rests on the floor, consistent with lying on the origin."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check passes with no errors. The triangle count is 24, far under twice the median for a prop of its size (the median for Half-Life's props of this size is 99, and three quarters of them have under 156). The underside in the below view is closed, with no visible opening, and the box sits on the floor with nothing floating or inside out. The painted cross, lettering and strap add no open geometry."
+  }
+ },
+ "total": 16,
+ "of": 16,
+ "passes": true
 }

@@ -20,17 +20,64 @@
   "halfLifeMost": 439,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/w_gauss.mdl, models/w_oxygen.mdl, models/w_suit.mdl",
-  "lineupTest": "asked 3 times, each in another order, which of the four was not made by Valve: judges picked C, D, D where the asset was C, A, D: told apart"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, D, A, C where the asset was C, A, D, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 1
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M6"
- ],
- "total": 0,
- "of": 16
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In all six views (front, left, back, right, top, below) the outline is a plain upright rectangle, which is the silhouette a three-drawer filing cabinet of the brief's proportions gives. Nothing sticks out or is missing from the outline."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 28.8 x 22.6 x 62.4 against the brief's 29 deep, 23 wide and 62 high. Each is within 15% (sizeOff 0.008)."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for three drawers and their handles. The front, left and right views show no drawer fronts or drawer seams, and no handles, painted or modelled. Those parts are missing, not just painted differently. The top, base and sides are the only parts there."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The whole body is one grey metal, mottled a little and darker at the base in the below view, which reads as the brief's grey steel, a bit grimy. The colour is the same across all faces."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for a grimy look, and the mottling gives some grime. There are no panel lines, drawer seams or label areas, so the cabinet's surface markings are absent, and the grime is a generic texture rather than wear at the joins."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the rubric: M6 is measured by the line-up test, not scored here. (For the record, the line-up shows the asset as a plain grey box beside three Valve props. The test caught it in one of four readings.)"
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It stands upright on its base, and the bottom face is closed as the below view shows. There is no drawer or handle on any face, so the front cannot be told from the back and the sides. The front is not the original's front."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty, so SMAK's GoldSrc check passes. It has 12 triangles, far under twice the median of Half-Life's own props of this size (238). Every side, top and the underside is closed in the views; nothing is open, inside out or floating."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
 }
