@@ -27,7 +27,8 @@ const step = words.shift();
 const again = words.includes("--again") && words.splice(words.indexOf("--again"), 1);
 // --form: the describer fills in a form, not free prose (FORM_CHARACTER below), an experiment
 const FORM = words.includes("--form") && words.splice(words.indexOf("--form"), 1);
-// --generators <folder>: the words leg's server offers the tool generate (generators/README.md), an experiment
+// --generators <folder>: the words and brief legs' servers offer the tool generate (generators/README.md): the
+// characters' generator route (Steven, 2026-10-17)
 const GENERATORS = words.includes("--generators") ? words.splice(words.indexOf("--generators"), 2)[1] : null;
 const KINDS = ["weapons", "characters", "players"];
 /** The Specialists, a mod whose code uses its player models' bones and animations by name and number. */
@@ -156,7 +157,7 @@ function makeOf(kind, s) {
 }
 
 function reproducePrompt(kind, s, leg, given) {
-  if (leg === "brief") return briefPrompt({ brief: BRIEFS[kind][s.id].brief, replaces: kind === "weapons" ? s.files.join(", ") : s.file, make: makeOf(kind, s) });
+  if (leg === "brief") return briefPrompt({ brief: BRIEFS[kind][s.id].brief, replaces: kind === "weapons" ? s.files.join(", ") : s.file, make: makeOf(kind, s), accept: Boolean(GENERATORS) });
   const judged = "It will be judged side by side with the original, from the same cameras and at the same scale, to high standards, by someone who sees only the two sets of pictures.";
   const aim =
     kind === "weapons"
@@ -191,8 +192,8 @@ async function reproduce(kind, s, leg) {
   } else if (leg === "words") given = `The original, as someone who has seen it describes it:\n\n${readFileSync(join(base, "words.md"), "utf8")}`;
   const hidden = kind === "weapons" ? s.files : [s.file];
   const kit = kitCommit();
-  // the words leg may be offered the local generators (--generators): a shape made from words, carved by no picture
-  const r = await runAgent({ prompt: reproducePrompt(kind, s, leg, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg === "words" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
+  // the words and brief legs may be offered the local generators (--generators): a shape made from words, carved by no picture
+  const r = await runAgent({ prompt: reproducePrompt(kind, s, leg, given), read: leg === "pictures" ? input : null, server: { wads: true, games: s.root ? [s.root] : [], hide: hidden, refuse: hidden, ...(GENERATORS && leg !== "pictures" ? { generators: GENERATORS } : {}) }, files, hours: 1.5 });
   mkdirSync(out, { recursive: true });
   writeFileSync(join(out, "answer.md"), `${r.answer.trim()}\n`);
   const { all, newest: newestOf } = filesOf(r.work);
@@ -210,7 +211,7 @@ async function reproduce(kind, s, leg) {
       kept.push(want);
     }
   }
-  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS && leg === "words" ? "generate" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept }, null, 1)}\n`);
+  writeFileSync(join(out, "run.json"), `${JSON.stringify({ kit, model: r.model, generators: GENERATORS && leg !== "pictures" ? "generate" : null, seconds: r.seconds, turns: r.turns, cost: r.cost, tokens: r.tokens, error: r.error, built: kept }, null, 1)}\n`);
   return `${kind}/${s.id}:${leg}: ${r.seconds} s, built ${kept.join(", ") || "nothing"}`;
 }
 
