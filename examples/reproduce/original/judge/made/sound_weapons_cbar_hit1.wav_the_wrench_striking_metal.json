@@ -45,34 +45,34 @@
  },
  "scores": {
   "S1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The picture shows a sharp broadband transient at about 0.035 s, then a ring that dies away: the shape of a metal strike. The measure classes it as a metal hit with one onset. Both fit a crowbar-type hit on metal."
-  },
-  "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Attack 0.035 s and peak at 0.05 s are plausible for a hit, and the length is 0.5 s. But the picture shows the tail still at a clear level when the file stops, so the decay looks cut off rather than fading. The class range for attack and decay was not supplied, so this cannot be confirmed as within range; capped at 1."
+   "reason": "The waveform shows a sharp transient near 0.035 to 0.05 s (attack 0.035, peakAt 0.05) followed by a long ring-down to about 0.5 s, which fits a strike and matches the class 'metal hit'. But the spectrogram is a narrow, tonal-looking band of horizontal striping rather than the broadband clatter of a wrench on metal (flatness 0.007), so the event reads more like a ping than a wrench striking metal."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Envelope: length 0.5 s, attack 0.035 s, t20 0.449 s. The measured 'against' lines name no envelope fault, and the waveform's decay runs the full length without an abrupt cut. Nothing here falls outside the class's range."
   },
   "S3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "Measured fail on three lines: centroid 2438 Hz against 1074 to 1654 Hz; band 600-2k at 5.3% against 63.7 to 83.8%; band 2k-5k at 88.2% against 3.7 to 24.6%. Nearly all the energy sits in one band the reference gives under 25%, so the spectrum is wrong, not just off."
+   "reason": "Spectrum fails on three measured lines: centroid 2438 Hz against 1074 to 1654 (too bright); band 2k-5k at 88.2% against 3.7 to 24.6 (over the range by about 64 points); band 600-2k at 5.3% against 63.7 to 83.8 (under). The spectrogram agrees: energy is packed into one middle band, not spread as the class needs."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "One onset, which matches a single strike. The flatness of 0.007 is far outside 0.16 to 0.28 (too pure, less noise than a metal hit), and the spectrogram's horizontal bands read as ringing tones rather than noise. Character is clearly off, though it is not a must-have."
+   "reason": "Character is off: flatness 0.007 against 0.16 to 0.28 means the sound is far too pure, with no noise in the hit. The spectrogram's striping is tonal, where a metal strike should carry grit. The single onset (onsets 1) is correct for one hit, and no pitch movement is visible in the picture, so only the tone or noise item fails."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measures: clipped 0, DC -0.0001, peak -0.5 dB, no engine faults reported. Mono and the 16-bit format are not shown in the measures, so they are taken as met by the harness check; the file passes the fit checks it reports."
+   "reason": "Fit for the game: clipped 0, dc -0.0001, peak -0.5 dB (no clipping, no DC), engineFaults empty, same name sound/weapons/cbar_hit1.wav. The measures do not state the sample rate or bit depth, so this rests on the engine's own check passing; the measure gives no sign of a fault."
   }
  },
  "total": 6,

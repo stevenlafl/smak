@@ -45,37 +45,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The waveform is a noisy burst that rises at about 0.03 s, is loudest around 0.05 to 0.18 s and fades by about 0.25 s, which fits a swing's shape. The spectrogram is a steady low-to-mid band with nothing above 2 kHz, so it reads more like a hollow thump than the air rush of a swing. Limit: the judge cannot listen, so this rests on the picture and features alone."
+   "score": 2,
+   "reason": "The picture shows a swing's shape: a quick rise to a peak near 0.045 s, a broad noisy burst, then a long fade to the end at 0.35 s. There is no sharp strike transient (onsets 0), so it reads as a swing rather than a metal hit, which is what the brief asks for."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Length 0.35 s and attack 0.015 s are not flagged. The decay fails: t20 is 0.17 s against the swing class's 0.05 to 0.15 s, so the measure already holds S2 under 2 and caps it at 1. The picture shows the same long ring after the burst."
+   "reason": "Length 0.35 s and attack 0.015 s are not flagged. The decay is too long: t20 is 0.17 s against the swing class's 0.05 to 0.15 s. In the waveform the loud body is still heavy to about 0.18 to 0.2 s before tapering, so it rings too long. The measure caps S2 at 1."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Band 600-2k is 38.2%, above the class range of 15 to 35, so it is not within 10 points of the class's share. The 150-600 band carries 60.3% and the centroid is 649 Hz, but the measures give no range to check them against. Nothing above 5 kHz (0%) is consistent with a dull swing, but its share is not given a range here."
+   "reason": "Centroid 649 Hz is not flagged. The 600 to 2k band holds 38.2% against the class range of 15 to 35%, over the range by about 3 points. The spectrogram's bright body sits in the 150 to 600 Hz band, with the upper mids strong beside it. The measure caps S3 at 1."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "No onsets (0), which fits a swing with no hit in it, and the picture shows no clear pitch sweep. The character is clearly off in tone and noise: flatness is 0.002 against the class range of 0.03 to 0.13, so the sound is far too pure where a swing should hiss. Not a must-have item."
+   "reason": "Flatness 0.002 is far below the class range of 0.03 to 0.13, flagged as too pure. The waveform looks spiky, but the spectrogram is a smooth, tonal-looking low-mid body with almost nothing above 5 kHz (0%), so it lacks the hiss a swing should have. Onsets 0 is fine for a swing."
   },
   "S5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The name sound/weapons/cbar_miss1.wav is right, there is no clipping (0), and DC is 0.0002, which is fine. The format (channels, sample rate, bit depth) is not in the measurements given, so mono PCM at an engine rate cannot be confirmed; this is unverified rather than shown faulty, and it is not scored 2 without that check."
+   "score": 2,
+   "reason": "Clipped 0, DC 0.0002, peak -0.5 dBFS, and engineFaults is empty, so the engine's checks raised nothing. The sample rate, bit depth and channel count are not in the measures I was given, so this 2 rests on engineFaults being empty."
   }
  },
- "total": 5,
+ "total": 7,
  "of": 10,
  "passes": false
 }

@@ -116,40 +116,40 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Several textures are clearly not what they are named for. fw_grate is blue squares on black, not steel. fw_rustplate is dark grey with no visible rust. fw_panel shows faint outlines and no clear dials. fw_door is brown wood, which is off the steel-and-concrete palette for a pump house door. fw_hazard reads as dim yellow noise more than hazard stripes. Concrete, pipewall, catwalk, pump3 and water do read as their subjects."
+   "reason": "Most textures read as their material: concrete (fw_concrete), grate (fw_grate), catwalk plate, pipe wall, lit orange lamp face, teal water, and the 'PUMP 3' sign are all recognisable. Three do not. fw_hazard is a noisy yellow-ochre with no clear black and yellow stripes, so it is not a hazard-striped trim. fw_rustplate is a dark grey seam grid with no rust, nearly identical to fw_catwalk. fw_panel shows only faint outlines, with no dials or switches a control panel needs. fw_door is wood, not an industrial door, but it still reads as a door."
   },
   "T2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Colours miss the brief in places. The grate is saturated blue where steel is grey. The rust plate has no rust orange. Concrete, water (dark green-grey), hazard yellow, lamp orange and the PUMP 3 sign are close to the brief's palette. The flat sheet cannot show colour in the map's views, so this is judged from the sheet alone."
+   "reason": "Colours follow the brief for concrete (grey), water (dark green-grey teal), hazard paint (yellow), lamp (sodium orange) and the sign. fw_rustplate is plain dark grey with no rust-brown, although the brief asks for rusted steel. fw_door's warm brown wood is outside the brief's palette. The set's mean colour is therefore off in those regions."
   },
   "T3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Scale cannot be confirmed from a flat sheet, since the wall-scale check needs the map's views, which were not given. The grate's 8 by 8 blue hole grid at 64 units does not read as a steel grate's spacing. Catwalk panel seams (4 by 4 in 128) and the pipewall's two pipes look plausible."
+   "reason": "Seams and panel grids on fw_catwalk, fw_rustplate and fw_pipewall sit at a plausible wall scale, and fw_grate's 8-pixel cells are regular. fw_hazard has no stripe period at all, so its trim pattern cannot line up on a wall. fw_panel's outlines are too sparse to show a layout. fw_water and fw_wetfloor carry no seams."
   },
   "T4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The grate's top and bottom rows of holes are cut off at the edges, which suggests a visible seam where it repeats. Other tiles show panel seams at their borders; wrap continuity cannot be checked from one sheet with no tiling measure."
+   "score": 2,
+   "reason": "Not measured here, and it is not a must-have item. In the flat view I see no obvious seam at the tile edges of fw_concrete, fw_catwalk, fw_pipewall or fw_wetfloor. The seams that do show in fw_catwalk and fw_rustplate are regular and repeat through the tile, not at its edges."
   },
   "T5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Detail is uneven across the set. fw_hazard is grainy noise, measured at 101.6, far above Valve's band (median 30.1). fw_grate is flat blue and black. fw_wetfloor, fw_water, fw_lamp, fw_rustplate and fw_catwalk sit at 2.7 to 11.8, below Valve's lower quartile (19.7), so they look smeared or flat. fw_concrete, fw_pipewall and fw_pump3 are good."
+   "reason": "Measured detail is outside Valve's band (Q1 19.7 to Q3 45) on many textures. fw_hazard is 101.6 and reads noisy, a dither rather than clean stripes. fw_water (2.7), fw_grate (0.6), fw_wetfloor (9.9), fw_lamp (9.3), fw_catwalk and fw_rustplate (11.8) are flat and smeared beside the original's grit. fw_concrete, fw_pipewall, fw_panel and fw_pump3 (31 to 35) are within the band and are sharp."
   },
   "T6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "All twelve names are present, and each keeps its meaning: {fw_grate has holes, !fw_water is a liquid, fw_lamp is a bright lit orange face, and fw_pump3 carries legible PUMP 3 lettering. The sheet is twelve textures, meeting the brief's count. Sizes are as the measurements give them. No animation is in the set. No original sizes were supplied to compare against, so exact size match is not confirmed."
+   "reason": "Every name and size is present: fw_concrete 256x256, fw_wetfloor 256x256, {fw_grate 64x64, fw_catwalk 128x128, fw_pipewall 128x128, fw_hazard 64x64, fw_rustplate 128x128, fw_panel 128x128, fw_lamp 64x64, !fw_water 64x64, fw_pump3 128x64, fw_door 128x256. The '{' grate shows dark gaps where holes should be. The '!' water is a liquid. The lamp face is bright and lit, and the sign reads PUMP 3. Holes and the palette's transparent index cannot be confirmed from a flat picture."
   }
  },
- "total": 7,
+ "total": 8,
  "of": 12,
  "passes": false
 }

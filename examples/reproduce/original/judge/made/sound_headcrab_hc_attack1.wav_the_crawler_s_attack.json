@@ -52,31 +52,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows a single dense noise burst that decays over about 0.5 s, with its energy in the 150-600 Hz band. That reads as a hit or swipe, which could be a crawler attack, but it is not clearly the event the brief asks for: the original's bite-like clicks and transients are missing, and the sound's identity cannot be confirmed by ear (this judge cannot listen)."
+   "reason": "The picture shows one broadband noise burst that swells in about 0.1 s and then decays smoothly to 0.74 s. The game's own sound (0.91 s) is a sharp double strike at about 0.1 s and 0.25 s, followed by small clicks at about 0.6 s and 0.7 s and a long low tail. A snarl-like attack is plausible, but the made sound has none of the discrete strikes that make the original read as a bite or swipe. Cannot be listened to, so this is judged from the picture only."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Length is 0.744 s against the original's 0.906 s, about 18% short and inside 25%. The attack is 0.095 s, and t20 is 0.474 s against 0.394 s, a gap of about 20%. The class range the brief's test uses was not in the measurements, so this is read against the original's own envelope."
+   "reason": "Length is 0.744 s against the original's 0.906 s, 18% short and within the 25% allowance. Attack is 0.095 s, which lines up with the original's first strike. t20 is 0.474 s against 0.394 s, an 0.08 s difference. The class's decay range is not in the measurements given, so this is checked against the original only."
   },
   "S3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The centroid is 397 Hz against the original's 921 Hz, about 57% lower, well outside 20%. The band shares also miss by more than 10 points: <150 Hz is 25.4% against 0.5%, 150-600 Hz is 55.3% against 68.1%, and 2k-5k Hz is 0.3% against 10.9%."
+   "reason": "Spectrum fails. Centroid is 397 Hz against 921 Hz, 57% low (the allowance is 20%). Band shares: <150 Hz is 25.4 against 0.5 (24.9 points off), 150-600 Hz is 55.3 against 68.1 (12.8 points off), and 2k-5k Hz is 0.3 against 10.9 (10.6 points off). Only 600-2k Hz (19 against 18.8) and >5k Hz (0 against 1.6) fall within 10 points. The picture shows the made sound's energy sitting in the low-mid yellow band, while the original's sits in the 150-600 Hz band with a visible upper-mid presence."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The waveform has one onset, a single burst at the start, where the original has several hits and clicks. The flatness of 0.001 is very low, which means strongly peaked rather than broadband noise, and the spectrogram shows a downward-drifting band that the original's does not match. The character is clearly off, though this is a 'not required' item."
+   "reason": "The made sound has one onset, against the original's two clear strikes and several clicks, so the hits are missing. Flatness is 0.001, which reads as strongly tonal, yet the waveform and spectrogram look like broadband noise, so the tone or noise character is suspect. The original's flatness is not given, so this cannot be compared directly."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file reports clipped 0, peak -0.5 dBFS, and DC 0.0031, which is negligible, and engineFaults is empty. The measurements do not give the sample rate or bit depth, so the format is taken from the empty fault list rather than read directly."
+   "reason": "Engine faults are empty. Clipped count is 0. DC is 0.0031, a small offset. Name sound/headcrab/hc_attack1.wav matches the game's. No loop cue is needed for an attack. Sample rate and bit depth are not in the measurements, so the format is confirmed only by the empty engine-fault list, not by a direct reading."
   }
  },
  "total": 6,

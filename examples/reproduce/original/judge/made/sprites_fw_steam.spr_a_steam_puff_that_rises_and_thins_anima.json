@@ -88,34 +88,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a smoke puff: a soft, grey, wispy column that is bright at its base and thins upward and out, as the class calls for."
+   "reason": "Reads as a steam or smoke wisp. Frames 1 to 9 show a soft grey-white column rising from a base, which is the effect the brief asks for, with no other effect mixed in."
   },
   "R2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frames are 64 x 64 as required, but the puff is a narrow column in the middle of each frame, not a puff that fills it. Its base sits against the bottom edge in frames 1 to 5, and the measured border max of 0.369 shows content touching the edge, which the original may not do."
+   "reason": "The frame is 64 by 64, which matches the measured size. But the puff is a narrow column about a quarter of the frame's width (frames 2 to 5 and 8 to 9), with most of each frame left as empty background. It does not fill the frame the way a steam puff of Half-Life's class would."
   },
   "R3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The colours are neutral greys and off-whites over the engine's grey blend, which looks plausible for smoke. No colour measure against the original was given, so this cannot be confirmed to be within 15 of it."
+   "score": 2,
+   "reason": "Judged by eye on the contact sheet: the steam is light grey to near-white over the grey backdrop, the colour of steam rather than smoke-black or a tint. No stray colour is visible in any frame."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Twelve frames, with the envelope peaking at 0.27, starting empty (frame 0) and ending dark (frame 11), so the loop looks closed. The rise is weak: the base stays near the bottom across frames and the change is mostly thinning and fading. The original's frame count and motion were not given, so the 25% frame check cannot be made."
+   "reason": "The measures pass: 12 frames, the envelope peaks at frame 3 of 12 (0.27) and is empty at both ends (first 0, last 0), so the loop closes dark. It grows from frame 1 to 4 and thins through frames 5 to 11, which is the fade. But the rise is not clearly readable. The column keeps its bright base at the same low position in frames 1 to 3 and 8 to 9, so it reads as growing and fading in place, not rising as the brief asks."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The name matches (fw_steam), the file reads back and renders, and the size is 64 x 64. The type (parallel) and format (index alpha) are reported, but no measure compares them with the original's type and format, so the fit cannot be confirmed."
+   "reason": "The measured type is 'parallel', but Half-Life's steam sprites (steam1, as the amendment records) are 'parallel oriented'. The format is index alpha, which is right. The type mismatch fails R5 by measure as the earlier steam1 build did. The file it replaces is not named in the picture, so this rests on the steam1 case."
   }
  },
- "total": 6,
+ "total": 7,
  "of": 10,
  "passes": false
 }

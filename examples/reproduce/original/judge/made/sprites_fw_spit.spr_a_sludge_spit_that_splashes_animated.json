@@ -88,31 +88,31 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief asks for a sludge spit that splashes. The frames show a soft cluster of bright blobs that swells and fades, reading more as a puff or small explosion than a splash with droplets flying off the impact. The sludge character is not evident."
+   "reason": "Frames 1 to 6 show a soft cluster of white blobs that bursts out and thins, which reads as a burst or cloud. It does not clearly read as a sludge spit splashing: no drips, no splash arc, no spread on a surface. The brief's splash is only weakly present."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frames are 64 x 64 as the brief's sprite size requires. The effect fills the centre of each frame with margin on all sides and is not cropped at any edge, and the measured border is 0.004 max, so nothing is clipped."
+   "reason": "Each frame is 64 by 64 with the effect centred and filling roughly the middle half of the frame. Nothing is cut off at the edges (border max 0.004, mean 0), so the frames are the right size and the effect fills them as a sprite of this kind does."
   },
   "R3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The frames read as white to pale grey over the grey background, with no green-grey sludge tint visible. The brief's colour is grey-green with a pale belly, so this is clearly off. No colour measure was given, so this rests on the picture alone."
+   "reason": "By eye the spit is white to pale grey, hot-looking, not the grey-green of sludge the brief asks for. Frames 1 to 3 are the brightest and look white. The colour is clearly off the brief's sludge colour."
   },
   "R4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "There are 8 frames, the right count, and the motion is a swell, bloom and fade ending dark (last 0, first 0). The envelope peaks at 0.14, at frame 1, against the explosion class's range of 0.22 to 0.71, so it peaks too soon. The measure already holds this item short of 2, so it cannot score 2."
+   "reason": "The frame count is 8, and jitter (1.47), border, first (0) and last (0) all fall within the explosion class. But the envelope peaks at frame 1 (peakAt 0.14), outside the class range of 0.22 to 0.71, which the measure marks as 'peaks too soon'. The effect bursts at once and fades, not building as the class does. The measured fault caps this at 1."
   },
   "R5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The name fw_spit.spr is right, and the format (index alpha) and type (parallel) are recorded. The measures give no reference type or format for Half-Life's own sprites of this class, so I cannot confirm the type is the original's, and I score it short of 2 on that account."
+   "reason": "The file is parallel, index alpha, which GoldSrc reads. But the inputs do not show the type and format the brief gives for the slot it replaces, or the name checked against it, so fit for the game cannot be confirmed here."
   }
  },
  "total": 6,

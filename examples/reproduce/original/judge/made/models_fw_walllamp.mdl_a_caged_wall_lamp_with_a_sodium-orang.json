@@ -10,66 +10,22 @@
   "sizeAsked": null,
   "sizeOff": null,
   "triangles": 128,
-  "halfLifeMedianOfThisSize": 62,
+  "halfLifeMedianOfItsKind": 99,
   "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/ribcage.mdl, models/webgibs.mdl, models/gib_legbone.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_weaponbox.mdl, models/w_9mmar.mdl, models/w_chainammo.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, B, D, C where the asset was A, B, D, C: told apart"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 1
  },
- "scores": {
-  "M1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Front, side and top views all read as a caged wall lamp: a rectangular cage with a top cap and bottom plate, a wall bracket arm and a back plate, with no part sticking out or missing. The brief gives no outline to check against, so this is judged on the brief's words, which it meets."
-  },
-  "M2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no size for the lamp, so there is nothing to be within 15% of (sizeAsked is null). The measured 19.5 x 20 x 26 is a plausible wall-lamp size, but it is unverified rather than shown to be right."
-  },
-  "M3": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The parts the brief implies are all there: the cage with its vertical and horizontal bars, the sodium-orange glass inside it, the top cap, the bottom plate, the wall bracket arm and the back plate. Their numbers and placement look right in the side and back-left/right views."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Three regions with plausible materials: grey concrete or steel on the caps and back plate, black painted bars for the cage, and an orange glass that matches the brief's sodium orange. The brief names no other colours to check."
-  },
-  "M5": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Surface detail is present and in place: rust spots on the top cap and base, panel edges and bevels on the caps, a concrete-like texture on the back plate, and a grid pattern on the cage. The glass reads as a flat orange disc, which is slightly soft but acceptable for a non-must item."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up it is set against three gibs and is obviously the one man-made object there, a clean lamp with flat orange glass. That shows the prop fits the palette, but a player would not clearly take it for one of the game's own lamps: the surfaces are smooth and the glass is a flat disc."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The cage front faces the front view and the back plate is at the back, so it reads as a wall fixture: upright, with the mounting face at the back. Nothing in the pictures shows it floating or sitting off its origin."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured 128 triangles are under the line for this size. The line is the larger of twice the median (124) and the third quartile (156), so 156 applies. checkErrors is empty, so the model passes SMAK's checks."
-  }
- },
- "total": 14,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M6"
+ ],
+ "total": 0,
+ "of": 16
 }

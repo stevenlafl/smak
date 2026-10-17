@@ -3,79 +3,31 @@
  "label": "the wrench (models/v_crowbar.mdl, models/p_crowbar.mdl, models/w_crowbar.mdl): a pipe wrench: red-painted handle worn to bare iron, a heavy toothed jaw",
  "measured": {
   "size": [
-   5.9,
-   9.9,
-   19.7
+   24,
+   7.3,
+   6.6
   ],
   "sizeAsked": {
    "long": 18
   },
-  "sizeOff": 0.095,
+  "sizeOff": 0.333,
   "triangles": 84,
+  "halfLifeMedianOfItsKind": 142,
+  "halfLifeThreeQuartersUnder": 187,
+  "halfLifeMost": 291,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/w_squeak.mdl, models/w_adrenaline.mdl, models/w_antidote.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_grenade.mdl, models/w_9mmhandgun.mdl, models/w_satchel.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, D, D, D where the asset was D, B, D, A: passed for one of the game's"
  },
  "caps": {
-  "M2": 2,
-  "M8": 2
+  "M2": 0,
+  "M8": 2,
+  "M6": 2
  },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The brief asks for a pipe wrench with a heavy toothed jaw. The side views show a long red bar with a closed, box-like brown head. The head has small bumps on top but no open jaw, no hinge and no adjustable jaw, so the outline reads as a bar with a block, not a pipe wrench."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measured length is 19.7 against 18 asked (9.5% off), and the 15% tolerance for a weapon holds. Width 5.9 and height 9.9 are not checked against a brief figure, so this is judged on length alone."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The parts are a handle and a head with a few teeth on top. A pipe wrench's fixed jaw, moving jaw, adjusting nut and hinge are missing, so the jaw is a block rather than the toothed jaw the brief asks for."
-  },
-  "M4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The handle is a uniform bright red with no bare iron showing at the rim or the wear the brief asks for. The head is rust brown with grey patches, which is close to the brief's rust but not the worn-steel-on-red finish described."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The head has some rust texture and grey plating. The handle has no wear, scratches or worn patches, so the red-worn-to-iron detail the brief describes is absent."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up (D) the wrench is the one that clearly looks different from the three Half-Life items beside it. It is plausibly a game prop in shape, but its flat red bar and crude box head would not be taken for one of the game's."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The w_ model lies with the bar along the ground and the head at one end, which is plausible. Nothing in the pictures shows which way is the front, and the head's teeth face up in one view and sideways in another, so the placement is unclear."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The SMAK check reports no errors, and 84 triangles is well under twice the median for a Half-Life weapon. The views show no open or inside-out faces and no floating parts, with the bar joining the head in every view."
-  },
-  "W1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In first-person.png the head sits low and centre-left, and the bar is out of the frame, not in the hand where the game's crowbar sits at right. In attack.png the head leaves the frame at frames 1 and 9 to 10, so it does not stay in view through the swing."
-  }
- },
- "total": 11,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M2"
+ ],
+ "total": 0,
+ "of": 18
 }

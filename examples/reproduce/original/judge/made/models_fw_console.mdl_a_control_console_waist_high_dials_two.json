@@ -12,66 +12,69 @@
   },
   "sizeOff": 0,
   "triangles": 24,
-  "halfLifeMedianOfThisSize": 105,
-  "halfLifeThreeQuartersUnder": 238,
+  "halfLifeMedianOfItsKind": 238,
+  "halfLifeThreeQuartersUnder": 291,
+  "halfLifeMost": 439,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/hvr.mdl, models/crystal.mdl, models/big_rock.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_rpg.mdl, models/w_hgun.mdl, models/w_suit.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, C, C, A where the asset was D, B, B, D: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
  "scores": {
   "M1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The outline is a plain box with a thin dark lid overhanging slightly. The brief asks for a control console, which normally has a sloped control face, and nothing in the silhouette suggests a desk. The six views agree with each other, and nothing sticks out or is missing."
+   "score": 2,
+   "reason": "Every view (front, left, back, right, top, below, four angles) shows one plain box, 64 wide, 40 high and 40 deep, with nothing sticking out or missing. The brief gives no slope or shape beyond waist high, so a box fits its words. The outline is plain, though, with no sloped control face."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The height is 40 units, as the brief's waist-high figure asks, and the measurement shows 0 off. The brief gives no length or width, so the 64 by 40 footprint is accepted as the measured size."
+   "reason": "Measured 40 x 64 x 40 against a height of 40 asked (sizeOff 0). The height is exact and the width and depth are within the 15% band."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Everything the brief names is present: two green screens, a row of six switches and four orange dials, plus a hazard stripe along the base. The dials are small square blocks, not round dials, and the screens are flat slabs with no bezel, so the shapes are off."
+   "reason": "The brief's parts are present but two are wrong in form. The dials are four orange squares painted on the front face (front view, left of the screens), not round dials, so the round part has the wrong number of sides. The two screens are green rectangles on the front, and the switches are six black painted rectangles in a row under them. Nothing protrudes in any side view, so the controls are paint only, which counts when it reads, but the dials read as square tiles at the size shown."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Painted grey steel body, dark steel top, green screen faces, orange dials and yellow-black hazard paint. These suit the Half-Life palette the brief asks for and read as distinct regions of the right materials."
+   "reason": "Grey painted steel body with a darker top, green screens, orange dials, black switches and a yellow-black hazard stripe at the base. These read as the industrial palette the brief asks for (green-grey, yellow hazard paint, rusted steel). No region is in a clearly wrong colour or material."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The front face is a fairly flat grey with only the hazard stripe and a few edge highlights. There are no panel lines, labels, rivets or wear marks on the control face, so the 'control panel with dials' reads as bare."
+   "score": 2,
+   "reason": "The brief's markings are there in their places: two screens and four dials on the front, a row of six switches, the hazard stripe along the bottom edge, and a grainy steel texture with worn edges on the sides and top. The sharpness is close to the game's own."
   },
   "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up it reads as a clean, generic box with flat textures. Half-Life's own props of this size carry more surface detail and modelling, so a player would likely notice it is not one of the game's."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the rubric for this kind. In the line-up test (A to D, asset at A) the asset was not picked as the non-Valve model in any of the four readings (picks B, C, C, A where the asset was at D, B, B, D)."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The controls face the viewer in the front view, the console stands upright on its base, and the hazard stripe sits at the bottom where a floor-standing console would have it. Nothing in the pictures shows it lying or floating."
+   "reason": "Upright, the front face with the screens, dials and switches toward the front view, and the box rests on its base with the hazard stripe along the bottom. Origin placement is at the base, as a console stands."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The check errors list is empty. The model has 24 triangles, far under twice the median of 105 for Half-Life props of this size. The side, top and underside views show no open or inside-out faces, and nothing floats."
+   "reason": "SMAK checkErrors is empty. 24 triangles, far under twice the median of Half-Life's props of this size (476) and under the third quartile (291). The box is closed: the top, sides, back and bottom show no hole or inside-out face in the views, and the bottom is flat and seated."
   }
  },
- "total": 12,
+ "total": 15,
  "of": 16,
  "passes": false
 }

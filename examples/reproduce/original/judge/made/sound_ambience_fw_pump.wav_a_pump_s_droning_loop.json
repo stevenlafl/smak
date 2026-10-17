@@ -40,37 +40,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The picture shows a steady, low-weighted broadband rumble across the full 2.8 s, which can pass for a pump's drone. Nothing in the waveform or spectrogram shows a pump's motor or cycle, and the broadband texture reads more like hiss than a machine. The brief's event is a pump's droning loop, so this is there but clearly off. Note: the sound amendment dated 2026-10-16 says S1 to S5 are not used for brief-made sounds. I scored them as asked; the harness should decide whether they count."
+   "score": 2,
+   "reason": "The picture shows one steady, low-frequency drone across the full 2.8 s with no swell, gap or fade, which is what the brief asks for (a pump's droning loop). Judged from the waveform and spectrogram only, since the judge cannot listen. Nothing in the picture contradicts a pump."
   },
   "S2": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "A 2.8 s length is plausible for a loop. The measures do not fit a steady drone, though: the attack is 0.933 s and the peak sits at 0.998 s, near the file's end. Its 20% and 40% points are both 1.806 s, which is ambiguous. The class's attack and decay range is not given to me, so I cannot check the range. The waveform looks evenly loud, so the envelope may be a measurement artifact. I cannot confirm S2 as a 2 without the class range."
+   "reason": "Length 2.8 s and the decay figures (t20 and t40 both 1.806 s) show a flat envelope, which suits a loop. But the measures give no range for the loop machine class, so the envelope cannot be confirmed in range. The attack figure of 0.933 s also disagrees with the picture, which is at full level from the first pixels, so that measure is unclear."
   },
   "S3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The band shares are consistent with the picture, which is brightest in its lower rows: 11.8% under 150 Hz, 85.3% at 150 to 600 Hz, 2.2% at 600 to 2k, and under 1% above that. The centroid is 272 Hz and the rolloff 323 Hz. No reference spectrum for the original is given, and the spectrogram's frequency axis is unlabelled, so I cannot check each band's share against the original's within 10 points. A drone with 85% of its energy in the mid band is a question to settle against the original."
+   "reason": "Centroid 272 Hz and the band shares (85.3% at 150 to 600 Hz, 11.8% under 150 Hz, 2.2% at 600 Hz to 2 kHz) fit a low drone, and the spectrogram's bright energy sits in the lower bands. The measures do not give the class's range, so the spectrum cannot be confirmed within 20% and 10 points. Flatness of 0.006 (very tonal) is also hard to square with the noisy-looking waveform."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The measured onsets (3) show as three tall spikes in the waveform, at roughly x=275, x=340 and x=520. A continuous drone should have none. The flatness of 0.006 means a strongly tonal spectrum, which may suit a hum, though the waveform looks noisy. The spectrogram shows no clear pitch movement over time, so pitch movement is consistent. The transients are the fault here."
+   "reason": "Three onsets are reported, and the waveform has a few tall spikes at roughly x 275, 520 and 850 of 960 px, which may be those hits. Nothing in the picture shows a pump's stroke pattern or pulse, so the character is a generic hum. The spectrogram's bands stay horizontal, so there is no pitch movement. Not a must-have item."
   },
   "S5": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measures show no clipping (0), no DC offset (0), no lead or tail silence, and no engine faults, with the peak at -0.5 dBFS (decibels relative to full scale). The name sound/ambience/fw_pump.wav is shown on the picture. The sample rate, bit depth and channel count are not in the measures, so mono PCM at 11025, 22050 or 44100 Hz at 8 or 16 bits is unverified. The loop cue cannot be checked: the envelope's peak near the end, with a 0.93 s attack, suggests the file's start and end may not meet smoothly, which would be an audible seam."
+   "reason": "No clipping (peak -0.5 dBFS), no DC offset, no engine faults, and the name sound/ambience/fw_pump.wav is right. The measures do not report sample rate, bit depth or channel count, so the format cannot be confirmed as mono PCM at 11025, 22050 or 44100 Hz with 8 or 16 bits. The loop's seam is not measured either: lead and tail are 0, but the start and end of the loop are not compared."
   }
  },
- "total": 5,
+ "total": 6,
  "of": 10,
  "passes": false
 }

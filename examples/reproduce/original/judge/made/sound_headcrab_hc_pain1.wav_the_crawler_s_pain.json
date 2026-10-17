@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The original is a series of about 15 to 20 pulsed bursts over 0.8 s, which reads as a creature's vocal pain cry. The replacement is one continuous noisy blast that decays over 0.4 s, which reads as a hiss or impact noise rather than a headcrab's pain. The event is not clearly the same, though it is in the same family of sound."
+   "reason": "The picture shows a 0.40 s broadband noise burst with a fast drop after about 0.2 s (peak at 0.195 s), flat bands from 600 Hz to 5 kHz and no pitch movement. It reads as a generic impact or hiss, not a creature's pain. The brief calls for a low, wet crawler, and the made sound's centroid (2142) is not low and shows no wet pulsing, unlike the game's own pain (centroid 2682, about 15 pulses across 0.8 s). It can't be heard, so this is judged from the picture and features only."
   },
   "S2": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "Length is 0.402 s against the original's 0.795 s, a ratio of 0.51. That is far outside the 25% tolerance (0.60 to 0.99 s). The measure already fails this must-have item."
+   "score": 1,
+   "reason": "Length 0.402 s, attack 0.15 s, peak at 0.195 s, with t20 at 0.095 s. The game's own pain has t20 at 0.544 s and runs 0.795 s, so this decays about five times faster than the one comparison given. No class range from src/audio/classes.mjs was supplied, so it can't be confirmed in range; against the only reference it sits well outside, and it is capped at 1 without a class range to confirm it."
   },
   "S3": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "Centroid is 2142 Hz against 2682 Hz, a 20.1% difference, just over the 20% limit. Band shares are off well beyond 10 points: 600-2k is 45.2% against 15.6% (29.6 points), and 2k-5k is 49.4% against 83.8% (34.4 points). The energy sits in the wrong bands."
+   "score": 1,
+   "reason": "Centroid 2142 against the game's 2682 is 20.1% low, just past the 20% line. Band shares miss by more than 10 points: 600 Hz to 2 kHz is 45.2% against 15.6% (29.6 points), and 2 kHz to 5 kHz is 49.4% against 83.8% (34.4 points). Energy is spread across the mids where the game's pain is concentrated at 2 to 5 kHz. The class range was not supplied, so this is judged against the one reference given, and it is clearly off."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are 0, while the original has roughly 15 to 20 pulses that the picture shows clearly. The replacement is one unbroken burst with no hits or clicks, so the pulsed character is missing. The tone or noise character is noisy in both, which is the one part that matches. Onsets are not measured against the original in the features, so this is judged from the picture."
+   "reason": "Onsets are 0, while the game's own pain has about 15 wet pulses over its length, which the made sound lacks; the envelope is one smooth burst. Flatness is 0.172 (tonal-leaning) against a dense, noisy waveform in the picture, and no pitch movement shows in either spectrogram. The character (pulse and wetness) is clearly off, though this item is not a must."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "No clipping (clipped 0), DC of 0.0003, and peak at -0.5 dBFS. The name sound/headcrab/hc_pain1.wav matches the original, and no loop cue is needed. The engine checks report no faults (engineFaults empty). The sample rate and bit depth are not shown in the picture or the features, so this score rests on that empty fault list."
+   "reason": "The measurements show no engine faults (engineFaults empty), no clipping (clipped 0), DC of 0.0003, peak at -0.5 dBFS, the same name sound/headcrab/hc_pain1.wav, and a tail of 0.01 with no click at the end. The sample rate and bit depth are not in the measurements, so the format is taken on the engine check alone."
   }
  },
- "total": 4,
+ "total": 6,
  "of": 10,
  "passes": false
 }

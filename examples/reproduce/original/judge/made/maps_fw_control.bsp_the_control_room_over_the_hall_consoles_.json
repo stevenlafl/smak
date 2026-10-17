@@ -30,58 +30,58 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The plan shows a raised control area at floor 0, a hall to the east at -160, and a sunken block at -192 with a func_plat, which fits the brief's lift down to a valve room. But no valve wheel is marked or visible, and the windows onto the hall are not clear: the wall between the two areas carries only func_breakable marks, and no window appears in the views. The valve room's arrangement can't be confirmed."
+   "reason": "A control room with a lift (func_plat, entity 5) and a second, dark room to the right (\"2 -160\") are on the plan, but the valve room the brief puts below the lift is not there as a separate area. The lift leads to nothing shown, and no hall-facing consoles or windows are placed in the control room; the only window-like strips are four func_breakable on the right room's west edge."
   },
   "P2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The brief gives no size for this map and no walkable-floor overlap was measured, so the sizes can't be checked against the brief. The plan's areas look plausible in proportion, but that is not evidence of a 2."
+   "reason": "The brief gives no size for this map, so there is no target to measure against. The plan shows a left room of roughly 970 by 520 units and a right room of roughly 650 units, which cannot be checked against a valve room that is not drawn. The size is not wrong, but it cannot be confirmed."
   },
   "P3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Floor heights of 0 (control), -160 (hall) and -192 (valve room) fit a control room above the hall with a lift down. The views show no stairs, ledges or windowsills at the hall edge, and the lift's shaft and its top and bottom stops are not visible, so the levels are only partly confirmed."
+   "reason": "The plan labels two floor heights, 0 for the main room and -192 for the lift shaft and -160 for the right room. There is no section and no stairs or ramps, so the lift's drop to a valve room cannot be checked. The views show one flat floor and no storey above the hall."
   },
   "P4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The brief names a start, two crawlers and a lift. The plan has one info_player_start, two monster_headcrab (17, 18, matching the measured 2 of 2), and one func_plat as the lift. The measurement reports no unreached items. The wrench is not asked for on this map, and no doors are named."
+   "score": 1,
+   "reason": "Two monster_headcrab (17, 18) match the two crawlers, the info_player_start (15) is in the left room, and the func_plat (5) stands in the lift position. The valve wheel, the item the mod ends on, is absent, and the lift's destination is missing. The trigger_endsection (6) is in the left room, not at a valve wheel."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The walls are a pale grid of tiles and the floor is a speckled concrete, which reads as concrete. No yellow hazard paint, rust or water-green tone appears in the views. The brief's wet concrete, hazard trim and rusted plate are not evident."
+   "reason": "The walls and floor in the views are a mottled grey concrete with tile seams, which reads as the brief's concrete. The red brush blocks visible at the yaw 90 and yaw 180 views are a flat red, not the hazard stripe or rusted steel. The consoles and the window frames carry no texture the brief asks for."
   },
   "P6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The plan has 15 light entities, and lamps hang from the ceiling in the views. But the room is evenly lit pale grey-white, with no sodium-orange glow and no dark corners, so the brief's sodium lamps buzzing in a worn dim room are not shown."
+   "reason": "The plan has 15 light entities (19 to 33), spread through both rooms, and the views show a uniform, even grey light. No sodium-orange light and no bright and dark areas that the control room should have appear in the views."
   },
   "P7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "A row of grey consoles under bright windows shows at yaw 0 and yaw 90, and the hanging cord lamps are visible. The valve wheel, the caged wall lamp, the pipe junction and the drums are not seen, and the room is mostly bare walls and floor."
+   "reason": "The lift (func_plat) and the window-like func_breakable strips are present. The consoles under windows, the hazard trim, the valve wheel and the windows onto the hall do not show in the views. The red boxes in the views read as placeholders."
   },
   "P8": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measurements are clean: no check errors, no unreached items, no reach warnings, and the one start reaches both crawlers. The map is the last one and has no changelevel, which is correct for an ending map. The landmark measure shows null, so the arrival from the pump hall is not verified here."
+   "score": 1,
+   "reason": "The measurements report no check errors, no unreached items and no leak warnings, so the map compiles and the two headcrabs are reached. There are no level changes, so the mod has no way out to the valve wheel: no changelevel and no wheel are present. The map does not reach its end, as the brief requires."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The views show a large, sparse, evenly lit tiled room with few props. A player would see a plausible control room, but it reads as a generic bare room rather than a Half-Life map of a worn pumping station. The brief's industrial atmosphere (rust, hazard paint, sodium glow) is missing."
+   "reason": "From inside, the views show a grey concrete room with lamp fixtures and red placeholder blocks. No consoles, no windows looking onto a hall and no valve wheel are visible, so a player who knows the brief would not recognise a control room above a flooded pump hall."
   }
  },
- "total": 11,
+ "total": 9,
  "of": 18,
  "passes": false
 }

@@ -10,13 +10,18 @@
   "sizeAsked": null,
   "sizeOff": null,
   "triangles": 624,
+  "halfLifeMedianOfItsKind": 308,
+  "halfLifeThreeQuartersUnder": 340,
+  "halfLifeMost": 655,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl: the judge does not know which",
+  "lineup": "the asset is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/leech.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, B, D, D where the asset was B, B, B, D: passed for one of the game's",
   "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
+  "M6": 2,
   "C2": 2
  },
  "scores": {
@@ -24,64 +29,64 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Against the brief's words (low, wet, six-legged, headcrab-sized): the body is a squat, domed blob that sits low, with six legs reaching out from it in every side view. The outline reads as the brief describes in front, back, side, top and below. No outline overlap was measured, so this rests on the pictures alone."
+   "reason": "Against the brief's words (low, wet, six-legged, round body, legs splayed), the outline reads right in every view. The body is a low dome of about half its length in side view (left and right), it sits on six legs, and the top view has a rounded, slightly tapered outline. No part sticks out or is missing in any view."
   },
   "M2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no number, only 'the size of a headcrab', and the harness gave sizeAsked null and sizeOff null, so nothing was measured against a figure. The 30.2 x 23.9 x 20.6 units are plausible for a headcrab-sized thing, but I cannot confirm them within 15% of the headcrab's own size from what I was given."
+   "score": 2,
+   "reason": "The brief gives no number, only 'the size of a headcrab', so there is nothing to measure within 15%. The measured 30.2 x 23.9 x 20.6 is in the range of a headcrab's body, and in the line-up it is no larger than a headcrab-sized thing should be."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The parts are there. Six legs are visible in the below and side views: four at the corners and two long ones at top and bottom. A ring of dark teeth sits on the front in the front and top views. A pale belly band shows in the back and below views. Each leg ends in a dark claw tip."
+   "reason": "Parts the brief asks for, and the small ones: (1) six legs: the below view shows two legs straight out of the top, two out of the sides and two with dark tips at the lower corners, six in all; (2) a ring of teeth: the front view shows an arc of about seven dark teeth round the face, and the top view a row of six at the front underside; the side views show the same spikes at the head; (3) a pale belly: the back and below views show the pale underside band. All are there, in place, and the teeth read at game size. The dark tips at the leg ends stand in for claws, painted, and read clearly."
   },
   "M4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The body is a fairly saturated mint green, closer to green than to the grey-green the brief asks for. The pale belly and the legs are a light grey-white, which fits. The wet look the brief implies is not in the colour. This is a judgement from the pictures; no colour difference was measured."
+   "score": 2,
+   "reason": "The body is a grey-green with lighter and darker facets, close to what the brief asks. The belly and undersides are pale grey, as asked, and the legs are pale with dark tips. Colours are consistent across the views. The green is a little brighter than grey-green, which is not enough to fail it."
   },
   "M5": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Not a must. The surface is flat-faceted low-poly shading with no skin texture, no wet sheen and no wear. The teeth and claw tips are the only added markings. The pale belly is there but is a flat band with little detail."
+   "score": 2,
+   "reason": "The brief asks for no markings. The faceted shading and the dark patches on the body read as the surface, and the teeth are placed correctly. Nothing wrong is added. The brief's 'wet' has no gloss or sheen, which is a small loss in the paint, not a fault in the shape."
   },
   "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up, the candidate at C is clearly a green, faceted, tube-legged creature, and the others are a leech, a roach and a chumtoad, which are not of its kind. As a Half-Life creature beside them it looks plausible, but its flat shading and bare tube legs read as less finished than the game's own textured creatures, such as the pink-eyed one at D. A player would probably notice it is not the game's own."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Set by the line-up test, not by this judgement. Judges picked the asset as the one not made by Valve in two of four readings (B picked when it was at B, D when it was at D). That is below the three catches that would cap it at 1, so it stands at 2."
   },
   "M7": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The pictures do not show a clear front. The teeth ring faces down and forward in the top view, and dark spikes sit on the body's upper rear in the side and back views. The body rests on its legs at the floor line in the walk frames, so it stands on its origin, but the face direction is not clear across the views."
+   "score": 2,
+   "reason": "The front is the face with the teeth arc and it faces the front in the top view. The body stands upright on its six legs, and in the left and right views the legs meet the floor line, so it stands on its origin with its belly well off the ground."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The SMAK check reports no errors (checkErrors empty). It has 624 triangles. The triangle median for Half-Life's own creatures of this size was not supplied, so the 'twice the median' half is taken as the harness reported it. The views show no open or floating parts."
+   "reason": "SMAK's check reports no errors (checkErrors is empty). The triangles are 624, under the most Valve spends on a model of its kind and size (655), so the amended fail line is not crossed. This is above the twice-median warning (616) and the third-quartile warning (340), noted for the record. In the views, no part is open, inside out or floating. The legs seem to join the body at each side."
   },
   "C1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The run.png frames are labelled WALK (0 to 34 of 34) and attack.png frames are labelled JUMP (0 to 30 of 30), not a run and an attack. In the walk frames the body and legs stay together and move as one. In the jump frames at 4/30 and 9/30 the upper pale legs look separated from the body's outline with a gap, which reads as coming apart. I could not confirm this closely from the picture at this scale, so the score is 1 and needs a closer look."
+   "score": 2,
+   "reason": "Walk (34 frames) and leap (30 frames), drawn frame by frame from the side with the floor a line. The legs stay on the body through the cycle. The body rocks and the legs swing, but nothing comes apart, sinks or floats. The leap turns the body through about 90 degrees with the legs still attached."
   },
   "C2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The harness's contract measure reports that the model keeps the headcrab's bones, animations, attachments and bodyparts. Nothing in the measurements shows a fault."
+   "reason": "The measures record that the model keeps the headcrab's bones, animations, attachments and bodyparts. The contract is met, so the game's headcrab plays it. The compareContract result itself was not in the measures I was given, and I am taking the contract statement as the measure."
   }
  },
- "total": 14,
+ "total": 20,
  "of": 20,
- "passes": false
+ "passes": true
 }

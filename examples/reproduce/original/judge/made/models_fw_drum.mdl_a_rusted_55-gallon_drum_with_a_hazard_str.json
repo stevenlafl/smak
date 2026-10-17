@@ -13,63 +13,66 @@
   },
   "sizeOff": 0.029,
   "triangles": 96,
-  "halfLifeMedianOfThisSize": 62,
+  "halfLifeMedianOfItsKind": 99,
   "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
   "checkErrors": [],
-  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/big_rock.mdl: the judge does not know which"
+  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_longjump.mdl, models/rip.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, C, B, D where the asset was D, A, C, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2
+  "M8": 2,
+  "M6": 2
  },
  "scores": {
   "M1": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The outline is a straight-sided cylinder with a slight taper at the rims, matching the brief's 55-gallon drum in every view from the six sides and four close angles. Nothing sticks out or is missing."
+   "reason": "Outline matches the brief's drum: an upright cylinder about 1.55 times as tall as it is wide, flat top and bottom, with the rim bands visible in every side view. Nothing sticks out or is missing in any of the ten views."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 22.6 x 22.6 x 35 units against the brief's 23 across and 34 high: about 3% off on height and under 2% on width, well inside the 15% band. The measured sizeOff is 0.029."
+   "reason": "Measured 22.6 x 22.6 x 35 against the brief's 23 across and 34 high: 1.7% off across and 2.9% off high, well inside 15%."
   },
   "M3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The parts a drum of this kind carries are all present: a top rim and a bottom rim, two rust bands at the rims, and the hazard stripe at the middle. The top and bottom are closed discs, as a drum is."
+   "score": 1,
+   "reason": "The brief's parts are present: the drum body, the rust bands at the top and bottom rims, and the hazard stripe. The top view shows a flat lid with no bung openings, and a real 55-gallon drum has two. The rims are a bevel with no raised chime beads. Those small parts are missing, which caps M3 at 1. The top and bottom disks read as roughly 14 sides, and the brief gives no side count to check that against."
   },
   "M4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief asks for a rusted drum. The body is a clean blue-grey paint, and the rust shows only as thin brown bands at the rims. The body reads as painted metal, not rusted steel. The stripe's yellow and black are right, and the rust bands are the right colour where they appear."
+   "reason": "The rust is correct in its places, on the top and bottom rim bands, and the stripe is yellow and black. But the body is a clean, even blue-grey paint with only faint mottling, so the drum reads as a blue painted drum with rusty rims rather than the 'rusted' drum the brief asks for. The rust needs to cover more of the body."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The hazard stripe is sharp and the rim rust is speckled, but the stripe shows a vertical seam where it wraps, clearly visible on the front and front-left views. Between the bands the blue body is nearly plain, with little of the wear the brief's rusted drum calls for."
+   "reason": "The hazard stripe is sharp and well placed, and the rust is speckled. A vertical texture seam runs through the stripe at the centre of the front view and at the front-left and front-right views, where the stripe does not line up. The body paint is soft and smeared, so the detail is weaker than the stripe and rust suggest."
   },
   "M6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "In the line-up (B) the drum is clearly a drum in a flat, clean style with a blue body and a stripe. A player would probably not take it for one of Half-Life's props: the body is too clean for a rusted drum, and the stripe's seam shows. Note the judge cannot pick the right original from this line-up, since the other three are not drums."
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped by the line-up test, which the asset passed: judges picked C, C, B and D where the asset was D, A, C and C, so it was never caught as the one not made by Valve. In the line-up it reads as a game prop beside the three of Half-Life's own."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The drum stands upright, with its axis vertical and its base on the floor. A drum has no true front, so the front the brief leaves open is just the stripe and its seam facing the viewer, which is acceptable."
+   "reason": "A drum has no front. It stands upright on its bottom disk, and its origin sits at the base, as a drum's does. Its rotation about the vertical axis matches the brief."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's checks report no errors. The model has 96 triangles, well under twice the Half-Life median of 62 (124) and under the third quartile of 156, so it passes the triangle limit. Nothing is open or floating."
+   "reason": "SMAK's check reports no errors. Triangles: 96, under the 198 allowed (twice Half-Life's median of 99, which is more than the 156 three-quarters line). Both the top and bottom disks are closed in every view, and nothing floats or looks inside out."
   }
  },
  "total": 13,
