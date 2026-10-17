@@ -14,7 +14,7 @@
 // (generators/worker.py) keeps one model in memory; asking for another stops it first, since the card holds one.
 import { spawn } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join, relative, resolve } from "node:path";
+import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { readWav, resample } from "../src/audio/wav.mjs";
 import { features } from "../src/audio/measure.mjs";
@@ -30,7 +30,7 @@ import { text, image } from "./protocol.mjs";
 import { pathOf } from "./folders.mjs";
 
 const WORKER = join(dirname(fileURLToPath(import.meta.url)), "..", "generators", "worker.py");
-const KINDS = ["sound", "music", "shape", "picture"];
+const KINDS = ["sound", "music", "shape", "picture", "segment"];
 /**
  * What a picture model is told beside the prompt when it draws a character for a shape: whole, facing the viewer,
  * its limbs clear of its body and its hands empty (a hand fused to a thigh tears in every motion), on white.
@@ -50,7 +50,7 @@ export function openGenerators(folder) {
   const { models } = JSON.parse(readFileSync(file, "utf8"));
   if (!Array.isArray(models) || !models.length) throw new Error(`${file}: "models": [{ name, kind, python, licence }]`);
   for (const m of models) {
-    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music | shape | picture, python }, not ${JSON.stringify(m)}`);
+    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music | shape | picture | segment, python }, not ${JSON.stringify(m)}`);
     m.root = resolve(folder, m.root ?? ".");
     if (!existsSync(resolve(m.root, m.python))) throw new Error(`${file}: ${m.name}'s python ${m.python} is not there in ${m.root} (generators/install.sh)`);
   }
@@ -189,6 +189,7 @@ export async function generate(folders, args) {
   }
   const model = models[0];
   if (model.kind === "shape") return generateShapes(folders, generators, model, args);
+  if (model.kind === "segment") return generateCut(folders, generators, model, args);
   if (typeof prompt !== "string" || !prompt.trim()) throw new Error("prompt: what to make, in words (\"a wrench hitting a steel pipe, one sharp clang\")");
   if (!(typeof length === "number" && length > 0 && length <= 600)) throw new Error("length: seconds, over 0 and at most 600");
   const seeds = seedsOf(args);
@@ -240,6 +241,40 @@ export async function generate(folders, args) {
   return answer;
 }
 
+/** A subject cut out of a picture by the segment model: { box, score, detector, boxes, mask, cut, white, covered }. */
+async function cutOut(folders, generators, { picture, subject, point, every, detector = "vote", name }) {
+  const model = generators.models.find((m) => m.kind === "segment");
+  if (!model) throw new Error("subject: no segment model in generators.json (generators/install-segment.sh)");
+  const from = pathOf(folders, picture);
+  const stem = (name ?? `${basename(from).replace(/\.[a-z]+$/i, "")}_${(subject ?? "point").split(/\s+/).slice(-3).join("_")}`).toLowerCase().replace(/^work:/, "").replace(/[^a-z0-9_/-]+/g, "_");
+  const out = pathOf(folders, stem.includes("/") ? stem : `gen/${stem}`, { write: true });
+  const { worker } = await workerFor(generators, model);
+  const said = await ask(worker, { picture: from, subject, point, every, detector, out });
+  idleLater(worker);
+  if (!said.ok) throw new Error(`subject: ${said.error}`);
+  return said;
+}
+
+/**
+ * A subject cut out of a picture by name (open-vocabulary detectors held to the words by CLIP, then SAM 2), or from a
+ * point: its mask, its cut-out, and the subject alone on white, for a shape, a projection or a texture's photograph.
+ */
+async function generateCut(folders, generators, model, args) {
+  const { picture, subject, point } = args;
+  if (typeof picture !== "string") throw new Error("picture: the picture to cut a subject out of");
+  if (!(typeof subject === "string" && subject.trim()) && !Array.isArray(point)) throw new Error('subject: the thing to cut out, in words ("the chair"), or point: [x, y] on it');
+  const said = await cutOut(folders, generators, { picture, subject, point, every: args.every, name: args.name });
+  const rel = (p) => `work:${relative(folders.work, p)}`;
+  const lines = [
+    `${subject ? `"${subject}"` : `the point ${point.join(", ")}`} cut from ${picture} by ${said.detector}${said.box ? `: box ${said.box.join(", ")}, score ${said.score}` : ""}, ${round(said.covered * 100, 10)}% of the picture, in ${said.took} s (${model.name}; licences: OWLv2, Grounding DINO, SAM 2 Apache-2.0, CLIP MIT, YOLO-World AGPL-3.0)`,
+    ...(said.boxes?.length > 1 ? [`each detector's own: ${said.boxes.map((b) => `${b.detector} ${b.box.join(",")} (${b.score}${b.clip !== undefined ? `, CLIP ${b.clip}` : ""})`).join("; ")}`] : []),
+    `${rel(said.mask)} (the mask), ${rel(said.cut)} (the picture, its background clear), ${rel(said.white)} (the subject alone on white, cropped). Look at the cut: a detector can choose the wrong thing; name it more closely, or give point: [x, y] on it. The white one goes to a shape (generate { kind: "shape", picture }), to a model spec's project, or to a texture's picture.`,
+  ];
+  const shown = [unpicture(readFileSync(pathOf(folders, picture))), unpicture(readFileSync(said.white))].map((p) => fitted(p, 320));
+  const sheet = tile(shown, 2, ["the picture", "cut"]);
+  return [text(lines.join("\n")), image(png(sheet.width, sheet.height, sheet.rgba))];
+}
+
 /** The seeds asked for: a count from `from`, or a list. */
 function seedsOf(args, unless = 4) {
   const seeds = Array.isArray(args.seeds) ? args.seeds : Array.from({ length: args.seeds ?? unless }, (_, i) => i + (args.from ?? 0));
@@ -260,7 +295,12 @@ async function generateShapes(folders, generators, model, args) {
   // picture is all the paint a character gets: a maker that saw it only after the shape painted its guard flat)
   if (only !== undefined && (only !== "picture" || picture)) throw new Error('only: "picture": the pictures drawn from the prompt and no shape; then a shape of the one chosen, picture: "work:<it>"');
   const seeds = seedsOf(args, picture ? 1 : 2);
-  const given = picture ? pathOf(folders, picture) : null;
+  let given = picture ? pathOf(folders, picture) : null;
+  // a subject named in a cluttered picture (a photograph): cut out first, and the shape made of it alone on white
+  if (args.subject !== undefined) {
+    if (!given || typeof args.subject !== "string" || !args.subject.trim()) throw new Error('subject: the thing to cut out of the picture in words ("the chair"), with picture');
+    given = (await cutOut(folders, generators, { picture, subject: args.subject })).white;
+  }
   const words = prompt?.trim() || picture;
   const name = (args.name ?? words.replace(/\.[a-z]+$/i, "").split(/[\s/]+/).slice(-3).join("_")).toLowerCase().replace(/^work:/, "").replace(/\.obj$/, "").replace(/[^a-z0-9_/-]+/g, "_");
   const stem = name.includes("/") ? name : `gen/${name}`;

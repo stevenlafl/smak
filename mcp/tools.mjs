@@ -1219,7 +1219,9 @@ export function toolsFor(folders, { allowRun = true } = {}) {
         {
           prompt: { type: "string", description: "what to make, in the words the model learned from: a sound as a caption, 5 to 15 plain words about the sound alone (the source, the action, the material, the space: \"a heavy wrench hitting a steel pipe, one sharp metallic clang\"), events in order when several, no numbers or frequencies; music as its style, instruments and mood; a shape as the thing alone. The person's own words are sent as they are when they ask for that. When you write them your way instead, tell them the exact prompt you sent and what you changed, so they can ask for theirs" },
           length: { type: "number", description: "seconds (a sound model makes 5 at most; music 10 to 600); not for a shape" },
-          kind: { type: "string", enum: ["sound", "music", "shape"], description: "which kind's default model (sound unless told)" },
+          kind: { type: "string", enum: ["sound", "music", "shape", "segment"], description: "which kind's default model (sound unless told); segment: a subject cut out of a picture" },
+          subject: { type: "string", description: "segment, or a shape from a picture: the thing to cut out of a cluttered picture, in words (\"the chair\")" },
+          point: { type: "array", items: { type: "number" }, description: "segment: [x, y] on the thing, in place of words" },
           picture: { type: "string", description: "a shape: a picture of the thing in the folders (one object, whole, plain background), in place of one drawn from the prompt" },
           base: { type: "string", description: "a character: its base model, whose stance it is drawn in" },
           only: { type: "string", enum: ["picture"], description: "a shape's pictures alone, to check first" },

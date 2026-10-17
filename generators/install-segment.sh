@@ -6,7 +6,7 @@
 #   bash generators/install-segment.sh <the local-3d folder>      (/media/Data3/Packages/local-3d here)
 #
 # Idempotent: a venv or a model already there is kept. Caches stay in the folder (never ~/.cache). Undo: delete
-# venvs/segment-rocm (about 16 GB, most of it the ROCm torch wheel) and the three models under weights/hf/hub (google--owlv2-base-patch16-ensemble,
+# venvs/segment-rocm (15.4 GB as du reads it alone, but the ROCm torch wheel is hardlinked from the uv cache: about 0.46 GB more on disk) and the three models under weights/hf/hub (google--owlv2-base-patch16-ensemble,
 # IDEA-Research--grounding-dino-base, facebook--sam2.1-hiera-small) and weights/yolo.
 set -euo pipefail
 cd "${1:?the local-3d folder}"
