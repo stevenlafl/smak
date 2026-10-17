@@ -1,0 +1,82 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 4.4,
+   "peak": -1.5,
+   "rms": -26.8,
+   "crest": 25.3,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0,
+   "peakAt": 0,
+   "t20": 4.4,
+   "t40": 4.4,
+   "centroid": 305,
+   "rolloff": 495,
+   "flatness": 0.035,
+   "bands": {
+    "<150": 51.6,
+    "150-600": 39.9,
+    "600-2k": 6.8,
+    "2k-5k": 1.6,
+    ">5k": 0
+   },
+   "onsets": 7
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 11,
+   "of": 20,
+   "lines": [
+    "length 4.4 s (2.03 to 3.39): too long",
+    "crest 25.3 dB (8.3 to 14.3): too spiky: saturate more, or hold its body longer",
+    "rms -26.8 dBFS (-14.7 to -8.7): under the range",
+    "band <150 51.6% (0 to 13.9): over the range",
+    "band 150-600 39.9% (84.2 to 100): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture reads as a steady machine drone: a continuous, even waveform band with no hits, and a spectrogram of one sustained low-frequency mass with noise above it, which is what a pump's droning loop should look like. The judge cannot listen, so this rests on the picture alone, and the 7 onsets in the measures are not visible on the waveform."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The length is 4.4 s, above the class's range of 2.03 to 3.39 s (the measure fails it as too long), so S2 cannot reach 2. The attack and decay are flat across the whole length (t20 and t40 both 4.4 s), so the envelope is a sustained drone with no sign of a bad decay. The fault is the length, not the envelope. The judge cannot listen."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The spectrum sits far too low for the class: 51.6% of the energy is under 150 Hz against a class range of 0 to 13.9%, and 39.9% is at 150 to 600 Hz against 84.2 to 100%. The centroid of 305 Hz is low, and the picture's bright yellow mass at the bottom of the spectrogram shows the same thing. The fault is far beyond the 10-point band tolerance, so S3 is clearly off rather than wrong in kind. The judge cannot listen, so the tone is judged from the spectrogram only."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The flatness of 0.035 is tonal, below the game's own range of 0.05 to 0.28, and the spectrogram's mid band is noisy with a few vertical striations, so the character is partly right. The picture shows no pitch glide, which fits a drone. The 7 onsets are not visible on the waveform, so they cannot be confirmed. The judge cannot listen, so this is scored from the measures and the picture only."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Clipping is 0, DC is 0 and the peak is -1.5 dBFS, all fine. But the measures do not give the sample rate, bit depth or channel count, so mono PCM at an engine rate cannot be confirmed. The loop cue is not shown on the waveform, so whether the seam joins cleanly is unverified. The judge cannot listen, and the file's format is read from the measures only."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,115 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_drum.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 36,
+    "width": 23
+  },
+  "materials": {
+    "drum": {
+      "base": "metal",
+      "picture": "library:rusty_metal_02",
+      "size": 39,
+      "tone": [
+        0.28,
+        0.34,
+        0.4
+      ],
+      "rust": 0.55
+    },
+    "stripe": {
+      "base": "hazard",
+      "tone": [
+        0.8,
+        0.62,
+        0.1
+      ]
+    },
+    "iron": {
+      "base": "iron",
+      "rust": 0.6
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "turn",
+      "material": "drum",
+      "sides": 16,
+      "rings": [
+        [
+          0,
+          10.4
+        ],
+        [
+          1.6,
+          11.4
+        ],
+        [
+          34.4,
+          11.4
+        ],
+        [
+          36,
+          10.4
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.5,
+              0
+            ],
+            [
+              0.5,
+              360
+            ]
+          ],
+          "width": 6.5,
+          "material": "stripe",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "hoop_low",
+      "kind": "band",
+      "material": "iron",
+      "on": {
+        "part": "body",
+        "s": 0.1
+      },
+      "width": 2,
+      "height": 0.6
+    },
+    {
+      "id": "hoop_high",
+      "kind": "band",
+      "material": "iron",
+      "on": {
+        "part": "body",
+        "s": 0.9
+      },
+      "width": 2,
+      "height": 0.6
+    },
+    {
+      "id": "bung",
+      "kind": "boss",
+      "material": "iron",
+      "on": {
+        "part": "body",
+        "s": 0.72,
+        "angle": 0
+      },
+      "radius": 1.6,
+      "height": 1
+    }
+  ]
+}

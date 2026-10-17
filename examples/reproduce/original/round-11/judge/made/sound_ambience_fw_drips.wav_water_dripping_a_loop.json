@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 4.6,
+   "peak": -1.5,
+   "rms": -27.7,
+   "crest": 26.2,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.035,
+   "peakAt": 3.901,
+   "t20": 0.668,
+   "t40": 0.703,
+   "centroid": 1276,
+   "rolloff": 1615,
+   "flatness": 0.241,
+   "bands": {
+    "<150": 4.9,
+    "150-600": 20.7,
+    "600-2k": 64,
+    "2k-5k": 5.6,
+    ">5k": 4.8
+   },
+   "onsets": 8
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 17,
+   "of": 20,
+   "lines": [
+    "length 4.6 s (5.48 to 9.14): too short",
+    "centroid 1276 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "flatness 0.241 (0.05 to 0.15): too noisy: more tone (modes)"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture reads as water dripping: eight sharp transients (about 0.07, 0.8, 1.1, 1.6, 2.6, 3.2, 3.9 and 4.5 s by the waveform's x-positions) each drop a vertical streak through the spectrogram, with a noise bed between them. The event is the one the brief asks for. The bed is more hiss than the brief's drips would suggest, but that is measured under S4, not here."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 4.6 s is below the class range of 5.48 to 9.14 s (measured: too short), so the envelope is clearly off. The attack of 0.035 s is a fast drip transient and the decay (t20 0.668 s) is not flagged, so the fault is the length alone."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid 1276 Hz is above the class range of 671 to 1007 Hz (measured: too bright, less over 2000 Hz). Over 2 kHz holds 10.4% (2k-5k 5.6%, above 5k 4.8%), and the spectrogram's brightest energy sits in the lower and middle bands, so the fault is a spectrum tilted too high, not a missing band."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The onsets are right: eight transients, irregular in spacing as drips are. The character is off: flatness 0.241 against the class range of 0.05 to 0.15 (measured: too noisy, more tone wanted). The continuous noise bed across the whole 4.6 s, visible in the waveform and as an unbroken texture in the spectrogram, is what makes it noisy."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine checks report no faults: no clipping (peak -1.5 dBFS, clipped 0), no DC offset (0), and no silence at either end (lead 0, tail 0), so the loop has no gap at its seam. The name sound/ambience/fw_drips.wav is shown in the picture's caption. The sample rate and bit depth are not in the pictures or measures, so the format is taken on the engine check alone."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

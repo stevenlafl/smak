@@ -1,0 +1,78 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.243,
+   "peak": -0.5,
+   "rms": -14.9,
+   "crest": 14.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.065,
+   "peakAt": 0.07,
+   "t20": 0.05,
+   "t40": 0.1,
+   "centroid": 825,
+   "rolloff": 1400,
+   "flatness": 0.231,
+   "bands": {
+    "<150": 1.1,
+    "150-600": 65.1,
+    "600-2k": 25.2,
+    "2k-5k": 7.2,
+    ">5k": 1.5
+   },
+   "onsets": 1
+  },
+  "class": "swing",
+  "against": {
+   "score": 21,
+   "of": 22,
+   "lines": [
+    "rms -14.9 dBFS (-25.8 to -19.8): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a noisy gust with its envelope building to a peak at 0.07 s (peakAt) and fading out by about 0.24 s, with no sharp transient spike. That is the shape of a swing through air, not a strike on metal. Nothing in the picture contradicts the event."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 0.243 s, attack 0.065 s, t20 0.05 s and t40 0.1 s look plausible for a swing, and the harness's own check flags no envelope-time line. The one out-of-range line is level: rms -14.9 dBFS against the class range of -25.8 to -19.8, about 5 dB hot, with peak -0.5 dBFS. Loudness over time is part of the envelope, so this is scored down. The class's own attack and decay ranges were not given to me, so those are taken as passing on the harness's 21 of 22."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 825 Hz, rolloff 1400 Hz, and band shares of 1.1 (<150), 65.1 (150-600), 25.2 (600-2k), 7.2 (2-5k) and 1.5 (>5k) match the spectrogram. Its bright yellow sits in the 150-600 Hz zone, fading upward. The harness's check raises no spectrum line."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One onset (onsets 1), so no hit or click where a swing has none. Flatness 0.231 sits in the noisy part of the game's range (0.05 to 0.28) and matches a broadband gust. The spectrogram shows no clear pitch sweep. Tone and feel by ear are not judged: the judge cannot listen."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping (clipped 0), no DC offset (dc 0), peak -0.5 dBFS, engineFaults empty, and the name sound/weapons/cbar_miss1.wav is the game's. Sample rate, channel count and bit depth are not in the measurements, so the format is passed on the engine check alone."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

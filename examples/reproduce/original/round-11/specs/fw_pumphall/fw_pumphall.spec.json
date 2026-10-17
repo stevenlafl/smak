@@ -1,0 +1,1095 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_pumphall",
+  "size": 2500,
+  "wads": [
+    "fw.wad"
+  ],
+  "textures": {
+    "concrete": {
+      "texture": "fw_concrete"
+    },
+    "wetfloor": {
+      "texture": "fw_wetfloor"
+    },
+    "catwalk": {
+      "texture": "fw_catwalk"
+    },
+    "pipes": {
+      "texture": "fw_pipes"
+    },
+    "rustplate": {
+      "texture": "fw_rustplate"
+    },
+    "door": {
+      "texture": "fw_door"
+    },
+    "water": {
+      "texture": "!fw_water"
+    },
+    "hazard": {
+      "texture": "fw_hazard"
+    },
+    "grate": {
+      "texture": "{fw_grate"
+    }
+  },
+  "theme": {
+    "floor": "wetfloor",
+    "wall": "concrete",
+    "ceiling": "concrete",
+    "door": "door",
+    "furniture": "rustplate"
+  },
+  "rooms": [
+    {
+      "id": "entry",
+      "size": [
+        240,
+        560,
+        240
+      ]
+    },
+    {
+      "id": "hall",
+      "size": [
+        2000,
+        640,
+        300
+      ],
+      "place": {
+        "east_of": "entry"
+      },
+      "surfaces": {
+        "floor": "wetfloor",
+        "walls": "pipes",
+        "ceiling": "concrete"
+      },
+      "water": {
+        "depth": 56,
+        "material": "water"
+      },
+      "light": {
+        "count": 8,
+        "brightness": 220,
+        "color": [
+          255,
+          170,
+          90
+        ]
+      }
+    },
+    {
+      "id": "corridor",
+      "size": [
+        240,
+        320,
+        200
+      ],
+      "place": {
+        "east_of": "hall"
+      },
+      "floor": 160
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "entry",
+        "hall"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128
+    },
+    {
+      "between": [
+        "hall",
+        "corridor"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 120
+    }
+  ],
+  "prefabs": {
+    "catwalk_n": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -760,
+              -60,
+              150
+            ],
+            [
+              700,
+              36,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -760,
+              -60,
+              166
+            ],
+            [
+              700,
+              -50,
+              190
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -748,
+              -50,
+              0
+            ],
+            [
+              -724,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -448,
+              -50,
+              0
+            ],
+            [
+              -424,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -148,
+              -50,
+              0
+            ],
+            [
+              -124,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              152,
+              -50,
+              0
+            ],
+            [
+              176,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              452,
+              -50,
+              0
+            ],
+            [
+              476,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              652,
+              -50,
+              0
+            ],
+            [
+              676,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    },
+    "catwalk_s": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -760,
+              -36,
+              150
+            ],
+            [
+              700,
+              60,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -760,
+              50,
+              166
+            ],
+            [
+              700,
+              60,
+              190
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -748,
+              -50,
+              0
+            ],
+            [
+              -724,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -448,
+              -50,
+              0
+            ],
+            [
+              -424,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -148,
+              -50,
+              0
+            ],
+            [
+              -124,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              152,
+              -50,
+              0
+            ],
+            [
+              176,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              452,
+              -50,
+              0
+            ],
+            [
+              476,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              652,
+              -50,
+              0
+            ],
+            [
+              676,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    },
+    "stair": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              -30,
+              0
+            ],
+            [
+              24,
+              30,
+              16.6
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              24,
+              -30,
+              0
+            ],
+            [
+              48,
+              30,
+              33.2
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              48,
+              -30,
+              0
+            ],
+            [
+              72,
+              30,
+              49.8
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              72,
+              -30,
+              0
+            ],
+            [
+              96,
+              30,
+              66.4
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              96,
+              -30,
+              0
+            ],
+            [
+              120,
+              30,
+              83
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              120,
+              -30,
+              0
+            ],
+            [
+              144,
+              30,
+              99.6
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              144,
+              -30,
+              0
+            ],
+            [
+              168,
+              30,
+              116.2
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              168,
+              -30,
+              0
+            ],
+            [
+              192,
+              30,
+              132.8
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              192,
+              -30,
+              0
+            ],
+            [
+              216,
+              30,
+              149.4
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              216,
+              -30,
+              0
+            ],
+            [
+              240,
+              30,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        }
+      ]
+    },
+    "ladder_n": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -20,
+              0,
+              0
+            ],
+            [
+              20,
+              24,
+              170
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ],
+      "entity": {
+        "class": "func_ladder"
+      }
+    },
+    "ladder_s": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -20,
+              -24,
+              0
+            ],
+            [
+              20,
+              0,
+              170
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ],
+      "entity": {
+        "class": "func_ladder"
+      }
+    },
+    "rungs_n": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -12,
+              22,
+              0
+            ],
+            [
+              12,
+              24,
+              170
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    },
+    "rungs_s": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -12,
+              -24,
+              0
+            ],
+            [
+              12,
+              -22,
+              170
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    },
+    "bridge": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -40,
+              -200,
+              150
+            ],
+            [
+              40,
+              200,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -36,
+              -200,
+              166
+            ],
+            [
+              -30,
+              200,
+              186
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              30,
+              -200,
+              166
+            ],
+            [
+              36,
+              200,
+              186
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -20,
+              -150,
+              0
+            ],
+            [
+              20,
+              -110,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -20,
+              110,
+              0
+            ],
+            [
+              20,
+              150,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    },
+    "pump": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -90,
+              -90,
+              0
+            ],
+            [
+              90,
+              90,
+              50
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 60,
+            "from": 50,
+            "to": 170,
+            "sides": 12
+          },
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -50,
+              -40,
+              170
+            ],
+            [
+              50,
+              40,
+              200
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    },
+    "exit": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              -60,
+              0
+            ],
+            [
+              40,
+              60,
+              120
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ],
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_control",
+        "landmark": "lm_hall_control"
+      }
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "catwalk_n",
+      "room": "hall",
+      "at": [
+        0,
+        260
+      ]
+    },
+    {
+      "prefab": "catwalk_s",
+      "room": "hall",
+      "at": [
+        0,
+        -260
+      ]
+    },
+    {
+      "prefab": "stair",
+      "room": "hall",
+      "at": [
+        -1000,
+        250
+      ]
+    },
+    {
+      "prefab": "stair",
+      "room": "hall",
+      "at": [
+        -1000,
+        -250
+      ]
+    },
+    {
+      "prefab": "ladder_n",
+      "room": "hall",
+      "at": [
+        -544,
+        296
+      ]
+    },
+    {
+      "prefab": "rungs_n",
+      "room": "hall",
+      "at": [
+        -544,
+        296
+      ]
+    },
+    {
+      "prefab": "ladder_s",
+      "room": "hall",
+      "at": [
+        -544,
+        -296
+      ]
+    },
+    {
+      "prefab": "rungs_s",
+      "room": "hall",
+      "at": [
+        -544,
+        -296
+      ]
+    },
+    {
+      "prefab": "bridge",
+      "room": "hall",
+      "at": [
+        650,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        -700,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        -250,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        300,
+        0
+      ]
+    },
+    {
+      "prefab": "exit",
+      "room": "corridor",
+      "at": "against east"
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        -600,
+        280
+      ],
+      "z": 220,
+      "facing": "south"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        300,
+        280
+      ],
+      "z": 220,
+      "facing": "south"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        -600,
+        -280
+      ],
+      "z": 220,
+      "facing": "north"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "hall",
+      "at": [
+        300,
+        -280
+      ],
+      "z": 220,
+      "facing": "north"
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "entry",
+      "at": [
+        -60,
+        0
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "info_landmark",
+      "id": "lm_yard_hall",
+      "room": "entry",
+      "at": [
+        -60,
+        0
+      ]
+    },
+    {
+      "class": "info_landmark",
+      "id": "lm_hall_control",
+      "room": "corridor",
+      "at": [
+        -60,
+        0
+      ]
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -500,
+        240
+      ],
+      "z": 170
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        -500,
+        -120
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        120,
+        140
+      ]
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        700,
+        -160
+      ]
+    },
+    {
+      "class": "ambient_generic",
+      "room": "hall",
+      "at": [
+        -250,
+        0
+      ],
+      "z": 60,
+      "message": "ambience/fw_pump.wav",
+      "health": 6
+    },
+    {
+      "class": "ambient_generic",
+      "room": "entry",
+      "at": [
+        -60,
+        120
+      ],
+      "z": 60,
+      "message": "ambience/fw_drips.wav",
+      "health": 5
+    },
+    {
+      "class": "env_sprite",
+      "room": "hall",
+      "at": [
+        -700,
+        0
+      ],
+      "z": 205,
+      "keys": {
+        "model": "sprites/fw_steam.spr",
+        "scale": "1.5",
+        "framerate": "10",
+        "rendermode": 5,
+        "renderamt": 160,
+        "spawnflags": 1
+      }
+    },
+    {
+      "class": "env_sprite",
+      "room": "hall",
+      "at": [
+        -250,
+        0
+      ],
+      "z": 205,
+      "keys": {
+        "model": "sprites/fw_steam.spr",
+        "scale": "1.5",
+        "framerate": "10",
+        "rendermode": 5,
+        "renderamt": 160,
+        "spawnflags": 1
+      }
+    },
+    {
+      "class": "env_sprite",
+      "room": "hall",
+      "at": [
+        300,
+        0
+      ],
+      "z": 205,
+      "keys": {
+        "model": "sprites/fw_steam.spr",
+        "scale": "1.5",
+        "framerate": "10",
+        "rendermode": 5,
+        "renderamt": 160,
+        "spawnflags": 1
+      }
+    },
+    {
+      "class": "env_sprite",
+      "room": "hall",
+      "at": [
+        -600,
+        310
+      ],
+      "z": 231,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "scale": "0.6",
+        "rendermode": 5,
+        "renderamt": 255,
+        "spawnflags": 1
+      }
+    },
+    {
+      "class": "env_sprite",
+      "room": "hall",
+      "at": [
+        300,
+        310
+      ],
+      "z": 231,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "scale": "0.6",
+        "rendermode": 5,
+        "renderamt": 255,
+        "spawnflags": 1
+      }
+    },
+    {
+      "class": "env_sprite",
+      "room": "hall",
+      "at": [
+        -600,
+        -310
+      ],
+      "z": 231,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "scale": "0.6",
+        "rendermode": 5,
+        "renderamt": 255,
+        "spawnflags": 1
+      }
+    },
+    {
+      "class": "env_sprite",
+      "room": "hall",
+      "at": [
+        300,
+        -310
+      ],
+      "z": 231,
+      "keys": {
+        "model": "sprites/fw_glow.spr",
+        "scale": "0.6",
+        "rendermode": 5,
+        "renderamt": 255,
+        "spawnflags": 1
+      }
+    }
+  ]
+}

@@ -3,29 +3,29 @@
  "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
  "measured": {
   "features": {
-   "length": 0.708,
-   "peak": -0.5,
-   "rms": -18.9,
-   "crest": 18.4,
-   "dc": -0.0003,
+   "length": 0.3,
+   "peak": -1,
+   "rms": -11,
+   "crest": 10,
+   "dc": 0.0003,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.045,
-   "attack": 0.229,
-   "peakAt": 0.284,
-   "t20": 0.125,
-   "t40": 0.284,
-   "centroid": 2860,
-   "rolloff": 3596,
-   "flatness": 0.165,
+   "tail": 0.01,
+   "attack": 0.05,
+   "peakAt": 0.12,
+   "t20": 0.07,
+   "t40": 0.145,
+   "centroid": 1309,
+   "rolloff": 1550,
+   "flatness": 0.035,
    "bands": {
     "<150": 0.2,
-    "150-600": 0.6,
-    "600-2k": 15.8,
-    "2k-5k": 83,
-    ">5k": 0.3
+    "150-600": 4.8,
+    "600-2k": 86,
+    "2k-5k": 9.1,
+    ">5k": 0
    },
-   "onsets": 1
+   "onsets": 0
   },
   "class": null,
   "against": {
@@ -52,34 +52,34 @@
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The picture shows one noisy burst with a sharp hit near 0.28 s and a long hiss-like decay (waveform, top panel). The game's sound is a train of about 30 separate wet pulses over 0.8 s (bottom waveform). The event could pass for a creature's hit, but not for the crawler's pain cry. The brief leg (2026-10-16 amendment) is the sound's intended judge, but S1 is scored here as asked."
+   "reason": "Top panel: the made sound is one noise burst, about 0.3 s, that rises fast and fades into a thin tail. The game's own sound (bottom panel) is a train of about 25 separate pulses over 0.8 s, a wet, pulsed cry. The made one reads as a generic hiss or impact, not the same crawler pain. It is clearly off, not wholly wrong: it is a short creature-like burst, but the pulsing that defines the event is missing."
   },
   "S2": {
-   "judge": 1,
+   "judge": 0,
    "cap": null,
-   "score": 1,
-   "reason": "Length is 0.708 s against the game's 0.795 s, within 25%. The decay does not match: t20 is 0.125 s against the game's 0.544 s, about a quarter of the original's decay. The class range was not supplied, so whether it falls outside the class range is unconfirmed, but it is clearly off the original's envelope."
+   "score": 0,
+   "reason": "Envelope fails the must-have. Length is 0.30 s against the game's 0.795 s, 62% short (the line is within 25%). Decay is also far off: t20 is 0.07 s against 0.544 s, and t40 is 0.145 s with nothing after it. The sound stops where the original keeps sounding."
   },
   "S3": {
-   "judge": 2,
+   "judge": 0,
    "cap": null,
-   "score": 2,
-   "reason": "Centroid is 2860 against 2682 (6.6% apart, within 20%). Band shares match the game's within 10 points: <150 0.2 vs 0.2, 150-600 0.6 vs 0, 600-2k 15.8 vs 15.6, 2k-5k 83 vs 83.8, >5k 0.3 vs 0.3."
+   "score": 0,
+   "reason": "Spectrum fails the must-have. Centroid is 1309 Hz against 2682 Hz, 51% low (the line is within 20%). Band shares are 600-2k 86% against 15.6%, which is 70 points off, and 2k-5k 9.1% against 83.8%, 75 points off. The made sound's energy sits in the low-mid band, where the original's sits in the upper band. The other bands (<150 Hz, 150-600 Hz, >5k) are close or within 5 points."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Onsets are 1 against the game's many pulses (the original's pulsing is missing; the made sound has one onset, top waveform). The noisy, non-tonal character is in the same family, and no pitch movement is evident in either spectrogram. Flatness for the original was not given, so that part cannot be checked. The mismatch in onset structure is clearly off."
+   "reason": "Character is clearly off. The original's waveform has a regular train of about 25 onsets (the pulses), while the made sound has none in its measure (onsets 0) and one attack at the start (top panel). Flatness of 0.035 is very tonal, and the original's spectrogram shows a steady, noisy, banded texture. The pulsed, wet character is missing. This item is not a must-have, so the score is 1, not 0."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The file keeps the same name, sound/headcrab/hc_pain1.wav. It has no clipping (clipped 0), no DC offset (-0.0003), a peak at -0.5 dB, an empty engineFaults list, and no lead or tail fault. The sample rate, bit depth and channel count are not in the features, so the format is passed on the engine check's empty fault list rather than read directly."
+   "reason": "Fit for the game holds in what is measured. The engine check records no faults (engineFaults empty), no clipping (clipped 0), DC is 0.0003, peak is -1 dBFS, and the name matches sound/headcrab/hc_pain1.wav. The measures do not show the sample rate, bit depth or mono channel count, so the format is taken from the engine check, not from the picture."
   }
  },
- "total": 7,
+ "total": 4,
  "of": 10,
  "passes": false
 }

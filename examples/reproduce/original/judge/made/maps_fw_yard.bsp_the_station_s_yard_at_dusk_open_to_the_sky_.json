@@ -3,8 +3,8 @@
  "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
  "measured": {
   "size": [
-   1532,
-   1532
+   1548,
+   1548
   ],
   "sizeAsked": [
    1500,
@@ -16,11 +16,11 @@
   "changelevels": [
    {
     "map": "fw_pumphall",
-    "landmark": "lm_yard_hall"
+    "landmark": "fw_land_1"
    }
   ],
   "landmarks": [
-   "lm_yard_hall"
+   "fw_land_1"
   ],
   "itemsAsked": [],
   "itemsFound": []
@@ -31,61 +31,61 @@
  },
  "scores": {
   "P1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The areas are there (a walled yard, a gatehouse with a door, a pump house at bottom-left, plan), but the arrangement is wrong. The brief starts the player by the gate and leaves through the pump house's double doors. Here the start (entity 14, plan at about x 420, y 745) is by the pump house at the bottom, and the exit (trigger_changelevel 3, plan at about x 800, y 510) sits beside the gatehouse at upper right."
+   "score": 2,
+   "reason": "The areas and joins match the brief. The yard is walled, the gatehouse sits at the west (plan, the box with func_door 1 at about x 95-260, y 148-293), and the pump house sits at the east (the box at about x 598-848, y 173-380) with its rotating door on the west wall and the changelevel trigger inside. The player starts by the gate (info_player_start 13 at about x 290, y 221, just east of the gatehouse door) and leaves through the pump house. The missing pipe section is a detail, scored under P7."
   },
   "P2": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The yard spans about 910 px of the plan, roughly 1500 units at the 256-unit scale bar, and the measured size is 1532 against 1500 asked, so the outer dimensions are right. No walkable-overlap measure is given, so the rooms cannot be checked. The gatehouse (about 300 by 290 units) is in the wrong corner, and the pump house (about 256 by 205) is a small box rather than a station building with double doors."
+   "score": 2,
+   "reason": "The yard measures 1548 units against 1500 asked, 3% off. The gatehouse and pump house boxes, read against the 256-unit scale bar, are roughly 270 by 240 units and 270 by 340 units, which is plausible for their roles. No original is measured, so this rests on the overall size and the scale bar."
   },
   "P3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Nothing in the views shows a stair, ledge or ramp. The plan's floor shading suggests a few height steps in the gatehouse and pump house, but the views show flat ground at one level, and the brief's ground levels are not shown or confirmed."
+   "score": 2,
+   "reason": "The plan shows one open ground level, with the gatehouse and pump house as built blocks, and the views from inside show the high walls rising out of a flat yard, with sky above. Nothing in the plan or views contradicts the brief's single-level yard. The brief names no stairs or ramps here."
   },
   "P4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The named entities are present: a player start (14), a gatehouse door (func_door_rotating 2), a pump-house door (func_door_rotating 1, one leaf rather than double doors) and the level change (3). But the start is not by the gate, and the exit is not at the pump house doors, so the matches fail the placement test."
+   "reason": "The start, the gatehouse door (func_door 1), the pump house door (func_door_rotating 2) and the changelevel trigger (3) are all there and reached, with no notReached entries. But the brief asks for the pump house's double doors, and the plan shows one orange leaf on the pump house's west wall (about x 610, y 248-305), about 94 units tall. That is a single door where two were asked."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The walls in views.png are tan with vertical streaks that read as boards or wood, not concrete, and the ground is brown dirt rather than wet concrete. Nothing in view shows hazard stripes, rust or a steel grate. The surfaces are not what the brief asks, though a player might not mistake them at once."
+   "reason": "The walls in views.png (yaw 0, 90, 180) show vertical plank or wood-grain stripes, not the concrete the brief names. The ground is a flat sandy tan, not a wet concrete floor. Each surface is clearly a different material from the brief's."
   },
   "P6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief asks for dusk with sodium lamps. The sky in every view is bright daytime blue, with a hard diagonal sun shadow across the wall, and the lamps (plan entities 16 to 19, 21, 22) show no sodium-orange glow. The light is clearly off the brief."
+   "reason": "The plan places four LIGHT entities (13, 18, 19, 20) and a light_environment (21), but the views show no sodium-orange glow and no lamp lit against the walls. The sky is bright blue, so the scene reads as day rather than the brief's dusk, and the bright and dark areas do not match the brief's mood."
   },
   "P7": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "The brief's distinctive features are missing: no stacked drums appear in any view or entity mark, and the broken truck-sized pipe section is absent. The only object in view is a cyan sprite (entity 9) at yaw 90, which is not a drum or pipe."
+   "score": 1,
+   "reason": "The gatehouse with its door, the drums with a hazard stripe (views yaw 0 and -90, lower left and right), and the steam and glow sprites are present. The broken truck-sized pipe section the brief names is missing: nothing like it is in the plan or in any of the five views."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements show no check errors, no unreached places, no reach warnings, and the level change to fw_pumphall (landmark lm_yard_hall) is reached on foot from the start. Leaks are not in the measurements, so this rests on the compile and walk results alone."
+   "reason": "The build reports no check errors, the walk test reaches the changelevel to fw_pumphall with landmark fw_land_1 (which exists as info_landmark 14), and notReached is empty. No leak is reported either way, so the measurement supports a 2 for compiling and being walkable, and nothing contradicts it."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From inside, the views show a walled courtyard with a small gatehouse under a blue sky, with no drums, pipes, pump house detail, sodium light or dusk. A player might take it for a generic Half-Life yard, but not for the flooded pumping station the brief describes, and the start view shows little that identifies the place."
+   "reason": "From inside (views.png), the place reads as a plain tan yard inside plank-looking walls under a blue sky. It is not recognisable as the dusk pumping station the brief describes, and the gatehouse is the only feature that suggests a building. A player who knows Half-Life might take it for a map of the game, but not this station's yard."
   }
  },
- "total": 9,
+ "total": 13,
  "of": 18,
  "passes": false
 }

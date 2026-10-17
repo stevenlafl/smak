@@ -1,38 +1,56 @@
-Flooded Works is built: all 25 files are in the work folder under the names the brief gives, and the three maps compile with VHLT (the Half-Life map compiler, installed on this machine). I could not run the game here, so the things only the game shows (changelevel, the doors, the lift, the crawler's AI) are untested.
+The Flooded Works mod is built in the work folder: all 26 brief files plus the supporting files the maps need. The one part I could not build as briefed is the lift. The kit can't cut a lift shaft, so the control map's valve room is reached by a 16-step stair. Nothing has been run in the game, so every check below is the kit's own, not a play test.
+
+**Deviation to decide:** the lift is a stair. Making a real lift needs a shaft cut through the floor, and the kit only builds a stair for stacked rooms. If you want a lift, it needs an editor pass on `fw_control`.
+
+**What I made**
 
 ```
-maps/fw_yard.bsp         yard, 1500 x 1500, dusk sky (+ fw_yard.wad, gfx/env/fw_yard/ sky)
-maps/fw_pumphall.bsp     flooded hall, ~2500 long (+ fw_pumphall.wad)
-maps/fw_control.bsp      control room, windows, lift, valve pit (+ fw_control.wad)
-models/fw_valvewheel.mdl 32 across, red paint, steel rim
-models/fw_drum.mdl       55-gallon drum, rusted, hazard band
-models/fw_console.mdl    waist-high, dials, two screens, six switches
-models/fw_pipejunction.mdl  two pipes, flanged elbow, bolts
-models/fw_walllamp.mdl   caged wall lamp, sodium-orange core
-models/v_crowbar.mdl     pipe wrench, first person (crowbar's hands and animations)
-models/p_crowbar.mdl     pipe wrench, in another player's hands
-models/w_crowbar.mdl     pipe wrench, lying in the world
-models/headcrab.mdl      sludge crawler on the headcrab's skeleton
-models/fw_yard/pipe_section.mdl   the yard's broken pipe (a map model)
-fw.wad                   13 textures (concrete, wet floor, grate, catwalk,
-                         pipes, hazard, rust plate, control panel, lamp, water, PUMP 3, door, rust wall)
-sprites/fw_steam.spr, fw_glow.spr, fw_spit.spr
-sound/weapons/cbar_hit1.wav, cbar_miss1.wav, headcrab/hc_attack1.wav,
-sound/headcrab/hc_pain1.wav, sound/ambience/fw_pump.wav, fw_drips.wav
-videos/fw_wrench.mp4, fw_crawler.mp4, fw_pumphall.mp4 (a camera path down the hall)
-pictures/fw_props.png   all five props side by side
+Brief file                      Status
+maps/fw_yard.bsp                built, walk test passes, all entities reached
+maps/fw_pumphall.bsp            built, walk test passes, corridor exit reached
+maps/fw_control.bsp             built, walk test passes (stair, not lift)
+models/fw_valvewheel.mdl        344 triangles, 32 across, red spokes and hub
+models/fw_drum.mdl              272 triangles, rusted, hazard stripe
+models/fw_console.mdl           24 triangles, screens, dials, switch row
+models/fw_pipejunction.mdl      504 triangles, bolted flanges, hazard band
+models/fw_walllamp.mdl          caged, sodium-orange glass, glows
+models/v_crowbar.mdl            pipe wrench, first person (crowbar hands kept)
+models/p_crowbar.mdl            pipe wrench, in another player's hands
+models/w_crowbar.mdl            pipe wrench, lying in the world
+models/headcrab.mdl             sludge crawler on the headcrab's skeleton
+fw.wad                          12 textures, all named in the brief
+sprites/fw_steam.spr            animated, rises and thins
+sprites/fw_glow.spr             sodium glow
+sprites/fw_spit.spr             animated splash
+sound/weapons/cbar_hit1.wav     wrench strike
+sound/weapons/cbar_miss1.wav    wrench swing
+sound/headcrab/hc_attack1.wav   crawler bite
+sound/headcrab/hc_pain1.wav     crawler pain
+sound/ambience/fw_pump.wav      pump loop
+sound/ambience/fw_drips.wav     drip loop
+videos/fw_wrench.mp4            turntable, 8 s
+videos/fw_crawler.mp4           turntable, walk cycle, 8 s
+videos/fw_pumphall.mp4          walk through the hall, 8 s
+pictures/fw_props.png           the five props side by side
 ```
 
-**Checks**
-- **Props, wrench, crawler:** all build OK and pass the GoldSrc check. The crawler keeps the headcrab's bones and all 21 animations (contract kept), at 660 triangles against the headcrab body's 478. Its two middle legs hang from the spine, so they don't move with the legs.
-- **fw_yard:** OK. All four entities a player goes to are reached on foot. The gatehouse door and pump house double doors swing.
-- **fw_pumphall:** OK. All eight entities are reached on foot, including the wrench on the catwalk. The catwalks are reached by stairs at the west end.
-- **fw_control:** one FAULT. The valve wheel's trigger sits in a pit that only the lift reaches, and the walk test doesn't model lifts. The lift itself is a real `func_plat`, so I left the geometry alone.
-- **Sounds, sprites:** no faults. The sounds still measure outside the game's range in places: the hit's crest is 17 dB against the game's 5–12, the pump's is 25 dB, and the drip loop is 4.6 s (the generator's maximum is 5 s). Those are judged by ear in the game.
+Extra files the maps need: `fw_yard.wad`, `fw_pumphall.wad` and `fw_control.wad` (map-only textures), the yard sky under `gfx/env/fw_yard/`, and `models/fw_yard/fw_pipesection.mdl`, the broken truck-sized pipe in the yard.
 
-**Things to know**
-- The pump hall's ladders are built as the brief asks, but the walk test never climbs them. I could not find out why, so their in-game use is unverified.
-- Four of the six sounds (the hit, swing, bite, pain) come from the generator, whose licence is non-commercial (CC-BY-NC 4.0). The pump and drip loops also come from it. You said non-commercial licences are fine for this test.
-- The build writes models and maps at the work folder's root, so the root copies of those files still sit beside the ones in the subfolders. My tools cannot delete files, so please remove the root copies.
-- The map check reports `fw.wad` as missing because it looks beside the map. The wad sits at the mod's root, where GoldSrc looks for it.
-- Beyond the brief's list, I added the map wads, the yard's sky pictures, and the yard's pipe model, which the maps need.
+**How the chain works**
+- `fw_yard`: starts by the gatehouse, leaves through the pump house's double doors into `fw_pumphall`, via a trigger that names landmark `fw_land_1`. Both maps carry that landmark.
+- `fw_pumphall`: a flooded hall with three pumps, catwalks, a bridge, ladders, the wrench and three crawlers. It leaves by a stair up to a corridor, through a trigger naming `fw_control` and landmark `fw_land_2`.
+- `fw_control`: arrives at the entry, looks down through four windows onto the flooded hall, and has four consoles and the valve room below. The valve wheel's trigger ends the mod.
+
+**What I checked**
+- Every map, model, sprite and sound passed its build checks. The builds report no engine errors.
+- Every map's walk test reaches its entities on foot, and the changelevel names and landmarks match across maps.
+- Every picture the builds drew was looked at.
+
+**Known weak spots**
+- The wrench rim is steel, while the spokes and hub are red. The brief asked for red paint worn to steel at the rim.
+- The sound takes are at the edge of the game's ranges. The wrench hit, the swing, the bite and the yelp all have spectral or decay notes in the report. Only listening in the game will settle them.
+- The pump-hall flight is a walk-through at eye height, not a free flight. A camera path kept clipping solids.
+- Map lights are the kit's plain white lamps. The sodium colour comes from the glows and the lamp props only.
+- A few drops of 210 units or more sit at stair edges. I left them unrailed.
+
+**Licences (you accepted these for this test):** the wrench swing uses woosh-dflow, licensed CC-BY-NC 4.0, which is non-commercial. The other takes use stable-audio-3-sfx, under the Stability AI Community Licence: commercial use is free only for an organisation under US$1M annual revenue. The headcrab and the sprites were built from the kit's own models and layers.

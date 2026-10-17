@@ -1,0 +1,78 @@
+{
+ "kind": "model",
+ "label": "models/fw_walllamp.mdl: a caged wall lamp with a sodium-orange glass",
+ "measured": {
+  "size": [
+   14.5,
+   18,
+   22
+  ],
+  "sizeAsked": null,
+  "sizeOff": null,
+  "triangles": 156,
+  "halfLifeMedianOfItsKind": 56,
+  "halfLifeThreeQuartersUnder": 116,
+  "halfLifeMost": 194,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_357.mdl, models/w_shotbox.mdl, models/w_satchel.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, A, A, B where the asset was A, B, D, C: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Across the ten views the outline reads as a wall lamp: a rectangular back plate, a canopy plate across the top that overhangs it, and a cylindrical drum projecting forward. In the LEFT and RIGHT views the drum's depth and the plate's height agree, and the TOP and BELOW views match. Nothing sticks out or is missing that the brief's words do not allow."
+  },
+  "M2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no size for the lamp (sizeAsked null, sizeOff null), so the 15% check cannot be made and a 2 is not earned. The size of 14.5 x 18 x 22 is plausible for a wall lamp, so it is not clearly off either."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Back plate, canopy, drum, orange glass and dark cage bars are all present, but the cage is missing from the front. In the FRONT view the drum's face is a solid textured disc with no bars and no glass, so the caged glass is hidden from the side the lamp faces; the bars show only on the LEFT, RIGHT, BELOW and angled views. A small part of the cage is missing from the front, which caps M3 at 1."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The glass is a clear sodium orange, as the brief asks, and the cage bars are dark. The housing is a blue-teal and dark-brown mottle on the plate, canopy and drum (see FRONT, BACK and TOP). The brief asks for rusted steel in an industrial palette, and this reads as camouflage paint, not rusted steel. It is a colour fault, not a shape one."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The glass grid and cage bars are clear and in place, and the wear shows as blotches. The housing texture is coarse and blocky at the pixel level, with no panel lines, rivets or fine rust on the plate or canopy (see BACK and TOP), so the surface reads softer than the brief's worn steel."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Set by the line-up measure, as the brief directs: in the four readings of lineup.png the asset was not picked as the one not made by Valve, and the judges' picks went to the other three. That result caps M6 here, and I score it 2 on that basis."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The lamp is upright. The flat back plate is at the back and the drum and glass face the front (FRONT and FRONT-LEFT views), so it reads as a lamp meant to hang on a wall, with its back to the wall."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. At 156 triangles the asset is below the most Valve spends on a prop of this size (194), so it passes the triangle band; the median of 56 and the third quartile of 116 are only warnings. Nothing a player can see is open: the back plate and canopy are closed, and the glass is seen through the cage bars rather than missing."
+  }
+ },
+ "total": 12,
+ "of": 16,
+ "passes": false
+}

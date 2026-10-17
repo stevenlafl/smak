@@ -2,166 +2,107 @@
   "spec": "smak.wad/1",
   "name": "fw.wad",
   "materials": {
-    "wetconc": {
-      "base": "stone",
-      "picture": "library:chipped_concrete",
-      "size": 79,
-      "tone": "dark grey"
-    },
-    "concwall": {
-      "base": "stone",
-      "picture": "library:concrete",
-      "size": 157
-    },
-    "steelgrid": {
-      "base": "mesh",
-      "cell": 8,
+    "dial": {
+      "base": "metal",
       "tone": [
-        0.42,
-        0.43,
-        0.42
+        0.78,
+        0.78,
+        0.72
       ]
     },
-    "plate": {
-      "base": "metal",
-      "picture": "library:metal_plate_02",
-      "size": 79,
-      "tone": [
-        0.36,
-        0.37,
-        0.35
-      ]
-    },
-    "pipewall": {
-      "base": "stone",
-      "picture": "library:concrete_block_wall",
-      "size": 79
-    },
-    "hazard": {
-      "base": "hazard",
-      "tone": [
-        0.82,
-        0.66,
-        0.12
-      ]
-    },
-    "rustplate": {
-      "base": "metal",
-      "picture": "library:rusty_metal_04",
-      "size": 79,
-      "rust": 0.4
-    },
-    "rustwall": {
-      "base": "metal",
-      "picture": "library:rust_coarse_01",
-      "size": 87,
-      "rust": 0.5
-    },
-    "panelgrey": {
+    "panel": {
       "base": "metal",
       "tone": [
         0.3,
-        0.31,
-        0.29
-      ]
-    },
-    "screen": {
-      "base": "flat",
-      "tone": [
-        0.08,
-        0.16,
-        0.12
+        0.34,
+        0.32
       ]
     },
     "lampface": {
       "base": "flat",
       "tone": [
         1,
-        0.62,
-        0.2
+        0.72,
+        0.3
       ],
       "flags": [
         "fullbright"
-      ]
-    },
-    "water": {
-      "base": "water",
-      "tone": "dark green grey"
-    },
-    "sign": {
-      "base": "paint",
-      "tone": [
-        0.68,
-        0.66,
-        0.5
-      ]
-    },
-    "door": {
-      "base": "door",
-      "tone": [
-        0.26,
-        0.29,
-        0.26
       ]
     }
   },
   "textures": [
     {
-      "name": "fw_concrete",
+      "name": "FW_CONCRETE",
       "size": [
-        256,
-        256
+        128,
+        128
       ],
-      "material": "concwall",
+      "material": {
+        "base": "stone",
+        "picture": "library:concrete",
+        "size": 157
+      },
       "grime": 0.4,
       "wear": {
-        "stains": 0.5,
+        "stains": 0.4,
         "speckle": 0.6,
         "cracks": 0.3
       }
     },
     {
-      "name": "fw_wetfloor",
+      "name": "FW_WETFLOOR",
       "size": [
         128,
         128
       ],
-      "material": "wetconc",
-      "grime": 0.4,
+      "material": {
+        "base": "stone",
+        "picture": "library:concrete_floor_02",
+        "size": 79
+      },
+      "grime": 0.5,
       "wear": {
-        "stains": 0.3,
-        "speckle": 0.9
+        "stains": 0.7,
+        "speckle": 0.4
       }
     },
     {
-      "name": "{fw_grate",
+      "name": "{FW_GRATE",
       "size": [
         64,
         64
       ],
-      "material": "steelgrid"
+      "material": {
+        "base": "mesh",
+        "cell": 8,
+        "tone": "dark grey"
+      }
     },
     {
-      "name": "fw_catwalk",
+      "name": "FW_CATWALK",
       "size": [
         128,
         128
       ],
-      "material": "plate",
+      "material": {
+        "base": "metal",
+        "picture": "library:metal_plate",
+        "size": 20
+      },
       "grime": 0.3,
       "wear": {
-        "streaks": 0.4,
-        "speckle": 0.3
+        "streaks": 0.3,
+        "speckle": 0.5
       }
     },
     {
-      "name": "fw_pipes",
+      "name": "FW_PIPEWALL",
       "size": [
-        256,
+        128,
         128
       ],
-      "material": "pipewall",
-      "grime": 0.3,
+      "material": "panel",
+      "grime": 0.4,
       "relief": [
         {
           "kind": "pipe",
@@ -171,89 +112,92 @@
               40
             ],
             [
-              256,
+              128,
               40
             ]
           ],
-          "radius": 6
+          "radius": 7
         },
         {
           "kind": "pipe",
           "path": [
             [
               0,
-              92
+              88
             ],
             [
-              256,
-              92
+              128,
+              88
             ]
           ],
           "radius": 5
         },
         {
-          "kind": "pipe",
-          "path": [
-            [
-              48,
-              0
-            ],
-            [
-              48,
-              128
-            ]
-          ],
-          "radius": 4
-        },
-        {
           "kind": "rivets",
           "from": [
-            0,
-            70
+            8,
+            8
           ],
           "to": [
-            256,
-            70
+            120,
+            8
           ],
-          "count": 14,
-          "radius": 1.2
+          "count": 4,
+          "radius": 1.5
         }
-      ]
-    },
-    {
-      "name": "fw_hazard",
-      "size": [
-        64,
-        64
       ],
-      "material": "hazard"
-    },
-    {
-      "name": "fw_rustplate",
-      "size": [
-        128,
-        128
-      ],
-      "material": "rustplate",
-      "grime": 0.5,
       "wear": {
         "stains": 0.5,
         "streaks": 0.4
       }
     },
     {
-      "name": "fw_panel",
+      "name": "FW_HAZARD",
+      "size": [
+        64,
+        64
+      ],
+      "material": {
+        "base": "hazard",
+        "tone": [
+          0.9,
+          0.72,
+          0.1
+        ],
+        "stripe": 1.06,
+        "angle": 45
+      }
+    },
+    {
+      "name": "FW_RUSTPLATE",
       "size": [
         128,
         128
       ],
-      "material": "panelgrey",
-      "grime": 0.3,
+      "material": {
+        "base": "metal",
+        "picture": "library:rusty_metal_04",
+        "size": 79,
+        "rust": 0.7
+      },
+      "grime": 0.4,
+      "wear": {
+        "stains": 0.6,
+        "streaks": 0.5
+      }
+    },
+    {
+      "name": "FW_CONTROL",
+      "size": [
+        128,
+        128
+      ],
+      "material": "panel",
       "panels": [
         {
           "at": [
             32,
-            92
+            96
           ],
           "size": [
             36,
@@ -261,12 +205,12 @@
           ],
           "shape": "round",
           "style": "raised",
-          "material": "panelgrey"
+          "material": "dial"
         },
         {
           "at": [
             96,
-            92
+            96
           ],
           "size": [
             36,
@@ -274,92 +218,116 @@
           ],
           "shape": "round",
           "style": "raised",
-          "material": "panelgrey"
+          "material": "dial"
         },
         {
           "at": [
             64,
-            36
+            40
           ],
           "size": [
-            96,
-            28
+            104,
+            40
           ],
           "style": "inset",
-          "material": "screen"
+          "edge": 2
+        },
+        {
+          "at": [
+            24,
+            40
+          ],
+          "size": [
+            10,
+            8
+          ],
+          "style": "raised"
+        },
+        {
+          "at": [
+            44,
+            40
+          ],
+          "size": [
+            10,
+            8
+          ],
+          "style": "raised"
+        },
+        {
+          "at": [
+            84,
+            40
+          ],
+          "size": [
+            10,
+            8
+          ],
+          "style": "raised"
+        },
+        {
+          "at": [
+            104,
+            40
+          ],
+          "size": [
+            10,
+            8
+          ],
+          "style": "raised"
         }
-      ]
+      ],
+      "grime": 0.3
     },
     {
-      "name": "fw_lamp",
+      "name": "~FW_LAMP",
       "size": [
         64,
         64
       ],
-      "material": "lampface",
-      "relief": [
-        {
-          "kind": "lamp",
-          "at": [
-            32,
-            32
-          ],
-          "size": [
-            48,
-            48
-          ],
-          "colour": [
-            1,
-            0.8,
-            0.45
-          ]
-        }
-      ]
+      "material": "lampface"
     },
     {
-      "name": "!fw_water",
+      "name": "!FW_WATER",
       "size": [
-        64,
-        64
+        128,
+        128
       ],
       "material": "water"
     },
     {
-      "name": "fw_pump3",
+      "name": "FW_SIGN",
       "size": [
         128,
         64
       ],
-      "material": "sign",
+      "material": {
+        "base": "paint",
+        "tone": [
+          0.8,
+          0.6,
+          0.1
+        ]
+      },
       "print": {
         "text": "PUMP 3",
-        "size": 0.55,
+        "size": 0.6,
         "ink": [
-          0.1,
-          0.1,
-          0.1
+          0.08,
+          0.08,
+          0.08
         ]
       }
     },
     {
-      "name": "fw_door",
-      "size": [
-        64,
-        128
-      ],
-      "material": "door"
-    },
-    {
-      "name": "fw_rustwall",
+      "name": "FW_DOOR",
       "size": [
         128,
         128
       ],
-      "material": "rustwall",
-      "grime": 0.6,
-      "wear": {
-        "stains": 0.9,
-        "streaks": 0.6
+      "material": {
+        "base": "door",
+        "tone": "dark green"
       }
     }
   ]

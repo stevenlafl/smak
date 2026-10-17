@@ -162,6 +162,12 @@ function sampleOf(layer, rate, readFile, fact, warn) {
   return { ...layer, pcm, pcmRate: rate };
 }
 
+/**
+ * The words that point a sound whose bands are off at the finish that fits them, unless it has it already:
+ * the run 6 maker read "filter the layers" and never found `fit` (2026-10-17).
+ */
+const fitHint = (sound) => (sound.finish?.fit === "bands" ? "" : 'finish: { fit: "bands" } brings its bands there by arithmetic, a gain a band. ');
+
 /** A game's own file of the sound folders given, read: { name, x, rate } or null. */
 function referenceOf(name, games) {
   for (const game of games) {
@@ -331,7 +337,7 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         // only where the sound has no target of its own: a copy is held to its original (a description's bands, a
         // picture), and the class's range pulled the words leg's copies off theirs (a round of 0 of 10, 2026-10-16)
         if (spectrum.length && !sound.bands && !sound.picture)
-          warnings.push(`${take.name}: its spectrum is off the game's ${sound.class} sounds, as a judge measures it: ${spectrum.join("; ")}. Filter the layers (lowpass, highpass, a band) or change what makes it, and build again`);
+          warnings.push(`${take.name}: its spectrum is off the game's ${sound.class} sounds, as a judge measures it: ${spectrum.join("; ")}. ${fitHint(sound)}Filter the layers (lowpass, highpass, a band) or change what makes it, and build again`);
         const scored = scoreAgainst(f, sound.class);
         entry.score = `${scored.score} of ${scored.of}`;
         report.facts.push(`${take.name}: against the game's ${sound.class} sounds, ${scored.score} of ${scored.of}${scored.lines.length ? `; off: ${scored.lines.join("; ")}` : ": every feature in range"}`);
@@ -341,7 +347,7 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         const off = Object.entries(sound.bands).map(([k, want]) => [k, Math.round((f.bands[k] - want) * 10) / 10]);
         report.facts.push(`${take.name}: its bands against the shares asked: ${off.map(([k, d]) => `${k} ${f.bands[k]}% for ${sound.bands[k]}% (${d > 0 ? "+" : ""}${d})`).join(", ")}`);
         const far = off.filter(([, d]) => Math.abs(d) > PICTURE_BANDS);
-        if (far.length) warnings.push(`${take.name}: further from the bands asked than a copy should be: ${far.map(([k, d]) => `${k} ${d > 0 ? "+" : ""}${d} points`).join(", ")} (aim within ${PICTURE_BANDS}). A filter (lowpass, highpass, a shelf) or a layer's gain moves them; build again`);
+        if (far.length) warnings.push(`${take.name}: further from the bands asked than a copy should be: ${far.map(([k, d]) => `${k} ${d > 0 ? "+" : ""}${d} points`).join(", ")} (aim within ${PICTURE_BANDS}). ${fitHint(sound)}A filter (lowpass, highpass, a shelf) or a layer's gain moves them; build again`);
       }
       // the decay a description gives: held as a judge holds a copy with no class of its own, within a quarter
       if (sound.t20 !== undefined && take.name === sound.name) {
@@ -377,7 +383,7 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
               : `flatness ${f.flatness} against ${p.flatness}: ${p.flatnessOff} times too noisy, the picture's tones under its noise (a modes or tone layer at the picture's lines, the noise lower)`
             : null,
         ].filter(Boolean);
-        if (far.length) warnings.push(`${take.name}: further from its picture than a copy should be: ${far.join("; ")}. Bring it nearer (a filter, a layer's gain, the decay, another take) and build again`);
+        if (far.length) warnings.push(`${take.name}: further from its picture than a copy should be: ${far.join("; ")}. ${far.some((line) => /points off/.test(line)) ? fitHint(sound) : ""}Bring it nearer (a filter, a layer's gain, the decay, another take) and build again`);
       }
       // a sound in the place of one of the game's own (its name, in the game folders given) is held to that sound as a
       // judge holds it: its spectrum and length. The original-creation mod's crawler, given no class, scored 4 of 10
@@ -391,7 +397,7 @@ export function buildSoundSpec(spec, { games = [], folder = ".", readPicture = (
         for (const k of Object.keys(g.bands)) if (Math.abs(f.bands[k] - g.bands[k]) > 10) off.push(`${k} Hz ${f.bands[k]}% against its ${g.bands[k]}%`);
         if (Math.abs(f.length - g.length) / Math.max(g.length, 0.01) > 0.25) off.push(`${f.length} s long against its ${Math.round(g.length * 1000) / 1000} s`);
         report.facts.push(`${take.name}: takes the place of the game's own ${take.name} (centroid ${g.centroid} Hz, ${Math.round(g.length * 1000) / 1000} s)`);
-        if (off.length) warnings.push(`${take.name}: far from the game's own sound it takes the place of, as a judge measures it: ${off.join("; ")}. Bring it nearer and build again`);
+        if (off.length) warnings.push(`${take.name}: far from the game's own sound it takes the place of, as a judge measures it: ${off.join("; ")}. ${off.some((line) => /%/.test(line)) ? fitHint(sound) : ""}Bring it nearer and build again`);
       }
       report.sounds[take.name] = entry;
       files.push({ name: take.name, bytes });

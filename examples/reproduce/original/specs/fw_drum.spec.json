@@ -3,32 +3,26 @@
   "name": "fw_drum.mdl",
   "kind": "prop",
   "size": {
-    "height": 36,
+    "height": 35,
     "width": 23
   },
   "materials": {
     "drum": {
       "base": "metal",
-      "picture": "library:rusty_metal_02",
-      "size": 39,
-      "tone": [
-        0.28,
-        0.34,
-        0.4
-      ],
+      "tone": "faded blue",
       "rust": 0.55
     },
-    "stripe": {
-      "base": "hazard",
-      "tone": [
-        0.8,
-        0.62,
-        0.1
-      ]
-    },
-    "iron": {
+    "hoop": {
       "base": "iron",
       "rust": 0.6
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.9,
+        0.72,
+        0.1
+      ]
     }
   },
   "parts": [
@@ -36,23 +30,23 @@
       "id": "body",
       "kind": "turn",
       "material": "drum",
-      "sides": 16,
+      "sides": 12,
       "rings": [
         [
           0,
-          10.4
+          10.5
         ],
         [
-          1.6,
-          11.4
+          1.5,
+          11.5
         ],
         [
-          34.4,
-          11.4
+          33.5,
+          11.5
         ],
         [
-          36,
-          10.4
+          35,
+          10.5
         ]
       ],
       "caps": [
@@ -63,16 +57,16 @@
         {
           "path": [
             [
-              0.5,
+              0.42,
               0
             ],
             [
-              0.5,
+              0.42,
               360
             ]
           ],
-          "width": 6.5,
-          "material": "stripe",
+          "width": 5,
+          "material": "hazard",
           "ends": "round"
         }
       ]
@@ -80,10 +74,10 @@
     {
       "id": "hoop_low",
       "kind": "band",
-      "material": "iron",
+      "material": "hoop",
       "on": {
         "part": "body",
-        "s": 0.1
+        "s": 0.14
       },
       "width": 2,
       "height": 0.6
@@ -91,25 +85,34 @@
     {
       "id": "hoop_high",
       "kind": "band",
-      "material": "iron",
+      "material": "hoop",
       "on": {
         "part": "body",
-        "s": 0.9
+        "s": 0.86
       },
       "width": 2,
       "height": 0.6
     },
     {
       "id": "bung",
-      "kind": "boss",
-      "material": "iron",
-      "on": {
-        "part": "body",
-        "s": 0.72,
-        "angle": 0
-      },
+      "kind": "cylinder",
+      "material": "hoop",
       "radius": 1.6,
-      "height": 1
+      "height": 0.8,
+      "sides": 8,
+      "attach": {
+        "to": "body",
+        "toAt": {
+          "s": 0.9,
+          "angle": 0
+        },
+        "at": "bottom"
+      },
+      "offset": [
+        0,
+        0,
+        0
+      ]
     }
   ]
 }

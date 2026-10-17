@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a sodium lamp's glow, which is a soft light falling off from a bright centre. The picture (frame 1) is one flat, hard-edged disc of uniform grey-white with a sharp rim and no falloff. It reads as a plain disc, not a glow."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is the sprite's 32 x 32 size, and the disc fills about 24 px of it with dark corners. The effect does not fill the frame as a glow does: the edge is a hard circle rather than a light that spreads out to the frame's edge."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for sodium orange. The disc is a neutral, near-white grey (about the same as a light grey on near-black). No orange is present in the frame, so the colour is wrong for the brief."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A single still frame, with border 0 (within the glow class's 0 to 0.005 range, so that held measure passes). The frame count and envelope (first and last frame both 1, peak at frame 0) are a plausible static glow. But the dark value (0.56) is not given against the glow class, so the rest of the motion check cannot be confirmed, and the flat disc has no motion or shape change to judge."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Name fw_glow.spr is as the brief asks, with type parallel and format additive, which is a plausible format for a glow. But the brief does not name the slot's type, and the file's type and format cannot be checked against the game's file for this slot from the measurements shown, so it is only partly confirmed."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

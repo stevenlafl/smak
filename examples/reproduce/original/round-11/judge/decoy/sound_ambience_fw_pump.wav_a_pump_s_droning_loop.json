@@ -1,0 +1,58 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.3,
+   "crest": 4.8,
+   "dc": -0.0005,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.05,
+   "peakAt": 0.494,
+   "t20": 0.01,
+   "t40": 0.01,
+   "centroid": 2751,
+   "rolloff": 4683,
+   "flatness": 0.945,
+   "bands": {
+    "<150": 2.7,
+    "150-600": 8.3,
+    "600-2k": 25.3,
+    "2k-5k": 54.8,
+    ">5k": 8.9
+   },
+   "onsets": 0
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 6,
+   "of": 20,
+   "lines": [
+    "length 0.5 s (2.03 to 3.39): too short",
+    "crest 4.8 dB (8.3 to 14.3): too squashed",
+    "rms -15.3 dBFS (-14.7 to -8.7): under the range",
+    "centroid 2751 Hz (237 to 437): too bright: less over 2000 Hz",
+    "flatness 0.945 (-0.05 to 0.05): too noisy: more tone (modes)",
+    "band 150-600 8.3% (84.2 to 100): under the range",
+    "band 600-2k 25.3% (0 to 11.9): over the range",
+    "band 2k-5k 54.8% (0 to 10): over the range"
+   ]
+  },
+  "engineFaults": [
+   "its last samples are at 0.25 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "passes": false,
+ "failedByMeasure": [
+  "S5"
+ ],
+ "total": 0,
+ "of": 10
+}

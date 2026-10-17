@@ -3,19 +3,19 @@
  "label": "models/fw_walllamp.mdl: a caged wall lamp with a sodium-orange glass",
  "measured": {
   "size": [
-   14.5,
-   18,
-   22
+   14,
+   14,
+   18
   ],
   "sizeAsked": null,
   "sizeOff": null,
-  "triangles": 156,
+  "triangles": 116,
   "halfLifeMedianOfItsKind": 56,
   "halfLifeThreeQuartersUnder": 116,
   "halfLifeMost": 194,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/w_357.mdl, models/w_shotbox.mdl, models/w_satchel.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, A, A, B where the asset was A, B, D, C: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_gaussammo.mdl, models/w_silencer.mdl, models/w_crossbow_clip.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, B, D, D where the asset was A, B, D, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -27,52 +27,52 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Across the ten views the outline reads as a wall lamp: a rectangular back plate, a canopy plate across the top that overhangs it, and a cylindrical drum projecting forward. In the LEFT and RIGHT views the drum's depth and the plate's height agree, and the TOP and BELOW views match. Nothing sticks out or is missing that the brief's words do not allow."
+   "reason": "Outline matches a caged wall lamp in all ten views: a flat back plate against the wall (back and right views), a cage of bars around a rounded orange glass, and a hood on top. Nothing sticks out or is missing. The hood overhangs the cage evenly in the left, right and front-left views."
   },
   "M2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The brief gives no size for the lamp (sizeAsked null, sizeOff null), so the 15% check cannot be made and a 2 is not earned. The size of 14.5 x 18 x 22 is plausible for a wall lamp, so it is not clearly off either."
+   "reason": "The brief gives no size for the lamp, so there was no size to hold it to. The measure is 14 x 14 x 18 with sizeAsked null and sizeOff null, so the 15% check could not be made. Not clearly off, but not verified either."
   },
   "M3": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Back plate, canopy, drum, orange glass and dark cage bars are all present, but the cage is missing from the front. In the FRONT view the drum's face is a solid textured disc with no bars and no glass, so the caged glass is hidden from the side the lamp faces; the bars show only on the LEFT, RIGHT, BELOW and angled views. A small part of the cage is missing from the front, which caps M3 at 1."
+   "score": 2,
+   "reason": "Parts the brief asks for, down to the small ones: a cage (the bars around the glass, a cross-shaped frame in the front view and a lattice in the side and front-left views), the sodium-orange glass (a rounded dome, seen in front, below and top views), and a wall mount (the flat back plate). A hood and a small bottom tab are also there. The brief asks for no rivets, claws, teeth, handles or round-part sides, so none is missing."
   },
   "M4": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The glass is a clear sodium orange, as the brief asks, and the cage bars are dark. The housing is a blue-teal and dark-brown mottle on the plate, canopy and drum (see FRONT, BACK and TOP). The brief asks for rusted steel in an industrial palette, and this reads as camouflage paint, not rusted steel. It is a colour fault, not a shape one."
+   "score": 2,
+   "reason": "The glass is sodium-orange as the brief asks. The back plate and hood are a painted green-grey metal, which sits with the brief's green-grey palette, and the cage is dark steel. The brief names no other colour for the lamp, so nothing is off."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The glass grid and cage bars are clear and in place, and the wear shows as blotches. The housing texture is coarse and blocky at the pixel level, with no panel lines, rivets or fine rust on the plate or canopy (see BACK and TOP), so the surface reads softer than the brief's worn steel."
+   "reason": "The glow is there: the orange glass has a lit, streaked pattern in the front and below views. The brief asks for an industrial, worn look, but the green plate and hood are smooth and mottled with no rust, scuffs or wear marks, and the cage is plain black. Wear is missing where the brief asks for it."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Set by the line-up measure, as the brief directs: in the four readings of lineup.png the asset was not picked as the one not made by Valve, and the judges' picks went to the other three. That result caps M6 here, and I score it 2 on that basis."
+   "reason": "Line-up test: judges picked the asset as the one not made by Valve in 2 of 4 readings (asset at B and at D were caught, at A and C they picked other models). That is under the three-of-four catch threshold, so the test does not cap M6. Beside the other three, the lamp reads as a game prop."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The lamp is upright. The flat back plate is at the back and the drum and glass face the front (FRONT and FRONT-LEFT views), so it reads as a lamp meant to hang on a wall, with its back to the wall."
+   "reason": "The front (the cage face with the glass) faces out. The back plate is flat and upright against the wall, and the lamp stands on its mount with nothing tilted or lying. The brief gives no origin to check against."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check reports no errors. At 156 triangles the asset is below the most Valve spends on a prop of this size (194), so it passes the triangle band; the median of 56 and the third quartile of 116 are only warnings. Nothing a player can see is open: the back plate and canopy are closed, and the glass is seen through the cage bars rather than missing."
+   "reason": "SMAK's check reports no errors. At 116 triangles it is under the 194 that Half-Life's most complex kind of prop spends (median 56), so it is not over the bound. Nothing is open or inside out: the back plate is solid, the cage bars are closed, and the glass is whole behind them. Nothing that a player can see is missing."
   }
  },
- "total": 12,
+ "total": 14,
  "of": 16,
  "passes": false
 }

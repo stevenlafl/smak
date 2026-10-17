@@ -1,38 +1,24 @@
 {
   "spec": "smak.model/1",
   "name": "fw_walllamp.mdl",
-  "kind": "prop",
-  "size": {
-    "height": 22,
-    "width": 18
-  },
+  "kind": "piece",
   "materials": {
-    "iron": {
-      "base": "iron",
-      "picture": "library:rusty_metal_05",
-      "size": 49,
-      "tone": [
-        0.3,
-        0.31,
-        0.29
-      ],
-      "rust": 0.3
+    "plate": {
+      "base": "metal",
+      "tone": "grey green",
+      "rust": 0.35
     },
     "cage": {
       "base": "mesh",
-      "cell": 3,
-      "tone": [
-        0.22,
-        0.22,
-        0.21
-      ]
+      "cell": 4,
+      "tone": "dark grey"
     },
-    "lampface": {
-      "base": "flat",
+    "lens": {
+      "base": "glass",
       "tone": [
         1,
-        0.6,
-        0.2
+        0.62,
+        0.22
       ],
       "flags": [
         "fullbright"
@@ -43,109 +29,84 @@
     {
       "id": "plate",
       "kind": "box",
+      "material": "plate",
       "size": [
-        3,
-        16,
-        22
+        2,
+        14,
+        18
       ],
       "at": [
-        -1.5,
+        -1,
         0,
         0
-      ],
-      "material": "iron"
+      ]
     },
     {
-      "id": "lamp_glow",
+      "id": "lens",
       "kind": "cylinder",
-      "radius": 6.5,
-      "height": 9,
-      "sides": 6,
-      "at": [
-        0,
-        0,
-        11
-      ],
+      "material": "lens",
+      "radius": 4.5,
+      "height": 11,
+      "sides": 10,
       "rotate": [
         0,
         90,
         0
       ],
-      "material": "lampface"
+      "at": [
+        0.5,
+        0,
+        9
+      ],
+      "finish": false
     },
     {
       "id": "cage",
       "kind": "cylinder",
-      "radius": 8.5,
-      "height": 10,
-      "sides": 12,
-      "at": [
-        0,
-        0,
-        11
-      ],
+      "material": "cage",
+      "radius": 6.5,
+      "height": 12,
+      "sides": 10,
       "rotate": [
         0,
         90,
         0
       ],
-      "material": "cage"
-    },
-    {
-      "id": "cap_front",
-      "kind": "turn",
-      "axis": "x",
-      "sides": 12,
       "at": [
-        10,
         0,
-        11
-      ],
-      "material": "iron",
-      "rings": [
-        [
-          0,
-          8.8
-        ],
-        [
-          1.5,
-          8.8
-        ]
-      ],
-      "caps": [
-        true,
-        true
+        0,
+        9
       ]
     },
     {
       "id": "hood",
       "kind": "box",
+      "material": "plate",
       "size": [
         10,
-        18,
+        14,
         2
       ],
       "at": [
         5,
         0,
-        19.5
-      ],
-      "material": "iron"
+        15.5
+      ]
     },
     {
       "id": "bracket",
       "kind": "box",
+      "material": "plate",
       "size": [
-        3,
         2,
-        6
+        6,
+        4
       ],
       "at": [
-        -1.5,
+        0.5,
         0,
-        3
-      ],
-      "material": "iron"
+        0
+      ]
     }
   ]
 }

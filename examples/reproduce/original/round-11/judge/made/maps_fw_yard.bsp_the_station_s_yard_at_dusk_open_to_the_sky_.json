@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1532,
+   1532
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "lm_yard_hall"
+   }
+  ],
+  "landmarks": [
+   "lm_yard_hall"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The areas are there (a walled yard, a gatehouse with a door, a pump house at bottom-left, plan), but the arrangement is wrong. The brief starts the player by the gate and leaves through the pump house's double doors. Here the start (entity 14, plan at about x 420, y 745) is by the pump house at the bottom, and the exit (trigger_changelevel 3, plan at about x 800, y 510) sits beside the gatehouse at upper right."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The yard spans about 910 px of the plan, roughly 1500 units at the 256-unit scale bar, and the measured size is 1532 against 1500 asked, so the outer dimensions are right. No walkable-overlap measure is given, so the rooms cannot be checked. The gatehouse (about 300 by 290 units) is in the wrong corner, and the pump house (about 256 by 205) is a small box rather than a station building with double doors."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Nothing in the views shows a stair, ledge or ramp. The plan's floor shading suggests a few height steps in the gatehouse and pump house, but the views show flat ground at one level, and the brief's ground levels are not shown or confirmed."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The named entities are present: a player start (14), a gatehouse door (func_door_rotating 2), a pump-house door (func_door_rotating 1, one leaf rather than double doors) and the level change (3). But the start is not by the gate, and the exit is not at the pump house doors, so the matches fail the placement test."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls in views.png are tan with vertical streaks that read as boards or wood, not concrete, and the ground is brown dirt rather than wet concrete. Nothing in view shows hazard stripes, rust or a steel grate. The surfaces are not what the brief asks, though a player might not mistake them at once."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for dusk with sodium lamps. The sky in every view is bright daytime blue, with a hard diagonal sun shadow across the wall, and the lamps (plan entities 16 to 19, 21, 22) show no sodium-orange glow. The light is clearly off the brief."
+  },
+  "P7": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's distinctive features are missing: no stacked drums appear in any view or entity mark, and the broken truck-sized pipe section is absent. The only object in view is a cyan sprite (entity 9) at yaw 90, which is not a drum or pipe."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements show no check errors, no unreached places, no reach warnings, and the level change to fw_pumphall (landmark lm_yard_hall) is reached on foot from the start. Leaks are not in the measurements, so this rests on the compile and walk results alone."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show a walled courtyard with a small gatehouse under a blue sky, with no drums, pipes, pump house detail, sodium light or dusk. A player might take it for a generic Half-Life yard, but not for the flooded pumping station the brief describes, and the start view shows little that identifies the place."
+  }
+ },
+ "total": 9,
+ "of": 18,
+ "passes": false
+}

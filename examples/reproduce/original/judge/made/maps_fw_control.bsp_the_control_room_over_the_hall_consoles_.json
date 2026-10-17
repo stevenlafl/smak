@@ -3,20 +3,16 @@
  "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
  "measured": {
   "size": [
-   1448,
-   1104
+   2500,
+   1008
   ],
   "sizeAsked": null,
   "checkErrors": [],
-  "notReached": [
-   "trigger_once 6"
-  ],
-  "reachWarnings": [
-   "1 of the 4 entities a player goes to are not reached on foot from the places to start: 6 trigger_once at 312 606 60: no opening leads to it"
-  ],
+  "notReached": [],
+  "reachWarnings": [],
   "changelevels": [],
   "landmarks": [
-   "lm_hall_control"
+   "fw_land_2"
   ],
   "itemsAsked": [
    "monster_headcrab"
@@ -27,12 +23,65 @@
  },
  "caps": {
   "P2": 2,
-  "P8": 1
+  "P8": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "P8"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "P1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's three areas are not there as described. The plan shows a large dark room on the left, a middle room, and a small east room with the start. No consoles, windows, lift shaft or valve room appear in plan or views, so the control room over the hall and the lift down to the valve room are missing. The only joins are open gaps in the wall at the middle room's left and right edges."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The overall footprint (2500 by 1008) is plausible, but the areas the brief names (control room over the hall, valve room below) cannot be found, so their sizes and places cannot be matched. The middle room, about 1000 wide, reads as a generic room, not an overlook. Clearly off, not wrong by a measure."
+  },
+  "P3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The plan shows one floor level throughout (grey floors, no height change marked) and the views show a single flat floor and ceiling. The brief's storeys (control room above, valve room below) and the lift between them are absent. The only feature that might be a stair is a grated block at the bottom left of the middle room, which is not a level change to anything."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Present: one info_player_start in the east room, and two monster_headcrab (red markers at about (625,104) and (606,260) in the middle room), matching itemsFound 2 of 2. Missing: the lift and the main valve wheel, which the brief names, and any door entity. Partly there, clearly off."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls are a grey vertical-striped stone-like texture and the floor a mottled grey. Neither is wrong for concrete, but the brief's hazard-striped trim, steel grate, control panel and window glass do not appear anywhere in the views. Non-must, so this is scored for what is there: generic surfaces that do not show the brief's materials."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan has many yellow LIGHT entities in a regular grid (about 20 in the big left room and about 12 in the middle), so the lamps are in place. But the views show a flat, evenly lit grey room with no sodium-orange cast, no bright and dark pools, and the big left room reads dark in plan with no visible lamp glow."
+  },
+  "P7": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "None of the brief's distinctive features are there: no consoles, no windows looking onto a hall, no lift, no valve wheel, no caged lamp, no pipes. The views show only empty walls, a floor, two cycler sprite markers and a headcrab. Nothing in the views or the plan is a landmark."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements are clean: no checkErrors, no notReached, no reachWarnings, the landmark fw_land_2 is present, and the headcrab item (2 of 2) is reached. It compiles and the walk test reaches what it measures. No changelevel is needed since this is the last map. The missing lift and wheel are P1 and P4 faults, not P8."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show a large empty box with striped walls and a flat floor. A player who knows Half-Life would not recognise a control room with consoles, windows and a lift; the views are close to the plain-box decoy the brief warns about. Clearly off."
+  }
+ },
+ "total": 7,
+ "of": 18,
+ "passes": false
 }

@@ -3,8 +3,8 @@
  "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
  "measured": {
   "size": [
-   2544,
-   688
+   2548,
+   1264
   ],
   "sizeAsked": {
    "long": 2500
@@ -15,12 +15,12 @@
   "changelevels": [
    {
     "map": "fw_control",
-    "landmark": "lm_hall_control"
+    "landmark": "fw_land_2"
    }
   ],
   "landmarks": [
-   "lm_yard_hall",
-   "lm_hall_control"
+   "fw_land_1",
+   "fw_land_2"
   ],
   "itemsAsked": [
    "weapon_crowbar",
@@ -37,61 +37,61 @@
  },
  "scores": {
   "P1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The plan shows the brief's areas joined as asked: a start room at the west (info_player_start 8) opening into the hall, catwalks along both long sides (top and bottom), a bridge across the middle at about x 750-780, two func_ladders at the west catwalk ends, and a stair on the east side up to the trigger_changelevel corridor."
+   "score": 1,
+   "reason": "The plan shows the brief's parts: a hall with three pumps (octagons at about x 260, 512 and 760), catwalk strips on the top and bottom sides, a bridge at x 378-416 between them, and a corridor room top right reached by a ladder. The exit is a func_ladder drawn as rungs (x 898-922, y 130-275), not the stair the brief asks for. The second ladder the legend lists (entities 2 and 4) is not drawn anywhere in the plan."
   },
   "P2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Overall length is 2544 units against the brief's 2500 (within 25%). The water hall, pumps and catwalks sit in a plausible proportion to one another on the plan, and no area is visibly out of scale."
+   "reason": "Measured size 2548 x 1264 against 2500 long. On the plan's scale bar the hall runs about 958 px, which is about 2500 units, and the corridor room is about 420 units across. Both sit within 10% of the brief."
   },
   "P3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Floor heights read from the plan: water at 0, both catwalks at 160, pump tops at 200 and 50. The stair from the hall up to the corridor is there on the east side. Only the small labels are readable at this size, and none is clearly off."
+   "score": 1,
+   "reason": "No section is given, so the levels can only be read from shading. The catwalks are lighter than the water, which reads as raised, and the views show them above dark water. But the only drawn ladder climbs from the hall floor to the corridor, not from water to catwalk as the brief asks, and the stair/ladder change in floor height is not shown. The brief's ladders between water and catwalk are not evidently there."
   },
   "P4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Start: one info_player_start. Wrench: one weapon_crowbar on the top catwalk at about (325, 64), which the brief's wrench takes the place of. Crawlers: three monster_headcrab (12, 13, 14) in or at the edge of the water, as asked. Ladders: two func_ladder. Exit: trigger_changelevel to fw_control, with its landmark lm_hall_control."
+   "score": 1,
+   "reason": "The three monster_headcrab markers (red, at about (91,384), (608,384) and (857,262)) and the changelevel trigger to fw_control with landmark fw_land_2 (top-right room, about (968,80)) are present. The weapon_crowbar (entity 14) is listed, but nothing in the plan confirms it sits on a catwalk. The marker at (91,384) is in the left area, and whether it is in water is not shown. The exit is a ladder where the brief asks for a stair."
   },
   "P5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "In the views the walls repeat one rust-brown, green-stained panel texture in every view. The water is a flat green with horizontal streaks and reads as a plane more than as water. The start view's grey-white wall is a different, brighter material. It is passable but samey, so not a clear match for the brief's textures."
+   "reason": "The views show concrete walls with vertical streaks and a grid floor, which is a plausible concrete and grate look. The hazard-striped trim, the sign and the control panel of the brief's texture list are not visible in any view, and the wall texture repeats uniformly."
   },
   "P6": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The 11 light entities are spread along the catwalks and across the water, as the plan shows. In the views most of the hall is near black (YAW 90 and 180 especially), and no sodium-orange glow is visible; the one pale patch at YAW 0 is not the sodium lamp the brief describes."
+   "reason": "Lights are spread in a regular grid of 39 light entities across both halls. The views are evenly grey-white, and the brief's sodium-orange glow is not visible in any view. The glows (ENV_GLOW) in view 1 are pale, not orange. The bright and dark areas are not varied as a sodium-lit, flooded hall would be."
   },
   "P7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief's named features are present: three square pumps with their circular heads along the water, the bridge across the middle, the two catwalks, the ladders, the stair and the corridor exit. The views show the pump housings and overhead pipes."
+   "reason": "The distinctive features are there: three large pump cylinders (view 1 and the plan's octagons), catwalks with railings above dark water (view 2), a bridge joining the catwalks (plan, x 378-416), hanging lamps on poles (views 3 and 4), and a rusted pipe at the top of view 1."
   },
   "P8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measurements report no check errors, no unreached entities and no reach warnings. The walk test reaches the weapon, the three crawlers and the changelevel. The changelevel names its landmark lm_hall_control, which is the same name the next map's landmark uses."
+   "reason": "The build reports no check errors and no unreached items, and the changelevel is reached on foot. The leak check is not in the supplied measurements, so the no-leak part is not confirmed here."
   },
   "P9": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "From inside the hall reads as a worn industrial room, but the views are too dark to read the space well (YAW 90 is almost black), the walls repeat the same panel, and the water looks like a flat green plane. A player would recognise it as a room of this kind, but not as clearly a Half-Life map."
+   "reason": "From inside, the views read as a concrete, flooded hall with pumps and catwalks, which is in the spirit of a Half-Life map. But the lighting is flat grey-white with no sodium tint, the floor in view 3 is a plain tiled grid, and there is no hazard trim or sign to tell the place apart from a generic industrial room. A player who knows Half-Life's own flooded-pump maps would not place it at once."
   }
  },
- "total": 15,
+ "total": 12,
  "of": 18,
  "passes": false
 }

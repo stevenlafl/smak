@@ -8,7 +8,7 @@
   ],
   "frames": 8,
   "type": "parallel",
-  "format": "additive",
+  "format": "index alpha",
   "measures": {
    "frames": 8,
    "size": [
@@ -16,29 +16,29 @@
     64
    ],
    "border": {
-    "max": 0,
+    "max": 0.141,
     "mean": 0
    },
    "envelope": {
-    "peakAt": 0.43,
+    "peakAt": 0.14,
     "first": 0,
     "last": 0
    },
-   "dark": 0.7,
-   "wrap": 0.46,
-   "jitter": 1.44
+   "dark": 0.63,
+   "wrap": 0.65,
+   "jitter": 1.5
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.44,
+    "value": 1.5,
     "range": [
      1.04,
      1.48
     ],
-    "ok": true,
-    "words": ""
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
    },
    {
     "measure": "border",
@@ -52,13 +52,13 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.43,
+    "value": 0.14,
     "range": [
      0.22,
      0.71
     ],
-    "ok": true,
-    "words": ""
+    "ok": false,
+    "words": "peaks too soon"
    },
    {
     "measure": "first",
@@ -88,34 +88,34 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a sludge splash: a green-yellow mass that bursts outward, with radiating streaks in frames 3 to 5 (the spatter) and a thinning cloud after. It is a splash effect, not a flame or a glow, which is what the brief asks for."
+   "reason": "Reads as a sludge splash: a green blob that swells in frames 1 to 4, with small spatter streaks falling off its lower edge in frames 3 to 5, then breaks up and fades. Frame 0 is empty, so the effect starts from nothing. The brief asks for a spit that splashes, animated, and this is that."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The sprite is 64 by 64, as measured. The effect fills most of each frame (in frames 1 to 4 the mass spans roughly 70% of the cell's width) and sits centred, with no edge clipping (border max 0)."
+   "reason": "Frames are 64 by 64 as the original's are. The effect fills the centre of each frame with a soft edge, and the border measure is 0 on average (max 0.141), so nothing is clipped at the frame edge."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Green-yellow sludge with brighter yellow-white hot cores in frames 1 to 3. It reads as sludge in the game's palette, not neon, and the hue is consistent across all eight frames."
+   "reason": "The colour is a muted green with a grey-green cast, reading as sludge against the brief's green-grey palette. No frame drifts to another hue, and the colour is steady across the sequence."
   },
   "R4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Eight frames, inside the explosion class's measures. Envelope: first frame 0 and last frame 0 (both dark, a one-shot that ends dark), peak at 0.43, border 0. Jitter 1.44 is inside the class range (1.04 to 1.48), though near its top. Motion goes from appear to burst to thin and fade, the splash's own kind of motion."
+   "score": 1,
+   "reason": "Two measures fail against the explosion class. peakAt is 0.14 (frame 1) against 0.22 to 0.71, so it peaks too soon and the fade is long after the peak. jitter is 1.5 against 1.04 to 1.48, so the blobs flicker from frame to frame (frames 1 and 2 shift position; frames 4 and 5 change shape). The frame count (8) and the first and last frames (dark, 0 and 0) are within the class's measures. The motion is a grow-then-fade, which is the right kind, but the timing and steadiness are off."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads back as additive, parallel, 64 by 64, under the name fw_spit. No original's type is given to compare against, so the type and format are taken as written; nothing in the measures contradicts a sprite of this kind."
+   "reason": "The file reads back as written: type parallel, format index alpha, 8 frames at 64 by 64, which are valid for GoldSrc. No slot type was given with the brief, so I could not check parallel against a required type; on the measures given, nothing is wrong."
   }
  },
- "total": 10,
+ "total": 9,
  "of": 10,
- "passes": true
+ "passes": false
 }

@@ -1,0 +1,116 @@
+{
+  "spec": "smak.sound/1",
+  "sounds": [
+    {
+      "name": "headcrab/hc_attack1.wav",
+      "class": "flesh hit",
+      "seed": 5,
+      "length": 0.3,
+      "layers": [
+        {
+          "id": "bite",
+          "kind": "sample",
+          "file": "work:gen/crawler_attack_stable-audio-3-sfx_s1.wav",
+          "from": 0.07,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.2
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 750,
+              "q": 0.7
+            },
+            {
+              "type": "highpass",
+              "f": 120,
+              "q": 0.7
+            }
+          ]
+        }
+      ],
+      "finish": {
+        "limit": {
+          "crest": 10,
+          "release": 0.002
+        },
+        "peak": -1
+      }
+    },
+    {
+      "name": "headcrab/hc_pain1.wav",
+      "class": "flesh hit",
+      "seed": 6,
+      "length": 0.3,
+      "layers": [
+        {
+          "id": "yelp",
+          "kind": "sample",
+          "file": "work:gen/crawler_pain_stable-audio-3-sfx_s3.wav",
+          "from": 0.02,
+          "env": {
+            "attack": 0.002,
+            "decay": 0.2
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 1000,
+              "q": 0.7
+            },
+            {
+              "type": "highpass",
+              "f": 150,
+              "q": 0.7
+            }
+          ]
+        }
+      ],
+      "finish": {
+        "limit": {
+          "crest": 10,
+          "release": 0.002
+        },
+        "peak": -1
+      }
+    },
+    {
+      "name": "weapons/cbar_miss1.wav",
+      "class": "swing",
+      "seed": 4,
+      "length": 0.4,
+      "layers": [
+        {
+          "id": "swing",
+          "kind": "sample",
+          "file": "work:gen/wrench_swing_woosh-dflow_s1.wav",
+          "from": "onset",
+          "env": {
+            "attack": 0.005,
+            "decay": 0.3
+          },
+          "filter": [
+            {
+              "type": "lowpass",
+              "f": 850,
+              "q": 0.7
+            },
+            {
+              "type": "highpass",
+              "f": 150,
+              "q": 0.7
+            }
+          ]
+        }
+      ],
+      "finish": {
+        "limit": {
+          "crest": 12,
+          "release": 0.002
+        },
+        "peak": -1
+      }
+    }
+  ]
+}

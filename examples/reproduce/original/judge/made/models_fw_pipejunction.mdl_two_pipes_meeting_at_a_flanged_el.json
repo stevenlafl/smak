@@ -3,76 +3,29 @@
  "label": "models/fw_pipejunction.mdl: two pipes meeting at a flanged elbow, bolted",
  "measured": {
   "size": [
-   52.4,
-   19.8,
-   39
+   46.8,
+   15,
+   36.9
   ],
   "sizeAsked": null,
   "sizeOff": null,
-  "triangles": 400,
-  "halfLifeMedianOfItsKind": 238,
-  "halfLifeThreeQuartersUnder": 291,
-  "halfLifeMost": 439,
+  "triangles": 504,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/sentry.mdl, models/w_egon.mdl, models/filecabinet.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, A, D, C where the asset was C, A, A, C: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/floater.mdl, models/w_sqknest.mdl, models/w_egon.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, C, D, C where the asset was C, A, A, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
-  "M8": 2,
+  "M8": 1,
   "M6": 2
  },
- "scores": {
-  "M1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The brief's outline is two pipes meeting at a flanged elbow. The sides show that: a horizontal run (LEFT, RIGHT) with a capped flanged end (FRONT disc), a vertical stub from a floor flange (BELOW, FRONT-LEFT), and a flange ring at the joint. No part sticks out or is missing in any of the ten views."
-  },
-  "M2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no size for a pipe junction, so the measured 52.4 x 19.8 x 39 cannot be checked against a brief size (sizeAsked is null). The proportions look plausible beside the lineup, but nothing in the brief confirms them, so this is not shown to be right."
-  },
-  "M3": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Parts the brief asks for, down to the small ones: two pipes (vertical and horizontal), the flanged elbow ring (the bar across the joint in LEFT and RIGHT, the ring in TOP), an end flange on the horizontal pipe (grey disc in FRONT-LEFT and BACK-RIGHT), a base flange on the vertical pipe (BELOW shows its ring), and the bolts (spikes on the elbow and end flange rims, three dots on the base plate in FRONT). All are present in the right places. The brief gives no counts or side numbers for the round parts."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The pipes carry a verdigris green with brown rust, and the flanges are grey-silver steel. This suits the brief's rusted steel. The colours are consistent across all views, and the regions (pipe, flange, cap) each read as one material."
-  },
-  "M5": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The pipe has mottled rust and green corrosion, with the flange edges and bolt studs as small raised detail. This is the wear the brief asks for, and it is at a similar sharpness to Half-Life's props. No seams or stray detail appear in the views."
-  },
-  "M6": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Capped at 2 by the line-up test, as the rubric directs. The four-reading line-up caught the asset in two readings (picked A when it was at A, picked C when it was C) and missed it in two (picked D, picked A when it was at C-position readings). It passes some readings and is caught in others."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "The model stands upright on its bottom floor flange, with the horizontal run and the cap facing the front. That is the natural placement for a pipe junction, and it sits on its origin in the TOP and FRONT views."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "400 triangles, under the bound of twice Half-Life's median of its kind (2 x 238 = 476) and under the most Valve spends on a prop of that size (439). The third-quartile warning (291) is exceeded, but that warning is not a fail. Nothing is floating or inside out. The BELOW view shows the bottom of the vertical pipe open, which is an underside the game never shows, so it is Valve's practice and not a fault."
-  }
- },
- "total": 15,
- "of": 16,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M8"
+ ],
+ "total": 0,
+ "of": 16
 }

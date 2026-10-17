@@ -1,0 +1,109 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 12,
+      "loop": false,
+      "fps": 10,
+      "origin": "centre",
+      "type": "parallel",
+      "layers": [
+        {
+          "kind": "smoke",
+          "density": 0.6,
+          "spread": 0.3,
+          "colour": [
+            0.8,
+            0.82,
+            0.8
+          ],
+          "rise": 0.9,
+          "gain": 1,
+          "env": {
+            "attack": 0.12,
+            "decay": 0.7
+          }
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "origin": "centre",
+      "type": "parallel",
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.9,
+          "core": 0.2,
+          "colour": [
+            1,
+            0.6,
+            0.2
+          ],
+          "gain": 1
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "sparks",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 8,
+      "loop": false,
+      "fps": 14,
+      "origin": "centre",
+      "type": "parallel",
+      "layers": [
+        {
+          "kind": "blobs",
+          "count": 12,
+          "radius": 0.3,
+          "colour": [
+            0.55,
+            0.66,
+            0.32
+          ],
+          "gain": 1,
+          "env": {
+            "attack": 0.05,
+            "decay": 0.6
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 22,
+          "speed": 0.6,
+          "gravity": 0.4,
+          "colour": [
+            0.6,
+            0.7,
+            0.35
+          ],
+          "gain": 1,
+          "env": {
+            "attack": 0.05,
+            "decay": 0.5
+          }
+        }
+      ]
+    }
+  ]
+}

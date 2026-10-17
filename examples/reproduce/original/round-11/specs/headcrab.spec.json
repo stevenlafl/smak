@@ -1,0 +1,325 @@
+{
+  "spec": "smak.model/1",
+  "name": "headcrab.mdl",
+  "kind": "character",
+  "base": {
+    "file": "headcrab.mdl"
+  },
+  "contract": {
+    "file": "headcrab.mdl"
+  },
+  "floor": 0,
+  "materials": {
+    "skin": {
+      "base": "leather",
+      "tone": "dark olive grey"
+    },
+    "belly": {
+      "base": "bone",
+      "tone": [
+        0.62,
+        0.64,
+        0.56
+      ]
+    },
+    "teeth": {
+      "base": "bone",
+      "tone": [
+        0.9,
+        0.88,
+        0.78
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "blob",
+      "material": "skin",
+      "blend": 3,
+      "cells": 48,
+      "triangles": 200,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 Pelvis",
+            "Bip01 Spine"
+          ],
+          "radius": [
+            8,
+            8
+          ]
+        },
+        {
+          "span": [
+            "Bip01 Spine",
+            "Bip01 Neck"
+          ],
+          "radius": [
+            8,
+            6
+          ]
+        },
+        {
+          "at": "Bip01 Pelvis",
+          "radius": 8
+        },
+        {
+          "at": "Bip01 Neck",
+          "radius": 6
+        }
+      ]
+    },
+    {
+      "id": "belly",
+      "kind": "blob",
+      "material": "belly",
+      "blend": 3,
+      "cells": 40,
+      "triangles": 60,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 Pelvis",
+            "Bip01 Spine"
+          ],
+          "radius": [
+            6.5,
+            6.5
+          ],
+          "offset": [
+            0,
+            0,
+            -3.5
+          ]
+        },
+        {
+          "at": "Bip01 Pelvis",
+          "radius": 6.5,
+          "offset": [
+            0,
+            0,
+            -3.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leg_L_upper",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 L Leg",
+            "Bip01 L Leg1"
+          ],
+          "radius": [
+            1.8,
+            1.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leg_L_lower",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 L Leg1",
+            "Bip01 L Foot"
+          ],
+          "radius": [
+            1.4,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leg_R_upper",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 R Leg",
+            "Bip01 R Leg1"
+          ],
+          "radius": [
+            1.8,
+            1.4
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leg_R_lower",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "span": [
+            "Bip01 R Leg1",
+            "Bip01 R Foot"
+          ],
+          "radius": [
+            1.4,
+            1
+          ]
+        }
+      ]
+    },
+    {
+      "id": "claw_A",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "span": [
+            "Bone04",
+            "Bone05"
+          ],
+          "radius": [
+            1.4,
+            1.1
+          ]
+        },
+        {
+          "span": [
+            "Bone05",
+            "Bone06"
+          ],
+          "radius": [
+            1.1,
+            0.7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "claw_B",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "span": [
+            "Bone01",
+            "Bone02"
+          ],
+          "radius": [
+            1.4,
+            1.1
+          ]
+        },
+        {
+          "span": [
+            "Bone02",
+            "Bone03"
+          ],
+          "radius": [
+            1.1,
+            0.7
+          ]
+        },
+        {
+          "span": [
+            "Bone03",
+            "Bone08"
+          ],
+          "radius": [
+            0.7,
+            0.5
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leg_mid_L",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "from": [
+            -6,
+            8.5,
+            7
+          ],
+          "to": [
+            -7,
+            14,
+            0.5
+          ],
+          "radius": [
+            1.4,
+            0.9
+          ],
+          "bone": "Bip01 Spine"
+        }
+      ]
+    },
+    {
+      "id": "leg_mid_R",
+      "kind": "blob",
+      "material": "skin",
+      "triangles": 40,
+      "pieces": [
+        {
+          "from": [
+            -6,
+            -8.5,
+            7
+          ],
+          "to": [
+            -7,
+            -14,
+            0.5
+          ],
+          "radius": [
+            1.4,
+            0.9
+          ],
+          "bone": "Bip01 Spine"
+        }
+      ]
+    },
+    {
+      "id": "teeth",
+      "kind": "cylinder",
+      "material": "teeth",
+      "radius": 0.9,
+      "height": 2.6,
+      "top": 0,
+      "sides": 4,
+      "bone": "Bip01 Neck",
+      "at": [
+        6.5,
+        0,
+        7
+      ],
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "repeat": {
+        "count": 10,
+        "axis": "x",
+        "through": [
+          6.5,
+          0,
+          4
+        ]
+      }
+    }
+  ]
+}

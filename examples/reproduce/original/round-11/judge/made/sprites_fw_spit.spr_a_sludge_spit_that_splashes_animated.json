@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 8,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.43,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.7,
+   "wrap": 0.46,
+   "jitter": 1.44
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.44,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.43,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a sludge splash: a green-yellow mass that bursts outward, with radiating streaks in frames 3 to 5 (the spatter) and a thinning cloud after. It is a splash effect, not a flame or a glow, which is what the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The sprite is 64 by 64, as measured. The effect fills most of each frame (in frames 1 to 4 the mass spans roughly 70% of the cell's width) and sits centred, with no edge clipping (border max 0)."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Green-yellow sludge with brighter yellow-white hot cores in frames 1 to 3. It reads as sludge in the game's palette, not neon, and the hue is consistent across all eight frames."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Eight frames, inside the explosion class's measures. Envelope: first frame 0 and last frame 0 (both dark, a one-shot that ends dark), peak at 0.43, border 0. Jitter 1.44 is inside the class range (1.04 to 1.48), though near its top. Motion goes from appear to burst to thin and fade, the splash's own kind of motion."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads back as additive, parallel, 64 by 64, under the name fw_spit. No original's type is given to compare against, so the type and format are taken as written; nothing in the measures contradicts a sprite of this kind."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

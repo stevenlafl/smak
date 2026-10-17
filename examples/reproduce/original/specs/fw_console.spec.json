@@ -3,292 +3,215 @@
   "name": "fw_console.mdl",
   "kind": "prop",
   "size": {
-    "height": 40,
-    "width": 64,
-    "length": 30
+    "height": 38,
+    "width": 28,
+    "length": 42
   },
   "materials": {
-    "panelgrey": {
+    "casing": {
       "base": "metal",
-      "picture": "library:metal_plate_02",
-      "size": 79,
-      "tone": [
-        0.3,
-        0.31,
-        0.29
-      ]
-    },
-    "topsteel": {
-      "base": "steel",
-      "tone": [
-        0.36,
-        0.37,
-        0.36
-      ]
+      "tone": "grey green",
+      "rust": 0.25
     },
     "screen": {
       "base": "flat",
       "tone": [
-        0.08,
-        0.16,
-        0.12
+        0.2,
+        0.42,
+        0.32
       ]
     },
-    "dial": {
-      "base": "steel",
-      "tone": [
-        0.62,
-        0.6,
-        0.55
-      ]
+    "brass": {
+      "base": "brass"
     },
-    "switch": {
-      "base": "paint",
-      "tone": [
-        0.12,
-        0.12,
-        0.11
-      ]
+    "iron": {
+      "base": "iron",
+      "rust": 0.3
     }
   },
   "parts": [
     {
       "id": "body",
       "kind": "box",
+      "material": "casing",
       "size": [
-        28,
-        64,
+        40,
+        26,
         36
       ],
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "material": "panelgrey",
       "panels": [
         {
           "face": "front",
           "at": [
-            14,
-            22
+            6.5,
+            24
           ],
           "size": [
-            22,
-            14
+            11,
+            9
           ],
           "style": "inset",
+          "edge": 0.6,
+          "material": "iron"
+        },
+        {
+          "face": "front",
+          "at": [
+            19.5,
+            24
+          ],
+          "size": [
+            11,
+            9
+          ],
+          "style": "inset",
+          "edge": 0.6,
+          "material": "iron"
+        },
+        {
+          "face": "front",
+          "at": [
+            6.5,
+            24
+          ],
+          "size": [
+            9.4,
+            7.4
+          ],
+          "style": "flat",
           "material": "screen"
         },
         {
           "face": "front",
           "at": [
-            42,
-            22
+            19.5,
+            24
           ],
           "size": [
-            22,
-            14
+            9.4,
+            7.4
           ],
-          "style": "inset",
+          "style": "flat",
           "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            5,
+            12
+          ],
+          "size": [
+            5,
+            5
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            13,
+            12
+          ],
+          "size": [
+            5,
+            5
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            21,
+            12
+          ],
+          "size": [
+            5,
+            5
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "brass"
+        },
+        {
+          "face": "front",
+          "at": [
+            4,
+            5
+          ],
+          "size": [
+            2.2,
+            3
+          ],
+          "style": "raised",
+          "material": "iron"
+        },
+        {
+          "face": "front",
+          "at": [
+            8.5,
+            5
+          ],
+          "size": [
+            2.2,
+            3
+          ],
+          "style": "raised",
+          "material": "iron"
+        },
+        {
+          "face": "front",
+          "at": [
+            13,
+            5
+          ],
+          "size": [
+            2.2,
+            3
+          ],
+          "style": "raised",
+          "material": "iron"
+        },
+        {
+          "face": "front",
+          "at": [
+            17.5,
+            5
+          ],
+          "size": [
+            2.2,
+            3
+          ],
+          "style": "raised",
+          "material": "iron"
+        },
+        {
+          "face": "front",
+          "at": [
+            22,
+            5
+          ],
+          "size": [
+            2.2,
+            3
+          ],
+          "style": "raised",
+          "material": "iron"
         }
       ]
     },
     {
       "id": "top",
       "kind": "box",
+      "material": "iron",
       "size": [
-        30,
-        66,
-        4
-      ],
-      "at": [
-        -1,
-        0,
-        36
-      ],
-      "material": "topsteel"
-    },
-    {
-      "id": "dial_1",
-      "kind": "cylinder",
-      "radius": 3.2,
-      "height": 1.8,
-      "sides": 8,
-      "at": [
-        14,
-        24,
-        8
-      ],
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "material": "dial"
-    },
-    {
-      "id": "dial_2",
-      "kind": "cylinder",
-      "radius": 3.2,
-      "height": 1.8,
-      "sides": 8,
-      "at": [
-        14,
-        12,
-        8
-      ],
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "material": "dial"
-    },
-    {
-      "id": "dial_3",
-      "kind": "cylinder",
-      "radius": 3.2,
-      "height": 1.8,
-      "sides": 8,
-      "at": [
-        14,
-        0,
-        8
-      ],
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "material": "dial"
-    },
-    {
-      "id": "dial_4",
-      "kind": "cylinder",
-      "radius": 3.2,
-      "height": 1.8,
-      "sides": 8,
-      "at": [
-        14,
-        -12,
-        8
-      ],
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "material": "dial"
-    },
-    {
-      "id": "dial_5",
-      "kind": "cylinder",
-      "radius": 3.2,
-      "height": 1.8,
-      "sides": 8,
-      "at": [
-        14,
-        -24,
-        8
-      ],
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "material": "dial"
-    },
-    {
-      "id": "switch_1",
-      "kind": "box",
-      "size": [
-        1.6,
-        3,
-        4
-      ],
-      "at": [
-        14.5,
-        24,
-        31
-      ],
-      "material": "switch"
-    },
-    {
-      "id": "switch_2",
-      "kind": "box",
-      "size": [
-        1.6,
-        3,
-        4
-      ],
-      "at": [
-        14.5,
-        16,
-        31
-      ],
-      "material": "switch"
-    },
-    {
-      "id": "switch_3",
-      "kind": "box",
-      "size": [
-        1.6,
-        3,
-        4
-      ],
-      "at": [
-        14.5,
-        8,
-        31
-      ],
-      "material": "switch"
-    },
-    {
-      "id": "switch_4",
-      "kind": "box",
-      "size": [
-        1.6,
-        3,
-        4
-      ],
-      "at": [
-        14.5,
-        -8,
-        31
-      ],
-      "material": "switch"
-    },
-    {
-      "id": "switch_5",
-      "kind": "box",
-      "size": [
-        1.6,
-        3,
-        4
-      ],
-      "at": [
-        14.5,
-        -16,
-        31
-      ],
-      "material": "switch"
-    },
-    {
-      "id": "switch_6",
-      "kind": "box",
-      "size": [
-        1.6,
-        3,
-        4
-      ],
-      "at": [
-        14.5,
-        -24,
-        31
-      ],
-      "material": "switch"
+        42,
+        28,
+        2
+      ]
     }
   ]
 }

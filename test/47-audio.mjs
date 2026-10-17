@@ -110,6 +110,9 @@ test("finish.fit brings a sound's power to its bands: those asked, or its class'
   const ranges = A.rangesOf("swing");
   const swung = A.features({ x: A.readWav(classed.files[0].bytes).x, rate: RATE }).bands;
   sure(Object.keys(swung).every((k) => swung[k] >= ranges[`band ${k}`][0] && swung[k] <= ranges[`band ${k}`][1]), `inside the class's bands: ${JSON.stringify(swung)}`);
+  // off its class's bands without the fit, its warning names it
+  const unfitted = A.buildSoundSpec({ spec: "smak.sound/1", name: "x/swing2.wav", class: "swing", length: 0.4, layers: noise });
+  sure(unfitted.report.warnings.some((w) => /off the game's swing sounds.*finish: \{ fit: "bands" \} brings its bands there/.test(w)), unfitted.report.warnings.join(" | "));
   const none = A.buildSoundSpec({ spec: "smak.sound/1", name: "x/none.wav", length: 0.3, layers: noise, finish: { fit: "bands" } });
   sure(none.report.errors.some((e) => /nothing to fit to/.test(e)), none.report.errors.join(" | "));
   sure(A.validateSoundSpec({ spec: "smak.sound/1", name: "x/a.wav", layers: noise, finish: { fit: "eq" } }).errors.some((e) => /finish\.fit: "bands"/.test(e)), "another fit refused");

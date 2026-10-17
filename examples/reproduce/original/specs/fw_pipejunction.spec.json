@@ -2,195 +2,160 @@
   "spec": "smak.model/1",
   "name": "fw_pipejunction.mdl",
   "kind": "prop",
-  "size": {
-    "height": 36,
-    "length": 50,
-    "width": 20
-  },
   "materials": {
     "pipe": {
+      "base": "metal",
+      "tone": "dark green grey",
+      "rust": 0.45
+    },
+    "flange": {
       "base": "iron",
-      "picture": "library:rusty_metal_03",
-      "size": 53,
-      "tone": [
-        0.36,
-        0.37,
-        0.32
-      ],
-      "rust": 0.35
+      "rust": 0.5
     },
     "bolt": {
-      "base": "steel",
+      "base": "steel"
+    },
+    "hazard": {
+      "base": "hazard",
       "tone": [
-        0.5,
-        0.5,
-        0.48
+        0.9,
+        0.72,
+        0.1
       ]
     }
   },
   "parts": [
     {
-      "id": "pipe_up",
+      "id": "hpipe",
       "kind": "cylinder",
-      "radius": 6,
-      "height": 30,
+      "material": "pipe",
+      "radius": 4.5,
+      "height": 36,
       "sides": 10,
-      "at": [
-        0,
-        0,
-        0
-      ],
-      "material": "pipe"
-    },
-    {
-      "id": "elbow",
-      "kind": "sphere",
-      "radius": 6.8,
-      "sides": 10,
-      "at": [
-        0,
-        0,
-        23.2
-      ],
-      "material": "pipe"
-    },
-    {
-      "id": "pipe_out",
-      "kind": "cylinder",
-      "radius": 6,
-      "height": 40,
-      "sides": 10,
-      "at": [
-        0,
-        0,
-        30
-      ],
       "rotate": [
         0,
         90,
         0
       ],
-      "material": "pipe"
+      "at": [
+        -36,
+        0,
+        14
+      ]
     },
     {
-      "id": "flange_floor",
-      "kind": "turn",
-      "axis": "z",
-      "sides": 12,
+      "id": "vpipe",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 4.5,
+      "height": 26,
+      "sides": 10,
       "at": [
         0,
         0,
+        14
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.45,
+              0
+            ],
+            [
+              0.45,
+              360
+            ]
+          ],
+          "width": 2.5,
+          "material": "hazard",
+          "ends": "round"
+        }
+      ]
+    },
+    {
+      "id": "elbow",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 6.5,
+      "height": 6,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        11
+      ]
+    },
+    {
+      "id": "hflange",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 7.5,
+      "height": 2.5,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
         0
       ],
-      "material": "bolt",
-      "rings": [
-        [
-          0,
-          9
-        ],
-        [
-          2.5,
-          9
-        ]
-      ],
-      "caps": [
-        true,
-        true
-      ]
-    },
-    {
-      "id": "flange_top",
-      "kind": "turn",
-      "axis": "z",
-      "sides": 12,
       "at": [
+        -38.5,
         0,
-        0,
-        27
-      ],
-      "material": "bolt",
-      "rings": [
-        [
-          0,
-          8.5
-        ],
-        [
-          2.5,
-          8.5
-        ]
-      ],
-      "caps": [
-        true,
-        true
+        14
       ]
     },
     {
-      "id": "flange_end",
-      "kind": "turn",
-      "axis": "x",
+      "id": "vflange",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 7.5,
+      "height": 2.5,
       "sides": 12,
-      "at": [
-        40,
+      "attach": {
+        "to": "vpipe",
+        "toAt": "end"
+      }
+    },
+    {
+      "id": "hbolt",
+      "kind": "cylinder",
+      "material": "bolt",
+      "radius": 0.9,
+      "height": 0.8,
+      "sides": 6,
+      "rotate": [
         0,
-        30
+        90,
+        0
       ],
-      "material": "bolt",
-      "rings": [
-        [
-          0,
-          9
-        ],
-        [
-          2.5,
-          9
-        ]
+      "at": [
+        -39.3,
+        5.8,
+        14
       ],
-      "caps": [
-        true,
-        true
-      ]
+      "repeat": {
+        "count": 6,
+        "around": "hflange",
+        "axis": "x"
+      }
     },
     {
-      "id": "bolts_end",
-      "kind": "studs",
+      "id": "vbolt",
+      "kind": "cylinder",
       "material": "bolt",
-      "on": {
-        "part": "flange_end",
-        "path": [
-          [
-            0.5,
-            0
-          ],
-          [
-            0.5,
-            300
-          ]
-        ]
-      },
-      "count": 6,
-      "radius": 1,
-      "height": 0.9
-    },
-    {
-      "id": "bolts_floor",
-      "kind": "studs",
-      "material": "bolt",
-      "on": {
-        "part": "flange_floor",
-        "path": [
-          [
-            0.5,
-            0
-          ],
-          [
-            0.5,
-            300
-          ]
-        ]
-      },
-      "count": 6,
-      "radius": 1,
-      "height": 0.9
+      "radius": 0.9,
+      "height": 0.9,
+      "sides": 6,
+      "at": [
+        5.8,
+        0,
+        42.5
+      ],
+      "repeat": {
+        "count": 6,
+        "around": "vflange",
+        "axis": "z"
+      }
     }
   ]
 }

@@ -1,0 +1,166 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 13,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_concrete",
+    "size": [
+     256,
+     256
+    ],
+    "detail": 24
+   },
+   {
+    "name": "fw_wetfloor",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 10.5
+   },
+   {
+    "name": "{fw_grate",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 52.6
+   },
+   {
+    "name": "fw_catwalk",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 20.1
+   },
+   {
+    "name": "fw_pipes",
+    "size": [
+     256,
+     128
+    ],
+    "detail": 21
+   },
+   {
+    "name": "fw_hazard",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 95.8
+   },
+   {
+    "name": "fw_rustplate",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 52.5
+   },
+   {
+    "name": "fw_panel",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 13.3
+   },
+   {
+    "name": "fw_lamp",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 6.5
+   },
+   {
+    "name": "!fw_water",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 3.5
+   },
+   {
+    "name": "fw_pump3",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 35.9
+   },
+   {
+    "name": "fw_door",
+    "size": [
+     64,
+     128
+    ],
+    "detail": 12.9
+   },
+   {
+    "name": "fw_rustwall",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 20.4
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most of the set reads as its material: fw_concrete, fw_catwalk, fw_lamp, fw_water, fw_pump3 (reads PUMP 3), fw_door, fw_rustwall. Three do not. fw_panel shows a grey wall with a dark green slot and no clear dials. fw_pipes shows faint lines, not pipe-covered wall. fw_hazard is a fine yellow-brown diagonal mesh, not hazard stripes. fw_rustplate's bright cyan patches on brown do not read as rust."
+  },
+  "T2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "fw_rustplate is covered in bright cyan-blue patches where rust should be orange-brown, and fw_rustwall carries the same blue-grey cast. Their mean colour is off the brief's rust and steel. fw_hazard's dull ochre is close to yellow but muddy. The rest (grey concrete, green-grey water, green door, sodium-yellow lamp face) are in the brief's palette."
+  },
+  "T3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "fw_hazard's diagonal stripes are so fine (64 units, noisy) that they do not read as hazard bands at a wall's scale. fw_pipes' pipe runs are too faint to set the spacing. fw_grate's 8x8 squares are finer than a grate of the game's walls. fw_concrete, fw_catwalk and fw_rustwall have plausible panel seams at a wall's scale."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No seam is visible where any texture repeats in the flat view (fw_concrete's vertical streaks, fw_catwalk and fw_rustwall's plate seams all run through). No tiling step was measured, so this is judged by eye only and is not a measured pass."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Three textures are outside Half-Life's own detail band (10.8 to 75). fw_water (3.5) and fw_lamp (6.5) are smeared gradients with little detail, and fw_wetfloor (10.5) is just under. fw_hazard (95.8) is noisy, and fw_rustplate's blue speckle reads as noise. fw_concrete, fw_pipes, fw_pump3 and fw_door are crisp and in the band."
+  },
+  "T6": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Names and sizes match the list (fw_concrete 256x256, fw_pump3 128x64, fw_door 64x128, and so on), and '!fw_water' is a liquid name with a water surface. fw_lamp is a lit face. The one gap is {fw_grate: its dark gaps sit between pale squares, and the flat view cannot show whether they are transparent holes or painted, so the 'holes where the original has them' test is unconfirmed."
+  }
+ },
+ "total": 7,
+ "of": 12,
+ "passes": false
+}

@@ -1,0 +1,154 @@
+{
+  "spec": "smak.model/1",
+  "name": "wrench.mdl",
+  "kind": "held",
+  "weapon": {
+    "like": "crowbar",
+    "size": "own",
+    "views": [
+      "v",
+      "p",
+      "w"
+    ],
+    "rig": "carry"
+  },
+  "materials": {
+    "red": {
+      "base": "paint",
+      "tone": "dark red",
+      "rust": 0.1
+    },
+    "iron": {
+      "base": "iron",
+      "rust": 0.35
+    }
+  },
+  "parts": [
+    {
+      "id": "handle",
+      "kind": "cylinder",
+      "material": "red",
+      "radius": 1.6,
+      "height": 11,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ],
+      "finish": {
+        "wear": 0.9
+      }
+    },
+    {
+      "id": "web",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        2.6,
+        3,
+        11.4
+      ],
+      "at": [
+        12.1,
+        0,
+        -5.7
+      ]
+    },
+    {
+      "id": "jaw_top",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        7.7,
+        3,
+        2.6
+      ],
+      "at": [
+        14.65,
+        0,
+        3.4
+      ]
+    },
+    {
+      "id": "jaw_bottom",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        7.7,
+        3,
+        2.6
+      ],
+      "at": [
+        14.65,
+        0,
+        -6
+      ]
+    },
+    {
+      "id": "tooth_top_a",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3,
+        1.2
+      ],
+      "at": [
+        15,
+        0,
+        2.2
+      ]
+    },
+    {
+      "id": "tooth_top_b",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3,
+        1.2
+      ],
+      "at": [
+        17.2,
+        0,
+        2.2
+      ]
+    },
+    {
+      "id": "tooth_bottom_a",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3,
+        1.2
+      ],
+      "at": [
+        15,
+        0,
+        -4.6
+      ]
+    },
+    {
+      "id": "tooth_bottom_b",
+      "kind": "box",
+      "material": "iron",
+      "size": [
+        1.2,
+        3,
+        1.2
+      ],
+      "at": [
+        17.2,
+        0,
+        -4.6
+      ]
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "lm_yard_hall"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "lm_yard_hall",
+     "lm_hall_control"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "lm_hall_control"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 396356
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 302758
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 4411214
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1195486
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list nothing missing and no failed SMAK checks. The brief's assets are all present: the three maps, the five props, the wrench, the crawler, the sprites, sounds, fw.wad and the four shown files (wrench, crawler and pump-hall videos, props picture). Nothing in the sheet contradicts this."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain is fw_yard to fw_pumphall (landmark lm_yard_hall) and fw_pumphall to fw_control (landmark lm_hall_control). Each map's arrival landmark matches the one the previous map leads by, and fw_control ends the chain as the brief's valve room does. Each change was reached on foot from the start by the walk test."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props agree with each other: blue-grey and rust-brown steel, hazard yellow-and-black on the drum, red paint on the valve wheel and wrench, and an olive-grey crawler that suits a sludge creature. The map views do not match them. The yard's sky is a flat bright blue, off the brief's dusk palette. The hall views (middle and right panels) show green-grey corrugated walls, a door and a dirt floor, with no water, pumps, catwalks, hazard paint or sodium glow, so the maps read as a different place from the props. The entity labels overlaid on the map views (CYCLER_SPRITE, MONSTER_HEADCRAB) also make the maps look unfinished."
+  },
+  "O4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The sheet of props the brief asks for is there (fw_props.png, shown in the measurements), and each prop reads clearly as its kind. The crawler in the lower-left is a grey-green blob with a ring of teeth and only two or three limbs visible, so its six legs do not show as the brief describes. The map panels also do not show the pump hall's flooded floor or catwalks, so they do not show the maps as they are."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}
