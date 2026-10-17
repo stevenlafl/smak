@@ -1,6 +1,165 @@
 {
   "spec": "smak.wad/1",
   "name": "frenzy_new.wad",
+  "materials": {
+    "conc_rough": {
+      "base": "stone",
+      "tone": [
+        0.4,
+        0.4,
+        0.39
+      ]
+    },
+    "conc_dark": {
+      "base": "stone",
+      "tone": [
+        0.3,
+        0.32,
+        0.36
+      ]
+    },
+    "conc_cool": {
+      "base": "stone",
+      "tone": [
+        0.44,
+        0.47,
+        0.5
+      ]
+    },
+    "conc_mid": {
+      "base": "stone",
+      "tone": [
+        0.42,
+        0.42,
+        0.41
+      ]
+    },
+    "conc_pale": {
+      "base": "stone",
+      "tone": [
+        0.5,
+        0.5,
+        0.49
+      ]
+    },
+    "ceil_conc": {
+      "base": "stone",
+      "tone": [
+        0.4,
+        0.4,
+        0.38
+      ]
+    },
+    "tile_grey": {
+      "base": "tile",
+      "cell": 32,
+      "tone": [
+        0.4,
+        0.41,
+        0.42
+      ]
+    },
+    "tile_warm": {
+      "base": "tile",
+      "cell": 32,
+      "tone": [
+        0.44,
+        0.4,
+        0.33
+      ]
+    },
+    "steel_dark": {
+      "base": "metal",
+      "tone": [
+        0.22,
+        0.24,
+        0.26
+      ],
+      "rust": 0.2
+    },
+    "pipe_metal": {
+      "base": "metal",
+      "tone": [
+        0.36,
+        0.38,
+        0.4
+      ]
+    },
+    "lamp_housing": {
+      "base": "metal",
+      "tone": [
+        0.55,
+        0.56,
+        0.55
+      ]
+    },
+    "lamp_plate": {
+      "base": "metal",
+      "tone": [
+        0.5,
+        0.5,
+        0.46
+      ]
+    },
+    "ochre_metal": {
+      "base": "metal",
+      "tone": [
+        0.48,
+        0.45,
+        0.38
+      ],
+      "rust": 0.3
+    },
+    "paint_yellow": {
+      "base": "paint",
+      "tone": [
+        0.72,
+        0.56,
+        0.14
+      ]
+    },
+    "hazard_yellow": {
+      "base": "hazard",
+      "tone": [
+        0.8,
+        0.66,
+        0.14
+      ],
+      "stripe": 8
+    },
+    "water_teal": {
+      "base": "water",
+      "tone": [
+        0.16,
+        0.46,
+        0.48
+      ]
+    },
+    "plaster_violet": {
+      "base": "plaster",
+      "tone": [
+        0.5,
+        0.48,
+        0.56
+      ]
+    },
+    "flat_black": {
+      "base": "flat",
+      "tone": [
+        0,
+        0,
+        0
+      ]
+    },
+    "flat_yellow": {
+      "base": "flat",
+      "tone": [
+        0.85,
+        0.72,
+        0.1
+      ]
+    }
+  },
   "textures": [
     {
       "name": "c3a1_w3a",
@@ -8,20 +167,13 @@
         256,
         208
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.4,
-          0.4,
-          0.39
-        ]
-      },
+      "material": "conc_rough",
       "grime": 0.4,
       "wear": {
+        "stains": 0.4,
         "cracks": 0.8,
         "speckle": 0.8,
-        "stains": 0.3,
-        "seed": 1
+        "scratches": 0.2
       }
     },
     {
@@ -30,19 +182,11 @@
         256,
         160
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.25,
-          0.28,
-          0.32
-        ]
-      },
+      "material": "conc_dark",
       "grime": 0.3,
       "wear": {
-        "speckle": 0.6,
         "stains": 0.3,
-        "seed": 2
+        "speckle": 0.6
       },
       "relief": [
         {
@@ -65,15 +209,13 @@
         128,
         160
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.48,
-          0.5,
-          0.53
-        ]
-      },
+      "material": "conc_cool",
       "grime": 0.6,
+      "wear": {
+        "stains": 0.8,
+        "streaks": 0.7,
+        "speckle": 0.5
+      },
       "panels": [
         {
           "at": [
@@ -86,13 +228,7 @@
           ],
           "edge": 2
         }
-      ],
-      "wear": {
-        "stains": 0.8,
-        "streaks": 0.7,
-        "speckle": 0.5,
-        "seed": 3
-      }
+      ]
     },
     {
       "name": "c3a1b_w1",
@@ -100,24 +236,32 @@
         128,
         160
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.42,
-          0.42,
-          0.41
-        ]
-      },
+      "material": "conc_mid",
       "grime": 0.4,
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.6
+      },
       "panels": [
         {
           "at": [
             64,
-            132
+            136
           ],
           "size": [
-            112,
-            48
+            128,
+            32
+          ],
+          "edge": 2
+        },
+        {
+          "at": [
+            64,
+            24
+          ],
+          "size": [
+            128,
+            32
           ],
           "edge": 2
         },
@@ -127,27 +271,12 @@
             80
           ],
           "size": [
-            112,
-            36
-          ]
-        },
-        {
-          "at": [
-            64,
-            28
+            128,
+            32
           ],
-          "size": [
-            112,
-            44
-          ],
-          "edge": 2
+          "edge": 3
         }
-      ],
-      "wear": {
-        "speckle": 0.6,
-        "stains": 0.3,
-        "seed": 4
-      }
+      ]
     },
     {
       "name": "tnnl_flr7",
@@ -155,20 +284,11 @@
         128,
         128
       ],
-      "material": {
-        "base": "tile",
-        "cell": 32,
-        "tone": [
-          0.36,
-          0.36,
-          0.35
-        ]
-      },
+      "material": "tile_grey",
       "grime": 0.3,
       "wear": {
-        "speckle": 0.5,
-        "stains": 0.2,
-        "seed": 5
+        "stains": 0.4,
+        "speckle": 0.7
       }
     },
     {
@@ -177,18 +297,10 @@
         96,
         96
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.52,
-          0.52,
-          0.5
-        ]
-      },
-      "grime": 0.2,
+      "material": "conc_pale",
       "wear": {
-        "speckle": 0.5,
-        "seed": 6
+        "stains": 0.2,
+        "speckle": 0.5
       }
     },
     {
@@ -197,20 +309,12 @@
         128,
         128
       ],
-      "material": {
-        "base": "tile",
-        "cell": 32,
-        "tone": [
-          0.42,
-          0.36,
-          0.29
-        ]
-      },
+      "material": "tile_warm",
       "grime": 0.6,
       "wear": {
-        "stains": 0.6,
-        "speckle": 0.7,
-        "seed": 7
+        "stains": 0.7,
+        "speckle": 0.9,
+        "streaks": 0.2
       }
     },
     {
@@ -219,16 +323,7 @@
         192,
         128
       ],
-      "material": {
-        "base": "metal",
-        "cell": 32,
-        "tone": [
-          0.2,
-          0.21,
-          0.22
-        ]
-      },
-      "grime": 0.4,
+      "material": "steel_dark",
       "relief": [
         {
           "kind": "bars",
@@ -237,11 +332,11 @@
             64
           ],
           "size": [
-            144,
-            80
+            160,
+            96
           ],
           "count": 6,
-          "width": 4,
+          "width": 5,
           "axis": "y"
         },
         {
@@ -249,20 +344,6 @@
           "path": [
             [
               0,
-              14
-            ],
-            [
-              192,
-              14
-            ]
-          ],
-          "radius": 6
-        },
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              0,
               116
             ],
             [
@@ -272,13 +353,7 @@
           ],
           "radius": 6
         }
-      ],
-      "wear": {
-        "stains": 0.5,
-        "streaks": 0.6,
-        "speckle": 0.4,
-        "seed": 8
-      }
+      ]
     },
     {
       "name": "c3a1b_w1a",
@@ -286,70 +361,58 @@
         128,
         160
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.42,
-          0.42,
-          0.41
-        ]
-      },
+      "material": "conc_mid",
       "grime": 0.4,
+      "wear": {
+        "stains": 0.4,
+        "speckle": 0.6
+      },
       "panels": [
         {
           "at": [
             64,
-            132
+            136
           ],
           "size": [
-            112,
-            48
+            128,
+            32
           ],
           "edge": 2
         },
         {
           "at": [
             64,
+            24
+          ],
+          "size": [
+            128,
+            32
+          ],
+          "edge": 2
+        },
+        {
+          "at": [
+            32,
             80
           ],
           "size": [
-            112,
-            36
-          ]
+            56,
+            32
+          ],
+          "edge": 3
         },
         {
           "at": [
-            64,
-            28
+            96,
+            80
           ],
           "size": [
-            112,
-            44
+            56,
+            32
           ],
-          "edge": 2
+          "edge": 3
         }
-      ],
-      "relief": [
-        {
-          "kind": "pipe",
-          "path": [
-            [
-              64,
-              62
-            ],
-            [
-              64,
-              98
-            ]
-          ],
-          "radius": 3
-        }
-      ],
-      "wear": {
-        "speckle": 0.6,
-        "stains": 0.3,
-        "seed": 4
-      }
+      ]
     },
     {
       "name": "-0genpipe1",
@@ -357,16 +420,12 @@
         64,
         128
       ],
-      "material": {
-        "base": "metal",
-        "cell": 32,
-        "tone": [
-          0.3,
-          0.31,
-          0.32
-        ]
-      },
+      "material": "pipe_metal",
       "grime": 0.3,
+      "wear": {
+        "stains": 0.3,
+        "speckle": 0.4
+      },
       "relief": [
         {
           "kind": "pipe",
@@ -380,15 +439,9 @@
               128
             ]
           ],
-          "radius": 6,
-          "material": "iron"
+          "radius": 9
         }
-      ],
-      "wear": {
-        "streaks": 0.3,
-        "speckle": 0.4,
-        "seed": 9
-      }
+      ]
     },
     {
       "name": "-1genpipe1",
@@ -398,7 +451,10 @@
       ],
       "from": {
         "texture": "-0genpipe1",
-        "flip": "x"
+        "shift": [
+          0,
+          48
+        ]
       }
     },
     {
@@ -410,9 +466,10 @@
       "from": {
         "texture": "-0genpipe1",
         "shift": [
-          16,
-          40
-        ]
+          0,
+          96
+        ],
+        "flip": "y"
       }
     },
     {
@@ -421,15 +478,25 @@
         128,
         64
       ],
-      "material": {
-        "base": "paint",
-        "tone": [
-          0.62,
-          0.5,
-          0.14
-        ]
+      "material": "paint_yellow",
+      "grime": 0.3,
+      "wear": {
+        "stains": 0.3,
+        "scratches": 0.4
       },
-      "grime": 0.4,
+      "panels": [
+        {
+          "at": [
+            64,
+            32
+          ],
+          "size": [
+            120,
+            56
+          ],
+          "edge": 2
+        }
+      ],
       "relief": [
         {
           "kind": "louvre",
@@ -439,16 +506,11 @@
           ],
           "size": [
             96,
-            40
+            36
           ],
           "count": 6
         }
-      ],
-      "wear": {
-        "scratches": 0.4,
-        "speckle": 0.6,
-        "seed": 10
-      }
+      ]
     },
     {
       "name": "c3a1b_w2",
@@ -456,15 +518,12 @@
         128,
         160
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.4,
-          0.4,
-          0.39
-        ]
-      },
+      "material": "conc_mid",
       "grime": 0.4,
+      "wear": {
+        "stains": 0.3,
+        "speckle": 0.6
+      },
       "panels": [
         {
           "at": [
@@ -472,9 +531,10 @@
             80
           ],
           "size": [
-            104,
-            72
-          ]
+            96,
+            80
+          ],
+          "edge": 2
         }
       ],
       "relief": [
@@ -485,19 +545,14 @@
             80
           ],
           "size": [
-            96,
+            80,
             64
           ],
           "count": 5,
           "width": 4,
           "axis": "y"
         }
-      ],
-      "wear": {
-        "stains": 0.3,
-        "speckle": 0.6,
-        "seed": 11
-      }
+      ]
     },
     {
       "name": "c3a2_bth1",
@@ -505,21 +560,26 @@
         192,
         32
       ],
-      "material": {
-        "base": "metal",
-        "cell": 32,
-        "tone": [
-          0.42,
-          0.39,
-          0.31
-        ],
-        "rust": 0.2
-      },
+      "material": "ochre_metal",
       "wear": {
-        "scratches": 0.4,
-        "speckle": 0.4,
-        "seed": 12
-      }
+        "scratches": 0.3,
+        "speckle": 0.3
+      },
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            12,
+            16
+          ],
+          "to": [
+            180,
+            16
+          ],
+          "count": 12,
+          "radius": 2
+        }
+      ]
     },
     {
       "name": "black",
@@ -527,14 +587,7 @@
         32,
         32
       ],
-      "material": {
-        "base": "paint",
-        "tone": [
-          0.03,
-          0.03,
-          0.03
-        ]
-      }
+      "material": "flat_black"
     },
     {
       "name": "crete2_flr01",
@@ -542,19 +595,11 @@
         128,
         128
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.42,
-          0.42,
-          0.41
-        ]
-      },
+      "material": "conc_mid",
       "grime": 0.4,
       "wear": {
-        "speckle": 0.8,
         "stains": 0.4,
-        "seed": 13
+        "speckle": 0.8
       }
     },
     {
@@ -563,14 +608,7 @@
         64,
         80
       ],
-      "material": {
-        "base": "metal",
-        "tone": [
-          0.45,
-          0.45,
-          0.43
-        ]
-      },
+      "material": "lamp_housing",
       "panels": [
         {
           "at": [
@@ -579,7 +617,7 @@
           ],
           "size": [
             60,
-            74
+            72
           ],
           "edge": 2
         }
@@ -597,16 +635,11 @@
           ],
           "colour": [
             1,
-            0.97,
+            0.96,
             0.85
           ]
         }
-      ],
-      "grime": 0.2,
-      "wear": {
-        "speckle": 0.4,
-        "seed": 14
-      }
+      ]
     },
     {
       "name": "+a~fifts_lght01",
@@ -616,7 +649,7 @@
       ],
       "from": {
         "texture": "+0~fifts_lght01",
-        "brightness": 0.4
+        "brightness": 0.85
       }
     },
     {
@@ -625,20 +658,10 @@
         16,
         128
       ],
-      "material": {
-        "base": "hazard",
-        "tone": [
-          0.6,
-          0.48,
-          0.12
-        ],
-        "stripe": 8,
-        "angle": 1.06
-      },
+      "material": "hazard_yellow",
       "wear": {
         "scratches": 0.5,
-        "stains": 0.4,
-        "seed": 15
+        "speckle": 0.4
       }
     },
     {
@@ -647,20 +670,26 @@
         128,
         16
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.45,
-          0.45,
-          0.43
-        ]
-      },
-      "grime": 0.5,
+      "material": "conc_mid",
+      "grime": 0.7,
       "wear": {
-        "speckle": 0.7,
         "stains": 0.3,
-        "seed": 16
-      }
+        "speckle": 0.6
+      },
+      "relief": [
+        {
+          "kind": "seam",
+          "from": [
+            0,
+            12
+          ],
+          "to": [
+            128,
+            12
+          ],
+          "width": 2
+        }
+      ]
     },
     {
       "name": "+0~fifties_lgt2",
@@ -668,14 +697,7 @@
         16,
         64
       ],
-      "material": {
-        "base": "paint",
-        "tone": [
-          0.5,
-          0.5,
-          0.42
-        ]
-      },
+      "material": "lamp_housing",
       "relief": [
         {
           "kind": "lamp",
@@ -685,11 +707,11 @@
           ],
           "size": [
             10,
-            50
+            48
           ],
           "colour": [
             1,
-            0.9,
+            0.92,
             0.7
           ]
         }
@@ -712,13 +734,10 @@
         16,
         16
       ],
-      "material": {
-        "base": "metal",
-        "tone": [
-          0.45,
-          0.45,
-          0.45
-        ]
+      "material": "lamp_plate",
+      "wear": {
+        "speckle": 0.5,
+        "stains": 0.2
       },
       "relief": [
         {
@@ -734,14 +753,10 @@
           "colour": [
             1,
             1,
-            0.95
+            0.9
           ]
         }
-      ],
-      "wear": {
-        "speckle": 0.5,
-        "seed": 19
-      }
+      ]
     },
     {
       "name": "+a~generic86",
@@ -755,38 +770,23 @@
       }
     },
     {
-      "name": "c2a4x_glu",
-      "size": [
-        64,
-        64
-      ],
-      "material": {
-        "base": "paint",
-        "tone": [
-          0.5,
-          0.48,
-          0.6
-        ]
-      },
-      "wear": {
-        "speckle": 0.3,
-        "streaks": 0.2,
-        "seed": 17
-      }
-    },
-    {
       "name": "c3a2a_tnk1b",
       "size": [
         64,
         64
       ],
-      "material": {
-        "base": "water",
-        "tone": [
-          0.18,
-          0.42,
-          0.44
-        ]
+      "material": "water_teal"
+    },
+    {
+      "name": "c2a4x_glu",
+      "size": [
+        64,
+        64
+      ],
+      "material": "plaster_violet",
+      "wear": {
+        "stains": 0.2,
+        "speckle": 0.3
       }
     },
     {
@@ -795,20 +795,12 @@
         64,
         64
       ],
-      "material": {
-        "base": "stone",
-        "tone": [
-          0.38,
-          0.38,
-          0.36
-        ]
-      },
-      "grime": 0.6,
+      "material": "ceil_conc",
+      "grime": 0.5,
       "wear": {
         "stains": 0.6,
-        "cracks": 0.3,
-        "speckle": 0.6,
-        "seed": 18
+        "cracks": 0.4,
+        "speckle": 0.7
       }
     },
     {
@@ -817,20 +809,7 @@
         16,
         16
       ],
-      "material": {
-        "base": "paint",
-        "tone": [
-          0.7,
-          0.62,
-          0.12
-        ]
-      },
-      "grime": 0.3,
-      "wear": {
-        "stains": 0.4,
-        "speckle": 0.5,
-        "seed": 20
-      }
+      "material": "flat_yellow"
     }
   ],
   "preview": {
