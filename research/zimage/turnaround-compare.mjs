@@ -17,7 +17,7 @@ const { layout, ...plain } = spec;
 const rows = [
   ["apart", oldWork, plain],
   ["turnaround", out, { ...plain, parts: plain.parts.map((p) => (p.kind === "mesh" ? { ...p, file: "work:guard/turnshape_s0.obj" } : p)), project: [{ picture: "work:guard/turnshape_s0_cut.png", view: "front" }, { picture: "work:guard/turn_s0_back.png", view: "back" }] }],
-  // and its sides, Hunyuan3D-Paint's views from its left (azimuth 90) and its right (270), research/zimage/paint_views.py
+  // and its sides, Hunyuan3D-Paint's views from its left (azimuth 90) and its right (270), generators/paint.py
   ["sides", out, { ...plain, parts: plain.parts.map((p) => (p.kind === "mesh" ? { ...p, file: "work:guard/turnshape_s0.obj" } : p)), project: [{ picture: "work:guard/turnshape_s0_cut.png", view: "front" }, { picture: "work:guard/turn_s0_back_cut.png", view: "back" }, { picture: "work:paint/view_1.png", yaw: 90 }, { picture: "work:paint/view_3.png", yaw: 270 }] }],
 ];
 const YAWS = [0, 45, 135, 180, 225, 315];

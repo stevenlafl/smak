@@ -312,9 +312,13 @@ on each hand (the carve's report names the thin pieces it lost), a jaw as a part
   with its front (`<name>_s<seed>_back_cut.png`, also when the front is given from an earlier `only: "picture"`):
   project both cut-outs, `"project": [{ "picture": "work:<name>_s<seed>_cut.png", "view": "front" }, { "picture":
   "work:<name>_s<seed>_back_cut.png", "view": "back" }]`. The uncut back's white ground painted white streaks
-  down the inner legs. What neither sees (the flanks under the arms, the sides of the legs) is still pale there;
-  a view of each side painted by Hunyuan3D-Paint, projected at `yaw` 90 and 270, filled it on the guard
-  (`research/zimage/paint_views.py`, research only: not in `generate`).
+  down the inner legs.
+- Its sides, which neither picture sees (the flanks under the arms, the sides of the legs, pale with the two
+  alone): where the server has a paint model (Hunyuan3D-Paint, `generators/paint.py`), the shape's call paints a
+  view of each side from its front picture once the shape is made, `<name>_s<seed>_sides/view_1.png` (its left)
+  and `view_3.png` (its right), and its answer gives the whole `project` to paste: the front and back cut-outs and
+  `{ "picture": "work:<name>_s<seed>_sides/view_1.png", "yaw": 90 }`, `{ ..., "yaw": 270 }`. The guard so painted had
+  no pale streak from any side. `sides: false` leaves them out; with no paint model the answer says so.
 - GoldSrc holds 2048 points and 2048 normals a body: a character of many round parts wants few `sides`
   (6 for a limb, 4 or 5 for a finger). The check says when it is over.
 

@@ -10,6 +10,8 @@ It loads one model once, then reads requests from stdin, one JSON object a line:
     "only": "picture" draws its picture from the prompt and stops there)
   { "id": 3, "prompt": "...", "control": "/abs/gen/guard_pose.png", "seed": 0, "out": "/abs/gen/guard_s0.png" }  (a
     picture: a picture model's, held to the pose picture `control` when given; answered with { "picture": out })
+  { "id": 4, "mesh": "/abs/gen/guard_s0.obj", "reference": "/abs/gen/guard_s0_cut.png", "out": "/abs/gen/guard_s0_sides" }
+    (a paint model's views of a mesh from its front picture, generators/paint.py: answered with { "views": [...] })
 
 and for each writes the take (the model's own rate and channels, 32-bit float) and answers on stdout, one line:
 
@@ -326,9 +328,16 @@ def load_zimage(root, model):
     return gen
 
 
+def load_paint_model(root, model):
+    # generators/paint.py, beside this file (-I keeps the script's own folder off the path)
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from paint import load_paint
+    return load_paint(root, model)
+
+
 LOADERS = {"woosh-dflow": load_woosh, "woosh-flow": load_woosh, "ezaudio": load_ezaudio, "moss-sfx": load_moss,
            "stable-audio-3-sfx": load_sa3, "acestep": load_acestep, "acestep-xl": load_acestep,
-           "hunyuan3d-mini": load_hunyuan, "zimage-turbo": load_zimage}
+           "hunyuan3d-mini": load_hunyuan, "zimage-turbo": load_zimage, "hunyuan3d-paint": load_paint_model}
 
 
 def main():

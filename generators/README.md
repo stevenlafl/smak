@@ -39,8 +39,9 @@ take the CUDA wheels instead. About 150 GB in all. On this machine the folders a
 ```
 
 `name` is one `worker.py` knows (`woosh-dflow`, `woosh-flow`, `moss-sfx`, `stable-audio-3-sfx`, `ezaudio`, `acestep`,
-`acestep-xl`, `hunyuan3d-mini`, `zimage-turbo`);
-`kind` `sound`, `music`, `shape` or `picture` (a picture model: what draws a character from words for a shape); `root` the model's own folder, from this one (the 3D models live apart);
+`acestep-xl`, `hunyuan3d-mini`, `zimage-turbo`, `hunyuan3d-paint`);
+`kind` `sound`, `music`, `shape`, `picture` (a picture model: what draws a character from words for a shape) or
+`paint` (what paints a character's sides from its front picture); `root` the model's own folder, from this one (the 3D models live apart);
 `python` the venv's interpreter, from its root; `licence` is written into every take's sidecar, and
 a sound spec built from a take under a non-commercial one says so; `default` the kind's model when a call
 names none (marked on several sound or music models, a call draws its seeds from each, the files named after
@@ -80,12 +81,17 @@ base's skeleton drawn from the front and from behind (no nose or eyes on the bac
 picture's right), and cuts it in two; the worker takes a `width` and a `height` for it. The shape worker cuts the
 back out with BiRefNet beside the front (its request's `cuts`), so that both project with their outlines found.
 
-The sides neither picture sees can be painted by Hunyuan3D-Paint 2.0 turbo, from the 3D folder's Hunyuan3D-2
-snapshot and repo (`research/zimage/paint_views.py`, run in `venvs/torch-rocm`; not yet in `generate`). Its CUDA
-rasterizer is not needed: the normal and position maps it is given are drawn in numpy exactly as its MeshRender
-draws them, and SMAK's `project` bakes the views. On the guard: maps in 16 s, de-lighting in 32 s (4.3 GB peak on
-the card), six views at 512 in 63 s (8.1 GB peak), about 55 s of that loading. Its unet's weights are read from the
-snapshot's `.safetensors` (the repo asks for a `.bin`), its image-prompt adapter's keys left out.
+The sides neither picture sees are painted by Hunyuan3D-Paint 2.0 turbo (`hunyuan3d-paint`, kind `paint`, in
+`venvs/torch-rocm` with the 3D folder as its root: `generators/paint.py`, from the Hunyuan3D-2 snapshot and repo
+`install-3d.sh` puts there). Once a character's shape is made (`generate`'s `base`, unless `sides: false`), the
+shape model is let go and the paint model paints six views of the mesh from its front cut-out; the answer gives the
+spec's `project` with the views from its left and right at `yaw` 90 and 270. Its CUDA rasterizer is not needed:
+the normal and position maps it is given are drawn in numpy exactly as its MeshRender draws them, and SMAK's
+`project` bakes the views. The multiview net stays loaded (8.1 GB on the card); the de-lighting model is loaded for
+each take and let go (4.3 GB), so the two never share the card. On the guard: maps in 16 s, de-lighting in 32 s,
+six views at 512 in 63 s, about 55 s of that loading. Its unet's weights are read from the snapshot's
+`.safetensors` (the repo asks for a `.bin`), its image-prompt adapter's keys left out. By hand: `python
+generators/paint.py <mesh.obj> <picture_cut.png> <out dir>`.
 
 ## A library of materials
 

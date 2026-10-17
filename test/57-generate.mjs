@@ -39,7 +39,19 @@ process.stdin.on("data", (chunk) => {
   while ((at = buffer.indexOf("\\n")) >= 0) {
     const r = JSON.parse(buffer.slice(0, at));
     buffer = buffer.slice(at + 1);
-    if (r.prompt.includes("fail")) { say({ id: r.id, ok: false, error: "RuntimeError: asked to" }); continue; }
+    if ((r.prompt ?? "").includes("fail")) { say({ id: r.id, ok: false, error: "RuntimeError: asked to" }); continue; }
+    if (model === "sider") {
+      // a paint model: six views of the mesh "painted" from its front picture, into its folder
+      fs.appendFileSync(${JSON.stringify(join(folder, "sides.txt"))}, r.mesh + " " + r.reference + "\\n");
+      fs.mkdirSync(r.out, { recursive: true });
+      const views = [[0, 0], [90, 0], [180, 0], [270, 0], [0, 90], [180, -90]].map(([azim, elev], i) => {
+        const file = require("node:path").join(r.out, "view_" + i + ".png");
+        fs.copyFileSync(${JSON.stringify(join(folder, "seen.png"))}, file);
+        return { file, azim, elev };
+      });
+      say({ id: r.id, ok: true, file: r.out, views, took: 0.03 });
+      continue;
+    }
     if (model === "painter") {
       // a picture model: the picture it "drew", and the pose it was held to
       fs.appendFileSync(${JSON.stringify(join(folder, "controls.txt"))}, (r.control ?? "none") + " " + (r.width ?? "-") + "x" + (r.height ?? "-") + "\\n");
@@ -65,6 +77,8 @@ process.stdin.on("data", (chunk) => {
       fs.writeFileSync(r.out, v.map((p) => "v " + p.join(" ")).join("\\n") + "\\n" + f.map((t) => "f " + t.join(" ")).join("\\n") + "\\n");
       const picture = r.picture ? null : r.out.replace(/\\.obj$/, ".png");
       if (picture) fs.copyFileSync(${JSON.stringify(join(folder, "seen.png"))}, picture);
+      // its subject cut out beside it, as the shape model does
+      fs.copyFileSync(r.picture ?? picture, r.out.replace(/\\.obj$/, "_cut.png"));
       say({ id: r.id, ok: true, file: r.out, faces: 12, box: [[-1, 0, -1], [1, 4, 1]], picture, took: 0.02 });
       continue;
     }
@@ -211,6 +225,8 @@ await testAsync("generate: a character from words with a picture model is drawn 
     sure(/1 of 1 shapes of "a security guard" by former/.test(shaped[0].text) && /from work:people\/whole_s0\.png/.test(shaped[0].text) && /Drawn in man\.mdl's stance \(work:people\/whole_pose\.png, by painter\)/.test(shaped[0].text), shaped[0].text);
     const sidecar = JSON.parse(readFileSync(join(folders.work, "people", "whole_s0.json"), "utf8"));
     sure(sidecar.drawnBy === "painter" && sidecar.picture === "people/whole_s0.png" && sidecar.pose === "people/whole_pose.png", JSON.stringify(sidecar));
+    // no paint model among the generators: its sides are said to be left unpainted
+    sure(/Its sides are not painted: no paint model in generators\.json/.test(shaped[0].text), shaped[0].text);
     // a turnaround: front and back drawn as one picture over the skeleton from both sides, then cut in two; from
     // behind the subject's right shoulder is to the picture's right, and no nose or eyes are drawn
     const behind = openPosePicture(readFileSync(join(folders.work, "man.mdl")), { back: true, width: 256, height: 256 });
@@ -239,6 +255,28 @@ await testAsync("generate: a character from words with a picture model is drawn 
     writeFileSync(join(folders.work, "stub.mdl"), readFileSync(join(tmp, "gen-work", "biped.mdl")));
     const stub = await generate.call({ kind: "shape", prompt: "a security guard", base: "stub.mdl", seeds: 1, name: "people/stub" });
     sure(/Drawn in stub\.mdl's stance \(work:people\/stub_guide\.png\)/.test(stub[0].text), stub[0].text);
+    // with a paint model: once the shape is made its sides are painted from its front picture, the shape model let
+    // go first, and the answer gives the spec's whole project: front and back cut-outs, the sides at yaw 90 and 270
+    const sided = join(tmp, "generators-sided");
+    mkdirSync(sided, { recursive: true });
+    writeFileSync(join(sided, "generators.json"), JSON.stringify({ models: [...JSON.parse(readFileSync(join(painted, "generators.json"), "utf8")).models, { name: "sider", kind: "paint", root: folder, python: "venv/python", licence: "Tencent Hunyuan Community" }] }));
+    folders.generators = openGenerators(sided);
+    const withSides = await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", turnaround: true, seeds: 1, name: "people/sided" });
+    const said = withSides[0].text;
+    sure(readFileSync(join(folder, "sides.txt"), "utf8").includes("people/sided_s0.obj") && readFileSync(join(folder, "sides.txt"), "utf8").includes("people/sided_s0_cut.png"), "its mesh and its front cut-out handed to the paint model");
+    sure(/Its sides were painted by sider from its front picture/.test(said) && said.includes('seed 0: "project": [{"picture":"work:people/sided_s0_cut.png","view":"front"},{"picture":"work:people/sided_s0_back_cut.png","view":"back"},{"picture":"work:people/sided_s0_sides/view_1.png","yaw":90},{"picture":"work:people/sided_s0_sides/view_3.png","yaw":270}]') && !/Its back was drawn with its front/.test(said), said);
+    sure(JSON.parse(readFileSync(join(folders.work, "people", "sided_s0.json"), "utf8")).sides?.length === 2, "its sidecar names its sides");
+    // sides: false paints none; a word that is not a boolean is refused
+    const painted0 = readFileSync(join(folder, "sides.txt"), "utf8").split("\n").length;
+    const plain = await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", sides: false, seeds: 1, name: "people/plain" });
+    sure(readFileSync(join(folder, "sides.txt"), "utf8").split("\n").length === painted0 && !/Its sides/.test(plain[0].text), plain[0].text);
+    let wrongSides = "";
+    try {
+      await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", sides: "yes" });
+    } catch (error) {
+      wrongSides = error.message;
+    }
+    sure(/sides: false leaves a character's sides unpainted/.test(wrongSides), wrongSides);
   } finally {
     stopWorkers();
   }
