@@ -258,6 +258,7 @@ async function rounds(most) {
   if (!existsSync(join(ROOT, "run.json")) || again) await make();
   await judgeAll("decoy");
   const record = [];
+  let best = null;
   for (let round = 1; ; round++) {
     const results = await judgeAll("made");
     const assets = results.filter((r) => r.kind !== "mod");
@@ -270,8 +271,12 @@ async function rounds(most) {
     const bestBefore = Math.max(...record.slice(0, -2).map((r) => r.passes));
     const stalled = round >= 3 && Math.max(...record.slice(-2).map((r) => r.passes)) <= bestBefore;
     if (assets.every((r) => r.passes) || round >= most || stalled) return record;
+    // the next round starts from the best so far, as a person goes back to a better try
     const notes = assets.filter((r) => !r.passes).map((r) => ({ label: r.label, lines: notesOf(r) })).filter((n) => n.lines.length);
-    await make({ round: round + 1, notes, answer: readFileSync(join(ROOT, "answer.md"), "utf8"), start: join(run.folder, "work") });
+    const now = { notes, answer: readFileSync(join(ROOT, "answer.md"), "utf8"), start: join(run.folder, "work"), passes: record.at(-1).passes };
+    if (!best || now.passes >= best.passes) best = now;
+    else console.log(`round ${round} below the best (${best.passes}): the next round starts from the best`);
+    await make({ round: round + 1, notes: best.notes, answer: best.answer, start: best.start });
   }
 }
 

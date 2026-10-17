@@ -147,7 +147,15 @@ async function detect(dir, line, name) {
   const answers = await Promise.all(readings.map(({ alone }, draw) => runJudge({ read: alone, hours: 0.25, draw, accept: /\b[A-D]\b/, prompt: `${alone}/lineup.png shows four models, A to D, drawn by one camera at one scale. Three were made by Valve's artists for Half-Life; one was not. Which one was not? Look closely at all four. Reply with the one letter alone.` })));
   const picks = answers.map((r) => ((r.answer ?? "").match(/\b([A-D])\b/) ?? [])[1] ?? null);
   const letters = readings.map((r) => r.letter);
-  return { letters, picks, caught: picks.filter((p, i) => p === letters[i]).length >= DETECT_CAUGHT };
+  const caught = picks.filter((p, i) => p === letters[i]).length >= DETECT_CAUGHT;
+  // caught: what gives it away, asked once more of the first reading's line-up, for the maker's notes. "People
+  // pick it out" alone gave a maker nothing to act on, and its next round changed things at random (2026-10-17)
+  let why = null;
+  if (caught) {
+    const r = await runJudge({ read: readings[0].alone, hours: 0.25, draw: DETECT_READINGS, prompt: `${readings[0].alone}/lineup.png shows four models, A to D. Three were made by Valve's artists for Half-Life; ${readings[0].letter} was not. What gives ${readings[0].letter} away beside the other three? Name up to three concrete differences an artist could fix (its shape and proportions, its paint and colours, the detail of its face, hands or clothes, how it stands), each in one plain sentence. No preamble.` });
+    why = (r.answer ?? "").trim() || null;
+  }
+  return { letters, picks, caught, why };
 }
 
 // ── judging ────────────────────────────────────────────────────────────────
@@ -215,7 +223,7 @@ export function weaponSizeIn(p) {
 export function notesOf(j) {
   const notes = Object.values(j.scores ?? {}).filter((v) => v.score < 2).map((v) => v.reason.replace(/\b[MWCPOSRT]\d\b:?\s*/g, "").trim());
   const m = j.measured ?? {};
-  if (/told apart/.test(m.lineupTest ?? "")) notes.push("Beside three of the game's own of its kind, at one scale and in one light, people pick it out as the one not made by Valve: it does not yet look like the game's own.");
+  if (/told apart/.test(m.lineupTest ?? "")) notes.push(`Beside three of the game's own of its kind, at one scale and in one light, people pick it out as the one not made by Valve.${m.lineupWhy ? ` What gives it away, in their words: ${m.lineupWhy.replace(/\s+/g, " ")}` : " It does not yet look like the game's own."}`);
   if (typeof m.sizeOff === "number" && m.sizeOff > 0.1) notes.push(`It is ${m.size?.join(" x ")} units where ${JSON.stringify(m.sizeAsked)} was asked: ${Math.round(m.sizeOff * 100)}% off.`);
   if (m.halfLifeMost && m.triangles > m.halfLifeMost) notes.push(`It has ${m.triangles} triangles, more than any of the game's own of its kind (${m.halfLifeMost}).`);
   // a map's: what a player cannot get to, and its size against the brief's
@@ -256,7 +264,9 @@ export async function judgeModelAgainstBrief(kind, label, src, dir, { brief, wha
   const caps = { M2: off === null ? 2 : band(off, 0.15, 0.3, true), // over the most Valve spends on its kind and size: none of Valve's own is (rubric.md, 2026-10-16 amendment)
     M8: check.errors.length ? 0 : triangles > most ? 1 : 2,
     M6: told.caught ? 1 : 2, ...extra.caps };
-  return judgeAgainstBrief(kind, label, dir, `${dir}/sides.png (ten views at one scale), ${dir}/lineup.png (four models at one scale: one is the asset, three are Half-Life's own of its size; M6 is measured on it apart)${extraPictures}`, measured, caps, { brief, what });
+  // what gives it away is the maker's note, never shown to the judge who scores the rest
+  const judged = await judgeAgainstBrief(kind, label, dir, `${dir}/sides.png (ten views at one scale), ${dir}/lineup.png (four models at one scale: one is the asset, three are Half-Life's own of its size; M6 is measured on it apart)${extraPictures}`, measured, caps, { brief, what });
+  return told.why ? { ...judged, measured: { ...judged.measured, lineupWhy: told.why } } : judged;
 }
 
 /** A sprite judged against its brief: its frames as the engine blends them, its measures against Half-Life's own of its class (R2 to R4). */

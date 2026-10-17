@@ -240,6 +240,7 @@ async function rounds(kind, s, most) {
   const out = join(folderOf(kind, s.id), "brief");
   if (!existsSync(join(out, "run.json")) || again) console.log(await reproduce(kind, s, "brief"));
   const record = [];
+  let best = null;
   for (let round = 1; ; round++) {
     const j = await judgeBrief(kind, s, join(out, "built"));
     writeFileSync(join(out, "judge.json"), `${JSON.stringify(j, null, 1)}\n`);
@@ -251,9 +252,12 @@ async function rounds(kind, s, most) {
     const bestBefore = Math.max(...record.slice(0, -2).map((r) => r.total));
     const stalled = round >= 3 && Math.max(...record.slice(-2).map((r) => r.total)) <= bestBefore;
     if (j.passes || round >= most || stalled) return record;
-    const notes = notesOf(j);
-    const answer = readFileSync(join(out, "answer.md"), "utf8");
-    console.log(await reproduce(kind, s, "brief", { round: round + 1, notes, answer, start: join(run.folder, "work") }));
+    // the next round starts from the best so far: a person whose second try was worse goes back to the first
+    // (the zombie went 17 then 0, and its third round began from the 0)
+    const now = { notes: notesOf(j), answer: readFileSync(join(out, "answer.md"), "utf8"), start: join(run.folder, "work"), total: j.total ?? 0 };
+    if (!best || now.total >= best.total) best = now;
+    else console.log(`${kind}/${s.id} round ${round} below the best (${best.total}): the next round starts from the best`);
+    console.log(await reproduce(kind, s, "brief", { round: round + 1, notes: best.notes, answer: best.answer, start: best.start }));
   }
 }
 
