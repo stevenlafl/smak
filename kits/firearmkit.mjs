@@ -26,6 +26,8 @@
 //   preset:   "pistol" (a 9 mm handgun), "shotgun" (a pump shotgun), "smg" (a submachine gun), "rifle":
 //             FIREARM_PRESETS, the description each starts from. Any part given is laid over the preset's
 //             (field by field); a part given as `false` is left out.
+//   length:   the whole gun's length in units: every part made in proportion until it is that long (a brief's
+//             "about 10 long"); the preset's own real size unless told
 //   finish:   the material of every part unless the part says: "blued", "parkerised", "polymer", "wood",
 //             "steel", "gunmetal", "black", or a function (a, b, light, seed, edge) -> colour
 //   wear:     0..1, how much bright metal shows on the edges (0.3)
@@ -193,7 +195,14 @@ function earsOf(poly) {
   return out;
 }
 
+/** What a description may say: anything else is refused, never passed over (a maker's `size` was, 2026-10-17). */
+const OPTIONS = ["seed", "preset", "finish", "wear", "length", "receiver", "frame", "barrel", "grip", "guard", "trigger", "magazine", "stock", "forend", "sights"];
+
 export function firearm(spec = {}) {
+  for (const key of Object.keys(spec))
+    if (!OPTIONS.includes(key)) throw new Error(`firearm: no option "${key}": a description says ${OPTIONS.join(", ")}${key === "size" ? " (the whole gun's length is `length`)" : ""}`);
+  if (spec.length !== undefined && !(typeof spec.length === "number" && spec.length > 0))
+    throw new Error(`firearm: length: the whole gun's length in units, a number over 0, not ${JSON.stringify(spec.length)}`);
   const preset = FIREARM_PRESETS[spec.preset ?? "pistol"];
   if (!preset) throw new Error(`firearm: no preset "${spec.preset}": ${Object.keys(FIREARM_PRESETS).join(", ")}`);
   const seed = spec.seed ?? 1;
@@ -597,5 +606,12 @@ export function firearm(spec = {}) {
   // their stock out (it is behind the camera), and a stock there is what the fit holds where the grip was
   const views = S && !S.firstPerson ? { stock: ["p", "w"] } : {};
   // `asDrawn`: a gun knows its up and its front, and is laid in a weapon's files as it is drawn
-  return { tris: mesh.tris, image: canvas.image(), parts, views, asDrawn: true };
+  // `length`: the whole gun made that long, every part in proportion, about the grip's top (the origin)
+  let tris = mesh.tris;
+  if (spec.length !== undefined) {
+    const xs = tris.flatMap((t) => t.map((corner) => corner.p[0]));
+    const k = spec.length / (Math.max(...xs) - Math.min(...xs));
+    tris = tris.map((t) => t.map((corner) => ({ ...corner, p: corner.p.map((v) => v * k) })));
+  }
+  return { tris, image: canvas.image(), parts, views, asDrawn: true };
 }

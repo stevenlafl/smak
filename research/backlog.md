@@ -443,3 +443,4 @@ character-texturing, MG map-geometry.
 46. `project` divides out the pictures' light; a model spec `wear` layer list and the "too clean" ratios (RF 7, 8).
 47. Sprites: re-measuring the game's sprites by a research script, `picture` and `shape` layers, `.spr` in `info` and `render`, fluid smoke, decals, HUD sheets (SP).
 48. Map pictures: the grid on storeys and sections; per-face textures of a `.bsp`; a plan tracer; text-to-texture search (MF 2, 4, 10).
+49. Kits refuse an option they do not have, in words: the firearm kit does (2026-10-17); given one, the sword, axe and bow throw an internal error and the blunt kit passes it over. Each kit lists its options and refuses others, as `firearm` does (OPTIONS in kits/firearmkit.mjs).

@@ -49,6 +49,18 @@ test("the firearm kit: each preset a sound gun at its real size, in a first-pers
   sure(refused({ preset: "pistol", finish: "gold" }, /no finish "gold"/), "an unknown finish is refused");
 });
 
+test("the firearm kit: a whole gun made a length, and an option it does not have refused in words", () => {
+  const span = (piece) => { const xs = piece.tris.flatMap((t) => t.map((c) => c.p[0])); return Math.max(...xs) - Math.min(...xs); };
+  sure(Math.abs(span(firearm({ preset: "pistol", length: 10 })) - 10) < 1e-6, "a pistol made 10 long");
+  let said = "";
+  try {
+    firearm({ preset: "pistol", size: [10, 1.2, 5.5] });
+  } catch (error) {
+    said = error.message;
+  }
+  sure(/no option "size".*the whole gun's length is `length`/.test(said), said);
+});
+
 test("a weapon spec names the firearm kit: its stock left out of the first-person file", () => {
   const folder = join(tmp, "firearm-kit");
   mkdirSync(folder, { recursive: true });
