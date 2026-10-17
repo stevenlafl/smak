@@ -37,7 +37,8 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
   let saturated = 0;
   let tinted = 0;
   // each shot: its picture and how to draw from its camera (the place view, and the map's views when given)
-  const shots = [{ picture: view, at: brightness, draw: (pixels, palette, light, b) => placeView(bsp, place, { textures: wearing(pixels, palette), brightness: b, light, wearing: "given" }) }];
+  // the place view, when there is one (shots fitted by photo.mjs come with their own cameras and none)
+  const shots = view ? [{ picture: view, at: brightness, draw: (pixels, palette, light, b) => placeView(bsp, place, { textures: wearing(pixels, palette), brightness: b, light, wearing: "given" }) }] : [];
   if (views) {
     // the map's views as a sheet of tiles (viewsOf, as a textures leg is given them), with each tile's camera kept
     // beside it: a wall its place view shows a fifth of may be seen whole in a view of its room
@@ -48,8 +49,8 @@ export function liftTexture(bsp, name, view, { brightness = PLACE_BRIGHTNESS, vi
       if (top + h > views.picture.height || left + w > views.picture.width) return;
       const crop = new Uint8Array(w * h * 4);
       for (let y = 0; y < h; y++) crop.set(views.picture.rgba.subarray(((top + y) * views.picture.width + left) * 4, ((top + y) * views.picture.width + left + w) * 4), y * w * 4);
-      const camera = { from: v.from, yaw: v.yaw, pitch: v.pitch, width: w, height: h, entities: "none", labels: false };
-      shots.push({ picture: { width: w, height: h, rgba: crop }, at: views.brightness ?? 1.55, draw: (pixels, palette, light, b) => drawMap(bsp, { ...camera, textures: wearing(pixels, palette), brightness: b, light, wearing: "given" }), label: 16 });
+      const camera = { from: v.from, yaw: v.yaw, pitch: v.pitch, ...(v.fov ? { fov: v.fov } : {}), width: w, height: h, entities: "none", labels: false };
+      shots.push({ picture: { width: w, height: h, rgba: crop }, at: views.brightness ?? 1.55, draw: (pixels, palette, light, b) => drawMap(bsp, { ...camera, textures: wearing(pixels, palette), brightness: b, light, wearing: "given" }), label: views.label === false ? 0 : 16 });
     });
   }
   // which texel each pixel shows: the texture drawn three times, its texels' indices the low bits of u, of v,
