@@ -248,7 +248,7 @@ Change what they say, keep what is right, and build again until the build says O
 
 /**
  * A subject's brief leg made, then judged and revised until it passes, `most` rounds in all, or two rounds in a
- * row gain nothing: how many rounds a build takes to come right. rounds.json says each round's total.
+ * row reach no new best: how many rounds a build takes to come right. rounds.json says each round's total.
  */
 async function rounds(kind, s, most) {
   const out = join(folderOf(kind, s.id), "brief");
@@ -261,8 +261,10 @@ async function rounds(kind, s, most) {
     record.push({ round, total: j.total ?? 0, of: j.of, passes: Boolean(j.passes), failedByMeasure: j.failedByMeasure ?? null, cost: run.cost, seconds: run.seconds });
     writeFileSync(join(out, "rounds.json"), `${JSON.stringify(record, null, 1)}\n`);
     console.log(`${kind}/${s.id} round ${round}: ${j.error ?? `${j.total} of ${j.of}, ${j.passes ? "PASSES" : "fails"}`}`);
-    const gained = (k) => record.length > k && record.at(-1).total > record.at(-1 - k).total;
-    if (j.passes || round >= most || (round >= 3 && !gained(1) && !gained(2))) return record;
+    // stalled: the last two rounds reached no new best (a drop is no plateau: 0, 17, 0 stopped at its third)
+    const bestBefore = Math.max(...record.slice(0, -2).map((r) => r.total));
+    const stalled = round >= 3 && Math.max(...record.slice(-2).map((r) => r.total)) <= bestBefore;
+    if (j.passes || round >= most || stalled) return record;
     const notes = notesOf(j);
     const answer = readFileSync(join(out, "answer.md"), "utf8");
     console.log(await reproduce(kind, s, "brief", { round: round + 1, notes, answer, start: join(run.folder, "work") }));
