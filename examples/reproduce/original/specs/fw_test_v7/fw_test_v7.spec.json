@@ -1,0 +1,195 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_test_v7",
+  "size": 2500,
+  "wads": [
+    "fw.wad"
+  ],
+  "textures": {
+    "catwalk": {
+      "texture": "fw_catwalk"
+    },
+    "rustplate": {
+      "texture": "fw_rustplate"
+    },
+    "concrete": {
+      "texture": "fw_concrete"
+    }
+  },
+  "theme": {
+    "floor": "concrete",
+    "wall": "concrete",
+    "ceiling": "concrete",
+    "furniture": "rustplate"
+  },
+  "rooms": [
+    {
+      "id": "entry",
+      "size": [
+        240,
+        560,
+        240
+      ]
+    },
+    {
+      "id": "hall",
+      "size": [
+        2000,
+        640,
+        300
+      ],
+      "place": {
+        "east_of": "entry"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "entry",
+        "hall"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128
+    }
+  ],
+  "prefabs": {
+    "catwalk_n": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -900,
+              -60,
+              150
+            ],
+            [
+              700,
+              36,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -900,
+              -60,
+              166
+            ],
+            [
+              700,
+              -50,
+              190
+            ]
+          ],
+          "texture": "rustplate"
+        },
+        {
+          "box": [
+            [
+              -892,
+              -50,
+              0
+            ],
+            [
+              -868,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    },
+    "ladder_volume": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -20,
+              0,
+              0
+            ],
+            [
+              20,
+              24,
+              250
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ],
+      "entity": {
+        "class": "func_ladder"
+      }
+    },
+    "ladder_rungs": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -12,
+              22,
+              0
+            ],
+            [
+              12,
+              24,
+              170
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "catwalk_n",
+      "room": "hall",
+      "at": [
+        -100,
+        260
+      ]
+    },
+    {
+      "prefab": "ladder_volume",
+      "room": "hall",
+      "at": [
+        -500,
+        296
+      ]
+    },
+    {
+      "prefab": "ladder_rungs",
+      "room": "hall",
+      "at": [
+        -500,
+        296
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "entry",
+      "at": [
+        -60,
+        0
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -500,
+        260
+      ],
+      "z": 170
+    }
+  ]
+}

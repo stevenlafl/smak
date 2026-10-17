@@ -3,16 +3,20 @@
  "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
  "measured": {
   "size": [
-   1408,
-   1176
+   1448,
+   1104
   ],
   "sizeAsked": null,
   "checkErrors": [],
-  "notReached": [],
-  "reachWarnings": [],
+  "notReached": [
+   "trigger_once 6"
+  ],
+  "reachWarnings": [
+   "1 of the 4 entities a player goes to are not reached on foot from the places to start: 6 trigger_once at 312 606 60: no opening leads to it"
+  ],
   "changelevels": [],
   "landmarks": [
-   "lm_pumphall_control"
+   "lm_hall_control"
   ],
   "itemsAsked": [
    "monster_headcrab"
@@ -23,65 +27,12 @@
  },
  "caps": {
   "P2": 2,
-  "P8": 2
+  "P8": 1
  },
- "scores": {
-  "P1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Areas are present: a control room (plan, top), a small start room to its west joined by a doorway (plan, left at about x 313-323), and a lower green room about 256 units down with three round pump-like shapes. The lift (FUNC_PLAT, orange, inside the control room) is drawn with no shaft linking it to the lower room, and the lower room is never seen in views.gif-equivalent views.png, so the lift route down to a valve room cannot be confirmed. No valve-wheel room is identified."
-  },
-  "P2": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The brief gives no sizes for fw_control, so there is nothing to measure the areas against within 25%. The control room is about 890 by 550 units and the lower room about 980 by 550 (plan, scale bar 256 units). Plausible, but the must-have cannot be confirmed as a 2."
-  },
-  "P3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The upper and lower rooms differ in floor height (labelled 0 and -256 on the plan), which fits a control room over a lower room. The lift (FUNC_PLAT, labelled '2 -16') is the only vertical link drawn, with no stairs or ramps. Views.png shows only flat floors in the control room and start room, and nothing of the 256-unit drop."
-  },
-  "P4": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Present and matched: info_player_start (entity 8, start room), info_landmark lm_pumphall_control (entity 9), func_plat lift (entity 1), and two monster_headcrab (entities 10 and 11, in the control room), as the brief asks. Missing or unclear: no valve wheel is listed anywhere in the entity list, and the lower room has no entity marked as the wheel. The plan labels a TRIGGER_CHANGELEVEL (entity 2, magenta, beside the lift), but the measurements list no changelevels, so that trigger's target is unexplained."
-  },
-  "P5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Walls and floors in views.png are grey tile and panel surfaces with grid seams. They read as generic Half-Life-style tile rather than the brief's concrete, steel grate and control panel. Not a must-have, and the textures are not verifiable from these views alone."
-  },
-  "P6": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Lamps are placed in both rooms on the plan (yellow LIGHT markers, about 19 in the control room and 13 in the lower room), and views.png shows warm yellow lamp squares along the control room walls. The lower room is never seen lit, so the bright and dark areas cannot be compared with the brief's sodium-lit hall."
-  },
-  "P7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Two grey console boxes with panels stand on the control room floor (views.png, yaw -90, labelled cycler_sprite), which is part of what the brief asks. No windows over the lower room are visible in views.png or the plan, though four light grey openings along the shared south wall (plan, y about 425-435) may be meant as windows and cannot be read from the views. No valve wheel is shown."
-  },
-  "P8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The measurements report no check errors, no unreached places, and no reach warnings, so the map compiles and every place to start reaches its items and exits on foot."
-  },
-  "P9": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "From inside (views.png), the control room reads as a plain tiled corridor with lamp squares. There are no windows onto a hall, no lift shaft, and no valve room in view, so a player who knows the brief's control room would not recognise this one. Only the two consoles and the two headcrab markers in views 2 and 5 match the brief."
-  }
- },
- "total": 10,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "P8"
+ ],
+ "total": 0,
+ "of": 18
 }

@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 4.4,
+   "peak": -1,
+   "rms": -13.5,
+   "crest": 12.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.878,
+   "peakAt": 2.27,
+   "t20": 2.13,
+   "t40": 2.13,
+   "centroid": 248,
+   "rolloff": 474,
+   "flatness": 0.015,
+   "bands": {
+    "<150": 60.7,
+    "150-600": 32.8,
+    "600-2k": 5.8,
+    "2k-5k": 0.2,
+    ">5k": 0.4
+   },
+   "onsets": 6
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 15,
+   "of": 20,
+   "lines": [
+    "length 4.4 s (2.03 to 3.39): too long",
+    "band <150 60.7% (0 to 13.9): over the range",
+    "band 150-600 32.8% (84.2 to 100): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform (top strip) is a steady, dense, noise-like wash across the full 4.4 s with no pulse or rhythm, and the spectrogram's energy sits in the bottom low-frequency rows, which reads as a drone. That fits a pump's drone, but nothing in the picture confirms the pump itself, and the six spikes in the waveform could be clicks or hits that a drone should not have. Heard, it would need to be checked."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 4.4 s against the class range of 2.03 to 3.39 s, about 30% past the top and outside the 25% allowance, so it is clearly too long. Attack (0.878 s) is not flagged by the measure. The waveform shows full-level noise from the first frame, which does not sit well with a slow 0.878 s attack, so that figure is worth checking."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectrum is wrong for the class. Below 150 Hz holds 60.7% against a range of 0 to 13.9%, far over. 150 to 600 Hz holds 32.8% against 84.2 to 100%, far under. The spectrogram shows the bright yellow mass in the bottom rows, the low-frequency band, so the sound is bass-heavy where the class is not. The centroid of 248 Hz and the rolloff of 474 Hz follow from that."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.015, so the sound is very tonal and below the game's noisy sounds (0.05 to 0.28). The spectrogram shows a stable pitch with no visible movement across the length, which is right for a drone. The six onsets are not shown to be a pump's character, so the hits and clicks do not match a pump's pulse. Only the flatness and onset count are measured here."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "No engine faults are recorded, the peak is -1 dBFS with no clipping, DC is 0, and there is no lead or tail silence, so the level and structure are fine. But the sample rate, bit depth and loop cue are not in the measures given, so the file cannot be confirmed as the engine's format or as a loop at the original's cue. Those checks are needed before it passes."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

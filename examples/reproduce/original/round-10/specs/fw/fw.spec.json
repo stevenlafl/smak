@@ -1,0 +1,422 @@
+{
+  "spec": "smak.wad/1",
+  "name": "fw.wad",
+  "materials": {
+    "concrete": {
+      "base": "plaster",
+      "picture": "library:concrete_layers_02",
+      "size": 79
+    },
+    "wetconc": {
+      "base": "stone",
+      "picture": "library:chipped_concrete",
+      "size": 79,
+      "tone": [
+        0.3,
+        0.34,
+        0.32
+      ]
+    },
+    "grate": {
+      "base": "mesh",
+      "cell": 8,
+      "tone": [
+        0.36,
+        0.37,
+        0.35
+      ]
+    },
+    "catwalk": {
+      "base": "metal",
+      "picture": "library:metal_plate",
+      "size": 20,
+      "tone": [
+        0.42,
+        0.4,
+        0.36
+      ]
+    },
+    "pipe": {
+      "base": "iron",
+      "rust": 0.4
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.85,
+        0.7,
+        0.1
+      ]
+    },
+    "rustplate": {
+      "base": "metal",
+      "picture": "library:rusty_metal_sheet",
+      "size": 79
+    },
+    "panel": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.46,
+        0.44
+      ],
+      "rust": 0.2
+    },
+    "lamp": {
+      "base": "flat",
+      "tone": [
+        1,
+        0.62,
+        0.2
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    },
+    "water": {
+      "base": "water",
+      "tone": [
+        0.25,
+        0.35,
+        0.3
+      ]
+    },
+    "sign": {
+      "base": "metal",
+      "tone": [
+        0.82,
+        0.68,
+        0.12
+      ]
+    },
+    "door": {
+      "base": "door",
+      "tone": [
+        0.3,
+        0.36,
+        0.3
+      ]
+    },
+    "tile": {
+      "base": "tile",
+      "tone": [
+        0.5,
+        0.52,
+        0.5
+      ]
+    },
+    "yard": {
+      "base": "asphalt",
+      "picture": "library:asphalt_02",
+      "size": 118
+    }
+  },
+  "textures": [
+    {
+      "name": "FW_CONCRETE",
+      "size": [
+        256,
+        256
+      ],
+      "material": "concrete",
+      "grime": 0.5,
+      "wear": {
+        "stains": 0.5,
+        "speckle": 0.8,
+        "cracks": 0.3
+      }
+    },
+    {
+      "name": "FW_WETFLOOR",
+      "size": [
+        256,
+        256
+      ],
+      "material": "wetconc",
+      "grime": 0.6,
+      "wear": {
+        "stains": 0.7,
+        "streaks": 0.6,
+        "speckle": 0.5
+      }
+    },
+    {
+      "name": "{FW_GRATE",
+      "size": [
+        64,
+        64
+      ],
+      "material": "grate"
+    },
+    {
+      "name": "FW_CATWALK",
+      "size": [
+        128,
+        128
+      ],
+      "material": "catwalk",
+      "grime": 0.3
+    },
+    {
+      "name": "FW_PIPEWALL",
+      "size": [
+        256,
+        256
+      ],
+      "material": "concrete",
+      "grime": 0.5,
+      "relief": [
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              40
+            ],
+            [
+              256,
+              40
+            ]
+          ],
+          "radius": 7,
+          "material": "pipe"
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              0,
+              96
+            ],
+            [
+              256,
+              96
+            ]
+          ],
+          "radius": 5,
+          "material": "pipe"
+        },
+        {
+          "kind": "pipe",
+          "path": [
+            [
+              190,
+              0
+            ],
+            [
+              190,
+              256
+            ]
+          ],
+          "radius": 8,
+          "material": "pipe"
+        }
+      ]
+    },
+    {
+      "name": "FW_HAZARD",
+      "size": [
+        128,
+        128
+      ],
+      "material": "hazard"
+    },
+    {
+      "name": "FW_RUSTPLATE",
+      "size": [
+        256,
+        256
+      ],
+      "material": "rustplate",
+      "grime": 0.5,
+      "relief": [
+        {
+          "kind": "rivets",
+          "from": [
+            16,
+            16
+          ],
+          "to": [
+            240,
+            16
+          ],
+          "count": 4,
+          "radius": 3
+        },
+        {
+          "kind": "rivets",
+          "from": [
+            16,
+            240
+          ],
+          "to": [
+            240,
+            240
+          ],
+          "count": 4,
+          "radius": 3
+        }
+      ]
+    },
+    {
+      "name": "FW_CONTROL",
+      "size": [
+        256,
+        256
+      ],
+      "material": "panel",
+      "panels": [
+        {
+          "at": [
+            128,
+            190
+          ],
+          "size": [
+            200,
+            90
+          ],
+          "edge": 3
+        },
+        {
+          "at": [
+            128,
+            60
+          ],
+          "size": [
+            200,
+            70
+          ],
+          "edge": 3,
+          "style": "raised"
+        }
+      ],
+      "relief": [
+        {
+          "kind": "lamp",
+          "at": [
+            60,
+            190
+          ],
+          "size": [
+            30,
+            30
+          ],
+          "colour": [
+            1,
+            0.62,
+            0.2
+          ]
+        },
+        {
+          "kind": "lamp",
+          "at": [
+            128,
+            190
+          ],
+          "size": [
+            30,
+            30
+          ],
+          "colour": [
+            1,
+            0.62,
+            0.2
+          ]
+        },
+        {
+          "kind": "lamp",
+          "at": [
+            196,
+            190
+          ],
+          "size": [
+            30,
+            30
+          ],
+          "colour": [
+            1,
+            0.62,
+            0.2
+          ]
+        }
+      ]
+    },
+    {
+      "name": "FW_SODIUM",
+      "size": [
+        128,
+        128
+      ],
+      "material": "lamp",
+      "panels": [
+        {
+          "at": [
+            64,
+            64
+          ],
+          "size": [
+            116,
+            116
+          ],
+          "edge": 4
+        }
+      ]
+    },
+    {
+      "name": "!FW_WATER",
+      "size": [
+        128,
+        128
+      ],
+      "material": "water"
+    },
+    {
+      "name": "FW_PUMP3",
+      "size": [
+        256,
+        128
+      ],
+      "material": "sign",
+      "print": {
+        "text": "PUMP 3",
+        "size": 0.5,
+        "ink": [
+          0.05,
+          0.05,
+          0.05
+        ]
+      }
+    },
+    {
+      "name": "FW_DOOR",
+      "size": [
+        128,
+        256
+      ],
+      "material": "door"
+    },
+    {
+      "name": "FW_TILE",
+      "size": [
+        128,
+        128
+      ],
+      "material": "tile",
+      "grime": 0.4
+    },
+    {
+      "name": "FW_YARD",
+      "size": [
+        256,
+        256
+      ],
+      "material": "yard",
+      "grime": 0.5,
+      "wear": {
+        "stains": 0.6,
+        "cracks": 0.5,
+        "speckle": 0.6
+      }
+    }
+  ]
+}

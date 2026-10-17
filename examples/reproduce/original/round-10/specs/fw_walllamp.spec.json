@@ -1,0 +1,97 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "materials": {
+    "plate": {
+      "base": "metal",
+      "tone": [
+        0.3,
+        0.32,
+        0.3
+      ],
+      "rust": 0.3
+    },
+    "housing": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.42,
+        0.38
+      ],
+      "rust": 0.25
+    },
+    "cage": {
+      "base": "mesh",
+      "cell": 2
+    },
+    "lamp": {
+      "base": "flat",
+      "tone": [
+        1,
+        0.62,
+        0.18
+      ],
+      "flags": [
+        "fullbright"
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "size": [
+        2,
+        16,
+        26
+      ],
+      "material": "plate"
+    },
+    {
+      "id": "housing",
+      "kind": "box",
+      "size": [
+        8,
+        12,
+        10
+      ],
+      "at": [
+        5,
+        0,
+        8
+      ],
+      "material": "housing"
+    },
+    {
+      "id": "glass",
+      "kind": "box",
+      "size": [
+        2,
+        9,
+        7
+      ],
+      "at": [
+        9,
+        0,
+        10
+      ],
+      "material": "lamp"
+    },
+    {
+      "id": "cage",
+      "kind": "box",
+      "size": [
+        4,
+        14,
+        14
+      ],
+      "at": [
+        11,
+        0,
+        6
+      ],
+      "material": "cage"
+    }
+  ]
+}

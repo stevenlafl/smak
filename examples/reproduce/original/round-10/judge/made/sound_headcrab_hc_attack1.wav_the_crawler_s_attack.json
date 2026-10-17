@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.624,
+   "peak": -0.5,
+   "rms": -10.7,
+   "crest": 10.2,
+   "dc": -0.0029,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.01,
+   "peakAt": 0.01,
+   "t20": 0.534,
+   "t40": 0.574,
+   "centroid": 789,
+   "rolloff": 1270,
+   "flatness": 0.15,
+   "bands": {
+    "<150": 4.5,
+    "150-600": 46.3,
+    "600-2k": 43.5,
+    "2k-5k": 5.6,
+    ">5k": 0.1
+   },
+   "onsets": 1
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows the same kind of event as the game's: a dense broadband burst at the onset (0 to about 0.3 s), then sparse clicks in the tail. The original has the same shape, a hard attack followed by hits. Listening is outside the judge's reach, so this rests on the picture and features alone."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.624 s against the original's 0.906 s, 31% short, outside the 25% must-have. Decay t20 is 0.534 s against 0.394 s, a 0.14 s gap. The class is null, so the fallback applies (the original's decay within a quarter, about 0.10 s, or 0.05 s), and it fails that too. Attack matches at 0.01 s. Clearly off, so 1."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid is 789 Hz against 921 Hz, a 14% gap, within 20%. The bands fail two must-have shares: 150-600 is 46.3% against 68.1% (21.8 points short) and 600-2k is 43.5% against 18.8% (24.7 points over). Those are far outside 10 points. The spectrogram agrees: the replacement's energy sits in the low-mid to mid range where the original's sits lower. Clearly off, so 1."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Measured onsets are 1 against the original's several hits (its waveform shows large clicks near 0.27 s, 0.5 s and 0.56 s). The replacement's tail clicks are small, so the hit pattern is not carried over. Both are noise-like with no visible pitch movement, which matches. Not a must-have, but the onset character is clearly different."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements show no clipping, peak -0.5 dB, DC -0.0029 (about 0.3% of full scale, small), no loop cue needed, the same name sound/headcrab/hc_attack1.wav, and an empty engineFaults list. The sample rate and bit depth are not among the features given, so the empty fault list is taken as the engine's checks passing. The top band (>5k) at 0.1% is consistent with an 11025 Hz file, but that is not measured."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

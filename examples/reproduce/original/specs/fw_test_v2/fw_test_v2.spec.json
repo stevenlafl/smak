@@ -1,0 +1,132 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_test_v2",
+  "size": 2500,
+  "wads": [
+    "fw.wad"
+  ],
+  "textures": {
+    "catwalk": {
+      "texture": "fw_catwalk"
+    },
+    "rustplate": {
+      "texture": "fw_rustplate"
+    },
+    "concrete": {
+      "texture": "fw_concrete"
+    }
+  },
+  "theme": {
+    "floor": "concrete",
+    "wall": "concrete",
+    "ceiling": "concrete",
+    "furniture": "rustplate"
+  },
+  "rooms": [
+    {
+      "id": "entry",
+      "size": [
+        240,
+        560,
+        240
+      ]
+    },
+    {
+      "id": "hall",
+      "size": [
+        2000,
+        640,
+        300
+      ],
+      "place": {
+        "east_of": "entry"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "entry",
+        "hall"
+      ],
+      "kind": "opening",
+      "width": 96,
+      "height": 128
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "north",
+      "along": 0.2,
+      "width": 32,
+      "height": 170
+    }
+  ],
+  "prefabs": {
+    "catwalk_n": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -900,
+              -60,
+              150
+            ],
+            [
+              700,
+              60,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        },
+        {
+          "box": [
+            [
+              -892,
+              -50,
+              0
+            ],
+            [
+              -868,
+              50,
+              150
+            ]
+          ],
+          "texture": "rustplate"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "catwalk_n",
+      "room": "hall",
+      "at": [
+        -100,
+        260
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "entry",
+      "at": [
+        -60,
+        0
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -500,
+        260
+      ],
+      "z": 170
+    }
+  ]
+}

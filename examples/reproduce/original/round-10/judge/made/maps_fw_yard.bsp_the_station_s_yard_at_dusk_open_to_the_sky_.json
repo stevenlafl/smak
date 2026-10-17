@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1500,
+   1500
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "lm_yard_pumphall"
+   }
+  ],
+  "landmarks": [
+   "lm_yard_pumphall"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard, gatehouse (lower left, plan ~91-285 x, 713-887 y) and pump house (upper right, ~562-846 x, 170-403 y) are there, joined by func_door 1 on the gatehouse's east wall and by the changelevel trigger in the pump house. But the pump house holds a long column of entity-2 brushes at x≈703 (y 171-395), which splits its interior and makes the pump house's doorway unclear. The brief's double doors show as one door bar at the west wall (~573, 285)."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The plan's bounds are 910 px, which at the 256-unit scale bar is about 1500 units square, as asked. The gatehouse (about 310 x 280 units) sits at the south-west, next to the gate, and the pump house (about 455 x 373) at the north-east. The brief gives no sizes for those two, so their places are judged only by the arrangement."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan shows no floor heights, storeys or ramps, so the required height picture is missing and the levels cannot be confirmed. The views show walls and a roofed building but no stairs, ledges or height changes to compare with the brief."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The info_player_start (11) sits just east of the gatehouse door (func_door 1), as the brief asks. The pump house exit is a trigger_changelevel (3) with info_landmark 12 'lm_yard_pumphall', which is correct. But the pump house's 'double doors' appear as a single func_door 2 bar at its west wall, and the long brush column of entity 2 at x≈703 is not a door. The two-leaf double door cannot be confirmed."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls read as a mottled concrete, close to the brief's concrete wall, and the ground is a dark, wet-looking texture. The views show no hazard-striped trim, no rusted steel, no sign reading 'PUMP 3' and no yellow hazard paint, so the brief's surface set is only partly there."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The views show a bright daylight blue sky and even daylight on the walls, not the dusk the brief asks for. The light entities (12, 13, 14, 17, 18, 19) sit in open ground with no sodium-orange glow visible in the views, so the lamps are not clearly the brief's."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The gatehouse with its roof, the high walls and the start area are there. The stacked drums and the broken truck-sized pipe section named in the brief appear in neither the plan (no entity or mark) nor any of the five views, so half the named detail is missing."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements are clean: checkErrors, notReached and reachWarnings are all empty, and the map is 1500 x 1500 as asked. The one changelevel (fw_pumphall, landmark lm_yard_pumphall) is reached on the walk test, with no leak reported."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The concrete walls and dark ground in the views look like Half-Life's, but a player would not place this as a dusk pumping-station yard. The bright blue daytime sky (all five views) and the bare open ground with no drums, pipes, steam or sodium glow make it read as a generic yard. Floating cyan sprite boxes ('9 CYCLER_SPRITE', view 4) also show in the views."
+  }
+ },
+ "total": 11,
+ "of": 18,
+ "passes": false
+}

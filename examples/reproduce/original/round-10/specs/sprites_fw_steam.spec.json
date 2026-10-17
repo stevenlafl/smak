@@ -1,0 +1,102 @@
+{
+  "spec": "smak.sprite/1",
+  "sprites": [
+    {
+      "name": "sprites/fw_steam.spr",
+      "class": "smoke puff",
+      "use": "env_sprite",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 12,
+      "fps": 10,
+      "format": "index alpha",
+      "colour": [
+        0.82,
+        0.82,
+        0.8
+      ],
+      "layers": [
+        {
+          "kind": "smoke",
+          "density": 0.7,
+          "spread": 0.5,
+          "rise": 0.5,
+          "colour": [
+            0.85,
+            0.85,
+            0.82
+          ],
+          "env": {
+            "attack": 0.1,
+            "decay": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_glow.spr",
+      "class": "glow",
+      "use": "env_glow",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 1,
+      "layers": [
+        {
+          "kind": "glow",
+          "radius": 0.95,
+          "core": 0.25,
+          "colour": [
+            1,
+            0.62,
+            0.2
+          ],
+          "gain": 1
+        }
+      ]
+    },
+    {
+      "name": "sprites/fw_spit.spr",
+      "class": "ring",
+      "use": "tempent",
+      "size": [
+        64,
+        64
+      ],
+      "frames": 8,
+      "fps": 16,
+      "format": "additive",
+      "layers": [
+        {
+          "kind": "ring",
+          "from": 0.15,
+          "to": 0.85,
+          "width": 0.12,
+          "colour": [
+            0.55,
+            0.7,
+            0.3
+          ],
+          "env": {
+            "attack": 0.1,
+            "decay": 0.6
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 10,
+          "speed": 0.6,
+          "gravity": 0.4,
+          "colour": [
+            0.6,
+            0.75,
+            0.35
+          ]
+        }
+      ]
+    }
+  ]
+}

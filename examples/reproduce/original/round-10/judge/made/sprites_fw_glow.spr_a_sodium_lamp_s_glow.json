@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The single frame is a radial glow: a bright core at the centre fading smoothly to the edges. That is the effect a sodium lamp's glow should be, and it reads as a glow, not a flame, smoke or disc."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "64 x 64 as measured. The glow fills the frame and falls off to dark before the edges (border max and mean 0, within the class range of 0 to 0.005), so nothing is clipped at the frame edge."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Amber to sodium orange, brightest at the core and cooling outward, which matches a sodium lamp's light and the brief's sodium-orange glass. No blue or neon cast. Judged by eye, as the brief leg requires."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A glow in the class takes one frame and no motion. The envelope is flat (peak at frame 0, first and last at 1), and the only class measure given, border, is 0 and passes. The 'dark' figure of 0.56 is the background that additive blending leaves unlit, so it adds nothing."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Measured as a parallel sprite in additive format, 1 frame, 64 x 64, saved as sprites/fw_glow.spr, which is the name the mod's fw_ prefix and the brief's sprite slot call for. A glow is conventionally parallel additive, so the type and format fit. The brief text as given does not name the slot's type, so this is judged on the convention rather than checked against a stated type."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

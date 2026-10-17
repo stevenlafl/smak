@@ -3,53 +3,56 @@
   "name": "fw_drum.mdl",
   "kind": "prop",
   "size": {
-    "height": 35
+    "height": 36,
+    "width": 23
   },
   "materials": {
     "drum": {
       "base": "metal",
+      "picture": "library:rusty_metal_02",
+      "size": 39,
       "tone": [
         0.28,
-        0.33,
-        0.38
+        0.34,
+        0.4
       ],
-      "rust": 0.5
+      "rust": 0.55
     },
-    "hazard": {
+    "stripe": {
       "base": "hazard",
       "tone": [
         0.8,
-        0.65,
+        0.62,
         0.1
       ]
     },
-    "hoop": {
-      "base": "steel",
-      "rust": 0.4
+    "iron": {
+      "base": "iron",
+      "rust": 0.6
     }
   },
   "parts": [
     {
-      "id": "drum",
+      "id": "body",
       "kind": "turn",
       "material": "drum",
-      "sides": 12,
+      "sides": 16,
       "rings": [
         [
           0,
-          10.5
+          10.4
         ],
         [
-          1.5,
-          11.3
+          1.6,
+          11.4
         ],
         [
-          33.5,
-          11.3
+          34.4,
+          11.4
         ],
         [
-          35,
-          10.5
+          36,
+          10.4
         ]
       ],
       "caps": [
@@ -60,42 +63,53 @@
         {
           "path": [
             [
-              0.42,
+              0.5,
               0
             ],
             [
-              0.42,
+              0.5,
               360
             ]
           ],
-          "width": 5,
-          "material": "hazard"
+          "width": 6.5,
+          "material": "stripe",
+          "ends": "round"
         }
       ]
     },
     {
       "id": "hoop_low",
       "kind": "band",
-      "material": "hoop",
+      "material": "iron",
       "on": {
-        "part": "drum",
-        "s": 0.12
+        "part": "body",
+        "s": 0.1
       },
       "width": 2,
-      "height": 0.6,
-      "paint": true
+      "height": 0.6
     },
     {
       "id": "hoop_high",
       "kind": "band",
-      "material": "hoop",
+      "material": "iron",
       "on": {
-        "part": "drum",
-        "s": 0.88
+        "part": "body",
+        "s": 0.9
       },
       "width": 2,
-      "height": 0.6,
-      "paint": true
+      "height": 0.6
+    },
+    {
+      "id": "bung",
+      "kind": "boss",
+      "material": "iron",
+      "on": {
+        "part": "body",
+        "s": 0.72,
+        "angle": 0
+      },
+      "radius": 1.6,
+      "height": 1
     }
   ]
 }

@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "lm_yard_pumphall"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "lm_yard_pumphall",
+     "lm_pumphall_control"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "lm_pumphall_control"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 218542
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 179725
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 7901941
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1081436
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measurements show nothing missing and no failed SMAK checks. All three maps (fw_yard, fw_pumphall, fw_control), the five props (valve wheel, drum, console, pipe junction, caged lamp), the wrench and the crawler are on the sheet. The sheet does not show the textures, sounds or sprites, so this score rests on the completeness measure, not on the pictures."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain runs fw_yard to fw_pumphall through lm_yard_pumphall, and fw_pumphall to fw_control through lm_pumphall_control, with each arrival matching the asked map. fw_control ends the chain, which the brief allows because the valve there ends the mod. No named model, sprite or sound is missing."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props share a grey-green and blue-grey steel palette with rust on the valve pipe, yellow hazard stripes on the drum and console, and red paint on the valve wheel and wrench. The sodium-orange lamp glass also fits the brief. The map views do not match that palette: the yard in the picture (top row, third from the right) has a bright daylight blue sky and beige sandy walls where the brief asks for dusk, and the pump hall floor (bottom row, middle) is tan tile under a beige wall, not the green-grey water and concrete of the props. The text labels on the map views (\"9 CYCLER_SPRITE\", \"12 MONSTER_HEADCRAB\") are the harness's overlays, not a fault of the mod."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The videos the brief asks for are present (videos/fw_wrench.mp4, videos/fw_crawler.mp4, videos/fw_pumphall.mp4), and so is the props sheet (pictures/fw_props.png). Each of the five props, the wrench and the crawler shows on the sheet as it is made."
+  }
+ },
+ "total": 7,
+ "of": 8,
+ "passes": false
+}

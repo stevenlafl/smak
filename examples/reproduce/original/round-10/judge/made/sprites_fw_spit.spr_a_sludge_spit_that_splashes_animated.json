@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 8,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.29,
+    "first": 0,
+    "last": 0
+   },
+   "dark": 0.79,
+   "wrap": 0.06,
+   "jitter": 1.62
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.62,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": false,
+    "words": "flickers: more coherence from frame to frame"
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.29,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Reads as a glowing green ring spreading outward with scattered flecks, so it suggests a splash. But the spit itself (a glob or projectile) is never shown, and the flecks scatter like sparks rather than liquid. In frames 2 to 4 the ring looks more like a shockwave than sludge hitting a surface."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The 64 by 64 frames hold the effect, which fills about three quarters of each frame by frame 3 without touching the edge (border measured 0). The size is right for a sprite of this kind."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Colour is a yellow-green halo with lime flecks, darkening to olive, on the black additive background. It reads as sludge and sits within the palette of green-grey water. Judged by eye, the brightest flecks are a little lime, but acceptable."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The envelope is right: it builds to a peak at about 0.29, starts dark in frame 0 and ends dark in frame 7, and the measures for first, last, peakAt and border all hold against the explosion class. But jitter is 1.62 against the class's 1.04 to 1.48. The flecks jump to new places between frames (frame 2's cluster at upper centre, frame 3 scattered across the middle, frame 4 spread down-right), so the motion flickers. The ring's expansion is coherent; the flecks are not."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The header reports additive format and parallel type, which suits a glow, and the 8 frames and name are as written. But the brief gives no slot to check the type and format against, and the measures include no read-back check of the file against the game's sprite of that name. So fit for the game cannot be confirmed from what was given."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

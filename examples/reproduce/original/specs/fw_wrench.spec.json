@@ -1,173 +1,20 @@
 {
-  "spec": "smak.model/1",
-  "name": "fw_wrench.mdl",
-  "kind": "held",
-  "weapon": {
-    "like": "crowbar",
-    "size": "own",
-    "rig": "carry"
-  },
-  "materials": {
-    "red": {
-      "base": "paint",
-      "tone": [
-        0.6,
-        0.1,
-        0.08
-      ]
-    },
-    "steel": {
-      "base": "steel",
-      "rust": 0.15
-    }
-  },
-  "parts": [
+  "spec": "smak.video/1",
+  "name": "fw_wrench",
+  "size": [
+    960,
+    540
+  ],
+  "fps": 30,
+  "shots": [
     {
-      "id": "handle",
-      "kind": "turn",
-      "axis": "x",
-      "sides": 8,
-      "material": "red",
-      "rings": [
-        [
-          0,
-          1.5
-        ],
-        [
-          1,
-          1.3
-        ],
-        [
-          10,
-          1.3
-        ],
-        [
-          11,
-          1.7
-        ]
-      ],
-      "caps": [
-        true,
-        true
-      ],
-      "marks": [
-        {
-          "path": [
-            [
-              0.3,
-              180
-            ],
-            [
-              0.55,
-              180
-            ]
-          ],
-          "width": 0.9,
-          "material": "steel"
-        }
-      ]
-    },
-    {
-      "id": "knob",
-      "kind": "sphere",
-      "radius": 1.6,
-      "sides": 8,
-      "at": [
-        0.4,
-        0,
-        -1.6
-      ],
-      "material": "steel"
-    },
-    {
-      "id": "head",
-      "kind": "box",
-      "size": [
-        5,
-        3,
-        5
-      ],
-      "at": [
-        13.5,
-        0,
-        -2.5
-      ],
-      "material": "steel"
-    },
-    {
-      "id": "jaw",
-      "kind": "box",
-      "size": [
-        2,
-        3,
-        6
-      ],
-      "at": [
-        15.5,
-        0,
-        -3
-      ],
-      "material": "steel"
-    },
-    {
-      "id": "tooth1",
-      "kind": "box",
-      "size": [
-        1.5,
-        3,
-        1
-      ],
-      "at": [
-        16.9,
-        0,
-        -2.6
-      ],
-      "material": "steel"
-    },
-    {
-      "id": "tooth2",
-      "kind": "box",
-      "size": [
-        1.5,
-        3,
-        1
-      ],
-      "at": [
-        16.9,
-        0,
-        -1.1
-      ],
-      "material": "steel"
-    },
-    {
-      "id": "tooth3",
-      "kind": "box",
-      "size": [
-        1.5,
-        3,
-        1
-      ],
-      "at": [
-        16.9,
-        0,
-        0.4
-      ],
-      "material": "steel"
-    },
-    {
-      "id": "tooth4",
-      "kind": "box",
-      "size": [
-        1.5,
-        3,
-        1
-      ],
-      "at": [
-        16.9,
-        0,
-        1.9
-      ],
-      "material": "steel"
+      "kind": "turntable",
+      "model": "fw_wrench.mdl",
+      "seconds": 8,
+      "turns": 1,
+      "pitch": 12,
+      "zoom": 1.7,
+      "caption": "pipe wrench, 18 units long"
     }
   ]
 }

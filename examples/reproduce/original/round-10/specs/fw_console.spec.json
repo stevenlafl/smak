@@ -1,0 +1,263 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_console.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 42
+  },
+  "materials": {
+    "panel": {
+      "base": "metal",
+      "tone": [
+        0.42,
+        0.45,
+        0.42
+      ],
+      "rust": 0.2
+    },
+    "top": {
+      "base": "steel",
+      "rust": 0.3
+    },
+    "screen": {
+      "base": "metal",
+      "tone": [
+        0.1,
+        0.16,
+        0.14
+      ]
+    },
+    "dial": {
+      "base": "brass"
+    },
+    "switch": {
+      "base": "flat",
+      "tone": [
+        0.08,
+        0.08,
+        0.08
+      ]
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.8,
+        0.65,
+        0.1
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "box",
+      "size": [
+        44,
+        30,
+        38
+      ],
+      "material": "panel",
+      "panels": [
+        {
+          "face": "front",
+          "at": [
+            8,
+            28
+          ],
+          "size": [
+            11,
+            8
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            22,
+            28
+          ],
+          "size": [
+            11,
+            8
+          ],
+          "style": "inset",
+          "material": "screen"
+        },
+        {
+          "face": "front",
+          "at": [
+            5,
+            17
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            12,
+            17
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            19,
+            17
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            26,
+            17
+          ],
+          "size": [
+            4,
+            4
+          ],
+          "shape": "round",
+          "style": "raised",
+          "material": "dial"
+        },
+        {
+          "face": "front",
+          "at": [
+            4,
+            8
+          ],
+          "size": [
+            2,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            8,
+            8
+          ],
+          "size": [
+            2,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            12,
+            8
+          ],
+          "size": [
+            2,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            16,
+            8
+          ],
+          "size": [
+            2,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            20,
+            8
+          ],
+          "size": [
+            2,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            24,
+            8
+          ],
+          "size": [
+            2,
+            4
+          ],
+          "style": "raised",
+          "material": "switch"
+        },
+        {
+          "face": "front",
+          "at": [
+            15,
+            1.5
+          ],
+          "size": [
+            30,
+            3
+          ],
+          "style": "flat",
+          "material": "hazard"
+        },
+        {
+          "face": "left",
+          "at": [
+            22,
+            20
+          ],
+          "size": [
+            16,
+            12
+          ],
+          "style": "inset",
+          "material": "screen"
+        }
+      ]
+    },
+    {
+      "id": "top",
+      "kind": "box",
+      "size": [
+        40,
+        26,
+        4
+      ],
+      "material": "top",
+      "attach": {
+        "to": "body"
+      }
+    }
+  ]
+}

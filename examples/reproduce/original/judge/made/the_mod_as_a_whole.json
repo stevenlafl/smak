@@ -11,7 +11,7 @@
      "fw_pumphall"
     ],
     "landmarks": [
-     "lm_yard_pumphall"
+     "lm_yard_hall"
     ],
     "asked": "fw_pumphall"
    },
@@ -21,8 +21,8 @@
      "fw_control"
     ],
     "landmarks": [
-     "lm_yard_pumphall",
-     "lm_pumphall_control"
+     "lm_yard_hall",
+     "lm_hall_control"
     ],
     "asked": "fw_control"
    },
@@ -30,7 +30,7 @@
     "map": "fw_control",
     "leadsTo": [],
     "landmarks": [
-     "lm_pumphall_control"
+     "lm_hall_control"
     ],
     "asked": null
    }
@@ -39,22 +39,22 @@
    {
     "file": "videos/fw_wrench.mp4",
     "there": true,
-    "bytes": 218542
+    "bytes": 396356
    },
    {
     "file": "videos/fw_crawler.mp4",
     "there": true,
-    "bytes": 179725
+    "bytes": 302758
    },
    {
     "file": "videos/fw_pumphall.mp4",
     "there": true,
-    "bytes": 7901941
+    "bytes": 4411214
    },
    {
     "file": "pictures/fw_props.png",
     "there": true,
-    "bytes": 1081436
+    "bytes": 1195486
    }
   ]
  },
@@ -67,28 +67,28 @@
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measurements show nothing missing and no failed SMAK checks. All three maps (fw_yard, fw_pumphall, fw_control), the five props (valve wheel, drum, console, pipe junction, caged lamp), the wrench and the crawler are on the sheet. The sheet does not show the textures, sounds or sprites, so this score rests on the completeness measure, not on the pictures."
+   "reason": "The measurements list nothing missing and no failed SMAK checks. The brief's assets are all present: the three maps, the five props, the wrench, the crawler, the sprites, sounds, fw.wad and the four shown files (wrench, crawler and pump-hall videos, props picture). Nothing in the sheet contradicts this."
   },
   "O2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The chain runs fw_yard to fw_pumphall through lm_yard_pumphall, and fw_pumphall to fw_control through lm_pumphall_control, with each arrival matching the asked map. fw_control ends the chain, which the brief allows because the valve there ends the mod. No named model, sprite or sound is missing."
+   "reason": "The chain is fw_yard to fw_pumphall (landmark lm_yard_hall) and fw_pumphall to fw_control (landmark lm_hall_control). Each map's arrival landmark matches the one the previous map leads by, and fw_control ends the chain as the brief's valve room does. Each change was reached on foot from the start by the walk test."
   },
   "O3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The props share a grey-green and blue-grey steel palette with rust on the valve pipe, yellow hazard stripes on the drum and console, and red paint on the valve wheel and wrench. The sodium-orange lamp glass also fits the brief. The map views do not match that palette: the yard in the picture (top row, third from the right) has a bright daylight blue sky and beige sandy walls where the brief asks for dusk, and the pump hall floor (bottom row, middle) is tan tile under a beige wall, not the green-grey water and concrete of the props. The text labels on the map views (\"9 CYCLER_SPRITE\", \"12 MONSTER_HEADCRAB\") are the harness's overlays, not a fault of the mod."
+   "reason": "The props agree with each other: blue-grey and rust-brown steel, hazard yellow-and-black on the drum, red paint on the valve wheel and wrench, and an olive-grey crawler that suits a sludge creature. The map views do not match them. The yard's sky is a flat bright blue, off the brief's dusk palette. The hall views (middle and right panels) show green-grey corrugated walls, a door and a dirt floor, with no water, pumps, catwalks, hazard paint or sodium glow, so the maps read as a different place from the props. The entity labels overlaid on the map views (CYCLER_SPRITE, MONSTER_HEADCRAB) also make the maps look unfinished."
   },
   "O4": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "The videos the brief asks for are present (videos/fw_wrench.mp4, videos/fw_crawler.mp4, videos/fw_pumphall.mp4), and so is the props sheet (pictures/fw_props.png). Each of the five props, the wrench and the crawler shows on the sheet as it is made."
+   "score": 1,
+   "reason": "The sheet of props the brief asks for is there (fw_props.png, shown in the measurements), and each prop reads clearly as its kind. The crawler in the lower-left is a grey-green blob with a ring of teeth and only two or three limbs visible, so its six legs do not show as the brief describes. The map panels also do not show the pump hall's flooded floor or catwalks, so they do not show the maps as they are."
   }
  },
- "total": 7,
+ "total": 6,
  "of": 8,
  "passes": false
 }

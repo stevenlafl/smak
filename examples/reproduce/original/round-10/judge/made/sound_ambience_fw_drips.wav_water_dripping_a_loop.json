@@ -1,0 +1,81 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 5.2,
+   "peak": -1,
+   "rms": -22.8,
+   "crest": 21.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.2,
+   "attack": 0.1,
+   "peakAt": 0.309,
+   "t20": 4.684,
+   "t40": 4.689,
+   "centroid": 1121,
+   "rolloff": 1529,
+   "flatness": 0.146,
+   "bands": {
+    "<150": 0.1,
+    "150-600": 15.8,
+    "600-2k": 78.3,
+    "2k-5k": 5.6,
+    ">5k": 0.1
+   },
+   "onsets": 7
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 16,
+   "of": 20,
+   "lines": [
+    "length 5.2 s (5.48 to 9.14): too short",
+    "rms -22.8 dBFS (-30.3 to -24.3): over the range",
+    "centroid 1121 Hz (671 to 1007): too bright: less over 2000 Hz",
+    "flatness 0.146 (0.05 to 0.15): too noisy: more tone (modes)"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform is a continuous broadband bed that never drops to quiet between events, with seven sharp onsets spread across it (at about 0.3 s, 0.9 s, 1.7 s, 2.8 s, 3.7 s, 4.5 s and 4.9 s in the picture). The spectrogram shows a dense orange noise field from about 600 Hz to 2 kHz with no visible pitched drop shapes at the onsets. It reads as a wash of noise with clicks rather than separate water drips. The measures give the class 'loop drips' and flag the event as off, so the drips are only partly there."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 5.2 s, flagged against the class range of 5.48 to 9.14 s as too short. The attack of 0.1 s and the t20 of 4.68 s are not flagged, and the level is steady from start to end. The envelope fault is in length, and the level holds with no decay between drips."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid is 1121 Hz, flagged as too bright against the class range of 671 to 1007 Hz, and the measure says less energy is wanted over 2 kHz. The bands read 78.3% in 600 Hz to 2 kHz, 15.8% in 150 to 600 Hz, 5.6% in 2 to 5 kHz and 0.1% in each of the outer bands. The spectrogram matches: the bright mass sits in the mid band and the top band is thin. The class's band shares are not given, so only the centroid can be checked against them."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Seven onsets are present and visible as vertical lines in the picture, which matches the drip count. Flatness is 0.146, at the top edge of the class's 0.05 to 0.15 and flagged as too noisy, with the measure asking for more tone (modes). The spectrogram shows no pitch sweep at any onset, so the drip's pitch movement is missing and the character reads as noise."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Engine faults are empty, peak is -1 dBFS, and clipping and DC are both 0, so the levels are safe. The name is sound/ambience/fw_drips.wav and the picture is labelled 'A LOOP'. But the measures and picture do not give the sample rate, bit depth or channel count, and no loop cue point is marked where the waveform ends at 5.2 s. The fit cannot be confirmed from what I was given."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

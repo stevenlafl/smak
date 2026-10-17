@@ -1,0 +1,389 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_pumphall",
+  "size": 3300,
+  "wads": [
+    "fw.wad"
+  ],
+  "compile": {
+    "quality": "draft"
+  },
+  "theme": {
+    "floor": "wetconc",
+    "wall": "pipewall",
+    "ceiling": "concrete",
+    "furniture": "rust",
+    "door": "door"
+  },
+  "textures": {
+    "wetconc": {
+      "texture": "FW_WETFLOOR"
+    },
+    "pipewall": {
+      "texture": "FW_PIPEWALL"
+    },
+    "concrete": {
+      "texture": "FW_CONCRETE"
+    },
+    "tile": {
+      "texture": "FW_TILE"
+    },
+    "catwalk": {
+      "texture": "FW_CATWALK"
+    },
+    "sign": {
+      "texture": "FW_PUMP3"
+    },
+    "water": {
+      "texture": "!FW_WATER"
+    },
+    "rust": {
+      "texture": "FW_RUSTPLATE"
+    },
+    "door": {
+      "texture": "FW_DOOR"
+    }
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        2000,
+        960,
+        360
+      ],
+      "water": {
+        "depth": 110,
+        "material": "water"
+      }
+    },
+    {
+      "id": "entry",
+      "size": [
+        240,
+        320,
+        240
+      ],
+      "place": {
+        "west_of": "hall",
+        "align": "centre"
+      },
+      "surfaces": {
+        "floor": "tile"
+      }
+    },
+    {
+      "id": "stairwell",
+      "size": [
+        400,
+        320,
+        300
+      ],
+      "place": {
+        "east_of": "hall",
+        "align": "centre"
+      },
+      "surfaces": {
+        "floor": "tile"
+      }
+    },
+    {
+      "id": "corridor",
+      "size": [
+        600,
+        320,
+        240
+      ],
+      "place": {
+        "east_of": "stairwell",
+        "align": "centre"
+      },
+      "floor": 96,
+      "surfaces": {
+        "floor": "catwalk"
+      }
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "entry",
+        "hall"
+      ],
+      "kind": "opening"
+    },
+    {
+      "between": [
+        "hall",
+        "stairwell"
+      ],
+      "kind": "opening"
+    },
+    {
+      "between": [
+        "stairwell",
+        "corridor"
+      ],
+      "kind": "opening"
+    }
+  ],
+  "prefabs": {
+    "pump": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 60,
+            "from": 0,
+            "to": 200,
+            "sides": 10
+          }
+        },
+        {
+          "box": [
+            [
+              -70,
+              -70,
+              0
+            ],
+            [
+              70,
+              70,
+              24
+            ]
+          ],
+          "texture": "rust"
+        }
+      ]
+    },
+    "catwalk": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              0,
+              150
+            ],
+            [
+              2000,
+              96,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        }
+      ]
+    },
+    "bridge": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              0,
+              150
+            ],
+            [
+              96,
+              776,
+              166
+            ]
+          ],
+          "texture": "catwalk"
+        }
+      ]
+    },
+    "exit": {
+      "pieces": [
+        {
+          "box": [
+            [
+              0,
+              -48,
+              0
+            ],
+            [
+              64,
+              48,
+              96
+            ]
+          ]
+        }
+      ],
+      "entity": {
+        "class": "trigger_changelevel",
+        "map": "fw_control",
+        "landmark": "lm_pumphall_control"
+      }
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        -700,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        100,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        800,
+        0
+      ]
+    },
+    {
+      "prefab": "catwalk",
+      "room": "hall",
+      "at": [
+        -1000,
+        384
+      ]
+    },
+    {
+      "prefab": "catwalk",
+      "room": "hall",
+      "at": [
+        -1000,
+        -480
+      ]
+    },
+    {
+      "prefab": "bridge",
+      "room": "hall",
+      "at": [
+        -300,
+        -388
+      ]
+    },
+    {
+      "prefab": "exit",
+      "room": "corridor",
+      "at": [
+        220,
+        0
+      ]
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "west",
+      "along": 0.9,
+      "width": 32,
+      "height": 170
+    },
+    {
+      "room": "hall",
+      "side": "east",
+      "along": 0.1,
+      "width": 32,
+      "height": 170
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "entry",
+      "at": [
+        -64,
+        0
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "info_landmark",
+      "id": "lm_yard_pumphall",
+      "room": "entry",
+      "at": [
+        -85,
+        0
+      ],
+      "z": 40
+    },
+    {
+      "class": "info_landmark",
+      "id": "lm_pumphall_control",
+      "room": "corridor",
+      "at": [
+        -200,
+        0
+      ],
+      "z": 136
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        -400,
+        432
+      ],
+      "z": 170
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        -500,
+        150
+      ],
+      "z": 30
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        250,
+        -200
+      ],
+      "z": 30
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "hall",
+      "at": [
+        700,
+        200
+      ],
+      "z": 30
+    },
+    {
+      "class": "ambient_generic",
+      "room": "hall",
+      "at": [
+        -600,
+        0
+      ],
+      "z": 120,
+      "message": "ambience/fw_pump.wav",
+      "health": 8,
+      "spawnflags": 20
+    },
+    {
+      "class": "ambient_generic",
+      "room": "stairwell",
+      "at": [
+        0,
+        0
+      ],
+      "z": 80,
+      "message": "ambience/fw_drips.wav",
+      "health": 6,
+      "spawnflags": 20
+    }
+  ]
+}

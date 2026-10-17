@@ -1,0 +1,140 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "materials": {
+    "pipe": {
+      "base": "iron",
+      "rust": 0.4
+    },
+    "flange": {
+      "base": "steel",
+      "rust": 0.3
+    }
+  },
+  "parts": [
+    {
+      "id": "elbow",
+      "kind": "sphere",
+      "radius": 4.6,
+      "sides": 6,
+      "at": [
+        0,
+        0,
+        7.4
+      ],
+      "material": "pipe"
+    },
+    {
+      "id": "pipeX",
+      "kind": "cylinder",
+      "radius": 4,
+      "height": 27,
+      "sides": 6,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -1,
+        0,
+        12
+      ],
+      "material": "pipe"
+    },
+    {
+      "id": "flangeX",
+      "kind": "cylinder",
+      "radius": 6,
+      "height": 2,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        25,
+        0,
+        12
+      ],
+      "material": "flange"
+    },
+    {
+      "id": "boltX",
+      "kind": "cylinder",
+      "radius": 0.9,
+      "height": 1.5,
+      "sides": 4,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        27,
+        0,
+        17
+      ],
+      "material": "flange",
+      "repeat": {
+        "count": 4,
+        "axis": "x",
+        "through": [
+          0,
+          0,
+          12
+        ]
+      }
+    },
+    {
+      "id": "pipeZ",
+      "kind": "cylinder",
+      "radius": 4,
+      "height": 26,
+      "sides": 6,
+      "at": [
+        0,
+        0,
+        11
+      ],
+      "material": "pipe"
+    },
+    {
+      "id": "flangeZ",
+      "kind": "cylinder",
+      "radius": 6,
+      "height": 2,
+      "sides": 8,
+      "at": [
+        0,
+        0,
+        36
+      ],
+      "material": "flange"
+    },
+    {
+      "id": "boltZ",
+      "kind": "cylinder",
+      "radius": 0.9,
+      "height": 1.5,
+      "sides": 4,
+      "at": [
+        5,
+        0,
+        38
+      ],
+      "material": "flange",
+      "repeat": {
+        "count": 4,
+        "axis": "z",
+        "through": [
+          0,
+          0,
+          38
+        ]
+      }
+    }
+  ]
+}

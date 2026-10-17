@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.7,
+   "peak": -0.5,
+   "rms": -11.5,
+   "crest": 11,
+   "dc": -0.0007,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.05,
+   "peakAt": 0.05,
+   "t20": 0.644,
+   "t40": 0.649,
+   "centroid": 1579,
+   "rolloff": 2153,
+   "flatness": 0.036,
+   "bands": {
+    "<150": 2.1,
+    "150-600": 16.3,
+    "600-2k": 23,
+    "2k-5k": 58.6,
+    ">5k": 0
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 16,
+   "of": 22,
+   "lines": [
+    "flatness 0.036 (0.16 to 0.28): too pure: more noise",
+    "band 600-2k 23% (63.7 to 83.8): under the range",
+    "band 2k-5k 58.6% (3.7 to 24.6): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the picture, the event is plausibly a hit: a sharp peak at 0.05 s (peakAt, attack) and a 0.7 s decay with a dense waveform. But the spectrogram has almost nothing above about 7 kHz and is tonal across the mid band, which reads less like a bright metal clang than a dull, resonant thump. I cannot listen, so this is judged from the picture and features only."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.7 s, attack 0.05 s and the decay (t20 0.644 s, t40 0.649 s) are not flagged as out of the class's range in the measurements. The waveform in the picture holds loud for about the first third and then tails off, which matches that envelope."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The spectrum is clearly off, measured. The 600-2k band holds 23% against a class range of 63.7 to 83.8 (about 40 points under), and the 2k-5k band holds 58.6% against 3.7 to 24.6 (about 34 points over). The centroid (1579) is not flagged. The spectrogram shows the energy sitting in the lower and mid bands with the top dark, which matches the measured shares, so the sound is there but its spectrum is wrong. I cannot listen; this is from the picture and features."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.036 against the class's 0.16 to 0.28, so the sound is too pure and tonal, as the measurement says, and the spectrogram's horizontal banding agrees. Onsets are measured at 0, so no separate hits or clicks show above the attack. Pitch movement is not measured. This is not a must-have item."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Clipped 0, DC -0.0007 (negligible), no lead or tail silence, and no engine faults reported. The features do not give the sample rate or bit depth, so the format is taken from the empty engine-fault list and the clipping and DC figures, not from a direct reading of the header. The name matches sound/weapons/cbar_hit1.wav."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

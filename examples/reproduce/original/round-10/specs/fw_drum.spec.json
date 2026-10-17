@@ -1,0 +1,101 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_drum.mdl",
+  "kind": "prop",
+  "size": {
+    "height": 35
+  },
+  "materials": {
+    "drum": {
+      "base": "metal",
+      "tone": [
+        0.28,
+        0.33,
+        0.38
+      ],
+      "rust": 0.5
+    },
+    "hazard": {
+      "base": "hazard",
+      "tone": [
+        0.8,
+        0.65,
+        0.1
+      ]
+    },
+    "hoop": {
+      "base": "steel",
+      "rust": 0.4
+    }
+  },
+  "parts": [
+    {
+      "id": "drum",
+      "kind": "turn",
+      "material": "drum",
+      "sides": 12,
+      "rings": [
+        [
+          0,
+          10.5
+        ],
+        [
+          1.5,
+          11.3
+        ],
+        [
+          33.5,
+          11.3
+        ],
+        [
+          35,
+          10.5
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ],
+      "marks": [
+        {
+          "path": [
+            [
+              0.42,
+              0
+            ],
+            [
+              0.42,
+              360
+            ]
+          ],
+          "width": 5,
+          "material": "hazard"
+        }
+      ]
+    },
+    {
+      "id": "hoop_low",
+      "kind": "band",
+      "material": "hoop",
+      "on": {
+        "part": "drum",
+        "s": 0.12
+      },
+      "width": 2,
+      "height": 0.6,
+      "paint": true
+    },
+    {
+      "id": "hoop_high",
+      "kind": "band",
+      "material": "hoop",
+      "on": {
+        "part": "drum",
+        "s": 0.88
+      },
+      "width": 2,
+      "height": 0.6,
+      "paint": true
+    }
+  ]
+}

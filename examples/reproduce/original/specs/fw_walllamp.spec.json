@@ -1,36 +1,38 @@
 {
   "spec": "smak.model/1",
   "name": "fw_walllamp.mdl",
-  "kind": "piece",
+  "kind": "prop",
+  "size": {
+    "height": 22,
+    "width": 18
+  },
   "materials": {
-    "plate": {
-      "base": "metal",
+    "iron": {
+      "base": "iron",
+      "picture": "library:rusty_metal_05",
+      "size": 49,
       "tone": [
         0.3,
-        0.32,
-        0.3
+        0.31,
+        0.29
       ],
       "rust": 0.3
     },
-    "housing": {
-      "base": "metal",
-      "tone": [
-        0.42,
-        0.42,
-        0.38
-      ],
-      "rust": 0.25
-    },
     "cage": {
       "base": "mesh",
-      "cell": 2
+      "cell": 3,
+      "tone": [
+        0.22,
+        0.22,
+        0.21
+      ]
     },
-    "lamp": {
+    "lampface": {
       "base": "flat",
       "tone": [
         1,
-        0.62,
-        0.18
+        0.6,
+        0.2
       ],
       "flags": [
         "fullbright"
@@ -42,56 +44,108 @@
       "id": "plate",
       "kind": "box",
       "size": [
-        2,
+        3,
         16,
-        26
+        22
       ],
-      "material": "plate"
+      "at": [
+        -1.5,
+        0,
+        0
+      ],
+      "material": "iron"
     },
     {
-      "id": "housing",
+      "id": "lamp_glow",
+      "kind": "cylinder",
+      "radius": 6.5,
+      "height": 9,
+      "sides": 6,
+      "at": [
+        0,
+        0,
+        11
+      ],
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "material": "lampface"
+    },
+    {
+      "id": "cage",
+      "kind": "cylinder",
+      "radius": 8.5,
+      "height": 10,
+      "sides": 12,
+      "at": [
+        0,
+        0,
+        11
+      ],
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "material": "cage"
+    },
+    {
+      "id": "cap_front",
+      "kind": "turn",
+      "axis": "x",
+      "sides": 12,
+      "at": [
+        10,
+        0,
+        11
+      ],
+      "material": "iron",
+      "rings": [
+        [
+          0,
+          8.8
+        ],
+        [
+          1.5,
+          8.8
+        ]
+      ],
+      "caps": [
+        true,
+        true
+      ]
+    },
+    {
+      "id": "hood",
       "kind": "box",
       "size": [
-        8,
-        12,
-        10
+        10,
+        18,
+        2
       ],
       "at": [
         5,
         0,
-        8
+        19.5
       ],
-      "material": "housing"
+      "material": "iron"
     },
     {
-      "id": "glass",
+      "id": "bracket",
       "kind": "box",
       "size": [
+        3,
         2,
-        9,
-        7
-      ],
-      "at": [
-        9,
-        0,
-        10
-      ],
-      "material": "lamp"
-    },
-    {
-      "id": "cage",
-      "kind": "box",
-      "size": [
-        4,
-        14,
-        14
-      ],
-      "at": [
-        11,
-        0,
         6
       ],
-      "material": "cage"
+      "at": [
+        -1.5,
+        0,
+        3
+      ],
+      "material": "iron"
     }
   ]
 }

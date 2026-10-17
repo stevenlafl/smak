@@ -1,0 +1,58 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.5,
+   "peak": -10.5,
+   "rms": -15.2,
+   "crest": 4.7,
+   "dc": -0.0011,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.025,
+   "peakAt": 0.055,
+   "t20": 0.449,
+   "t40": 0.449,
+   "centroid": 2755,
+   "rolloff": 4748,
+   "flatness": 0.94,
+   "bands": {
+    "<150": 1.9,
+    "150-600": 8.2,
+    "600-2k": 27.1,
+    "2k-5k": 53.3,
+    ">5k": 9.5
+   },
+   "onsets": 1
+  },
+  "class": "swing",
+  "against": {
+   "score": 9,
+   "of": 22,
+   "lines": [
+    "length 0.5 s (0.24 to 0.44): too long",
+    "crest 4.7 dB (10.43 to 17.38): too squashed",
+    "rms -15.2 dBFS (-25.8 to -19.8): over the range",
+    "t20 0.449 s (0.05 to 0.15): rings too long: a shorter decay",
+    "centroid 2755 Hz (608 to 912): too bright: less over 2000 Hz",
+    "flatness 0.94 (0.14 to 0.24): too noisy: more tone (modes)",
+    "band 150-600 8.2% (55.8 to 75.8): under the range",
+    "band 2k-5k 53.3% (0 to 16.7): over the range"
+   ]
+  },
+  "engineFaults": [
+   "its last samples are at 0.28 of full scale: it ends in a click; fade its end"
+  ]
+ },
+ "caps": {
+  "S5": 0
+ },
+ "passes": false,
+ "failedByMeasure": [
+  "S5"
+ ],
+ "total": 0,
+ "of": 10
+}

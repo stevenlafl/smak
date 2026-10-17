@@ -1,0 +1,81 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.355,
+   "peak": -0.5,
+   "rms": -13.2,
+   "crest": 12.7,
+   "dc": -0.0019,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.015,
+   "peakAt": 0.065,
+   "t20": 0.095,
+   "t40": 0.175,
+   "centroid": 638,
+   "rolloff": 991,
+   "flatness": 0.037,
+   "bands": {
+    "<150": 3.9,
+    "150-600": 49.6,
+    "600-2k": 45.7,
+    "2k-5k": 0.8,
+    ">5k": 0.1
+   },
+   "onsets": 1
+  },
+  "class": "swing",
+  "against": {
+   "score": 16,
+   "of": 22,
+   "lines": [
+    "rms -13.2 dBFS (-25.8 to -19.8): over the range",
+    "flatness 0.037 (0.14 to 0.24): too pure: more noise",
+    "band 150-600 49.6% (55.8 to 75.8): under the range",
+    "band 600-2k 45.7% (15 to 35): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The waveform is a loud broadband burst from about 0 to 0.1 s (peak at 0.065 s), then a long decaying tail to 0.355 s, and the spectrogram is a noisy swept body. That reads as a swing's whoosh, not a strike, so it is the event the brief asks for. Judged from the picture and features only; the sound was not heard."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.355 s, attack 0.015 s, t20 0.095 s and t40 0.175 s. None of these is among the measure's failing lines, so the envelope is within the swing class's range. The waveform shows a clean attack and a smooth decay with no stray bursts."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Band shares: 150-600 Hz at 49.6% is under the class range (55.8 to 75.8), and 600-2k Hz at 45.7% is over it (15 to 35), by about 10.7 points. That 600-2k overshoot is beyond the 10-point tolerance. The spectrogram's heavy yellow-orange body sits in the 150 Hz to 2 kHz region, which is where the excess is. Centroid 638 Hz and the sub-150 and above-2k bands (3.9, 0.8, 0.1) show no fault."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness 0.037 is well under the class range (0.14 to 0.24): the sound is too pure and too tonal, with less noise than a swing's. The spectrogram shows horizontal bands of steady tone in the low-mid region, which is the tonal character the measure flags. Onsets 1 is right for one swing and does not fault it."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Peak -0.5 dBFS and clipped 0, so there is no clipping; DC -0.0019 is negligible; no lead or tail faults are shown. Engine faults are empty, so the file passes the engine's checks: the same name, sound/weapons/cbar_miss1.wav, and no loop cue is needed for a one-shot. Format (mono, rate, bit depth) is not given in the features, so the pass rests on the engine check."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

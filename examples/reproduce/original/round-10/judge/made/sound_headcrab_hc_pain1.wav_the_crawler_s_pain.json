@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.599,
+   "peak": -0.5,
+   "rms": -11.5,
+   "crest": 11,
+   "dc": -0.0007,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.025,
+   "attack": 0.035,
+   "peakAt": 0.115,
+   "t20": 0.319,
+   "t40": 0.409,
+   "centroid": 2062,
+   "rolloff": 3122,
+   "flatness": 0.22,
+   "bands": {
+    "<150": 0,
+    "150-600": 0.4,
+    "600-2k": 61.4,
+    "2k-5k": 38,
+    ">5k": 0.2
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the picture, the sound is a single noisy burst that swells in the first ~0.1 s and fades out by about 0.6 s (waveform, top panel). The original is a run of wet, repeated pulses over 0.8 s, which reads as a creature's pain cry. The replacement reads as a generic impact or whoosh, not a crawler's pain. Judged from the picture only; the sound cannot be heard here."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length passes: 0.599 s against the original's 0.795 s is 25% short, just inside the 25% band. Decay fails: t20 is 0.319 s against the original's 0.544 s, about 41% short and outside both the quarter and the 0.05 s allowance, so S2 is capped at 1. Attack (0.035 s) has no original figure to compare against."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Spectrum is measured well outside the bands. Centroid is 2062 Hz against 2682 Hz, 23% low (limit 20%). The 600 Hz to 2 kHz share is 61.4 against 15.6 (46 points over the 10-point limit), and the 2 to 5 kHz share is 38 against 83.8 (46 points under). The spectrogram shows the energy sitting in the mid band, where the original's sits in the upper-mid band."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Onsets are 0 in the measures, while the original's picture shows about 30 distinct pulses across its length, the hits that make a pain cry. The replacement has none. Flatness (0.22) falls inside the game's 0.05 to 0.28 range, so the tone-or-noise character is right. The spectrogram shows no clear pitch movement in either file. The onsets miss is clearly off, which is why this is 1 and not 2."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine checks pass: engineFaults is empty, clipped is 0, and DC is -0.0007, which is negligible. The name is sound/headcrab/hc_pain1.wav, matching the game's. The measures do not state the sample rate or bit depth, so the format is taken on the engine's pass rather than read directly."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

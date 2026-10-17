@@ -1,0 +1,81 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   22.6,
+   22.6,
+   35
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0.029,
+  "triangles": 96,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_longjump.mdl, models/rip.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, C, D, A where the asset was D, A, C, C: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for a 55-gallon drum. In all ten views the outline is a plain upright cylinder with flat top and base and a slight bevelled rim at each end (TOP and BELOW). No part sticks out or is missing, and the top and base are closed discs."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 22.6 x 22.6 x 35 against the brief's 23 across and 34 high: 2.9% off, well inside the 15% band. The height and width both match the brief."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Parts the brief implies: body, flat lid and base with a bevelled rim, the hazard stripe, and the rust-marked steel bands at top and bottom. All are present in every view. The top and base are a faceted polygon of roughly 12 to 14 sides, but the brief gives no count and it reads as round at the game's size, so this is a resolution point, not a missing part. The bands are painted rather than modelled, which the rubric counts as present."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The body is a clean cool blue-grey, with only faint brown rust flecks on the top and bottom bands (FRONT, LEFT, FRONT-LEFT). The brief asks for a rusted drum, and the body reads as painted steel with almost no rust on it. The hazard stripe's yellow and black are right."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard stripe is crisp and sits at mid-height on every side, as it should. But a vertical seam runs down the centre of the FRONT view, and the stripe and the bands jump across it. FRONT-LEFT and FRONT-RIGHT show the same break in the stripe where the texture wraps. The rust on the bands is sparse, so the wear the brief asks for is thin."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Scored 2 per the rubric, which caps M6 at 2 for this asset and measures it by the line-up. The line-up test put to other judges found no catch: the judges picked C, C, D, A where the asset was D, A, C, C, so the drum passed for one of the game's on every reading."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The drum stands upright on a flat base (BELOW and the oblique views show it sitting on its bottom disc), and its top and bottom are where a drum's should be. The drum has no front to face, so the facing is correct by default. There is no original here to check the origin against."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. The asset has 96 triangles, against a Half-Life median of 99 for props of its kind and size, so it is well under twice the median. Every view shows a closed cylinder with a top and base disc, and nothing is open, inside out, or floating."
+  }
+ },
+ "total": 14,
+ "of": 16,
+ "passes": false
+}
