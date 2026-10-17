@@ -1,0 +1,80 @@
+{
+ "subject": "forklift",
+ "leg": "decoy: brief box",
+ "kind": "model",
+ "label": "forklift.mdl, in the place of the game's models/forklift.mdl",
+ "measured": {
+  "size": [
+   186.6,
+   60,
+   113.4
+  ],
+  "sizeAsked": {
+   "long": 187,
+   "high": 113
+  },
+  "sizeOff": 0.003,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 288,
+  "halfLifeThreeQuartersUnder": 288,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/big_momgibs.mdl, models/bm_shell.mdl, models/bm_leg.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The side views (left, right, front, back) show a plain rectangular block of 186.6 x 60 x 113.4. A warehouse forklift's outline is not there: no mast or upright rising at the front, no forks projecting forward, no overhead guard, no seat or driver above the body. The silhouette is wrong in every side view, not only in paint."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 186.6 long, 60 wide, 113.4 high against the brief's 187, 60 and 113, so each dimension is within 0.3% of the asked size."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's parts, from the large down: body, seat, driver, mast (two uprights), two forks, overhead guard with posts, drive and steer wheels, counterweight, steering wheel. None is present. The asset is one solid box with no part of its own in any view, so every part is missing."
+  },
+  "M4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a yellow machine. The whole box is one flat mid-grey (front, left, top and the front-left and back-right oblique views), with no yellow painted region, no tyre or black area and no skin or cloth for the driver. The colour is clearly off in every region the brief names."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names no specific markings, but a warehouse forklift would carry some detail: a grille, a plate, hazard or panel markings, lettering. The box has only a faint noisy grey texture and bevelled edges, with no panel lines or markings. Nothing wrong is added, but the expected detail is absent."
+  },
+  "M6": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Side by side at the size the game shows it, the asset (C in lineup.png) is a grey block with no forklift form, no seat, no forks and no mast. A player would not take it for a forklift, and in the line-up it stands out as the one plain box beside the organic gibs and shell."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The box stands upright on its base in the front and side views, so its placement is right. There is no front to read: no forks forward, no mast, no seat facing a direction. The front of the brief's machine cannot be identified."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. The mesh is 12 triangles, closed, with nothing open, inside out or floating (the front-left and back-right views show a single solid). That is far under the limit of twice the Half-Life median of 288 (576) for this size."
+  }
+ },
+ "total": 6,
+ "of": 16,
+ "passes": false
+}

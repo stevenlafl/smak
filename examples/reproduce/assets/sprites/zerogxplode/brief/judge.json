@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "zerogxplode",
+ "leg": "brief",
+ "label": "sprites/zerogxplode.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   128,
+   128
+  ],
+  "frames": 15,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 15,
+   "size": [
+    128,
+    128
+   ],
+   "border": {
+    "max": 0.022,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.43,
+    "first": 0.04,
+    "last": 0
+   },
+   "dark": 0.69,
+   "wrap": 0.17,
+   "jitter": 1.17
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.17,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.43,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.04,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as the brief's explosion: a small grey-white point at frame 0, a bright white core that swells through frames 1 to 4, a billowing orange and yellow ball in frames 5 to 8, then browning and breaking up in frames 9 to 12 and gone by frame 13. It is a fireball that bursts, billows and burns away."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 15 frames are 128 by 128 and the effect fills them as an explosion should. The largest frames (7 and 8) reach near the frame edges without clipping. The measured border is 0.022 max and 0 mean, so nothing bleeds into the frame edges."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The palette runs white-hot core, then yellow and orange body, then dark brown smoke in frames 9 to 12, with a grey residue in frame 12. That is the fire-to-ash progression the engine blends for an explosion. No colour measure is given in the measurements, so this is judged by eye only."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measured envelope fits the class: first frame 0.04 (within 0 to 0.22), peak at 0.43 (within 0.22 to 0.71), last frame 0 (within 0 to 0.03). Jitter is 1.17, within 1.04 to 1.48. Frame count is 15. Motion is a single grow-then-fade one-shot that ends dark. The wrap of 0.17 and dark of 0.69 have no class range in the measurements, so they cannot be checked against the class here."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the game's own kept values (gameType and gameFormat both parallel and additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

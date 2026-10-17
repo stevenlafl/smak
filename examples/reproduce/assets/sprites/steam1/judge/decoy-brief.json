@@ -1,0 +1,123 @@
+{
+ "kind": "sprite",
+ "subject": "steam1",
+ "leg": "decoy: brief plain",
+ "label": "sprites/steam1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   32,
+   48
+  ],
+  "frames": 1,
+  "type": "parallel oriented",
+  "format": "index alpha",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    48
+   ],
+   "border": {
+    "max": 0.004,
+    "mean": 0.004
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 1,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.004,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ],
+  "kept": {
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "gameType": "parallel oriented",
+   "gameFormat": "index alpha",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The frame shows no steam puff. It is a flat grey field with one small white and dark rectangle near the top-left corner. The brief's soft white-and-grey cloud rising and thinning is not there, and the measured class 'smoke puff' is not visible in the picture. The folder name says decoy-brief-plain, which fits this failing result."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measured size is 32 x 48, which matches the frame. But the effect does not fill the frame as a puff does. The only drawn element is a small box in the top-left corner, with the rest flat grey."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for white and grey. The frame is a uniform grey with one small white-looking box, and there is no white-to-grey gradient of a cloud. No colour measure was given, so this is judged by eye only, and it is not a puff's colour distribution."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "It is a single frame (frames: 1), so it cannot rise or thin. The envelope measures fail as the harness reports: peakAt 0 (range 0.2 to 0.6), first 1 (needs 0 to 0.35, so it starts bright), and last 1 (needs 0 to 0.1, so it does not end dark). A one-shot that fades should end dark."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The type 'parallel oriented' and format 'index alpha' match the game's file (gameType and gameFormat), the name is sameName: true, and the file reads back: readsBack: true. Nothing in the measures fails this item."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,94 @@
+{
+  "spec": "smak.model/1",
+  "name": "crowbar.mdl",
+  "kind": "held",
+  "size": {
+    "length": 26
+  },
+  "weapon": {
+    "like": "crowbar",
+    "views": [
+      "v",
+      "p",
+      "w"
+    ],
+    "size": "own"
+  },
+  "materials": {
+    "red_paint": {
+      "base": "paint",
+      "tone": "red"
+    },
+    "bare_steel": {
+      "base": "steel"
+    }
+  },
+  "parts": [
+    {
+      "id": "shaft",
+      "kind": "tube",
+      "material": "red_paint",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          0.5
+        ],
+        [
+          21,
+          0,
+          0,
+          0.5
+        ]
+      ],
+      "sides": 8
+    },
+    {
+      "id": "grip",
+      "kind": "tube",
+      "material": "bare_steel",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          0.62
+        ],
+        [
+          10,
+          0,
+          0,
+          0.62
+        ]
+      ],
+      "sides": 8
+    },
+    {
+      "id": "claw",
+      "kind": "tube",
+      "material": "bare_steel",
+      "path": [
+        [
+          20,
+          0,
+          0,
+          0.5
+        ],
+        [
+          24,
+          0,
+          0,
+          0.5
+        ],
+        [
+          26,
+          0,
+          2.2,
+          0
+        ]
+      ],
+      "sides": 8
+    }
+  ]
+}

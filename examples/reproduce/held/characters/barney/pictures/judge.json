@@ -90,70 +90,81 @@
   "M1": 2,
   "M2": 2,
   "M4": 2,
-  "M8": 2,
-  "M6": 1
+  "M8": 2
  },
  "lineup": {
-  "picked": null,
-  "right": "B"
+  "picked": "B",
+  "right": "B",
+  "letters": {
+   "A": "models/houndeye.mdl",
+   "B": "models/barney.mdl",
+   "C": "models/scientist.mdl",
+   "D": "models/gman.mdl",
+   "E": "models/hgrunt.mdl",
+   "F": "models/zombie.mdl",
+   "G": "models/islave.mdl",
+   "H": "models/bullsquid.mdl"
+  },
+  "answer": "B",
+  "ended": "success"
  },
  "scores": {
   "M1": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Silhouette overlap is 0.952 (front/back), 0.964 (left/right) and 0.950 (top/below), all above 0.80. In the six side-by-side views the outlines match, with nothing sticking out or missing. The reproduction's head sits slightly further forward and its helmet is a little flatter in the left and right views, but the measured overlap covers that."
+   "reason": "Measured silhouette overlap is 0.95 to 0.96 in all six views, and the outline matches in the four close angles. Feet sit on the same baseline. Head and shoulders sit a little differently in the left and right views (the reproduction's head is lower and further forward), but no part sticks out or is missing."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Size is 22.7 x 29.9 x 75.1 against the original's 22.8 x 30.2 x 75.3, off by 0.2 to 0.9%. That is well within 10% on every axis."
+   "reason": "Measured size is 22.7 x 29.9 x 75.1 against the original's 22.8 x 30.2 x 75.3, all within 1%."
   },
   "M3": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Every component is there in the right place and shape: the helmet with its visor, the black vest with its chest and shoulder straps, the yellow emblem on the chest, the 'SECURITY' panel on the back, the holster and pistol on the hip, the belt, the trousers and the laced boots. Counts match: two arms, two legs, two boots, one helmet."
+   "score": 1,
+   "reason": "The main parts are present: helmet with visor, face, vest with chest badge, 'SECURITY' back panel, shoulder straps, holster on the right hip, belt, sleeves, hands, and boots with laces. The original has a small white ID tab or patch on the upper chest (front view, near the top right of the vest) that I cannot find on the reproduction at the same place, and its vest edges and buckles are simpler. A small part is missing or unclear, so the item caps at 1."
   },
   "M4": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "The measured colour difference is 6.1 on average (CIE76 ΔE), with each view between 5.1 and 7.8, well under 15. Shirt and trousers are the same purple-blue, the vest and boots the same black, the emblem the same yellow. The face reads slightly greyer and more mottled, but that is texture, which M5 covers, not a change of colour."
+   "score": 1,
+   "reason": "Measured colour difference is 5.1 to 7.8 per view, mean 6.1, well under 15, and the shirt, trousers, vest, boots and badge match. The face is the exception: in the front and back views it reads grey and mottled rather than the original's skin tone, and the visor is lighter and less dark than the original's. This is a visible regional colour fault, so 1."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The markings are present in their places but softer than the original's. The 'SECURITY' lettering on the back is blurred where the original is crisp, the vest's panel seams and the chest emblem are less defined, and the face has a smeared, noisy texture where the original has clean skin and features. The helmet glare is also flatter."
+   "reason": "The 'SECURITY' lettering, the badge and the lace detail are present in their places, but they are softer than the original. The vest's panel lines and straps are blurred, and the face wrinkles are smeared rather than sharp."
   },
   "M6": {
    "judge": 1,
-   "cap": 1,
+   "cap": null,
    "score": 1,
-   "reason": "At game size the figure reads as the same security guard, but side by side a player would notice the difference. The face is mottled and blurred, the helmet looks duller and sits slightly differently, and the run in the motion strip has a different cadence (22 frames against the original's 15). It is clearly short of passing for the original on a close look."
+   "reason": "At game size the reproduction reads as the same guard in the same kit. A player who knows the original would notice the softer face, the greyer head, and the blockier boots and trousers, so it is not yet taken for the original."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The front faces forward, the figure stands upright, and its feet sit on the same ground line as the original's in every view, so it stands on its origin as the original does."
+   "reason": "The front faces the front, the figure stands upright, and both feet sit on the same ground line as the original in the side views."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The SMAK check reports no errors. The reproduction has 362 triangles against the original's 785, so it is well under twice the original's count. No part is open, inside out or floating in any of the views."
+   "reason": "checkErrors is empty. The reproduction has 362 triangles against the original's 785, well within twice the original. No open, inside-out or floating parts are visible in any view."
   },
   "C1": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Nothing comes apart, sinks or floats through the run in the motion strip, so the parts stay on the body. But the motion does not match the original's. The original leans forward with wide arm swings, while the reproduction's torso is more upright and its arms are held close in frames 3/22 and 6/22. Its stride and cadence differ too. The strip shows only the run, not an attack, so the attack is not judged."
+   "reason": "In the run frames every part stays attached and no limb sinks or floats. The motion differs from the original: the original's arms swing wide and its torso leans hard, while the reproduction's arms stay tucked and its torso is more upright, with the head lower. It does not move as the original's does."
   }
  },
- "total": 15,
+ "total": 13,
  "of": 18,
  "passes": false
 }

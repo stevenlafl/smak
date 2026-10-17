@@ -2,6 +2,7 @@
  "kind": "sprites",
  "subject": "glow01",
  "leg": "pictures",
+ "judges": 1,
  "measured": {
   "original": {
    "size": [
@@ -74,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both show the same effect: a single soft radial glow, bright white at the centre and fading out to the dark background, with the same small bracket marker at the top-left in each."
+   "reason": "Both pictures show the same effect: one soft radial glow centred in a 64x64 frame, bright core fading to the dark background. The reproduction matches the original's glow."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64 x 64 and the glow fills the frame the same way, with its bright core near the middle and its falloff reaching the same edges. No difference in extent is visible at this scale."
+   "reason": "Both are 64x64 with one frame. The glow fills the frame the same way in each: the same extent and the same falloff to the edges (border max and mean both 0). The reproduction's bright core looks slightly tighter and whiter at a close look, but that is within what the measures show."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The colours match: a white core over a dark grey field in both. The measured mean colour difference is 0.9 (CIE76), well inside the limit of 15."
+   "reason": "Mean colour difference is 0.9 (CIE76), far under 15. The dark fraction is 0.47 in both, so the background and glow brightness balance match."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are one frame, so the frame count matches. The envelope measures are identical (peak at frame 0, first and last both 1, dark 0.47 in both). The sprite is static, as the original is, so there is no loop or one-shot ending to differ."
+   "reason": "Both have 1 frame, which matches the original. Envelope first, last and peak are identical (peak at frame 0, first 1, last 1). It is a single still with no motion to compare, and the dark measure agrees."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are type parallel, format additive, with the same name (sameName true) and reading back as written (readsBack true). The format and type match the original's."
+   "reason": "Both are type parallel, format additive, the same as the original. sameName is true and readsBack is true, so the file is read back as written."
   }
  },
  "total": 10,

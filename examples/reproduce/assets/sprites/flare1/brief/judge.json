@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "flare1",
+ "leg": "brief",
+ "label": "sprites/flare1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   128,
+   128
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    128,
+    128
+   ],
+   "border": {
+    "max": 0.063,
+    "mean": 0.006
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.12,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "flare",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.006,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": false,
+    "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame reads as a lens flare: a hot white disc at the centre (about x 64, y 64) with soft streaks running out to the edges, which is what the brief asks for. It is the class 'flare' the harness names."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "One frame at 128 x 128, the size the measures give. The streaks run to the frame edges and the harness measures border light at 0.006 against a class range of 0 to 0.005 (ok: false, 'light at the edge: fade more'). Light at the top and bottom edges of the frame is visible, so the falloff is short of the class's."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The centre is white and the streaks are neutral grey-white on a dark ground, as a hot additive flare should be. The measures give no colour difference against the class, and I could not sample the engine-blended colours from the picture, so this rests on the picture and the brief's words."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A single frame with envelope peakAt 0, first 1, last 1, so there is no fade, growth or flicker to compare. The class's frame count and envelope are not in the measures I was given, so the motion cannot be checked against the class. The brief asks for no motion, but this stays unverified rather than passed."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the game's (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back (readsBack true)."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

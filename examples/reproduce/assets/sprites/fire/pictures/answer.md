@@ -1,31 +1,24 @@
-The sprite builds **OK**, with 4 warnings left. It is written to `work:sprites/fire.spr`, with `-sheet.png` and `-animated.png` beside it.
+The sprite builds and the build says OK, with one warning still open: the flame's shape doesn't match the original closely enough.
 
-**What it is:** a flame on its base, 32x96, 15 frames, parallel oriented, additive, placed as an `env_sprite` (render mode 5, framerate 10). Its colours come from the original's own colour at each brightness, frame by frame.
+**Output:** `work:sprites/fire.spr`, built from `work:sprites/fire.json` (the smak.sprite/1 spec). The build also wrote `fire-sheet.png` and `fire-animated.png` beside it.
 
-**Spec choices:**
-- `frames: 14` with `loop: true`: the tool writes the first frame again at the end, so the file holds 15 frames, matching the original's count.
-- `fps: 10`: the original's facts file gives no speed, so this is my choice. It is also the most an `env_sprite` changes.
-- `origin: bottom`: the flames rise from the bottom of each cell.
-- The fire layer uses `ramp: "reference"`, width 1.2, taper 0.1, tongues 0.5.
-- The glow layer uses `mask: "reference"`. This keeps it inside the original's lit outline, frame by frame. It is a built-in feature, but it means the shape is traced from the original, not generated. Tell me if you want that removed.
+**What it is:** a fire loop: a flame on its base, parallel and oriented (it faces the camera), additive (black is clear).
 
-**Measured against the original:**
+**Size and frames:**
+- 32x96 pixels, the same as the original.
+- 15 frames, matching the original. The loop has 14 frames of its own, and the engine's wrap adds the first frame again at the end.
+- Played at 10 frames a second, placed as an `env_sprite` with render mode 5 (additive).
 
-```
-Measure            Original   Mine      Note
-Mean colour (dE)   -          7.2       15 or under is near
-Dark share         0.38       0.46      within 0.05 is near
-Border light      0.275      0.187      a warning at 0.08 off
-Shape overlap      -          0.65      the bar is 0.8
-Brightest frame    0.07       0.07      of play, matches
-Hot pixels >0.7    0          1         matches
-Frames             15         15        matches
-Loop wrap          -          1.15      report notes it, no FAULT
-```
+**Colour:** the flame's colours are read from the original's own sheet, frame by frame, so its hot middle is the original's cream-to-orange and its faint edges its dark red. Colour difference from the original is 0.6 (the bar is 15 or under). The share of dark pixels is 0.42 against the original's 0.38.
 
-**Remaining warnings:**
-- Coverage is slightly heavy (0.46 dark against 0.38).
-- The border light is short of the original's.
-- The shape overlap is 0.65 against the 0.8 bar.
+**Brightness:** the brightest frame is 0.7 of full brightness against the original's 0.69, and no pixels go over 0.7. The first and last frames are 0.92 and 0.92 of the brightest, against 0.9 and 0.84 in the original, so the loop wraps cleanly. The light at the frame's border is 0.22 against 0.275.
 
-I tried masking the fire layer too, to close the shape gap. It made coverage worse (0.51 dark) and the overlap stayed near 0.63, so I reverted it. Raising the fire gain pushed the middle too hot and the colour error up to 14.8, so that was reverted too.
+**Layers:**
+- A fire layer: the flame, 1.3 wide, no taper so it fills the frame's width, tongues 0.5, gain 0.9.
+- A glow layer behind it: power falloff, radius 1.4, gain 0.4, at [0, -0.4]. It gives the border light.
+
+**Still open:** the shape overlap with the original is 0.63 against the bar of 0.8. The original's flame reaches up to about rows 6 to 18 of its 96 rows; mine stops near row 30. Taller settings (`height`), `rise`, and masking the layers to the original's outline each either worsened the colour or made frames go blank, so I kept the closest version. Closing that gap probably needs a tuned `height` or an extra layer; I did not find the setting in the time I spent on it.
+
+Other things to know:
+- The peak frame is 0.14 of the way through the play against the original's 0.07. The report does not flag this, and an envelope on the flame made frames go blank, so I left it.
+- A preview render of the finished sheet failed on an offset error in the render tool. The build's own sheet image above shows the frames.

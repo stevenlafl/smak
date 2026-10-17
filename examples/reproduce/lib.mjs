@@ -237,6 +237,17 @@ export function onCanvas(picture, width, height) {
   return { width, height, rgba };
 }
 
+// ── decoys ─────────────────────────────────────────────────────────────────
+
+/**
+ * A decoy's bytes, refused when they are the original's (a decoy built while the kit was broken came out as the
+ * game's own weapon, and the judge passed it 18 of 18, 2026-10-16): a decoy that is the original proves nothing.
+ */
+export function notTheOriginal(bytes, original, what) {
+  if (Buffer.compare(Buffer.from(bytes), Buffer.from(original)) === 0) throw new Error(`${what} is the original itself: not a decoy`);
+  return bytes;
+}
+
 // ── runs and rounds ────────────────────────────────────────────────────────
 
 /** The kit's commit, written into each run's record. */

@@ -1,26 +1,27 @@
-The sprite builds **OK** (`sprites/steam1.spr`, with `-sheet.png` and `-animated.png` beside it). The report still lists some warnings, and I've left them in the table below rather than tune against a measurement I don't trust.
+The sprite is built and the build says OK, but with one warning left: the shape match is 0.51 against the judges' bar of 0.8. The file is `work:sprites/steam1.spr`, with its spec at `work:sprites/steam1.json`.
 
-**What it is:** a puff of steam: a small grey-white dot that swells, lifts slightly and thins to nothing over 16 frames. It is a `smoke puff`, `use: env_sprite` (the default), `parallel oriented`, `index alpha`, 32×48, centred, 16 frames at 10 fps, not looping. Its brightness comes from a single `billow` layer, coloured by `ramp: "reference"`.
+**What it is:** a steam puff, a soft white cloud that puffs out, grows, then greys and breaks into wisps. It is a `smoke puff` class, `env_sprite` use, `parallel oriented` type, `index alpha` format (coverage tinted by colour), 32 by 48 pixels, 16 frames, one-shot (not looping), 10 frames a second. Placed as an `env_sprite` with render mode 4 (Solid).
 
-**Spec**
-```json
-{"spec":"smak.sprite/1","sprites":[{"name":"sprites/steam1.spr","class":"smoke puff","use":"env_sprite","type":"parallel oriented","format":"index alpha","size":[32,48],"frames":16,"loop":false,"fps":10,"origin":"centre","finish":{"edge":2},"reference":{"picture":"pictures/frames.png","cell":64,"cols":8},"layers":[{"kind":"billow","at":[0,-0.2],"spread":0.5,"size":0.44,"growth":0.6,"rise":0.2,"drift":0.08,"gain":1.0,"env":{"attack":0.55,"decay":0.45,"start":0.02},"ramp":"reference"}]}]}
-```
-The build saved this as `sprites_steam1.spec.json` in the work folder.
+**The spec's choices**
+- One `billow` layer (a lit cloud of 36 spheres), centred slightly low, rising 0.45, dissolving 0.6 as it ages.
+- Timing: quick rise to a peak at 0.4 of its play, then a slow fall to nothing at the last frame.
+- The original's contact sheet is the `reference`, given as the plain path `pictures/frames.png`. The `cell`/`cols` form I tried first read the grid in the wrong place, so I dropped it.
 
-**Measures against the original (after 9 builds)**
+**Measures against the original**
 
-| Measure | Original | Mine | Bar |
-| --- | --- | --- | --- |
-| Mean colour (delta E) | — | 7.1 | 15 or under |
-| Share that is dark | 0.62 | 0.58 | within 0.05 |
-| Brightest pixels (over 0.7 a frame) | 121 | 131 | half to 1.5× |
-| Peak timing (share of play) | 0.57 | 0.53 | match |
-| Border light | 0.958 | 0.728 | within 0.08 |
+| Measure | Original | Mine | Bar | Result |
+|---|---|---|---|---|
+| Mean colour (delta E, colour difference) | | | 15 or under | 0.1 |
+| Share of dark pixels | 0.63 | 0.67 | within 0.05 | pass |
+| Light at the border | 0.341 | 0.316 | within 0.08 | pass |
+| Brightest frame (share of play) | 0.4 | 0.4 | within 0.08 | pass |
+| Frame count | 16 | 16 | | pass |
+| Shape overlap (lit pixels both share) | | 0.51 | 0.8 | **warning** |
 
-**Still in the report (not cleared):**
-- **Shape overlap 0.19 against the 0.8 bar.** This is mostly the measurement. The reader found 8 reference frames, not 16. Its cells are 64×96 (the 32×48 sprite at 2×), and it assumes square cells. It also gave me the reference's frame numbers in the wrong places, so frame-by-frame light and shape comparisons are unreliable. I tuned by eye against the sheet instead.
-- **Frames 4 to 7 read dimmer than the original** (0.07 against 0.78). The original's frames 4 to 7 look near peak to me, and mine are mid-grey. This may be the same reference fault. I did not force it, because an earlier peak lost the timing match.
-- **Border light 0.73 against 0.96.** The original's edge values may also come from the cell-size fault. I added `finish.edge` (2) to stop the square showing, which the larger puff needed.
+The shape gap is mostly in the late frames (10 to 12), where the original is taller and more broken up, and in the dot at frame 0, which sits a little higher in the original.
 
-**Tool fault to fix:** the reference reader needs non-square cells (64×96 here) or a separate frame-height setting. I could not check how the repo's other sprite examples pass their reference: reading `/media/Data3/Packages/smak/examples/reproduce` was denied. I read the two input files by path instead.
+**What I tried for the shape**
+- A `mask: "reference"` on the cloud layer lifted the shape to 0.57 to 0.58, but it dropped the border light to 0.04 to 0.21, and adding an unmasked halo layer to fix the border left a visible grey ring round each frame. I rejected both as looking less like the original.
+- `finish: { edge: 2 }` made no change to the border reading.
+
+**Not done:** I did not copy the file into the models folder, as you asked only for a build. Say if you want it moved.

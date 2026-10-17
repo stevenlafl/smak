@@ -1,0 +1,80 @@
+{
+ "subject": "battery",
+ "leg": "decoy: brief box",
+ "kind": "model",
+ "label": "battery.mdl, in the place of the game's models/w_battery.mdl",
+ "measured": {
+  "size": [
+   10.3,
+   10.3,
+   18.4
+  ],
+  "sizeAsked": {
+   "high": 18,
+   "across": 10
+  },
+  "sizeOff": 0.03,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 51,
+  "halfLifeThreeQuartersUnder": 88,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/grenade.mdl, models/gib_skull.mdl, models/gib_b_gib.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The outline is a plain rectangular prism in all ten views (front, side, top, below and the four angles), with no handle or other protrusion. The brief's chunky cell with a handle is only partly there: the body's proportions fit, but the handle's silhouette is missing."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size 10.3 x 10.3 x 18.4 against the brief's 10 across and 18 high: each axis is within 3% (sizeOff 0.03), well inside 15%."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Parts the brief asks for, checked down to the small ones: (1) the chunky energy cell body, present as a box; (2) a handle, absent from every view, including the top and the front-left and back-right angles; (3) a glowing energy face or window, absent; (4) terminals or rivets on the edges, absent (only a faint bevel line). The handle and the glowing cell are missing, so the parts score is 0."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Material is a flat, mottled grey metal across all faces, which reads as industrial. The brief's glowing energy cell has no glow colour anywhere: no emissive panel, no tint in the top or the sides. Clearly off on the glow, so 1."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief's glow, markings, panel lines and terminal details are not on the surface. Only a soft mottled grain and a light edge bevel show, and nothing in the top, front or side views carries a glow or a marking. Not a must-have item."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the line-up (C) it is a plain grey block beside Half-Life's skull, grenade and gib, and it does not read as a battery pickup. A player would not take it for one of the game's items: it has no handle, glow or distinguishing shape. It does look like a generic Half-Life prop, so it is not a 0."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Stands upright on its base in every view. The brief says it lies on the floor, so the placing is off. There is no front to judge because the box is symmetric, so facing cannot be read against a front. Not a must-have item."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "12 triangles against Half-Life's median of 51 for this size (and 3/4 under 88): far below the limit of twice the median. The box is closed: the top and bottom faces are both present in the TOP and BELOW views. checkErrors is empty, so it passes SMAK's GoldSrc check, with nothing open, inside out or floating."
+  }
+ },
+ "total": 8,
+ "of": 16,
+ "passes": false
+}

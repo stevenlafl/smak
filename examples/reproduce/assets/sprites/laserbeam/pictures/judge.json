@@ -2,6 +2,7 @@
  "kind": "sprites",
  "subject": "laserbeam",
  "leg": "pictures",
+ "judges": 1,
  "measured": {
   "original": {
    "size": [
@@ -74,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both pictures show a vertical glowing beam: a bright core with darker blue-grey edges, running the full height of the frame. The reproduction is the same effect."
+   "reason": "Both frames show the same effect: one vertical beam running the full height of the 32x64 frame, bright against a darker blue-grey ground. Nothing in the reproduction reads as a different effect."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 32 x 64 and the beam fills the frame edge to edge in each, as the original's does. The reproduction's brightness is more mottled, but its shape and size match."
+   "reason": "Both are 32x64 and the beam fills the frame top to bottom as the original's does. The measured envelope agrees: peak at frame 0, first and last at 1."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 3.3 (CIE76), well under 15. The pictures show the same blue-grey edges and white core. The reproduction's bright spots are within the same colour range."
+   "reason": "Mean colour difference is 3.3 CIE76 ΔE, well under 15. Visually the reproduction is a little more mottled, with brighter speckles than the original's smoother sheen, but the palette is the same."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have one frame, and the envelope measures agree (peak at frame 0, first and last 1). Both are a single static beam, so there is no motion to differ. The one-shot ending dark is not applicable as both end at full level."
+   "reason": "One frame in both, so the frame count matches. Motion can't be read from one frame. The dark-at-end measure is near zero in both (0.02 original, 0.06 reproduction), so neither ends dark, and the envelope agrees."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are additive, both have the same name (sameName true), and the reproduction reads back as written (readsBack true). Nothing in the format or name is wrong."
+   "reason": "Both are type additive, the same name, and the reproduction reads back as written (readsBack true)."
   }
  },
  "total": 10,

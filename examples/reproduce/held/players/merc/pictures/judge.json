@@ -92,76 +92,86 @@
   "M2": 2,
   "M4": 2,
   "M8": 2,
-  "C2": 2,
-  "M6": 2
+  "C2": 2
  },
  "lineup": {
   "picked": "D",
-  "right": "D"
+  "right": "D",
+  "letters": {
+   "A": "models/player/gordon/gordon.mdl",
+   "B": "models/player/seal/seal.mdl",
+   "C": "models/player/agent/agent.mdl",
+   "D": "models/player/merc/merc.mdl",
+   "E": "models/player/castor/castor.mdl",
+   "F": "models/player/terror/terror.mdl",
+   "G": "models/player/terrorist/terrorist.mdl"
+  },
+  "answer": "D",
+  "ended": "success"
  },
  "scores": {
   "M1": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The measured overlap clears the line in every view (0.835 front/back, 0.82 left/right, 0.838 top/below), but there are visible outline faults the measurement does not penalise. A bulky raised pad on one shoulder sticks up above the original's sloped shoulder line. It is clearest in the back, back-left and front views, on the figure's left shoulder. The boots end in square, box-like blocks with flat toes and heels that stick out in the left, right, front-left and back-left views, where the original has shaped, rounded boots. Width is also 6.9% over the original (offShare 0.069)."
+   "reason": "Measured overlap passes (0.82 to 0.84 in all six views), but the outline differs at the legs. In the left, right and front-left/right views the reproduction's boots are square blocks with flat soles that stick out past the trouser legs, where the original's boots taper. The back view shows a bulkier right shoulder lump that the original lacks."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 25.3 x 22.2 x 69.2 against 23.7 x 22.0 x 69.4. Width is 6.8% over, the other two are within 1%, so all three are inside 10%."
+   "reason": "Measured size is within 10% on every axis: width 25.3 against 23.7 (6.9%), depth 22.2 against 22.0, height 69.2 against 69.4. Visually the proportions agree."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The balaclava, short-sleeved black shirt, vest, tattooed bare forearms, fingerless gloves, belt, camo trousers, thigh pouch, knee pads and tall boots are all there and in place. Two are the wrong shape. The boots are blocky boxes with square toes instead of the original's laced, round-toed boots (left/right and front-left views). The vest has an extra raised, lumpy pad over one shoulder that the original does not have (back and back-left views), which makes the shoulders look uneven."
+   "reason": "Parts list for the original: balaclava, black short-sleeve top, vest with yellow lettering front and back, a row of gold studs across the chest pouch, belt, fingerless gloves, forearm tattoos, cargo trousers, knee pouches with straps, laced boots. Found in the reproduction: mask, vest, lettering, gloves, belt, trousers, knee pouches. Not matched: the chest stud row is faint and not clearly a row of separate studs in the front-right view, and the boots are blocky with box soles instead of the original's tapered, laced shape. Small parts missing or wrong, so at most 1."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean is 3.1 (worst view 3.7, below), far under 15. Each region keeps the original's colour and material: a black cloth mask and shirt, a black vest, grey-white urban camo trousers, tan skin on the arms and black leather boots. The skin reads slightly darker and redder, but it is the same colour."
+   "reason": "Measured colour difference inside the shared outline is 2.3 to 3.7 CIE76 in every view, mean 3.1, well under 15. Black vest and top, grey-white camo trousers, black boots, skin and tattoos all read as the original's colours and materials."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The markings are there in their places but softer. The gold '511' on the back reads smeared, close to '5H1' (back and back-left views). The row of gold cartridges and the chest lettering on the vest front are muddy and hard to read compared with the original's crisp ones (front and front-right views). The tattoos and camo pattern are present but blurrier. The boot lacing detail is mostly lost on the boxy boots."
+   "reason": "Lettering on the back and front of the vest is present but softer than the original's. The chest studs are fainter and the forearm tattoos blur at the front view's size. The camo wear and boot scuffing are close."
   },
   "M6": {
    "judge": 1,
-   "cap": 2,
+   "cap": null,
    "score": 1,
-   "reason": "At game size it reads as the same masked merc in a black vest and grey camo, so the overall impression is close. A player would still notice the square block feet in profile and the lumpy, uneven shoulder, and the vest's front lettering is muddier. It is near the original but would not pass a side-by-side as the same model."
+   "reason": "Side by side at game size the reproduction reads as the same character, but the blocky boot soles, the splayed legs in the left and right views, and the bulkier shoulder would let a player tell them apart. The dive also runs a different length (35 frames against 22), so it does not look like the original in motion."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "It faces the same way as the original, stands upright in the same idle pose, and its feet sit at the same height on the origin as the original's in every view."
+   "reason": "Front faces the front view's direction, stands upright, and the feet sit at the same ground level as the original's (heights 69.2 against 69.4). The origin and placement agree."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check reports no errors. It has 1296 triangles against the original's 873, under the 1746 limit. No open, inside-out or floating parts are visible in any view."
+   "reason": "SMAK's checks report no errors. Triangles are 1296 against the original's 873, a ratio of 1.48, under the 2x limit. No open, inverted or floating geometry is visible at this resolution, though the blocky soles are a shape fault under M1 and M3."
   },
   "C1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Through the run, every part stays attached and follows the limbs in the same phases as the original, with nothing sinking or floating. Through the forward dive, the body stays whole from the leap to lying flat with arms forward. The dive's timing differs (35 frames against the original's 22, and the opening crouch is shorter). That comes from the base skeleton's animation, which the contract requires it to keep, not from a part failing. A light patch at the crotch in run frames 17 and 21 looks like the camo texture, not a tear."
+   "score": 1,
+   "reason": "In the run, the limbs stay attached and the arm swing matches the original closely. The forward dive does not move as the original's does: the reproduction starts upright with an arm out, where the original starts crouched, and it runs 35 frames against the original's 22. In the dive's later frames the legs splay and the boots look detached at the soles."
   },
   "C2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured by compareContract: it keeps every bone, animation, attachment and bodypart of the base, with no faults reported."
+   "reason": "The measurements give the contract as keeping every bone, animation, attachment and bodypart of the base, with checkErrors empty. The pictures cannot check bones or attachments themselves, so this rests on the measurement's statement, which I have taken as the compareContract result."
   }
  },
- "total": 16,
+ "total": 15,
  "of": 20,
  "passes": false
 }

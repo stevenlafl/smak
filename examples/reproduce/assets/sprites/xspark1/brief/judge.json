@@ -1,0 +1,103 @@
+{
+ "kind": "sprite",
+ "subject": "xspark1",
+ "leg": "brief",
+ "label": "sprites/xspark1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 8,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0.24,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.14,
+    "first": 0.91,
+    "last": 0
+   },
+   "dark": 0.47,
+   "wrap": 2.88,
+   "jitter": 1.28
+  },
+  "class": "sparks",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.28,
+    "range": [
+     1.72,
+     2
+    ],
+    "ok": false,
+    "words": "too smooth: little inner motion"
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a burst of hot sparks: a bright core in frames 0 to 1 and radiating streaks in frames 2 to 5 that fly out from the centre and die away by frames 6 to 7, matching the brief's 'bright hot sparks flying out and dying'."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Frames are 32 x 32 as measured. The glow fills most of each frame, the streaks reach the edges in frames 3 to 5, and the border measure (max 0.24, mean 0.003) shows no clipping or hard edge."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The colour is hot yellow-white in the core (frames 1 to 3), warming to yellow-orange in the streaks and dimming to a dark ember by frame 7. That fits 'bright hot sparks'. There is no colour measure against a class, so this is judged by eye."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Growth and fade are right: the burst expands from frame 0 to frame 3, and the last frame (7) is dark (measured last = 0), so it is a one-shot that ends dark. But the measured jitter is 1.28, below the sparks class range of 1.72 to 2 ('too smooth: little inner motion'). In frames 4 to 6 the same radial streaks are redrawn and faded, and the core barely changes. Capped at 1 by the measure."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive, matching the game's type and format (gameType and gameFormat agree). The name is kept (sameName) and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,80 @@
+{
+ "subject": "medkit",
+ "leg": "decoy: brief box",
+ "kind": "model",
+ "label": "medkit.mdl, in the place of the game's models/w_medkit.mdl",
+ "measured": {
+  "size": [
+   34.6,
+   26.4,
+   6.8
+  ],
+  "sizeAsked": {
+   "long": 35,
+   "high": 7
+  },
+  "sizeOff": 0.033,
+  "triangles": 12,
+  "halfLifeMedianOfThisSize": 62,
+  "halfLifeThreeQuartersUnder": 156,
+  "checkErrors": [],
+  "lineup": "ours is one of A to D in lineup.png beside models/testsphere.mdl, models/gib_legbone.mdl, models/ribcage.mdl: the judge does not know which"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The outline is a plain rectangular slab in all six views. The brief's carry handle is missing: no part sticks out of the case in the front, side, back or top views, and the front-left and back-right angles show a flat block with no handle. Proportions and footprint are right, so this is a missing part, not a size error."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 34.6 x 26.4 x 6.8 against the brief's 35 x 26 x 7, a 0.033 size error, well inside 15%."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Parts the brief asks for: the white case, the red cross on the lid, the carry handle, and the scuffed wear. The carry handle is absent in every view, so it is a missing component. The red cross is also absent, and the case is a single plain slab with no recess or lid detail."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for a white case. The whole body is mid-grey (about the same grey in TOP and BELOW, and in the lineup view D), not white, so the case colour is clearly off. The red cross, a second region the brief names, is absent, so its colour is missing entirely."
+  },
+  "M5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The top has a mottled grey grime texture and lighter chipped edges that loosely suggest the brief's scuffed look. The red cross, the lettering or marking the brief names, is absent, and the wear is generic noise rather than a marked case."
+  },
+  "M6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the lineup (D), the asset reads as a generic grey slab. It is not clearly a first-aid kit, since there is no red cross or handle. Next to the game's testsphere (C), gib_legbone (B) and ribcage (A), a player would see a plain box with no item identity, so it is clearly off as a medkit, though not a wrong-shaped prop."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "It lies flat on its base as the brief's pickup does (6.8 high against 35 by 26), and it is upright. The front cannot be told apart: with no cross or handle there is no marking to show which side is the front."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's checks report no errors. Twelve triangles is far below the limit. The bottom and side views show a closed box with no open faces, inside-out faces or floating parts."
+  }
+ },
+ "total": 9,
+ "of": 16,
+ "passes": false
+}

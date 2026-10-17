@@ -340,3 +340,7 @@ walk test, not the game.
   its stock ones. M8 held only props to triangles; a weapon, a creature or a person is now held to twice the median
   and the third quartile of its own kind's pool, as "Original creation" always said. The original mod's assets are
   judged on the same pools. Results judged before this keep their scores.
+- **2026-10-16, later: a sprite's brief gives its slot's type and format.** R5 holds a replacement sprite to the
+  game's file's type and format, as T6 holds a texture to its name and size; the textures' brief gave those, the
+  sprites' did not, and fire and steam1 (both `parallel oriented`) were built `parallel` and failed R5 by measure.
+  A sprite's brief now says the type and format of the file it replaces.

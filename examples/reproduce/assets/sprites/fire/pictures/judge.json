@@ -2,6 +2,7 @@
  "kind": "sprites",
  "subject": "fire",
  "leg": "pictures",
+ "judges": 1,
  "measured": {
   "original": {
    "size": [
@@ -46,20 +47,20 @@
      96
     ],
     "border": {
-     "max": 0.187,
-     "mean": 0.017
+     "max": 0.22,
+     "mean": 0.026
     },
     "envelope": {
-     "peakAt": 0.07,
-     "first": 0.93,
-     "last": 0.93
+     "peakAt": 0.14,
+     "first": 0.92,
+     "last": 0.92
     },
-    "dark": 0.5,
-    "wrap": 1.15,
-    "jitter": 1.56
+    "dark": 0.47,
+    "wrap": 1.28,
+    "jitter": 1.55
    }
   },
-  "meanColourDeltaE": 7.2,
+  "meanColourDeltaE": 0.6,
   "sameName": true,
   "readsBack": true
  },
@@ -74,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both are a rising flame on a dark ground, with tongues that flicker up from the base in the same way. The effect is the same."
+   "reason": "Both sheets show a flame effect: tongues rising from a base, bright at the core and fading to dark at the edges, in all 15 frames. Same effect."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "The frames are the original's size (32 x 96) and the envelope peaks at the same point (0.07), but the reproduction's flame sits lower and softer. In its frames the top of the cell stays dark where the original's flames reach it, and its flame is less full across the frame. The measures don't capture this, so it is a visual fault."
+   "reason": "Frame size matches exactly (32 x 96). Fill is a little short: in the reproduction sheet (e.g. frames 0, 4, 8, 12) the flame tips sit lower and the top band of each frame is darker than in the original, where the flames reach the top edge. The border measure (mean 0.026 vs 0.028) is close, so the gap is in the flame's height and tip, not in the edges."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured mean colour difference is 7.2, under the line of 15. Both are the same orange-to-yellow on near-black, with the same bright and dark spread."
+   "reason": "The measured mean colour difference is 0.6 (CIE76), far under the line of 15. The reproduction's cores are a little duller and browner in the picture, but the measure already holds the colour within tolerance."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both have 15 frames, a wrap of 1.13 against 1.15 and a jitter of 1.51 against 1.56, so the loop closes and the flicker is the same kind. The envelope curves agree (peak at 0.07 in both, first frame 0.9 against 0.93). The dark measure (0.42 against 0.5) is a small gap, within what the measurement can separate."
+   "reason": "Both have 15 frames, so the count is the same. The jitter (1.55 vs 1.51) and dark share (0.47 vs 0.42) are close, and the same flicker-and-rise motion shows in both sheets. The loop closes: first and last envelope values are both 0.92 in the reproduction, while the original's are 0.90 and 0.84. The envelope peak is later in the reproduction (0.14 vs 0.07), a timing difference, not a failure of the motion's kind."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The type is parallel oriented and the format additive in both, the name is the same, and the reproduction reads back as written."
+   "reason": "Type (parallel oriented) and format (additive) match the original, the name matches, and the file reads back as written."
   }
  },
  "total": 9,

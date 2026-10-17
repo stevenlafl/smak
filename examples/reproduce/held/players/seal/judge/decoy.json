@@ -99,76 +99,14 @@
   "M2": 2,
   "M4": 0,
   "M8": 2,
-  "C2": 0,
-  "M6": 1
+  "C2": 0
  },
- "lineup": {
-  "picked": "I",
-  "right": "E"
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured silhouette overlap is 0.573 front/back, 0.561 left/right and 0.668 top/below, all well under 0.80. The reproduction is a plain rectangular block. It has no head, shoulders, arms, separated legs or feet, so in every view the original's limbs and the gaps between them come out as a solid slab."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Measured bounds are 23.9 x 24.5 x 70.1 in both, with 0 off-share on each axis. Every dimension is within 10%."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's components are there: no balaclava head, tactical vest with pouches, sleeves, gloves, belt, cargo trousers, knee pads or boots. It is a single box."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Mean deltaE is 30.6 (20.1 to 40.7 by view), against a line of 15. The whole box is one light mottled grey. The original has a black balaclava and vest, olive-brown sleeves and trousers, grey knee pads and black boots."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original's details are all missing: the silver trident emblem on the back of the vest, the vest's pouches and zip, the eye opening in the balaclava, the knee pad shading and the boot laces. The box shows only generic grey noise and edge highlights."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "Side by side at any size, a grey pillar would never be taken for the masked soldier."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It is upright and stands on the same floor line as the original's feet. A featureless box has no front, though, so the original's facing is not reproduced."
-  },
-  "M8": {
-   "judge": 1,
-   "cap": 2,
-   "score": 1,
-   "reason": "The measured parts pass: no check errors, 12 triangles against 2617, and a closed box that is not floating. But it has none of the reference's skeleton, animations or attachments, so the mod could not use it as a player model."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In the run and the forward dive, the reproduction is the same static box in every frame. There is no stride, no leap and no horizontal dive pose. It moves nothing the way the original does."
-  },
-  "C2": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "compareContract reports faults: all 34 bones missing (Bip01, Bip01 Bacino, ...), all 171 animations missing, and attachments 0 to 3 on Bip01 DX Mano and Bip01 SX Mano missing. Any fault caps C2 at 0."
-  }
- },
- "total": 4,
- "of": 20,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4",
+  "C2"
+ ],
+ "total": 0,
+ "of": 20
 }

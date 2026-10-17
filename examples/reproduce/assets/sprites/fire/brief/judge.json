@@ -1,0 +1,133 @@
+{
+ "kind": "sprite",
+ "subject": "fire",
+ "leg": "brief",
+ "label": "sprites/fire.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   128
+  ],
+  "frames": 17,
+  "type": "parallel oriented",
+  "format": "additive",
+  "measures": {
+   "frames": 17,
+   "size": [
+    64,
+    128
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0.63,
+    "first": 0.86,
+    "last": 0.86
+   },
+   "dark": 0.81,
+   "wrap": 0.9,
+   "jitter": 1.67
+  },
+  "class": "fire loop",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.67,
+    "range": [
+     1.33,
+     1.79
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "wrap",
+    "value": 0.9,
+    "range": [
+     0,
+     2.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.028
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.86,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0.86,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel oriented",
+   "format": "additive",
+   "gameType": "parallel oriented",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a flame. Every frame shows orange-yellow tongues rising from a bright base with a dim halo, which matches the brief's 'tongues of fire licking upwards'. Frames 4 and 5 split into several thin tongues, while most frames carry one main tongue, so the 'tongues' plural is only partly shown."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The flame fills the lower-middle of each 64x128 frame, with the top third dark and the width about a third of the frame. Nothing is clipped or floating. The brief gives no size, so the size is held only to the class range (the measure has no size range), and the fill is judged by eye."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Colours are orange at the edges, yellow-white at the core, over a near-black ground, consistent with an additive sprite. The given measures do not include a colour mean, so this is judged by eye across all 17 frames."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "17 frames with a flicker: the flame dips in frames 3 to 6 (frame 6 nearly out) and swells back to a peak near frames 10 and 11. The loop closes: frame 16 matches frame 0, and the envelope's first and last values are both 0.86, inside the class range of 0.57 to 1. Wrap (0.9) and jitter (1.67) are inside their ranges, and border is 0."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type and format match the game's kept file: 'parallel oriented' and 'additive', same name, read back as written. Border 0 means there is no edge bleed to fail the fit check."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

@@ -90,67 +90,76 @@
   "M1": 2,
   "M2": 2,
   "M4": 2,
-  "M8": 2,
-  "M6": 2
+  "M8": 2
  },
  "lineup": {
   "picked": "D",
-  "right": "D"
+  "right": "D",
+  "letters": {
+   "A": "models/w_357.mdl",
+   "B": "models/w_shotgun.mdl",
+   "C": "models/w_rpg.mdl",
+   "D": "models/w_9mmhandgun.mdl",
+   "E": "models/w_crowbar.mdl",
+   "F": "models/w_crossbow.mdl"
+  },
+  "answer": "D",
+  "ended": "success"
  },
  "scores": {
   "M1": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Measured overlap clears 0.80 in every view (0.886 front/back, 0.962 left/right, 0.888 top/below), but the outline is clearly off in the top and below views. The original's grip rakes back and tapers, with a flared beavertail where it meets the slide. The reproduction's grip is a square-cornered rectangular block set straight, with no rake and no beavertail. The same boxy grip shows in the front-left, front-right and back-left angles and in in-hand.png."
+   "reason": "Measured silhouette overlap is 0.886 to 0.962 in every view, above the 0.80 line, but the outline differs and a part is missing. The original's three serrated ribs on the slide's rear top stick out in the top view (lower left), the below view (upper left) and the first-person view. The reproduction's slide is a plain slab there. In compare-sides the original's left view has a step where the slide meets the frame near the front, which the reproduction's straight top edge lacks. The front view's taper from the narrow slide to the wider grip is a uniform bar in the reproduction."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Length 14.7 against 14.8, width 9.6 against 9.5 and height 3.0 against 2.8. The largest difference is 5.7%, inside 10% on every axis."
+   "reason": "Measured size is 14.7 x 9.6 x 3.0 against the original's 14.8 x 9.5 x 2.8, so every dimension is within 10% (the thickness is 7% over)."
   },
   "M3": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The slide, frame, trigger guard, trigger, grip and muzzle bore are all there, one of each, in the right places. The grip has the wrong shape, though: a rectangular box where the original has a raked, tapered grip with a beavertail (top, below and angle views). The trigger is a thin bright bar unlike the original's. The step between frame and slide that the original has on its right side is also missing."
+   "reason": "The original's small parts are the three horizontal serrations on the slide's rear top (top view, lower left; below view, upper left; front-right angle; first-person view near the top of the slide), the front sight block, the thin trigger-guard frame and the grip's taper. The reproduction has no serrations at all, and that is a small part missing, so M3 is at most 1. The front sight block, hammer block, bore, trigger guard and grip are present in the right places."
   },
   "M4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The smoothed mean ΔE is 5.1, and no view exceeds 6.9, well under 15. On the w_ model each region is the original's grey gunmetal, with a darker grip. This is measured on w_ only. The v_ model's colour difference is counted under M6."
+   "reason": "Measured colour difference is 5.1 (CIE76) on average, under 15, and every view is between 4.0 and 6.9. Both are the same gunmetal grey with dark grip and slide, and the first-person pictures show the same tones once the grain is set aside."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The muzzle bore and a dark band near the slide's step are there. Most of the original's detail is missing or blurred: the long recessed groove down both sides of the slide (left and right views), the rear slide serrations (top and below views), the front-strap ridges, and the stippled grip panel with its edge trim. The reproduction's texture is low-resolution blocky noise, much less sharp than the original's."
+   "reason": "The original's slide grooves, the serrations, the edge highlights on the slide and the panel lines of the frame are missing. The reproduction's texture is coarser and blockier, with the grain and streaks of the slide absent. Both are surface detail, so this is a 1, not a fault in shape."
   },
   "M6": {
    "judge": 1,
-   "cap": 2,
+   "cap": null,
    "score": 1,
-   "reason": "In first-person.png and first-person-attack.png the original pistol is dark blue-black with crisp slide detail. The reproduction is a light silver-grey and blurry, so a player would see at once that it is a different gun skin, even though it has the same pose and roughly the same shape. On the world and in-hand models the boxy grip and coarse texture also show at a glance."
+   "reason": "Beside the original in the first-person and in-hand pictures, the reproduction reads as a plausible grey pistol but a clearly different one: its slide is a flat slab with blocky, noisy texture and no serrations, and its frame looks boxy. A player would see that it is not the original's model."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "In every view the muzzle points the same way as the original's and the grip hangs on the same side. It is upright, and it sits on the origin at the same place in every view."
+   "reason": "The muzzle, bore and sight are on the same side in all six views and in the angle views, so the front is the original's front. The pistol stands upright in the top and below views, and the orientation matches. Its origin could not be checked from the pictures, so this is scored on what can be seen."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "There are no check errors. It has 96 triangles against the original's 88, well under twice. Nothing in the pictures looks open, inside out or floating."
+   "reason": "SMAK's check reports no errors. Triangles are 96 against the original's 88, well under twice. The side and angle views show a closed, solid model, with nothing open, inside out or floating."
   },
   "W1": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "In first-person.png the pistol sits in the same place in the same hand, held the same way and the same way round. In every attack frame (2 to 14) it follows the original's recoil and recovery, and it stays in the hand throughout."
+   "reason": "In the first-person view the reproduction sits where the original does, in the same hand, the same way round, grip and slide in the same place. Through the attack frames (2 to 14 of 14) it rises and recoils with the hand and stays in it."
   }
  },
  "total": 14,

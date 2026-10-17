@@ -1,0 +1,133 @@
+{
+  "spec": "smak.model/1",
+  "name": "headcrab.mdl",
+  "kind": "prop",
+  "size": {
+    "length": 26,
+    "height": 13
+  },
+  "materials": {
+    "flesh": {
+      "base": "leather",
+      "tone": "tan"
+    },
+    "claw": {
+      "base": "bone",
+      "tone": "yellowish"
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "superquadric",
+      "material": "flesh",
+      "size": [
+        16,
+        13,
+        9
+      ],
+      "round": [
+        0.7,
+        0.8
+      ],
+      "sides": 12,
+      "at": [
+        0,
+        0,
+        4
+      ]
+    },
+    {
+      "id": "leg_front",
+      "kind": "tube",
+      "material": "flesh",
+      "sides": 6,
+      "mirror": "y",
+      "path": [
+        [
+          4,
+          5,
+          7,
+          1.3
+        ],
+        [
+          8,
+          8,
+          3.5,
+          1
+        ],
+        [
+          11,
+          10,
+          0.8,
+          0.6
+        ],
+        [
+          13,
+          10.8,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "leg_back",
+      "kind": "tube",
+      "material": "flesh",
+      "sides": 6,
+      "mirror": "y",
+      "path": [
+        [
+          -4,
+          5,
+          7,
+          1.3
+        ],
+        [
+          -8,
+          8,
+          3.5,
+          1
+        ],
+        [
+          -10.5,
+          9.5,
+          0.8,
+          0.6
+        ],
+        [
+          -12.5,
+          10,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": "beak",
+      "kind": "tube",
+      "material": "claw",
+      "sides": 6,
+      "path": [
+        [
+          5,
+          0,
+          5.5,
+          2.6
+        ],
+        [
+          9,
+          0,
+          3.8,
+          1.8
+        ],
+        [
+          12,
+          0,
+          3.2,
+          0
+        ]
+      ]
+    }
+  ]
+}

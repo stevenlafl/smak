@@ -2,6 +2,7 @@
  "kind": "sprites",
  "subject": "flare1",
  "leg": "pictures",
+ "judges": 1,
  "measured": {
   "original": {
    "size": [
@@ -74,31 +75,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Both frames are the same effect: a soft additive glow with a bright white core fading out to a pink-violet halo. The original's radial streaks are finer surface texture, not a different effect."
+   "reason": "Both pictures show the same effect: a bright white core in a soft pink-violet halo fading to dark at the edges, the look of a light flare. The original's faint starburst rays are not in the reproduction (its halo is a plainer radial gradient), but the effect itself is the same, so this is not scored down."
   },
   "R2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are 64x64, one frame, and the glow fills the frame the same way: bright centre, halo reaching the edges, dark corners. The reproduction's halo is a little smoother, but the spread and falloff match."
+   "reason": "Both frames are 64 x 64, and the glow fills the frame the same way: core near the centre, halo reaching the edges, dark corners in both. The reproduction's halo is a little smoother and more even, which is within the same shape."
   },
   "R3": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured colour difference is 3.6 CIE76 delta E, far under the 15 line. Dark share is 0.39 for the original and 0.37 for the reproduction, so brightness also matches."
+   "reason": "The measured mean colour difference is 3.6 (CIE76), well inside the 15 line. Visually the core is white and the halo pink-violet in both, with no visible hue shift."
   },
   "R4": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are one frame, the envelope is the same (first 1, last 1, peak at frame 0), and neither wraps or jitters. The single-frame glow therefore has the same motion, which is none, and it ends at the same brightness as the original."
+   "reason": "Both have 1 frame, and the envelope (peak at frame 0, first and last at 1) and dark fraction (0.39 original, 0.37 reproduction) match. A single frame cannot show motion, so this rests on those measures and the matching counts."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Both are type parallel with format additive, the names match (sameName true), and the file reads back (readsBack true)."
+   "reason": "Both are additive, the format and type match, and the harness reports sameName true and readsBack true. Nothing in the pictures contradicts the record."
   }
  },
  "total": 10,

@@ -1,0 +1,108 @@
+{
+ "kind": "sprites",
+ "subject": "steam1",
+ "leg": "pictures",
+ "judges": 1,
+ "measured": {
+  "original": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.341,
+     "mean": 0.002
+    },
+    "envelope": {
+     "peakAt": 0.4,
+     "first": 0.04,
+     "last": 0.03
+    },
+    "dark": 0.64,
+    "wrap": 0.5,
+    "jitter": 1.1
+   }
+  },
+  "reproduction": {
+   "size": [
+    32,
+    48
+   ],
+   "frames": 16,
+   "type": "parallel oriented",
+   "format": "index alpha",
+   "measures": {
+    "frames": 16,
+    "size": [
+     32,
+     48
+    ],
+    "border": {
+     "max": 0.729,
+     "mean": 0.023
+    },
+    "envelope": {
+     "peakAt": 0.53,
+     "first": 0,
+     "last": 0
+    },
+    "dark": 0.62,
+    "wrap": 0.09,
+    "jitter": 0.96
+   }
+  },
+  "meanColourDeltaE": 0.3,
+  "sameName": true,
+  "readsBack": true
+ },
+ "caps": {
+  "R2": 2,
+  "R3": 2,
+  "R4": 2,
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Both are a smoke-like puff that grows and fades, so the effect is recognisable. The original is a fluffy rising cloud: a small dot in frame 0, a rounded cloud in frames 2 to 7 and a trailing tail down and right in frames 8 to 15. The reproduction is a solid lumpy blob with rock-like edges, no tail and no rising shape, and in frames 11 to 15 it breaks into scattered fragments, which the original does not do."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Frames are the same 32x48 size. The fill is wrong: the original's cloud is a soft, feathered mass that sits in the upper middle and runs down into a tail. The reproduction's blob is larger from frame 0 (a faint full-size disc where the original starts as a dot) and has hard, angular edges that reach the frame border (border max 0.729 against 0.341)."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Both sit on the same grey backdrop, and their dark fractions match (0.62 against 0.64). The reproduction's peak frames 7 to 10 are a flatter, brighter white with little gradation, while the original has a grey-to-white gradient through its body and edges. The harness's mean colour measure is not given, so this is judged by eye and may be lower than a measured fault."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The frame count matches (16 in both) and the kind of motion, growing then fading, is right. The loop does not match: the original's wrap is 0.5 against the reproduction's 0.09, so the reproduction does not close where the original does. The envelope also differs, with the reproduction at 0 in its first and last frames against the original's 0.04 and 0.03, and its peak at 0.53 against 0.4. The reproduction's break-up into fragments in frames 11 to 15 is a motion the original lacks."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Both are index alpha, the same name (sameName true), and both read back (readsBack true). The original's type and format match in the measured record."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

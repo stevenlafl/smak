@@ -1,0 +1,113 @@
+{
+ "kind": "sprite",
+ "subject": "fire",
+ "leg": "decoy: brief plain",
+ "label": "sprites/fire.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   32,
+   96
+  ],
+  "frames": 1,
+  "type": "parallel oriented",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    96
+   ],
+   "border": {
+    "max": 0.784,
+    "mean": 0.784
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "fire loop",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.784,
+    "range": [
+     0,
+     0.028
+    ],
+    "ok": false,
+    "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel oriented",
+   "format": "additive",
+   "gameType": "parallel oriented",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a looping flame of orange and yellow tongues licking upwards. The frame shows no flame: a pale grey field with one small white rectangle outlined in black near the top-left. It reads as a plain box, not fire, so the effect is missing."
+  },
+  "R2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The measured size is 32 x 96, the right shape for a tall flame. But the picture does not fill it with tongues of fire. Its border is light (mean 0.784, against a range of 0 to 0.028), so the light sits at the edge and the centre is empty. The effect does not fill the frame as a flame should."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for orange and yellow. The frame is grey and near-white with a black outline, and no orange or yellow shows in the picture. The measured border is bright (0.784), which the rubric's band for this class (0 to 0.028) does not allow."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The measurement gives 1 frame. A looping fire needs several frames that move and close the loop. Its envelope is flat at 1 on the first and last frame, with no motion or loop to judge, so it does not show the motion of a fire loop."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type 'parallel oriented' and format 'additive' match the game's file (gameType and gameFormat agree). The name is the same (sameName true), and the file reads back as written (readsBack true). This is the one item the measures fully support."
+  }
+ },
+ "total": 2,
+ "of": 10,
+ "passes": false
+}

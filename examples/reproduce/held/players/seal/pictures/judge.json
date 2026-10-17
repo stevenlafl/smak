@@ -92,76 +92,12 @@
   "M2": 2,
   "M4": 2,
   "M8": 2,
-  "C2": 2,
-  "M6": 1
+  "C2": 2
  },
- "lineup": {
-  "picked": null,
-  "right": "E"
- },
- "scores": {
-  "M1": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "Measured silhouette overlap is under the 0.80 line in two of three view pairs (front/back 0.798, left/right 0.776; top/below 0.803 passes), so a 2 isn't allowed. The pictures show why. In the left and right views the vest is a boxy shell that sticks out behind the back like a hump, and it is wider and squarer at the shoulders than the original's fitted vest. In the front view the shoulders and upper arms are broader and the vest's top edge is squared off."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "All three dimensions are within 10%: 25.0 vs 23.9 (4.3% off), 25.5 vs 24.5 (4.2%), and 70.1 vs 70.1 (0.1%)."
-  },
-  "M3": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "All the original's parts are there: balaclava with eye slit, black tactical vest, olive shirt and trousers, two knee pads, elbow pads, gloves, belt, laced boots. The vest is the wrong shape, though. It is a rigid box standing off the torso, raised into a hump at the back in the side views, where the original has a close-fitting vest with defined front pouches and a zip. The front pouches and pocket shapes on the trousers are mostly lost in a blur."
-  },
-  "M4": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "Mean smoothed delta E is 4.8, well under 15, and no view is worse than 7.0. Each region keeps the original's colour and material: olive cloth shirt and trousers, black vest, black mask, grey metal knee and elbow pads, black boots."
-  },
-  "M5": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The trident emblem on the back of the vest is there and in place but blurrier. The front vest pouches, zip and webbing are smeared and much less sharp than the original's. There are dark streaks and blotches on the trousers and sleeves that the original doesn't have (left view thighs, front view shins and boots). The boots and laces are muddy instead of crisp."
-  },
-  "M6": {
-   "judge": 1,
-   "cap": 1,
-   "score": 1,
-   "reason": "At game size it reads as the same masked operator in olive and a black vest, but a player would notice the bulky boxy vest hump in profile and the smeared, streaky texture against the original's clean fitted vest and crisp detail. It looks like a rough copy, not the original."
-  },
-  "M7": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "It faces the same way as the original, stands upright in the same stance, and its feet sit on the origin at the same height (both 70.1 tall, same ground line in every view)."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "There are no check errors. It has 1336 triangles against the original's 2617, well under twice. No open, inside-out or floating parts are visible in any view or animation frame."
-  },
-  "C1": {
-   "judge": 2,
-   "cap": null,
-   "score": 2,
-   "reason": "Frame by frame through run2 and dive_f_akimbo, every part stays on the body and follows the original's poses. The limbs, head and vest move with their bones and nothing comes apart, sinks below the ground line or floats. The vest's hump goes with the torso, which is a shape fault scored under M1 and M3, not a motion fault."
-  },
-  "C2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The compareContract measurement reports that it keeps every bone, animation, attachment and bodypart of the base, with no faults and no check errors."
-  }
- },
- "total": 16,
- "of": 20,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1"
+ ],
+ "total": 0,
+ "of": 20
 }

@@ -90,70 +90,14 @@
   "M1": 0,
   "M2": 0,
   "M4": 0,
-  "M8": 2,
-  "M6": 1
+  "M8": 2
  },
- "lineup": {
-  "picked": "F",
-  "right": "A"
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured silhouette overlap is 0.406 front/back, 0.597 left/right and 0.347 top/below. All three are well below the 0.80 line. In compare-sides.png every view of the reproduction is a plain rectangle. The original's curved stock and pistol grip (the hook at the bottom of the top and below views), the stepped receiver, the pump and the thin barrel are all missing. In the front and back views the box is a wide slab where the original is a narrow profile."
-  },
-  "M2": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Length 42.4 against 40.8 is within 10% (+3.8%). Height 5.6 against 5.2 is within 10% (+7.8%). Width 20.2 against 13.4 is +51%, far outside 10% (offShare 0.511). A must-have dimension fails."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's components are there. The reproduction is one featureless box on the world model, the first-person model and the player model alike. The barrel, the magazine tube, the pump/forend, the receiver, the trigger guard, the pistol grip and the stock are all absent (compare-sides.png, first-person.png, in-hand.png)."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Measured mean deltaE is 31.1, about twice the pass line of 15, and above 25 in every view. The original is dark gunmetal and black with blued highlights and a brown wooden pump band. The reproduction is a uniform light grey, like untreated concrete or plaster, with no metal or wood regions."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original's panel lines, the vent/rail detail on the receiver, the blued barrel highlights, the wood band on the pump and the wear are all missing. The reproduction's surface is flat grey with only faint noise and an edge bevel (first-person.png, compare-angles.png)."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "No player would take a grey slab for the shotgun. In first-person.png the original reads at once as a black pump shotgun. The reproduction is a large light-grey block filling the lower right of the screen, and the same holds in in-hand.png and every world view."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Its long axis runs the same way as the original's, it is upright and it sits about the original's origin. But a box has no front to match the original's muzzle and stock ends, and in the top and below views of compare-sides.png it is yawed about 10 degrees off the original's straight line."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "checkErrors is empty. 12 triangles against the original's 174 is well under twice. A box is closed, not inside out, and does not float in the views shown. The measurement allows a 2 and nothing in the pictures contradicts it."
-  },
-  "W1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "Through all eight attack frames of first-person-attack.png the box stays with the hand and follows the recoil, and it slopes up-left as the original's barrel does. It is not held the same way, though. The hand only touches the lower left corner of a block that fills the lower right of the view, where the original's grip sits in the hand with the barrel running forward. It is not the same way round either, because it has no muzzle or stock end to orient."
-  }
- },
- "total": 4,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M2",
+  "M4"
+ ],
+ "total": 0,
+ "of": 18
 }

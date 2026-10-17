@@ -10,7 +10,7 @@
 // judge.json; built/ out of git).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, copyFileSync, rmSync } from "node:fs";
 import { join, basename } from "node:path";
-import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides, kitCommit, keepRound, filesOf } from "./lib.mjs";
+import { HERE, GAME, SIDES, ANGLES, readModel, boxOf, picturesOf, savePng, besides, notTheOriginal, kitCommit, keepRound, filesOf } from "./lib.mjs";
 import { runAgent, runJudge, failedByMeasure } from "./agents.mjs";
 import { measureModel, lineup } from "./judge.mjs";
 import { itemsOf, settle, lowered, combine, askScores, MODEL_GUIDE } from "./scoring.mjs";
@@ -315,8 +315,9 @@ function decoyOf(kind, s) {
     // the weapon's place in v_ and p_ taken by the same box: the game's files with the box swapped in
     const spec = { spec: "smak.model/1", name: "decoy.mdl", kind: "held", parts: [{ id: "box", kind: "box", size: size.map((v) => Math.max(v, 0.5)), material: { base: "paint", tone: [0.5, 0.5, 0.5] } }], weapon: { like: s.like } };
     const built = buildModelSpec(spec, { games: [GAME] });
-    for (const f of built.files ?? []) if (f.mdl) writeFileSync(join(dir, f.name), f.mdl);
-  } else writeFileSync(join(dir, basename(s.file)), mdl);
+    if (!built.report?.ok) throw new Error(`${s.id}: the decoy did not build: ${[...(built.report?.errors ?? []), ...(built.report?.faults ?? [])].slice(0, 3).join(" | ")}`);
+    for (const f of built.files ?? []) if (f.mdl) writeFileSync(join(dir, f.name), notTheOriginal(f.mdl, readModel(join(GAME, "models", f.name)), `${s.id}'s decoy ${f.name}`));
+  } else writeFileSync(join(dir, basename(s.file)), notTheOriginal(mdl, game(s.file, rootOf(s)), `${s.id}'s decoy`));
   return dir;
 }
 

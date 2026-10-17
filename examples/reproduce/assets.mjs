@@ -169,7 +169,11 @@ const MAKE = {
 function reproducePrompt(kind, subject, leg, given) {
   if (leg === "brief") {
     if (kind === "sounds") return briefPrompt({ brief: subject.brief, replaces: `${subject.name}, so the game plays it there with no code`, make: MAKE.sounds(subject), verdict: "listen to it in the game", accept: ACCEPT });
-    if (kind === "sprites") return briefPrompt({ brief: BRIEFS.sprites[subject.id].brief, replaces: subject.file, make: MAKE.sprites(subject) });
+    // the slot's engine facts, as a texture's name and size are given: the type and format the game's file has
+    if (kind === "sprites") {
+      const [, type, format] = /type ([^,]+), format ([^.]+)\./.exec(readFileSync(join(folderOf(kind, subject.id), "input", "facts.txt"), "utf8")) ?? [];
+      return briefPrompt({ brief: BRIEFS.sprites[subject.id].brief, replaces: `${subject.file}${type ? `, which is of type ${type} and format ${format}: keep both` : ""}`, make: MAKE.sprites(subject) });
+    }
     const { brief, each } = BRIEFS.textures;
     const sizes = textureList(join(folderOf(kind, subject.id), "input"));
     return `${briefPrompt({ brief, replaces: `textures of ${subject.file}`, make: MAKE.textures() })}\n\nEach texture, its name and size (and its other frames in the game), and what it is to be:\n${sizes.trim().split("\n").map((line) => `${line}: ${each[line.split(" ")[0]] ?? ""}`).join("\n")}`;
@@ -559,7 +563,7 @@ else if (step === "judge") {
       for (const leg of legsOf(kind)) {
         const built = join(folderOf(kind, s.id), leg, "built", kind === "textures" ? "frenzy_new.wad" : basename(s.file));
         // a sound from a brief: the engine's checks here, its verdict the person's ear (reviews/)
-        if (leg === "brief" && existsSync(built)) {
+        if (kind === "sounds" && leg === "brief" && existsSync(built)) {
           const c = A.readWav(readFileSync(built));
           const o = A.readWav(readFileSync(join(GAME, s.file)));
           const checks = A.checks(c, { loop: Boolean(o.cue?.length) });

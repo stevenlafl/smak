@@ -99,76 +99,14 @@
   "M2": 2,
   "M4": 0,
   "M8": 2,
-  "C2": 0,
-  "M6": 1
+  "C2": 0
  },
- "lineup": {
-  "picked": "I",
-  "right": "D"
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The reproduction is a plain rectangular box. Silhouette overlap is 0.60 front/back, 0.547 left/right and 0.666 top/below, all below the 0.80 line. Every view is missing the head, arms, the gap between the legs and the boots, and the box fills the space around the narrow body."
-  },
-  "M2": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The bounding size matches the original's 23.7 x 22 x 69.4 units exactly, with an off-share of 0 on every axis, so each dimension is within 10%."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "None of the original's parts are there: no masked head, torso with vest, bare tattooed arms, gloved hands, belt, camo trousers with thigh holster or boots. The reproduction is a single box with no components."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "Mean smoothed delta E is 31.7, more than twice the 15 line, and every view is above 15 (top 46.7). The box is uniform light grey stone. The original has a black mask and shirt, brown skin, grey-white urban camo trousers and black boots, and none of those regions or materials appear."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original's surface detail is all missing: the gold '311' lettering on chest and back, the row of gold studs on the vest, the arm tattoos, the camo pattern and the boot laces. The box shows only a mottled stone texture with light edge trim, which the original does not have."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "No player would take a grey stone pillar for a masked mercenary in camo trousers at any viewing size."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It stands upright on the origin at the original's height. But a featureless box has no front, so nothing shows that the original's front is kept."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "The check reports no errors, 12 triangles is well under twice the original's 873, and the box looks closed, the right way out and resting on the ground. The contract faults are scored under C2."
-  },
-  "C1": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "In the run and the forward dive the reproduction stays a rigid standing box in every frame. It has no legs to stride, no arms to swing and no dive into a horizontal body, so it does not move as the original does."
-  },
-  "C2": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The measured contract shows all 34 reference bones missing (Bip01, Bip01 Bacino and the rest), all 171 of 171 animations missing, and attachments 0 to 3 missing. Any fault caps C2 at 0."
-  }
- },
- "total": 5,
- "of": 20,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M4",
+  "C2"
+ ],
+ "total": 0,
+ "of": 20
 }

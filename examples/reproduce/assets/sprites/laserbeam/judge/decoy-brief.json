@@ -1,0 +1,82 @@
+{
+ "kind": "sprite",
+ "subject": "laserbeam",
+ "leg": "decoy: brief plain",
+ "label": "sprites/laserbeam.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   32,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    64
+   ],
+   "border": {
+    "max": 0.784,
+    "mean": 0.784
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "beam",
+  "againstClass": [],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Not a beam. The frame shows a small dark-outlined rectangle at the top-left corner (about 6 by 10 pixels), with a plain pale interior and no hot core running the length of the frame and no soft glow to either side. The brief asks for both."
+  },
+  "R2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The effect fills only the top-left corner of the 32 by 64 frame. Everything else is flat grey background. A beam should run the frame's length, and this does not."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "No hot core colour and no glow gradient. The picture is grey background, a near-black border and a flat pale interior, with no brightness falling off toward the sides. The measured border mean of 0.784 is flat grey, not a glow."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "One frame, and the measured envelope is flat (peak at frame 0, first and last both 1). That is a steady beam, so the loop closes trivially, but the frame count and motion cannot be checked against the original here. The picture gives no sign of a beam's shimmer or flicker, so the item is short."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the game's (gameType and gameFormat), the name is the same (sameName true), and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

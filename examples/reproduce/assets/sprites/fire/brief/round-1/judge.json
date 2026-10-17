@@ -1,0 +1,104 @@
+{
+ "kind": "sprite",
+ "subject": "fire",
+ "leg": "brief",
+ "label": "sprites/fire.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   96
+  ],
+  "frames": 17,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 17,
+   "size": [
+    64,
+    96
+   ],
+   "border": {
+    "max": 0.069,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.88,
+    "first": 0.88,
+    "last": 0.88
+   },
+   "dark": 0.76,
+   "wrap": 0.72,
+   "jitter": 1.63
+  },
+  "class": "fire loop",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.63,
+    "range": [
+     1.33,
+     1.79
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "wrap",
+    "value": 0.72,
+    "range": [
+     0,
+     2.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.028
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.88,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0.88,
+    "range": [
+     0.57,
+     1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel oriented",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 0
+ },
+ "passes": false,
+ "failedByMeasure": [
+  "R5"
+ ],
+ "total": 0,
+ "of": 10
+}

@@ -2,6 +2,7 @@
  "kind": "sprites",
  "subject": "steam1",
  "leg": "pictures",
+ "judges": 1,
  "measured": {
   "original": {
    "size": [
@@ -46,20 +47,20 @@
      48
     ],
     "border": {
-     "max": 0.729,
-     "mean": 0.023
+     "max": 0.318,
+     "mean": 0.004
     },
     "envelope": {
-     "peakAt": 0.53,
-     "first": 0,
+     "peakAt": 0.4,
+     "first": 0.04,
      "last": 0
     },
-    "dark": 0.62,
-    "wrap": 0.09,
-    "jitter": 0.96
+    "dark": 0.68,
+    "wrap": 0.35,
+    "jitter": 1.1
    }
   },
-  "meanColourDeltaE": 0.3,
+  "meanColourDeltaE": 0.1,
   "sameName": true,
   "readsBack": true
  },
@@ -71,34 +72,34 @@
  },
  "scores": {
   "R1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Both are a smoke puff that grows and fades, but the reproduction reads as a solid, angular lump (frames 7-10 look like a rock or boulder) with no soft edge. The original has a diffuse cloud with a downward trailing wisp in frames 8-15. The effect is recognisable as smoke but clearly off in character."
+   "score": 2,
+   "reason": "Both sheets show the same effect: a steam or smoke puff that swells from a small start, stays bright through frames 2 to 7, then thins and fades. Its outline and the lobed cloud structure match in every frame of the top row and the start of the bottom row."
   },
   "R2": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Both have 16 frames of the same size (32x48). The reproduction's puffs are hard-edged blobs that fill the frame more uniformly, while the original's are soft and drift down a tail. The reproduction breaks into scattered fragments in frames 11-15, where the original keeps a diffuse trail. Fill is the same in size but not in the way the effect fills the frame."
+   "reason": "Both are 32 x 48 frames with the puff in the same place. The original's frame 0 is a tiny white speck, while the reproduction's frame 0 is a larger grey disc (top left), so the early growth does not fill the frame as the original's does. In frames 12 to 15 the reproduction's edges break into blocky, pixelated fragments that the original's soft outline does not have."
   },
   "R3": {
-   "judge": 2,
+   "judge": 1,
    "cap": 2,
-   "score": 2,
-   "reason": "Measured mean colour difference is 0.3 (CIE76), far under the 15 line, and the grey-to-white ramp over the same background matches in the pictures. The brightness peak sits later in the reproduction, but that is a motion fault (R4), not a colour fault."
+   "score": 1,
+   "reason": "The mid-run colours are close: frames 2 to 5 are bright white in both. The reproduction is greyer in the opening frames (frame 0, and frame 1 at the top left) and carries heavier dark shading across frames 8 to 11, where the original's lit tops are cleaner and lighter. The frames' mean colour may still fall within 15, but the early frames are visibly off."
   },
   "R4": {
    "judge": 1,
    "cap": 2,
    "score": 1,
-   "reason": "Frame count matches (16 each) and both grow, then fade to dark, with first and last envelope values near zero in both. But the peak is later in the reproduction (0.53 against 0.4, about two frames), its fade breaks into fragments instead of a smooth tail, and its wrap is 0.09 against the original's 0.5. The kind of motion is the same but its timing and fade are off."
+   "reason": "The measures that match are frames (16 in both), the envelope peak (at 0.4 in both), the first-frame level (0.04 in both) and jitter (1.1 in both). The wrap differs, 0.35 against the original's 0.5, so the loop closes less well. The last frame is 0 against the original's 0.03, which is a dark end and so acceptable on its own. The fade is also broken: the reproduction's later frames disperse into noisy fragments rather than fading smoothly as the original does."
   },
   "R5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Type (parallel oriented) and format (index alpha) match the original, the name is the same, and it reads back as written."
+   "reason": "The type is parallel oriented and the format is index alpha in both files, the name matches (sameName true), and the file reads back as written (readsBack true)."
   }
  },
  "total": 7,

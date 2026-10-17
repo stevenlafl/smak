@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "flare1",
+ "leg": "decoy: brief plain",
+ "label": "sprites/flare1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.784,
+    "mean": 0.784
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "flare",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.784,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": false,
+    "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a hot white centre with soft streaks. In frames.png the frame is a near-uniform light grey field with no bright centre and no streaks radiating from it. The only dark mark is a small boxed numeral at the top-left, which is the harness's frame label, not the sprite. The effect is missing."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 64 x 64 as the original's measures give. But the measured border is 0.784 (mean 0.784, against a pass range of 0 to 0.005), so light covers the whole edge instead of falling off to dark. The effect fills the frame as a plain lit square, not as a flare, which is clearly off."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frames are a light grey-white, which is not clearly wrong for a flare's additive blend. But with no hot centre visible and no streaks, the picture cannot show the brief's colour distribution, and no original's mean colour is given to compare against. Unverified rather than correct."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "There is one frame, with peak at frame 0 and first and last both at 1, which is consistent with a static flare. The brief gives no motion, and no original frame count is supplied in the measures, so the motion cannot be checked against Valve's flare1. Not verified."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured as parallel and additive, matching the game's own type and format (gameType parallel, gameFormat additive). The name is the same (sameName true) and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

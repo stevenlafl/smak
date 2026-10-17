@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "muzzleflash1",
+ "leg": "decoy: brief plain",
+ "label": "sprites/muzzleflash1.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.784,
+    "mean": 0.784
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "flare",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0.784,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": false,
+    "words": "light at the edge: fade more (finish.edge) or shrink the effect"
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a short bright star-shaped burst. The single frame in frames.png (top-left, labelled 0) shows no star, no burst and no bright core. It is a flat grey field with a small dark-outlined box and a '0' label, so the effect is not there to read."
+  },
+  "R2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The frame is 64x64, which is a plausible size, but no star fills it. The measure says the border is bright (0.784 mean and max, against a flare's 0 to 0.005), so light runs to the frame's edges instead of fading out around a central burst. The picture and the measure disagree on the grey field, and the measure is the stronger evidence of a fault."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names no colour beyond 'bright', and the picture shows no burst to judge. The measured colour is not reported in the harness output, so I cannot confirm the blended frame is bright. Scored 1: clearly off, since no bright burst is visible in the sheet."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "One frame only. The envelope is first 1, last 1, peak at frame 0, so the sprite never fades: it stays at full brightness and does not end dark. A one-shot muzzle flash should burst and then end dark, and this does not."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type parallel and format additive match the game's own kind for this sprite (kept.gameType and gameFormat agree). The name is the same (sameName true), and the file reads back as written (readsBack true)."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

@@ -90,70 +90,14 @@
   "M1": 0,
   "M2": 0,
   "M4": 1,
-  "M8": 2,
-  "M6": 2
+  "M8": 2
  },
- "lineup": {
-  "picked": "D",
-  "right": "D"
- },
- "scores": {
-  "M1": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The silhouette overlap is 0.484 front/back, 0.761 left/right and 0.407 top/below. All three are under 0.80. The reproduction is a plain rectangular slab. In the top and below views it is a rectangle turned about 30 degrees, where the original shows an L-shaped pistol outline with the slide, the grip at an angle and the trigger guard. The grip and trigger guard are missing, and the slab sticks out past the original in front, back, top and below."
-  },
-  "M2": {
-   "judge": 0,
-   "cap": 0,
-   "score": 0,
-   "reason": "The original measures 14.8 x 9.5 x 2.8 and the reproduction 18 x 15.9 x 3. Length is 22% over and width 68% over (offShare 0.219 and 0.675). Only the height is inside 10%, at 6.4%. Two of the three sizes are well outside the 10% allowed."
-  },
-  "M3": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original has a slide with rear serrations, a barrel with a muzzle opening (seen in the back views), a separate angled grip, a trigger guard and a trigger. The reproduction is a single box with none of these, in the w_ model, the first-person v_ model and the p_ model alike."
-  },
-  "M4": {
-   "judge": 0,
-   "cap": 1,
-   "score": 0,
-   "reason": "The mean colour difference is 18.1, over the 15 line, and five views are 16.5 or more (front 24.3, below 24.2, back 22.4). The original is dark blued or black gunmetal with a darker grip. The reproduction is a flat light grey with lighter bevelled edges, so no region has the original's colour or material."
-  },
-  "M5": {
-   "judge": 0,
-   "cap": null,
-   "score": 0,
-   "reason": "The original's slide serrations, panel lines on the slide and frame, the muzzle hole, the grip's texture and the metal wear are all missing. The reproduction shows only a flat grey texture with a light border on each face."
-  },
-  "M6": {
-   "judge": 0,
-   "cap": 2,
-   "score": 0,
-   "reason": "At game size in first-person.png, the original is a recognisable black pistol pointed forward. The reproduction is a light grey vertical slab standing on the hand, which a player would not take for the original or for any pistol. The p_ model in in-hand.png is a grey box next to a pistol."
-  },
-  "M7": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "It lies flat and upright on the ground plane as the original does. A box has no front for the original's front, though, and in the top and below views it is turned about 30 degrees in yaw from the original's axis, so the facing does not match."
-  },
-  "M8": {
-   "judge": 2,
-   "cap": 2,
-   "score": 2,
-   "reason": "There were no check errors. It has 12 triangles, against a limit of twice the original's 88 (176). It is a closed box, and nothing is open, inside out or floating in any view."
-  },
-  "W1": {
-   "judge": 1,
-   "cap": null,
-   "score": 1,
-   "reason": "The slab stays with the hands through all 14 attack frames and recoils with them. It does not sit as the original does, though. The original's grip is in the palm with the barrel pointing forward and up. The reproduction stands as a tall vertical slab covering the hand, with no barrel pointing anywhere and no grip, and it is much bigger than the original. So it is not held the same way or the same way round."
-  }
- },
- "total": 4,
- "of": 18,
- "passes": false
+ "passes": false,
+ "failedByMeasure": [
+  "M1",
+  "M2",
+  "M4"
+ ],
+ "total": 0,
+ "of": 18
 }

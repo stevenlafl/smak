@@ -1,0 +1,93 @@
+{
+ "kind": "sprite",
+ "subject": "glow01",
+ "leg": "brief",
+ "label": "sprites/glow01.spr, in the place of the game's own",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.45,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ],
+  "kept": {
+   "type": "parallel",
+   "format": "additive",
+   "gameType": "parallel",
+   "gameFormat": "additive",
+   "sameName": true,
+   "readsBack": true
+  }
+ },
+ "caps": {
+  "R5": 2
+ },
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A soft round glow centred in the frame, the same effect the brief asks for: a bright core fading outward over the whole disc. Nothing else is drawn in it. The small '0' in the top-left corner is the harness's frame number, not part of the sprite."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measured size is 64 x 64 and the glow fills the frame, fading to dark at the edges, with border max and mean both 0. The brief gives no size of its own, so this is checked against the measured size and the picture only."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "White-hot core, moving through yellow and warm orange to a dim amber rim and then black, which matches the brief's 'white to warm'. Colour within 15 of Valve's glow cannot be measured here because only the replacement's measures are given, so this is judged from the picture."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A single still frame (frames 1, envelope first and last both 1, peak at frame 0). The brief asks for no motion, and a still glow is the expected form of this class. The class's frame count is not among the measures given, so this rests on that reading."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Type 'parallel' and format 'additive' match the game's values (gameType and gameFormat), the name is the same (sameName true), and the file reads back as written (readsBack true). The border measure, the one class check given, is 0 and inside its range [0, 0.005]."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}
