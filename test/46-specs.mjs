@@ -165,6 +165,31 @@ test("a mirrored part that reaches across the middle runs into its copy, and is 
   sure(!narrow.warnings.some((w) => /across the middle/.test(w)), narrow.warnings.join(" | "));
 });
 
+test("a spec that takes a game model's place under its name reads the game's as its base, not its own last build", () => {
+  const { buildMdl, indexed, workshop: W } = smak;
+  const bodyOf = (sides) => {
+    const M = W.shape(64, 64);
+    M.lathe([[0, 1], [2, 1]], { x: 0, y: 0, w: 64, h: 64 }, { sides, caps: [true, true] });
+    return buildMdl({
+      name: "crab.mdl",
+      bones: [{ name: "root", parent: -1 }, { name: "tip", parent: 0 }],
+      bodyparts: [{ name: "body", models: [{ name: "t", meshes: [{ tris: M.tris.map((t) => t.map((c) => ({ ...c, bone: "root" }))), texture: indexed(W.sheet(64, 64).image(), "t.bmp") }] }] }],
+      sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 0, 0, 0, 0], [0, 0, 10, 0, 0, 0]]] }],
+    });
+  };
+  const game = join(tmp, "own-base-game");
+  const work = join(tmp, "own-base-work");
+  mkdirSync(join(game, "models"), { recursive: true });
+  mkdirSync(work, { recursive: true });
+  writeFileSync(join(game, "models", "crab.mdl"), bodyOf(6));
+  writeFileSync(join(work, "crab.mdl"), bodyOf(20)); // the last build, written under the game's name
+  const spec = { spec: "smak.model/1", name: "crab.mdl", kind: "character", base: { file: "crab.mdl" }, contract: { file: "crab.mdl" }, parts: [{ id: "shell", kind: "box", size: [2, 2, 2], bone: "root" }] };
+  const own = (n) => smak.readMdl(n).bodyparts[0].models[0].meshes.reduce((sum, m) => sum + m.numtris, 0);
+  const { report } = buildModelSpec(spec, { folder: work, games: [game] });
+  const said = report.facts.find((f) => /the base's own body is \d+ triangles/.test(f)) ?? report.facts.join(" | ");
+  sure(said.includes(`is ${own(bodyOf(6))} triangles`) && own(bodyOf(6)) !== own(bodyOf(20)), `the game's, not the last build's: ${said}`);
+});
+
 test("a character spec: a place on a part laid along a limb is where the part went (the cowboy's shirt)", () => {
   // a base of two bones, the second 10 up the first: a limb along z from 0 to 10
   const M = W.shape(64, 64);

@@ -1714,7 +1714,7 @@ function buildPosed(spec, options = {}) {
   return second;
 }
 
-function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFile, hide = [], refuse = [] } = {}) {
+function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, readFile, hide = [], refuse = [] } = {}) {
   const { errors, warnings } = validateModelSpec(spec, { prefabs });
   const report = { ok: false, errors, faults: [], warnings, notes: [], facts: [], parts: {} };
   if (errors.length) return { mdl: null, report };
@@ -1743,7 +1743,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
   let skeleton = null;
   if (spec.base) {
     try {
-      skeleton = skeletonOf(spec.base, folder, games, refuse);
+      skeleton = skeletonOf(spec.base, folder, games, refuse, out ?? resolve(folder ?? ".", spec.name ?? "model.mdl"));
     } catch (error) {
       errors.push(`base: ${error.message}`);
       return { mdl: null, report };
@@ -2241,7 +2241,7 @@ function buildOnce(spec, { folder, prefabs = {}, games = [], readPicture, readFi
   // the contract a mod's code holds the model to: a reference's bones, animations, attachments, bodyparts
   if (spec.contract) {
     try {
-      const reference = readContractFile(spec.contract.file, folder, games, refuse);
+      const reference = readContractFile(spec.contract.file, folder, games, refuse, out ?? resolve(folder ?? ".", spec.name ?? "model.mdl"));
       const { faults, notes } = compareContract(contractOf(reference), contractOf(mdl));
       report.faults.push(...faults.map((f) => `contract of ${spec.contract.file}: ${f}`));
       report.notes.push(...notes.map((n) => `contract of ${spec.contract.file}: ${n}`));
@@ -2534,22 +2534,31 @@ function weaponViews(spec, meshes, { folder, games, report, hide = [] }) {
  * games' folders (`<game>/models/<file>`), its textures from <name>t.mdl when they are there. Returns
  * { src, file, joints: Map(bone name -> [x, y, z] in model space as it stands in `pose`), pose, bodypart, bodies }.
  */
-/** A reference model's bytes for a contract: beside the spec or in the game folders, unless refused. */
-function readContractFile(file, folder, games, refuse = []) {
-  if (refuse.some((name) => name.replace(/^models\//, "") === file.replace(/^models\//, ""))) throw new Error(`${file} may not be used here (a blind test's original)`);
+/**
+ * Where a model named by a spec is looked for: beside the spec, then in the game folders. The file this build
+ * writes (`own`) is last: a spec that takes a game model's place under its name (the crawler's headcrab.mdl)
+ * otherwise read its own last build as its base and its contract from the second build on, its triangles held
+ * to themselves and its contract always kept (2026-10-17).
+ */
+function placesOf(file, folder, games, own) {
   const places = [resolve(folder ?? ".", file), ...games.flatMap((game) => [join(game, "models", file), join(game, file)])];
-  const found = places.find((place) => existsSync(place));
+  return own ? [...places.filter((place) => place !== resolve(own)), ...places.filter((place) => place === resolve(own))] : places;
+}
+
+/** A reference model's bytes for a contract: beside the spec or in the game folders, unless refused. */
+function readContractFile(file, folder, games, refuse = [], own = null) {
+  if (refuse.some((name) => name.replace(/^models\//, "") === file.replace(/^models\//, ""))) throw new Error(`${file} may not be used here (a blind test's original)`);
+  const found = placesOf(file, folder, games, own).find((place) => existsSync(place));
   if (!found) throw new Error(`${file} is neither beside the spec nor in the game folders given`);
   return readFileSync(found);
 }
 
-function skeletonOf(given, folder, games, refuse = []) {
+function skeletonOf(given, folder, games, refuse = [], own = null) {
   const options = typeof given === "string" ? { file: given } : given;
   // a file this build may not read (the model a blind test reproduces): its skeleton would be the original's
   if (refuse.some((name) => name.replace(/^models\//, "") === options.file.replace(/^models\//, "")))
     throw new Error(`${options.file} may not be used here (a blind test's original): take another model's skeleton`);
-  const places = [resolve(folder ?? ".", options.file), ...games.flatMap((game) => [join(game, "models", options.file), join(game, options.file)])];
-  const file = places.find((place) => existsSync(place));
+  const file = placesOf(options.file, folder, games, own).find((place) => existsSync(place));
   if (!file) throw new Error(`${options.file} is neither beside the spec nor in the game folders given (${games.join(", ") || "none: --wads <game folder>"})`);
   const { src } = readStudio(file);
   const pose = options.pose ?? { seq: 0, frame: 0 };

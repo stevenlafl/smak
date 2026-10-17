@@ -63,7 +63,7 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
 | --- | --- |
 | `name` | The file: letters, digits, `_ . -`, ending `.mdl` |
 | `kind` | `prop` (stands on the floor: its lowest point is put at z 0), `held` or `piece` (left where it was built), `character` (a body on a game model's skeleton, below) |
-| `base` | For a character: `{ file }`, the game's model whose skeleton and animations it keeps |
+| `base` | For a character: `{ file }`, the game's model whose skeleton and animations it keeps, looked for beside the spec and then in the game folders. A spec that takes the model's place under its own name (`headcrab.mdl` on `headcrab.mdl`) reads the game's, not its own last build; the same holds for `contract` |
 | `weapon` | For a weapon: `{ like: "crowbar" }`, the game's weapon whose v_, p_ and w_ files it takes the place of (below) |
 | `size` | What the person asked for: `{ height, length, width }` (any of them). Off by more than 10% is warned of, more than 25% is a fault |
 | `texture` | `{ width, height }` of the shared picture (256 x 256 unless told, 512 x 512 when it projects pictures; 512 x 256 for a larger thing) |

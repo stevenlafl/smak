@@ -831,7 +831,7 @@ function build(folders, args) {
   }
   if (spec?.spec !== "smak.model/1")
     throw new Error('spec: a model spec ("spec": "smak.model/1"), a map spec ("smak.map/1"), a sound spec ("smak.sound/1"), a music spec ("smak.music/1"), a textures spec ("smak.wad/1"), a sprite spec ("smak.sprite/1") or a video spec ("smak.video/1"); guide { doc: "spec" } says how to write one');
-  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, games: folders.wads ?? [], readPicture: pictureReader(folders, folder), readFile: (name) => readFileSync(pathOf(folders, name)), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
+  const { mdl, report, files = [] } = buildModelSpec(spec, { folder, out: join(folders.work, spec.name ?? "model.mdl"), games: folders.wads ?? [], readPicture: pictureReader(folders, folder), readFile: (name) => readFileSync(pathOf(folders, name)), hide: folders.hide ?? [], refuse: folders.refuse ?? [] });
   const lines = reportLines(report);
   const paintedModel = paintedOnly(folders, spec);
   if (paintedModel) lines.splice(1, 0, paintedModel);
