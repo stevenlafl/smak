@@ -9,29 +9,34 @@
   "size": {
     "height": 75
   },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "smooth": 80,
   "materials": {
-    "shirt": {
+    "uniform": {
       "base": "cloth",
       "tone": [
-        0.2,
-        0.35,
-        0.6
+        0.36,
+        0.42,
+        0.66
       ]
     },
-    "trousers": {
-      "base": "cloth",
+    "helmet": {
+      "base": "metal",
       "tone": [
-        0.34,
-        0.3,
-        0.58
+        0.7,
+        0.78,
+        0.86
       ]
     },
-    "skin": {
-      "base": "paint",
+    "visor": {
+      "base": "glass",
       "tone": [
-        0.72,
-        0.52,
-        0.4
+        0.08,
+        0.1,
+        0.12
       ]
     },
     "vest": {
@@ -42,334 +47,161 @@
         0.06
       ]
     },
-    "helmet": {
-      "base": "metal",
-      "tone": [
-        0.12,
-        0.16,
-        0.26
-      ]
-    },
-    "visor": {
-      "base": "glass",
-      "tone": [
-        0.1,
-        0.12,
-        0.14
-      ]
-    },
     "leather": {
       "base": "leather",
       "tone": [
-        0.06,
-        0.05,
-        0.05
-      ]
-    },
-    "grip": {
-      "base": "metal",
-      "tone": [
-        0.08,
-        0.08,
-        0.08
+        0.12,
+        0.1,
+        0.09
       ]
     }
   },
+  "pose": {
+    "aim": {
+      "L arm": {
+        "out": 40,
+        "forward": 0,
+        "bend": 10
+      },
+      "R arm": {
+        "out": 40,
+        "forward": 0,
+        "bend": 10
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
+    },
+    "bind": true
+  },
   "parts": [
     {
-      "id": "shirt",
-      "kind": "blob",
-      "material": "shirt",
-      "blend": 3,
-      "triangles": 200,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 Spine",
-            "Bip01 Spine1"
-          ],
-          "radius": [
-            9,
-            10
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Spine1",
-            "Bip01 Spine3"
-          ],
-          "radius": [
-            10.5,
-            7.5
-          ]
-        },
-        {
-          "at": "Bip01 L Arm1",
-          "radius": 5.2
-        },
-        {
-          "at": "Bip01 R Arm1",
-          "radius": 5.2
-        },
-        {
-          "span": [
-            "Bip01 L Arm1",
-            "Bip01 L Arm2"
-          ],
-          "radius": [
-            4.8,
-            4.2
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Arm1",
-            "Bip01 R Arm2"
-          ],
-          "radius": [
-            4.8,
-            4.2
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Arm2",
-            "Bip01 L Hand"
-          ],
-          "radius": [
-            4,
-            3
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Arm2",
-            "Bip01 R Hand"
-          ],
-          "radius": [
-            4,
-            3
-          ]
-        }
-      ]
-    },
-    {
-      "id": "skin",
-      "kind": "blob",
-      "material": "skin",
-      "blend": 2,
-      "triangles": 80,
-      "pieces": [
-        {
-          "at": "Bip01 Head",
-          "radius": 6.4
-        },
-        {
-          "span": [
-            "Bip01 Neck",
-            "Bip01 Head"
-          ],
-          "radius": 3.8
-        },
-        {
-          "at": "Bip01 L Hand",
-          "radius": 3
-        },
-        {
-          "at": "Bip01 R Hand",
-          "radius": 3
-        }
-      ]
-    },
-    {
-      "id": "trousers",
-      "kind": "blob",
-      "material": "trousers",
-      "blend": 3,
-      "triangles": 150,
-      "pieces": [
-        {
-          "at": "Bip01 Pelvis",
-          "radius": 9.5
-        },
-        {
-          "span": [
-            "Bip01 L Leg",
-            "Bip01 L Leg1"
-          ],
-          "radius": [
-            6.6,
-            5.2
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg1",
-            "Bip01 L Foot"
-          ],
-          "radius": [
-            5.2,
-            4
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Leg",
-            "Bip01 R Leg1"
-          ],
-          "radius": [
-            6.6,
-            5.2
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Leg1",
-            "Bip01 R Foot"
-          ],
-          "radius": [
-            5.2,
-            4
-          ]
-        }
-      ]
+      "id": "guard",
+      "kind": "mesh",
+      "file": "work:gen/guard2_s1.obj",
+      "size": [
+        16,
+        46,
+        75
+      ],
+      "triangles": 480,
+      "material": "uniform"
     },
     {
       "id": "vest",
-      "kind": "box",
-      "material": "vest",
+      "kind": "superquadric",
       "size": [
-        24,
-        24,
-        22
+        16.5,
+        21.5,
+        15
       ],
+      "round": [
+        0.25,
+        0.5
+      ],
+      "sides": 12,
+      "material": "vest",
       "attach": {
-        "bone": "Bip01 Spine2",
-        "at": "centre"
-      },
+        "bone": "Bip01 Spine1",
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          3
+        ]
+      }
+    },
+    {
+      "id": "label",
+      "kind": "box",
+      "size": [
+        0.5,
+        14,
+        4
+      ],
+      "paint": true,
+      "material": "vest",
       "print": {
         "text": "SECURITY",
         "face": "back",
         "ink": [
           0.95,
-          0.85,
-          0.2
+          0.8,
+          0.1
         ],
-        "size": 0.5
+        "size": 0.6
+      },
+      "attach": {
+        "to": "vest",
+        "toAt": "back",
+        "at": "front"
       }
     },
     {
       "id": "helmet",
       "kind": "superquadric",
-      "material": "helmet",
       "size": [
         13,
-        13,
-        8
+        12,
+        10
       ],
       "round": [
-        0.3,
-        0.3
+        0.4,
+        0.5
       ],
       "sides": 10,
+      "material": "helmet",
       "attach": {
         "bone": "Bip01 Head",
-        "at": "bottom"
+        "at": "bottom",
+        "offset": [
+          0,
+          0,
+          -1
+        ]
       }
     },
     {
       "id": "visor",
       "kind": "box",
-      "material": "visor",
       "size": [
-        1.2,
-        10,
-        4
+        2,
+        9,
+        3
       ],
+      "material": "visor",
       "attach": {
         "to": "helmet",
         "toAt": "front",
-        "at": "back",
+        "at": "front",
         "offset": [
-          -0.6,
+          1,
           0,
-          -1.5
+          0
         ]
-      }
-    },
-    {
-      "id": "boot",
-      "kind": "superquadric",
-      "material": "leather",
-      "size": [
-        14,
-        7.5,
-        7
-      ],
-      "round": [
-        0.2,
-        0.3
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 L Foot",
-        "at": "top",
-        "offset": [
-          2,
-          0,
-          3
-        ]
-      },
-      "mirror": "y"
-    },
-    {
-      "id": "belt",
-      "kind": "cylinder",
-      "material": "leather",
-      "radius": 10.6,
-      "height": 2.2,
-      "sides": 10,
-      "attach": {
-        "bone": "Bip01 Pelvis",
-        "at": "centre"
       }
     },
     {
       "id": "holster",
       "kind": "box",
-      "material": "leather",
       "size": [
-        3.5,
-        2.6,
-        9.5
+        4,
+        3,
+        9
       ],
+      "material": "leather",
       "attach": {
         "bone": "Bip01 Pelvis",
         "at": "centre",
         "offset": [
-          1,
-          -10.5,
-          -3
-        ]
-      }
-    },
-    {
-      "id": "grip",
-      "kind": "box",
-      "material": "grip",
-      "size": [
-        2,
-        1.8,
-        4.5
-      ],
-      "attach": {
-        "to": "holster",
-        "toAt": "top",
-        "at": "bottom",
-        "offset": [
           0,
-          0,
-          0
+          -9,
+          8
         ]
       }
     }

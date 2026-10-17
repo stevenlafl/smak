@@ -19,7 +19,7 @@
   "halfLifeMost": 291,
   "checkErrors": [],
   "lineup": "the asset is one of A to D in lineup.png beside models/w_shotgun.mdl, models/w_9mmar.mdl, models/w_sqknest.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, B, D, A where the asset was D, B, C, B: passed for one of the game's"
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, C, D, A where the asset was D, B, C, B: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -31,58 +31,58 @@
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The outline is a flat, tapered plank with no hooked claw, no bent head and no distinct shaft. In sides.png the LEFT and RIGHT views are wedges, the FRONT and BACK views are thin diamonds, and the TOP view is a rectangle. No view shows a crowbar's outline."
+   "reason": "The outline is a flat slab. In sides.png (front, back, left, right, top) it is a thin tapered bar, about 32 long, 2 wide and 12 high, with no curved hook at one end and no bend along the shaft. The brief's crowbar outline is missing, so the silhouette overlap cannot be 0.80 in any view."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "The measured length is 32.3 against the brief's 32, within 1%. The brief gives only a length, so width (2) and height (11.7) have nothing to be checked against."
+   "reason": "The measured length is 32.3 against the brief's 32, within 15%. The brief gives no width or height, so only the length is checked. Measured size [32.3, 2, 11.7] agrees."
   },
   "M3": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief's parts are the hooked claw at the head, the bent neck, the shaft and the worn tips. The asset has none of the claw or the bend (sides.png, first-person.png, in-hand.png), and no shaft separate from a slab. The claw is a large part, so it is missing, not small."
+   "reason": "The brief's parts are missing. The crowbar's claw (the hooked, forked head at one end), the bend between head and shaft, and the handle grip are all absent. Nothing in sides.png, first-person.png or in-hand.png shows a claw, a tab or a second end, and no paint suggests one. The shaft is one undifferentiated bar."
   },
   "M4": {
    "judge": 0,
    "cap": null,
    "score": 0,
-   "reason": "The brief asks for a red-painted shaft with worn bare-metal tips. Every view of the asset is a uniform flat grey (sides.png, in-hand.png). The red paint is missing everywhere, and the bare-metal tips are not distinguished from the rest."
+   "reason": "The brief asks for a red-painted steel crowbar. The whole model is uniform grey (sides.png, in-hand.png, attack.png), with no red on any region. The tips are not worn to a different metal; only faint light bevels show along the edges. The colour and material of every region is wrong."
   },
   "M5": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The brief asks for worn bare metal at the tips. The asset has only a faint lighter bevel at its ends (top and front-left views), not a worn tip, and no paint wear. It is there but clearly off."
+   "reason": "The brief's wear at the tips to bare metal is only hinted at by thin light bevels on the edges (sides.png, Front-Left and Back-Right views). There is no visible wear patch on a tip and no paint to wear through. Surface detail is there in a weak form, not at the brief's sharpness."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Scored at the cap as instructed. The line-up test (asset at D, B, C, B across four asks) caught it once, at B, and it passed the other three times, so it passes for one of the game's on the measure. Visually it reads as a plain slab beside the guns, so this 2 rests on the line-up result alone."
+   "reason": "Scored 2 as the rubric requires: M6 is measured apart by the line-up test, and it caps M6 at 2. The line-up (lineup.png, D) was not picked as the non-Valve model in any of the four readings (picks C, C, D, A against asset D, B, C, B), so the measure does not reduce it further."
   },
   "M7": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "Without a hook or claw there is no way to tell the front. The plank lies flat in sides.png, which is plausible for a world model, but the front is not identifiable, so upright and facing cannot be confirmed as the original's."
+   "reason": "The model stands upright in the first-person and in-hand views, but no front can be identified. Without the claw there is no crowbar front, so the front cannot be checked against the brief's. Its origin placement cannot be checked either."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check reports no errors. The asset has 6 triangles, well under twice Half-Life's median for its kind, and no open, inside-out or floating part shows in any of the ten sides.png views or in in-hand.png."
+   "reason": "SMAK's check reports no errors (checkErrors empty). The model has 6 triangles, far under twice the median of Half-Life's own of its kind (142) or the third quartile (187). The views show a closed box with no open faces, floating parts or inside-out faces."
   },
   "W1": {
-   "judge": 0,
+   "judge": 1,
    "cap": null,
-   "score": 0,
-   "reason": "In first-person.png the asset sits at the upper left, away from the hand, and it is a flat slab rather than the crowbar held at the right in the game's own model. It is not held the same way, nor the same way round, so it does not sit where the original sits."
+   "score": 1,
+   "reason": "In first-person.png the asset sits at the centre-left of the frame, where the game's crowbar sits at the right-hand edge with its hook up. The asset has no hook or grip to show which end the hand holds, so it is not held as the original is. In attack.png it does not part from the hands where both are seen; the swing mostly leaves the picture."
   }
  },
- "total": 8,
+ "total": 9,
  "of": 18,
  "passes": false
 }

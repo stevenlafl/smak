@@ -1,0 +1,120 @@
+{
+  "spec": "smak.model/1",
+  "name": "crowbar.mdl",
+  "kind": "held",
+  "size": {
+    "length": 32
+  },
+  "weapon": {
+    "like": "crowbar"
+  },
+  "materials": {
+    "red": {
+      "base": "paint",
+      "tone": "deep red"
+    },
+    "steel": {
+      "base": "steel"
+    }
+  },
+  "parts": [
+    {
+      "id": "bar",
+      "kind": "tube",
+      "material": "red",
+      "path": [
+        [
+          0,
+          0,
+          0,
+          0.55
+        ],
+        [
+          24.5,
+          0,
+          0,
+          0.55
+        ],
+        [
+          27,
+          0,
+          0,
+          0.55
+        ],
+        [
+          29,
+          0,
+          0.9,
+          0.5
+        ],
+        [
+          30.8,
+          0,
+          2.6,
+          0.45
+        ],
+        [
+          31,
+          0,
+          4.8,
+          0.4
+        ]
+      ],
+      "sides": 8
+    },
+    {
+      "id": "grip_worn",
+      "kind": "tube",
+      "material": "steel",
+      "paint": true,
+      "path": [
+        [
+          0,
+          0,
+          0,
+          0.6
+        ],
+        [
+          2.5,
+          0,
+          0,
+          0.6
+        ]
+      ],
+      "sides": 8
+    },
+    {
+      "id": "hook_worn",
+      "kind": "tube",
+      "material": "steel",
+      "paint": true,
+      "path": [
+        [
+          27.5,
+          0,
+          0,
+          0.6
+        ],
+        [
+          29.2,
+          0,
+          1,
+          0.56
+        ],
+        [
+          30.9,
+          0,
+          2.8,
+          0.5
+        ],
+        [
+          31.2,
+          0,
+          4.8,
+          0.45
+        ]
+      ],
+      "sides": 8
+    }
+  ]
+}

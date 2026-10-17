@@ -2,179 +2,31 @@
   "spec": "smak.model/1",
   "name": "9mmhandgun.mdl",
   "kind": "held",
-  "weapon": {
-    "like": "9mmhandgun"
-  },
   "size": {
     "length": 10
   },
-  "materials": {
-    "slide": {
-      "base": "steel",
-      "tone": "dark grey"
-    },
-    "frame": {
-      "base": "paint",
-      "tone": "dark grey"
-    },
-    "grip": {
-      "base": "paint",
-      "tone": "black"
-    }
+  "weapon": {
+    "like": "9mmhandgun",
+    "views": [
+      "v",
+      "p",
+      "w"
+    ],
+    "size": "own",
+    "rig": "carry"
   },
   "parts": [
     {
-      "id": "slide",
-      "kind": "box",
-      "material": "slide",
-      "size": [
-        9,
-        1.2,
-        1.6
-      ],
-      "at": [
-        5,
-        0,
-        4
-      ]
-    },
-    {
-      "id": "barrel",
-      "kind": "cylinder",
-      "material": "slide",
-      "radius": 0.35,
-      "height": 1.2,
-      "sides": 6,
-      "rotate": [
-        0,
-        90,
-        0
-      ],
-      "at": [
-        8.8,
-        0,
-        4.8
-      ]
-    },
-    {
-      "id": "front_sight",
-      "kind": "box",
-      "material": "slide",
-      "size": [
-        0.4,
-        0.3,
-        0.9
-      ],
-      "at": [
-        9.1,
-        0,
-        5
-      ]
-    },
-    {
-      "id": "rear_sight",
-      "kind": "box",
-      "material": "slide",
-      "size": [
-        0.9,
-        0.3,
-        0.3
-      ],
-      "at": [
-        1,
-        0,
-        5.6
-      ]
-    },
-    {
-      "id": "frame",
-      "kind": "box",
-      "material": "frame",
-      "size": [
-        6.6,
-        1.1,
-        1
-      ],
-      "at": [
-        4.8,
-        0,
-        3
-      ]
-    },
-    {
-      "id": "grip",
-      "kind": "box",
-      "material": "grip",
-      "size": [
-        2.1,
-        1.1,
-        3.6
-      ],
-      "at": [
-        2.45,
-        0,
-        0.3
-      ]
-    },
-    {
-      "id": "mag_base",
-      "kind": "box",
-      "material": "slide",
-      "size": [
-        1.9,
-        0.95,
-        0.25
-      ],
-      "at": [
-        2.4,
-        0,
-        0
-      ]
-    },
-    {
-      "id": "guard_post",
-      "kind": "box",
-      "material": "frame",
-      "size": [
-        0.4,
-        0.3,
-        1.8
-      ],
-      "at": [
-        3.8,
-        0,
-        2.2
-      ]
-    },
-    {
-      "id": "guard_bar",
-      "kind": "box",
-      "material": "frame",
-      "size": [
-        1.6,
-        0.3,
-        0.3
-      ],
-      "at": [
-        4.4,
-        0,
-        2
-      ]
-    },
-    {
-      "id": "trigger",
-      "kind": "box",
-      "material": "frame",
-      "size": [
-        0.25,
-        0.25,
-        0.7
-      ],
-      "at": [
-        3.7,
-        0,
-        2.5
-      ]
+      "id": "pistol",
+      "kind": "kit:firearm",
+      "options": {
+        "preset": "pistol",
+        "size": [
+          10,
+          1.2,
+          5.5
+        ]
+      }
     }
   ]
 }

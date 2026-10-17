@@ -1,16 +1,20 @@
-The crowbar is built and the build says **OK**. It is a `held` spec named `crowbar.mdl`, with `weapon: { like: "crowbar" }` and a length of 32.
+The crowbar builds **OK**. The files are in `work:crowbar_weapon/`:
+
+- `v_crowbar.mdl` (first person, with the game's hands and animations)
+- `p_crowbar.mdl` (in another player's hands)
+- `w_crowbar.mdl` (lying in the world)
+
+To use them, copy the three into the mod's `models` folder. They keep the game's names, so the game loads them in place of its own with no code changes. The full model is `work:crowbar.mdl`, its spec is `work:crowbar.spec.json`, and the picture sheet is `work:crowbar-sheet.png`.
 
 **What it is**
-- One continuous round steel bar, about 31.4 long (the build's measure of the 32 you asked for), 1.1 across. It runs from the grip end along the length, then bends up into a hook at the far end.
-- Painted deep red over the whole bar.
-- Worn to bare metal at both ends: the grip end and the hook tip are painted steel, which the paint and wear pass lighten, so they read as bare metal.
+- A bar 32.3 units long (the spec's 32), 1.8 wide, lying along +x with the grip at the low end, as the weapon spec requires.
+- The shaft and hooked claw are one red-painted tube, 112 triangles, with a grime and wear finish from the build's default.
+- Both tips are bare steel: a steel band over the grip end (about 1.6 units) and another over the claw's hooked end. They are painted onto the red bar rather than built as separate pieces, so they add no triangles.
 
 **How it was made**
-- Spec: `work:crowbar.spec.json`. Built with the kit's `held` kind and `weapon: { like: "crowbar" }`, so the build fits it into the game's own files.
-- Output: `work:crowbar_weapon/v_crowbar.mdl`, `p_crowbar.mdl` and `w_crowbar.mdl`. They keep the game's names, so to test in the game, copy them into the mod's `models` folder and they replace Half-Life's.
-- The first versions faulted. Joining separate closed pieces end to end gave faces counted twice, so I made the bar one continuous tube and painted the steel ends on instead of building them as separate parts.
+- Spec: `kind: "held"`, `weapon: { like: "crowbar" }`, the name `crowbar.mdl`, and two materials: `red` (base `paint`, tone 0.6, 0.07, 0.05) and `steel` (base `steel`).
+- The first attempts failed with a fault on the joins between separate tubes. Putting the whole bar in one tube and painting the steel tips on fixed it.
 
-**What to check in the game**
-- The hook is round and thin. Half-Life's own crowbar head is flatter and wider, so it may look weaker in the hand. This is the first thing to compare.
-- The first-person picture looks right in the attack frames, but I have not run it in the game.
-- Triangle count is 96 in the first-person file. The game's own is about 600 at the high end, so this is light.
+**Things to check in the game**
+- The guide gives Valve's crowbar as about 24 units long. Mine is 32, as you asked, so it is about a third longer. I did not measure the game's crowbar myself, so that figure is from the guide.
+- The build's pictures show the bar in each file. I could not run the game here, so the side-by-side judgement is theirs.

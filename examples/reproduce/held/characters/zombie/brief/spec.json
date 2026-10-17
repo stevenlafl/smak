@@ -9,360 +9,111 @@
   "size": {
     "height": 68
   },
+  "budget": 720,
   "materials": {
-    "coat": {
-      "base": "cloth",
-      "tone": "dirty white"
-    },
-    "trousers": {
-      "base": "cloth",
-      "tone": "dark grey"
-    },
-    "skin": {
-      "base": "paint",
-      "tone": "grey green"
-    },
-    "blood": {
-      "base": "paint",
-      "tone": "dark red"
-    },
-    "parasite": {
-      "base": "paint",
-      "tone": "dull yellow brown"
+    "claw": {
+      "base": "bone",
+      "tone": "yellow grey"
     }
   },
+  "project": [
+    {
+      "picture": "work:gen/zombie_hunch_s3_cut.png",
+      "view": "front",
+      "palette": "own"
+    }
+  ],
   "pose": {
-    "from": "walk",
-    "aim": {
-      "L arm": {
-        "out": 12,
-        "forward": 40,
-        "bend": 25
-      },
-      "R arm": {
-        "out": 10,
-        "forward": 45,
-        "bend": 30
-      }
-    },
     "keys": {
       "Bip01 Spine": {
         "turn": {
-          "y": 18
+          "y": -10
         }
       },
       "Bip01 Spine1": {
         "turn": {
-          "y": 18
+          "y": -12
         }
       },
       "Bip01 Spine2": {
         "turn": {
-          "y": 12
+          "y": -12
+        }
+      },
+      "Bip01 Spine3": {
+        "turn": {
+          "y": -10
         }
       },
       "Bip01 Neck": {
         "turn": {
-          "y": 10
+          "y": -10
         }
       }
-    }
+    },
+    "aim": {
+      "L arm": {
+        "out": 38,
+        "forward": 0,
+        "bend": 5
+      },
+      "R arm": {
+        "out": 38,
+        "forward": 0,
+        "bend": 5
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
+    },
+    "bind": true
   },
   "parts": [
     {
-      "id": "torso",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 3,
-      "triangles": 110,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 Pelvis",
-            "Bip01 Spine"
-          ],
-          "radius": [
-            7.5,
-            8
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Spine",
-            "Bip01 Spine2"
-          ],
-          "radius": [
-            8,
-            8.5
-          ]
-        },
-        {
-          "span": [
-            "Bip01 Spine2",
-            "Bip01 Neck"
-          ],
-          "radius": [
-            8.5,
-            5.5
-          ]
-        },
-        {
-          "at": "Bip01 Spine3",
-          "radius": 8.5
-        }
-      ]
-    },
-    {
-      "id": "sleeves",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 2.5,
-      "symmetric": true,
-      "triangles": 80,
-      "pieces": [
-        {
-          "at": "Bip01 L Arm",
-          "radius": 4.5
-        },
-        {
-          "span": [
-            "Bip01 L Arm",
-            "Bip01 L Arm1"
-          ],
-          "radius": [
-            4.5,
-            4
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Arm1",
-            "Bip01 L Arm2"
-          ],
-          "radius": [
-            4,
-            3.2
-          ]
-        }
-      ]
-    },
-    {
-      "id": "coat_tails",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 2,
-      "symmetric": true,
-      "triangles": 50,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 Pelvis",
-            "Bip01 L Leg1"
-          ],
-          "radius": [
-            7.5,
-            6
-          ]
-        }
-      ]
-    },
-    {
-      "id": "legs",
-      "kind": "blob",
-      "material": "trousers",
-      "blend": 2,
-      "symmetric": true,
-      "triangles": 80,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 L Leg",
-            "Bip01 L Leg1"
-          ],
-          "radius": [
-            4.8,
-            4
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg1",
-            "Bip01 L Foot"
-          ],
-          "radius": [
-            4,
-            3
-          ]
-        },
-        {
-          "at": "Bip01 L Foot",
-          "radius": 3.2
-        }
-      ]
-    },
-    {
-      "id": "hands",
-      "kind": "blob",
-      "material": "skin",
-      "blend": 1.5,
-      "symmetric": true,
-      "triangles": 50,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 L Arm2",
-            "Bip01 L Hand"
-          ],
-          "radius": [
-            2.6,
-            2.2
-          ]
-        },
-        {
-          "at": "Bip01 L Hand",
-          "radius": 2.6
-        }
-      ]
-    },
-    {
-      "id": "head",
-      "kind": "sphere",
-      "radius": 6,
-      "sides": 8,
-      "material": "skin",
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "centre",
-        "offset": [
-          2,
-          0,
-          0
-        ]
-      }
-    },
-    {
-      "id": "parasite_body",
-      "kind": "superquadric",
+      "id": "body",
+      "kind": "mesh",
+      "file": "work:gen/zombie_hunch_s3.obj",
       "size": [
         13,
-        11,
-        9
+        45,
+        68
       ],
-      "round": [
-        1,
-        1
-      ],
-      "sides": 8,
-      "material": "parasite",
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "bottom",
-        "offset": [
-          0,
-          0,
-          2
-        ]
-      }
+      "triangles": 560
     },
     {
-      "id": "claws_L",
+      "id": "claw_l",
       "kind": "fingers",
       "hand": "Bip01 L Hand",
-      "count": 3,
-      "length": 9,
+      "count": 4,
+      "length": 7,
       "radius": [
-        1.1,
-        0.35
+        0.9,
+        0.3
       ],
       "spread": 40,
-      "curl": 40,
-      "palm": 1.5,
+      "curl": 45,
       "sides": 3,
-      "material": "skin"
+      "material": "claw"
     },
     {
-      "id": "claws_R",
+      "id": "claw_r",
       "kind": "fingers",
       "hand": "Bip01 R Hand",
-      "count": 3,
-      "length": 9,
+      "count": 4,
+      "length": 7,
       "radius": [
-        1.1,
-        0.35
+        0.9,
+        0.3
       ],
       "spread": 40,
-      "curl": 40,
-      "palm": 1.5,
+      "curl": 45,
       "sides": 3,
-      "material": "skin"
-    },
-    {
-      "id": "blood_chest",
-      "kind": "sphere",
-      "radius": 4.5,
-      "sides": 8,
-      "material": "blood",
-      "paint": true,
-      "attach": {
-        "bone": "Bip01 Spine2",
-        "at": "centre",
-        "offset": [
-          7,
-          0,
-          -2
-        ]
-      }
-    },
-    {
-      "id": "blood_chest_2",
-      "kind": "sphere",
-      "radius": 3,
-      "sides": 8,
-      "material": "blood",
-      "paint": true,
-      "attach": {
-        "bone": "Bip01 Spine1",
-        "at": "centre",
-        "offset": [
-          6,
-          -4,
-          1
-        ]
-      }
-    },
-    {
-      "id": "blood_hem",
-      "kind": "sphere",
-      "radius": 4,
-      "sides": 8,
-      "material": "blood",
-      "paint": true,
-      "attach": {
-        "bone": "Bip01 L Leg",
-        "at": "centre",
-        "offset": [
-          4,
-          2,
-          -3
-        ]
-      }
-    },
-    {
-      "id": "blood_sleeve",
-      "kind": "sphere",
-      "radius": 3,
-      "sides": 8,
-      "material": "blood",
-      "paint": true,
-      "attach": {
-        "bone": "Bip01 R Arm1",
-        "at": "centre",
-        "offset": [
-          3,
-          0,
-          0
-        ]
-      }
+      "material": "claw"
     }
   ]
 }

@@ -1,0 +1,168 @@
+{
+  "spec": "smak.model/1",
+  "name": "shotgun.mdl",
+  "kind": "held",
+  "size": {
+    "length": 30
+  },
+  "weapon": {
+    "like": "shotgun",
+    "size": "own"
+  },
+  "materials": {
+    "black": {
+      "base": "iron",
+      "tone": [
+        0.1,
+        0.1,
+        0.11
+      ]
+    },
+    "wood": {
+      "base": "wood",
+      "tone": [
+        0.3,
+        0.16,
+        0.08
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "stock",
+      "kind": "box",
+      "material": "wood",
+      "size": [
+        9,
+        2.2,
+        4
+      ],
+      "at": [
+        4.5,
+        0,
+        2.2
+      ]
+    },
+    {
+      "id": "butt",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        0.8,
+        2.3,
+        4.2
+      ],
+      "at": [
+        0.4,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "receiver",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        9,
+        2.6,
+        4.6
+      ],
+      "at": [
+        13.5,
+        0,
+        1.8
+      ]
+    },
+    {
+      "id": "grip",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        2.6,
+        2,
+        4
+      ],
+      "attach": {
+        "to": "receiver",
+        "toAt": "bottom",
+        "at": "top",
+        "offset": [
+          -2,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "barrel",
+      "kind": "cylinder",
+      "material": "black",
+      "radius": 0.9,
+      "height": 12,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        18,
+        0,
+        5
+      ]
+    },
+    {
+      "id": "tube",
+      "kind": "cylinder",
+      "material": "black",
+      "radius": 0.6,
+      "height": 10.5,
+      "sides": 8,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        17.5,
+        0,
+        3.3
+      ]
+    },
+    {
+      "id": "pump",
+      "kind": "superquadric",
+      "material": "wood",
+      "bone": "Bone01",
+      "size": [
+        7,
+        2.5,
+        2.4
+      ],
+      "round": [
+        0.3,
+        0.3
+      ],
+      "at": [
+        23.5,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "sight",
+      "kind": "box",
+      "material": "black",
+      "size": [
+        0.8,
+        0.4,
+        0.9
+      ],
+      "at": [
+        29,
+        0,
+        5.8
+      ]
+    }
+  ]
+}

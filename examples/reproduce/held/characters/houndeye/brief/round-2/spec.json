@@ -1,0 +1,155 @@
+{
+  "spec": "smak.model/1",
+  "name": "houndeye.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 45,
+    "length": 49
+  },
+  "materials": {
+    "hide": {
+      "base": "leather",
+      "tone": "dull yellow"
+    },
+    "eye": {
+      "base": "paint",
+      "tone": "dark red"
+    }
+  },
+  "parts": [
+    {
+      "id": "body",
+      "kind": "blob",
+      "material": "hide",
+      "symmetric": true,
+      "blend": 4,
+      "triangles": 420,
+      "pieces": [
+        {
+          "from": [
+            -14,
+            0,
+            34
+          ],
+          "to": [
+            7,
+            0,
+            34
+          ],
+          "radius": [
+            8.5,
+            9
+          ]
+        },
+        {
+          "at": [
+            -16,
+            0,
+            33
+          ],
+          "radius": 7
+        },
+        {
+          "from": [
+            7,
+            0,
+            35
+          ],
+          "to": [
+            17,
+            0,
+            35
+          ],
+          "radius": [
+            7.5,
+            6.5
+          ]
+        },
+        {
+          "from": [
+            1,
+            6,
+            36
+          ],
+          "to": [
+            4,
+            6,
+            20
+          ],
+          "radius": 3
+        },
+        {
+          "from": [
+            4,
+            6,
+            20
+          ],
+          "to": [
+            4,
+            6,
+            4
+          ],
+          "radius": 2
+        },
+        {
+          "at": [
+            4,
+            6,
+            2
+          ],
+          "radius": 2.2
+        },
+        {
+          "from": [
+            -16,
+            0,
+            34
+          ],
+          "to": [
+            -19,
+            0,
+            20
+          ],
+          "radius": 3
+        },
+        {
+          "from": [
+            -19,
+            0,
+            20
+          ],
+          "to": [
+            -20,
+            0,
+            3
+          ],
+          "radius": 2
+        },
+        {
+          "at": [
+            -20,
+            0,
+            2
+          ],
+          "radius": 2.2
+        }
+      ]
+    },
+    {
+      "id": "eye",
+      "kind": "sphere",
+      "radius": 5,
+      "material": "eye",
+      "at": [
+        21.5,
+        0,
+        36
+      ],
+      "texels": 2
+    }
+  ]
+}

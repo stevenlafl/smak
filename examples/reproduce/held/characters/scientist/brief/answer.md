@@ -1,29 +1,38 @@
-The model is built and the build says **OK**: every check passed, and the GoldSrc check says "fit for goldsrc".
+The model is built and the build says **OK**, but I don't think it is yet at least as good as the game's own scientist. The spec is `work:scientist.json` and the model is `work:scientist.mdl` (947 KB, one texture built in).
 
-**Files (in the work folder)**
-- `scientist.mdl`: the model, 950 KB. Its texture is embedded, so no separate texture file is needed.
-- `scientist.spec.json`: the spec it was built from. Rebuilding from it reproduces the model.
-- `scientist-sheet.png` and `scientist-quarter.png`: pictures of it.
+**What it is**
 
-**How it was made**
-- It is a character on the skeleton of `player/gordon/gordon.mdl`, with `floor: 0` so the feet stand at the origin. All 77 of Gordon's animations are kept, including walk, run, crouch, jump and death, so it walks, runs and follows the way Gordon's body does.
-- The arms are set to hang at the sides; Gordon's own first frame holds a gun forward.
-- The body is 708 triangles. Half-Life's scientist is about 750 by the kit's count, so the polygon budget is similar.
-- It is 69.7 units tall against the 68 asked for (about 2.5% over), because Gordon's head sits that high on his skeleton.
+| Item | Result |
+| --- | --- |
+| Skeleton | Gordon's (`player/gordon/gordon.mdl`), 42 bones, all 77 of its animations kept |
+| Floor | `"floor": 0`, so the feet stand at the origin |
+| Height | 68.5 units against the 68 asked for |
+| Triangles | 706, against 362 for Gordon's body and about 740 for Half-Life's people of this size |
+| Stance | Arms hanging, 8 out, 8 forward, elbows bent 12 |
 
 **What it looks like**
-- Older man with a white lab coat over a blue shirt and a red tie, painted on the coat's front, plus a pocket with a blue pen.
-- Light tan trousers and dark brown leather shoes.
-- Glasses: two lenses, a bridge and two temple arms.
-- Grey hair round the back and sides, with the crown bald.
 
-**Where it may fall short of Half-Life's own**
-- The face is plain pale skin. It has no painted eyes, nose or mouth, where Half-Life's has a textured face.
-- The coat is a single white shape with no lapels or open front, so it reads more like a white jacket than a lab coat.
-- The shape and proportions read as an older man at the distance a player sees him. I can't render the game here, so whether it is at least as good is your call in the game beside the original.
+- Older man, grey hair at the sides, bald on top (grey patches on the head sides).
+- White lab coat, open at the front, down to the knee.
+- Blue shirt and red tie painted on the coat front.
+- Light khaki trousers and dark brown shoes.
+- Glasses painted on the face.
 
-**Things to check in the game**
-- The model carries Gordon's animation list. If the mod's scientist code asks for an activity Gordon's list lacks, that animation won't play.
-- It has one head variant. If the code picks a head by body number, it gets this one.
+**How I built it**
 
-To try it, back up the mod's `models/scientist.mdl`, then copy the new file over it.
+- The head, hands, coat, sleeves and trousers are soft blob shapes hung on the skeleton's bones, so they bend with the animations.
+- Shirt, tie, glasses and hair are painted onto the surfaces they sit on, not built, because they barely change the outline.
+- Each shoe is its own part on its own foot. A mirrored copy of a left-foot part hung on the left foot, which left the right shoe floating.
+- Materials: plaster skin, cloth for coat, shirt, tie, trousers and hair, metal frames, leather shoes.
+- I made no picture of the scientist and used no generator, so nothing came from a generator's licence.
+
+**Where it falls short of the game's model**
+
+I rendered both side by side (`work:game-scientist-sheet.png` for the game's, `work:scientist-final-sheet.png` for ours). The game's has a clearly drawn face with eyes, a narrower coat that tapers at the waist, lapels, a darker tie, and more presence. Ours reads as a scientist from a distance but the coat is still a bit bulky, the face is plain and the head is small.
+
+**Things to check in the mod**
+
+- The animations are Gordon's, so the mod's code plays them by activity number. Walking moves at about 64 units a second and running at about 345, so the speeds the monster code sets must match or its feet will slide.
+- Nothing has been put in the game folder. To test, copy `work:scientist.mdl` over `models/scientist.mdl` and compare it in the game.
+
+If you want it closer to the game's, the next steps are a face with eyes and a mouth, lapels on the coat, and a narrower coat. I'd need a reference picture of the scientist for the face to match the game's.

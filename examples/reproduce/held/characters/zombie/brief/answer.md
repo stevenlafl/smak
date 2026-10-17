@@ -1,28 +1,38 @@
-The model is built and the build says OK: `zombie.mdl` in the work folder, with its spec beside it as `zombie.spec.json` and a six-view contact sheet as `zombie-sheet.png`.
+The model is built and the build says OK, but I don't think it is yet as good as Half-Life's own zombie. Here is what I made and where it falls short.
 
-**What it is**
+**What I made**
 
-- **Skeleton:** Gordon's (`player/gordon/gordon.mdl`), kept whole: all 42 bones and 77 animations, with the same numbers. Floor is 0, so it stands with its feet at its origin.
-- **Size:** 68.2 units tall, against the 68 asked.
-- **Body:** a torn-looking white lab coat over the torso and arms, with a tail down to the thigh; dark grey trousers; grey-green skin on the bare hands and the head.
-- **Parasite:** a dull yellow-brown dome over the head, sitting on the skull.
-- **Hands:** three curved claws, nine units long, on each hand.
-- **Pose:** the spine and neck lean forward, and the arms hang forward with the elbows bent, so it reads as hunched. The first animation is a stride from Gordon's walk, so the model stands mid-shamble.
-- **Blood:** dark red paint on the chest, the side, the skirt and one sleeve.
-- **Budget:** 574 triangles, against 362 for Gordon's own body (the check's ceiling is twice that).
+- `work:zombie.mdl`: the model, 1.15 MB, 704 triangles, 68 units tall, feet at the origin (`floor: 0`).
+- `work:zombie_hunch.json`: the model spec that built it. It is the only spec that produced the current `zombie.mdl`.
+- `work:zombie-sheet.png`: six views from the build.
+- The build is "OK, and every check passed." It has warnings but no faults:
+  - the outline is 0.78 against the picture (under 0.8 is flagged);
+  - 32 triangles where the arms meet the trunk will tear in motion;
+  - the coat tears a little in running frames.
 
-**How it was made**
+**How I made it**
 
-I wrote a character spec (kind `character`, base Gordon) with a `floor` of 0. It has the coat, trousers and skin as soft blobs built along Gordon's bones, the parasite as a squashed sphere hung on the head bone, the claws as finger parts on each hand, and the blood as paint on the coat. The pose is set by `pose.from: "walk"`, a spine lean, and arm angles. The first two builds failed or misled:
+1. The body came from the local shape generator (hunyuan3d-mini, non-commercial licence, which you accepted). I generated four takes from the prompt, and took seed 3: a long white coat, a green parasite-like head, and clawed hands. The generator would not follow "hunched", so the posture is from the skeleton.
+2. Skeleton: `player/gordon/gordon.mdl`, with its animations kept. I used the Gordon skeleton because the scientist skeleton was refused (see below).
+3. The body is a 560-triangle reduction of the mesh, sized 13 × 45 × 68, with the front picture projected onto it in its own colours.
+4. Arms are aimed out at 38 degrees with the elbows bent 5, legs out 6 degrees, then bound to the skeleton.
+5. The spine and neck are turned forward, which gives the hunched walk.
+6. Four claw fingers on each hand, 7 units long, curled 45 degrees.
 
-- The first build had 1400 triangles, over the ceiling, and a buried tendril. I cut the blob budgets and dropped the tendrils.
-- The first lean was backwards: the spine turns were negative, and in this kit a positive turn about the y axis leans the top forward. I flipped them.
+**How it compares with Half-Life's zombie (rendered strips in `work:game_zombie_walk.png` and `work:zombie_final_walk.png`)**
 
-**What I did not check**
+- The walk is hunched with the head down, which is closer to the game's. The game's zombie is more bent and has long, thin, tentacle-like arms.
+- The left hand's claws float about 30 units off the mesh hand. The right hand's claws sit correctly. The build did not flag it.
+- Blood is not painted. The coat only has the colour from the picture.
+- Gordon's skeleton has no melee attack animation. The zombie's code asks for one by activity number, and the game's zombie has two slash animations for it. So in the game this model probably will not swing. This is my reading of the contract, not something I could run in the game.
+- I could not test anything in the game. I only have the renders and the build report.
 
-- **Against the game's own zombie:** I could not compare it. The server does not expose the game's `zombie.mdl`, so `contract` was refused for it. The animation numbers match Gordon's, not the zombie's, so the game's code may play a different animation under some numbers. Please check that before you rely on it.
-- **Animation 0 changed:** the first animation (Gordon's idle) is now the shamble stride. Anything that plays it as idle will shamble.
-- **Hitboxes:** Gordon's 20 hitboxes come with the skeleton, but I did not check them against the zombie's hull or its attack range.
-- **Looks:** I have only the contact sheet and the walk strip, not the game. Beside Half-Life's zombie is the real test, and I can't judge that from here.
+**What blocks the better base**
 
-**Left out, and why:** the coat is not literally torn, since a tear would need a carved or painted rip. The parasite is a dome, not a body with legs, because the legs were buried and over budget. Both are easy to add if they want them.
+The scientist skeleton has walk, run, death and a melee-type activity (its "give shot" animation), so it would suit a monster better than Gordon. The kit refused it for the arm aim with "walk: needs a wider scale, and lying_on_back is kept in another file". I could not get round that, so I used Gordon.
+
+**Suggested next steps**
+
+- Fix the left claws, probably by regenerating the body with its arms apart.
+- Find a base with a melee animation, or make the scientist base work with the kit.
+- Paint blood on the coat with `finish` or a stained picture.
