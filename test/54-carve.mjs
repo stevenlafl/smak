@@ -121,6 +121,22 @@ test("reduce: an open sheet keeps its border; a corner that stays keeps what it 
   }
 });
 
+test("reduce: where two charts of the picture meet, every triangle keeps corners of its own chart", () => {
+  // a sheet bent along x = 5: its flat half on the left of the picture (u under 0.5), its upright half on the right
+  const tris = [];
+  const P = (i, j) => (i <= 5 ? { p: [i, j, 0], uv: [i / 20, j / 10] } : { p: [5, j, i - 5], uv: [0.5 + (i - 5) / 20, j / 10] });
+  const Q = (i, j, side) => (i === 5 ? (side ? { p: [5, j, 0], uv: [0.5, j / 10] } : P(i, j)) : P(i, j));
+  for (let i = 0; i < 10; i++)
+    for (let j = 0; j < 10; j++) {
+      const side = i >= 5;
+      tris.push([Q(i, j, side), Q(i + 1, j, side), Q(i + 1, j + 1, side)], [Q(i, j, side), Q(i + 1, j + 1, side), Q(i, j + 1, side)]);
+    }
+  const { tris: out } = reduce(tris, { target: 40 });
+  sure(out.length < tris.length, `reduced: ${out.length}`);
+  const stretched = out.filter((t) => t.some((c) => c.uv[0] < 0.5) && t.some((c) => c.uv[0] > 0.5));
+  sure(!stretched.length, `${stretched.length} triangles reach across both charts: ${JSON.stringify(stretched[0]?.map((c) => c.uv))}`);
+});
+
 /** A drawn mask: `fill(x, y)` for each dot of a width x height picture, the thing's box at rect. */
 const drawnMask = (width, height, fill) => {
   const data = new Uint8Array(width * height);

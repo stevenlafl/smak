@@ -9,7 +9,8 @@
 // `tris`: [[corner, corner, corner], ...], each corner { p: [x, y, z] } with anything else it carries (uv, bone,
 // a part's name). Corners at the same point are one vertex. A vertex that survives keeps, in every triangle,
 // the corner that triangle had; a triangle whose corner was joined into another vertex takes that vertex's
-// first corner. A normal carried along is the old one: work it out again after.
+// corner from a face between the two whose corner there had the same place in the picture (`uv`), so that a
+// triangle stays on its own chart. A normal carried along is the old one: work it out again after.
 //
 // Options:
 //   target        the triangles wanted (at most); the reducer stops sooner when no join is safe
@@ -20,8 +21,9 @@
 //
 // A join is refused when it would change what the shape is: two ends that share more neighbours than the
 // faces between them (the link condition: it would pinch the surface into a non-manifold edge), a face that
-// would turn over, a closed piece that would fall flat (a tetrahedron is the least), and an edge across an open
-// border whose two ends are both on it.
+// would turn over, a closed piece that would fall flat (a tetrahedron is the least), an edge across an open
+// border whose two ends are both on it, and a join that would leave a triangle with no corner of its own chart
+// (`seam`: where two charts of a picture meet at one point).
 
 /** How much more a border's or a crease's plane weighs than a face's, area for area. */
 const HOLD = 1000;
@@ -151,13 +153,10 @@ export function reduce(tris, { target, keepBoundary = true, creaseAngle, stages 
   const { pos, faces, corners } = weld(tris);
   const from = faces.length;
   const goal = Math.max(1, Math.floor(target ?? from / 2));
-  const refused = { link: 0, flat: 0, turned: 0, border: 0 };
+  const refused = { link: 0, flat: 0, turned: 0, border: 0, seam: 0 };
   const creaseCos = creaseAngle === undefined ? null : Math.cos((creaseAngle * Math.PI) / 180);
   const alive = faces.map(() => true);
   const dead = pos.map(() => false);
-  // each vertex's first corner: the one a triangle takes when its own corner is joined into this vertex
-  const first = [];
-  faces.forEach((f, i) => f.forEach((v, k) => (first[v] ??= corners[i][k])));
   // each vertex's faces
   const around = pos.map(() => []);
   faces.forEach((f, i) => f.forEach((v) => around[v].push(i)));
@@ -300,6 +299,27 @@ export function reduce(tris, { target, keepBoundary = true, creaseAngle, stages 
         refused.turned++;
         continue;
       }
+      // each face of v takes u's corner from a face between the two that wore v's place in the picture the same:
+      // where two charts of a picture meet (a gun's side and its rim) a vertex has a corner in each, and a face
+      // given the other chart's stretches across the picture (the held shotgun's streaked rim, 2026-10-17). A
+      // face with no such partner would be so: the join is refused
+      const uvOf = (c) => (c?.uv ? `${c.uv[0]},${c.uv[1]}` : "");
+      const takes = new Map();
+      let seam = false;
+      for (const i of around[v]) {
+        if (!alive[i] || shared.includes(i)) continue;
+        const at = uvOf(corners[i][faces[i].indexOf(v)]);
+        const partner = shared.find((j) => uvOf(corners[j][faces[j].indexOf(v)]) === at);
+        if (partner === undefined) {
+          seam = true;
+          break;
+        }
+        takes.set(i, corners[partner][faces[partner].indexOf(u)]);
+      }
+      if (seam) {
+        refused.seam++;
+        continue;
+      }
       // join v into u
       for (const i of shared) {
         alive[i] = false;
@@ -311,7 +331,7 @@ export function reduce(tris, { target, keepBoundary = true, creaseAngle, stages 
         const f = faces[i];
         const k = f.indexOf(v);
         f[k] = u;
-        corners[i] = corners[i].map((c, j) => (j === k ? first[u] : c));
+        corners[i] = corners[i].map((c, j) => (j === k ? takes.get(i) : c));
         around[u].push(i);
       }
       around[u] = around[u].filter((i) => alive[i]);
