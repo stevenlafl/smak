@@ -75,6 +75,9 @@ guard brief all four takes faced the viewer with the vest's lettering, helmet, h
 were washed grey and one in four from behind; at a control scale of 1.0 (`CONTROL_SCALE`) two in four stood in
 the base's stance and two strode, as a brief that says the character "runs" pulls them. Its root is the 3D folder;
 `HF_HUB_OFFLINE` and `PYTORCH_HIP_ALLOC_CONF=expandable_segments:True` in its `env` (generators.example.json).
+With `turnaround: true` it draws a character's front and back side by side in one 2048 x 1024 picture, held to the
+base's skeleton drawn from the front and from behind (no nose or eyes on the back, its right shoulder to the
+picture's right), and cuts it in two; the worker takes a `width` and a `height` for it.
 
 ## A library of materials
 

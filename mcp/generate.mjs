@@ -36,6 +36,13 @@ const KINDS = ["sound", "music", "shape", "picture"];
  * its limbs clear of its body and its hands empty (a hand fused to a thigh tears in every motion), on white.
  */
 const PICTURE_STYLE = ", full body, front view, facing the viewer, standing, arms held out from the body, empty hands, plain white background, even studio lighting, 3d render, video game character";
+/**
+ * A turnaround's words: the character's front and back side by side in one picture, each over its own skeleton
+ * of the base (front on the left, back on the right), so the two agree on colours, proportions, where a vest ends,
+ * the belt line and the helmet. Drawn apart, a guard's back came out a related but other guard (Steven, 2026-10-17:
+ * "not quite right from the back but very close").
+ */
+const TURNAROUND_STYLE = ", character turnaround sheet, the same character twice side by side, front view on the left facing the viewer, back view on the right seen from behind, full body, standing, arms held out from the body, empty hands, plain white background, even studio lighting, 3d render, video game character";
 /** How long a model may take to load (XL: about 3 minutes here), and a take to be made. */
 const LOAD_MS = 15 * 60 * 1000;
 const TAKE_MS = 10 * 60 * 1000;
@@ -253,7 +260,8 @@ function seedsOf(args, unless = 4) {
  * the picture it was made from and a sidecar. Drawn from the three-quarter side, each beside its picture.
  */
 async function generateShapes(folders, generators, model, args) {
-  const { prompt, picture, base, only } = args;
+  const { prompt, picture, base, only, turnaround } = args;
+  if (turnaround !== undefined && (turnaround !== true || !base || picture)) throw new Error("turnaround: true draws a character's front and back together in one picture, held to its base's skeleton from both sides: with a prompt and a base, not a picture");
   if (!(typeof prompt === "string" && prompt.trim()) && typeof picture !== "string") throw new Error("prompt: the thing in words (\"a wooden kitchen chair\"), or picture: a picture of it in the folders");
   if (base !== undefined && typeof base !== "string") throw new Error("base: a character's base model (player/gordon/gordon.mdl), whose stance the picture is drawn in from the prompt (or was, a picture drawn by only: \"picture\")");
   // the pictures alone: drawn, looked at against the brief, drawn again, before any shape is made of one (the
@@ -270,16 +278,40 @@ async function generateShapes(folders, generators, model, args) {
   // on a base that is not a biped, the shape model's own SD-Turbo draws over the base's grey figure. A picture
   // given (a photograph, or renders of a model) goes to the shape model as it is: each input keeps its own route
   const painter = !given && base ? generators.models.find((m) => m.kind === "picture") : null;
-  const posed = painter ? poseOf(folders, base, pathOf(folders, `${stem}_pose.png`, { write: true })) : null;
+  const posed = painter ? poseOf(folders, base, pathOf(folders, `${stem}_pose.png`, { write: true }), { turnaround: Boolean(turnaround) }) : null;
   const drawn = new Map();
+  // a turnaround's back half, by seed: the picture its back is painted from
+  const backs = new Map();
   let drawLoad = null;
   if (posed) {
     const { worker: drawer, load: drawerLoad } = await workerFor(generators, painter);
     drawLoad = drawer.told ? null : drawerLoad;
     drawer.told = true;
     for (const seed of seeds) {
-      const said = await ask(drawer, { prompt: `${prompt}${PICTURE_STYLE}`, control: posed, seed, out: pathOf(folders, `${stem}_s${seed}.png`, { write: true }) });
-      drawn.set(seed, said.ok ? said.picture : { error: said.error });
+      const out = pathOf(folders, `${stem}_s${seed}.png`, { write: true });
+      const said = await ask(drawer, { prompt: `${prompt}${turnaround ? TURNAROUND_STYLE : PICTURE_STYLE}`, control: posed, seed, out, ...(turnaround ? { width: 2 * TURN_SIDE, height: TURN_SIDE } : {}) });
+      if (!said.ok) {
+        drawn.set(seed, { error: said.error });
+        continue;
+      }
+      if (!turnaround) {
+        drawn.set(seed, said.picture);
+        continue;
+      }
+      // the sheet cut in two: its left half the front (the picture the shape is made from), its right the back
+      const sheet = unpicture(readFileSync(said.picture));
+      const half = Math.floor(sheet.width / 2);
+      const cut = (x0) => {
+        const rgba = Buffer.alloc(half * sheet.height * 4);
+        for (let y = 0; y < sheet.height; y++) rgba.set(sheet.rgba.subarray((y * sheet.width + x0) * 4, (y * sheet.width + x0 + half) * 4), y * half * 4);
+        return png(half, sheet.height, rgba);
+      };
+      const back = pathOf(folders, `${stem}_s${seed}_back.png`, { write: true });
+      writeFileSync(pathOf(folders, `${stem}_s${seed}_sheet.png`, { write: true }), readFileSync(said.picture));
+      writeFileSync(back, cut(half));
+      writeFileSync(out, cut(0));
+      drawn.set(seed, out);
+      backs.set(seed, back);
     }
     idleLater(drawer);
   }
@@ -287,7 +319,7 @@ async function generateShapes(folders, generators, model, args) {
   if (only && posed)
     for (const seed of seeds) {
       const said = drawn.get(seed);
-      takes.push(typeof said === "string" ? { seed, picture: relative(folders.work, said) } : { seed, error: said.error });
+      takes.push(typeof said === "string" ? { seed, picture: relative(folders.work, said), ...(backs.has(seed) ? { back: relative(folders.work, backs.get(seed)) } : {}) } : { seed, error: said.error });
     }
   const { worker, load } = only && posed ? { worker: null, load: drawLoad } : await workerFor(generators, model);
   const loaded = worker === null ? load : worker.told ? null : load;
@@ -311,7 +343,7 @@ async function generateShapes(folders, generators, model, args) {
       continue;
     }
     const from = given ? relative(folders.work, given) : fromDrawn ? relative(folders.work, fromDrawn) : said.picture ? relative(folders.work, said.picture) : null;
-    writeFileSync(out.replace(/\.obj$/, ".json"), `${JSON.stringify({ model: model.name, kind: "shape", prompt, picture: from, ...(posed ? { drawnBy: painter.name, pose: relative(folders.work, posed) } : {}), ...(base ? { base, stance: GENERATED_STANCE } : {}), seed, faces: said.faces, licence: model.licence ?? "not given", took: said.took, made: new Date().toISOString() }, null, 1)}\n`);
+    writeFileSync(out.replace(/\.obj$/, ".json"), `${JSON.stringify({ model: model.name, kind: "shape", prompt, picture: from, ...(backs.has(seed) ? { back: relative(folders.work, backs.get(seed)) } : {}), ...(posed ? { drawnBy: painter.name, pose: relative(folders.work, posed) } : {}), ...(base ? { base, stance: GENERATED_STANCE } : {}), seed, faces: said.faces, licence: model.licence ?? "not given", took: said.took, made: new Date().toISOString() }, null, 1)}\n`);
     // drawn as it would stand: Y up, at a player's scale for the picture only
     const { mdl } = objModel(readObj(readFileSync(out, "utf8")), { up: "y", ground: true, centre: true, scale: 24, quiet: true });
     const view = render(mdl, { yaw: 30, pitch: 15, width: 320, height: 320 });
@@ -323,11 +355,12 @@ async function generateShapes(folders, generators, model, args) {
     const drawn = takes.filter((t) => t.picture);
     const said = [
       `${drawn.length} of ${seeds.length} pictures of "${prompt}" by ${posed ? `${painter.name}, held to ${base}'s pose (work:${relative(folders.work, posed)})` : model.name}${loaded !== null ? `; the model loaded in ${loaded} s` : ""}; ${round((Date.now() - started) / 1000, 10)} s in all`,
-      ...takes.map((t) => (t.error ? `seed ${t.seed}: failed: ${t.error}` : `work:${t.picture}`)),
-      `Look at each against what was asked, part by part (a vest's lettering, a belt, boots, the face): what a picture lacks the model lacks, for the picture is its paint. Draw again with other words or seeds until one has it all, then make its shape: generate { kind: "shape", picture: "work:<it>"${base ? `, base: "${base}"` : ""} }.`,
+      ...takes.map((t) => (t.error ? `seed ${t.seed}: failed: ${t.error}` : `work:${t.picture}${t.back ? ` (front), work:${t.back} (its back, drawn with it)` : ""}`)),
+      `Look at each against what was asked, part by part (a vest's lettering, a belt, boots, the face): what a picture lacks the model lacks, for the picture is its paint. Draw again with other words or seeds until one has it all, then make its shape: generate { kind: "shape", picture: "work:<it>"${base ? `, base: "${base}"` : ""} }${turnaround ? `, from the front, and project its back as the view back` : ""}.`,
     ];
-    const shown = drawn.map((t) => fitted(unpicture(readFileSync(join(folders.work, t.picture))), 320));
-    return [text(said.join("\n")), ...(shown.length ? [(({ width, height, rgba }) => image(png(width, height, rgba)))(tile(shown, Math.min(4, shown.length), drawn.map((t) => `seed ${t.seed}`)))] : [])];
+    const shown = drawn.flatMap((t) => [t.picture, t.back].filter(Boolean).map((p) => fitted(unpicture(readFileSync(join(folders.work, p))), 320)));
+    const names = drawn.flatMap((t) => (t.back ? [`seed ${t.seed}: front`, `seed ${t.seed}: back`] : [`seed ${t.seed}`]));
+    return [text(said.join("\n")), ...(shown.length ? [(({ width, height, rgba }) => image(png(width, height, rgba)))(tile(shown, Math.min(4, shown.length), names))] : [])];
   }
   const made = takes.filter((t) => t.view);
   const size = (b) => b[1].map((v, k) => round(v - b[0][k], 100));
@@ -340,6 +373,7 @@ async function generateShapes(folders, generators, model, args) {
     ),
     `Each .obj has a sidecar .json and the picture it was made from (its subject cut out beside it as _cut.png). Pick the one whose shape is right and put it in a model spec as a part { "kind": "mesh", "file": "work:<the .obj>", "size": [x, y, z], "triangles": n } (guide { doc: "spec" }), painted by its material, or by project from its cut-out ("picture": "work:<name>_s<seed>_cut.png", the side the picture shows as its view; the raw picture's background hides its outline). The shape is the generator's guess where the picture does not show it (the back, below): look at every side.`,
     ...(base ? [`Drawn in ${base}'s stance (work:${stem}_${posed ? "pose" : "guide"}.png${posed ? `, by ${painter.name}` : ""}): build it on that base in the same one, "base": { "file": "${base}" }, "pose": { "aim": ${JSON.stringify(GENERATED_STANCE)}, "bind": true }, so its limbs lie on its bones and it stands as the base stands. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`] : []),
+    ...(backs.size ? [`Its back was drawn with its front, in one picture (a turnaround): paint both, "project": [{ "picture": "work:<name>_s<seed>_cut.png", "view": "front" }, { "picture": "work:<name>_s<seed>_back.png", "view": "back" }]. ${[...backs].map(([seed, back]) => `seed ${seed}: work:${relative(folders.work, back)}`).join("; ")}.`] : []),
   ];
   const answer = [text(lines.join("\n"))];
   if (made.length) {
@@ -377,14 +411,29 @@ function guideOf(folders, base, file) {
  * draws a skeleton, at the picture model's size, written to `file`. Returns the file, or null for a base that is no
  * biped (its picture is then drawn over its grey figure instead).
  */
-function poseOf(folders, base, file) {
+function poseOf(folders, base, file, { turnaround = false } = {}) {
   const src = aimedBase(base, { folder: folders.work, games: folders.wads ?? [], refuse: [...(folders.refuse ?? []), ...(folders.hide ?? [])] });
-  const pose = openPosePicture(src, { seq: 0, frame: 0, view: "front", width: 1024, height: 1024 });
+  const side = turnaround ? TURN_SIDE : 1024;
+  const pose = openPosePicture(src, { seq: 0, frame: 0, view: "front", width: side, height: side });
   if (!pose) return null;
   mkdirSync(dirname(file), { recursive: true });
-  writeFileSync(file, png(pose.width, pose.height, pose.rgba));
+  if (!turnaround) {
+    writeFileSync(file, png(pose.width, pose.height, pose.rgba));
+    return file;
+  }
+  // a turnaround: the skeleton from the front on the left, from behind on the right, at one scale
+  const back = openPosePicture(src, { seq: 0, frame: 0, view: "front", back: true, width: side, height: side });
+  const rgba = Buffer.alloc(2 * side * side * 4);
+  for (let y = 0; y < side; y++) {
+    rgba.set(pose.rgba.subarray(y * side * 4, (y + 1) * side * 4), y * 2 * side * 4);
+    rgba.set(back.rgba.subarray(y * side * 4, (y + 1) * side * 4), (y * 2 * side + side) * 4);
+  }
+  writeFileSync(file, png(2 * side, side, rgba));
   return file;
 }
+
+/** A turnaround's each side, in pixels: the sheet is twice as wide. */
+const TURN_SIDE = 1024;
 
 /** A picture brought to `side` x `side`, whole, on grey: for a sheet of equal cells. */
 function fitted(picture, side) {

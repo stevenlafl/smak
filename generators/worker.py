@@ -308,13 +308,15 @@ def load_zimage(root, model):
                 embedded[prompt] = pipe.encode_prompt(prompt, device="cuda", do_classifier_free_guidance=False)[0]
         hold("draw")
         size = r.get("size") or PICTURE_SIZE
-        options = {"prompt_embeds": embedded[prompt], "height": size, "width": size, "num_inference_steps": r.get("steps") or PICTURE_STEPS,
+        # a turnaround (a character's front and back side by side in one picture) is twice as wide as it is high
+        width, height = r.get("width") or size, r.get("height") or size
+        options = {"prompt_embeds": embedded[prompt], "height": height, "width": width, "num_inference_steps": r.get("steps") or PICTURE_STEPS,
                    "guidance_scale": 0.0, "generator": torch.Generator("cuda").manual_seed(r["seed"])}
         if r.get("control"):
-            options.update(control_image=Image.open(r["control"]).convert("RGB").resize((size, size)), controlnet_conditioning_scale=r.get("scale") or CONTROL_SCALE)
+            options.update(control_image=Image.open(r["control"]).convert("RGB").resize((width, height)), controlnet_conditioning_scale=r.get("scale") or CONTROL_SCALE)
         else:
             # no control: the ControlNet adds nothing at a scale of 0, on a black picture
-            options.update(control_image=Image.new("RGB", (size, size)), controlnet_conditioning_scale=0.0)
+            options.update(control_image=Image.new("RGB", (width, height)), controlnet_conditioning_scale=0.0)
         pipe(**options).images[0].save(out)
         return {"picture": str(out)}
     return gen

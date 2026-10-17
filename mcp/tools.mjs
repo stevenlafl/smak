@@ -1223,6 +1223,7 @@ export function toolsFor(folders, { allowRun = true } = {}) {
           picture: { type: "string", description: "a shape: a picture of the thing in the folders (one object, whole, plain background), in place of one drawn from the prompt" },
           base: { type: "string", description: "a character: its base model, whose stance it is drawn in" },
           only: { type: "string", enum: ["picture"], description: "a shape's pictures alone, to check first" },
+          turnaround: { type: "boolean", description: "a character: front and back drawn as one" },
           model: { description: "a model by name, or a list of names, in place of the kind's defaults (when several are marked default, a call draws its seeds from each, its files named after the model)" },
           seeds: { description: "how many takes (4), or a list of seeds: other seeds of a prompt are other takes" },
           from: { type: "number", description: "with seeds as a count: the first seed (0); a second call with from 4 gives four more" },
