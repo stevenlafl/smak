@@ -56,6 +56,8 @@ process.stdin.on("data", (chunk) => {
     }
     if (r.out.endsWith(".obj")) {
       if (r.guide) fs.appendFileSync(${JSON.stringify(join(folder, "guides.txt"))}, r.guide + "\\n");
+      // more pictures to cut out beside it (a turnaround's back)
+      for (const more of r.cuts ?? []) fs.copyFileSync(more, more.replace(/\\.png$/, "_cut.png"));
       // a shape: a box twice as tall as it is wide, Y up, and the picture it was "made from"
       const v = [[-1,0,-1],[1,0,-1],[1,0,1],[-1,0,1],[-1,4,-1],[1,4,-1],[1,4,1],[-1,4,1]];
       const f = [[1,3,2],[1,4,3],[5,6,7],[5,7,8],[1,2,6],[1,6,5],[2,3,7],[2,7,6],[3,4,8],[3,8,7],[4,1,5],[4,5,8]];
@@ -220,8 +222,12 @@ await testAsync("generate: a character from words with a picture model is drawn 
     sure(sheetPose.width === 2048 && sheetPose.height === 1024, `the pose sheet ${sheetPose.width} x ${sheetPose.height}`);
     sure(existsSync(join(folders.work, "people", "turn_s0_back.png")) && existsSync(join(folders.work, "people", "turn_s0_sheet.png")), "the back cut from the sheet, and the sheet kept");
     const turnedShape = await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", turnaround: true, seeds: 1, name: "people/turnshape" });
-    sure(/Its back was drawn with its front, in one picture \(a turnaround\).*"view": "back".*seed 0: work:people\/turnshape_s0_back\.png/.test(turnedShape[0].text), turnedShape[0].text);
+    sure(/Its back was drawn with its front, in one picture \(a turnaround\).*"view": "back".*seed 0: work:people\/turnshape_s0_back_cut\.png/.test(turnedShape[0].text), turnedShape[0].text);
     sure(JSON.parse(readFileSync(join(folders.work, "people", "turnshape_s0.json"), "utf8")).back === "people/turnshape_s0_back.png", "its sidecar names its back");
+    sure(existsSync(join(folders.work, "people", "turnshape_s0_back_cut.png")), "its back cut out with its front");
+    // the front chosen from an earlier look: its back found beside it and cut out too
+    await generate.call({ kind: "shape", picture: "work:people/turn_s0.png", base: "man.mdl", seeds: 1, name: "people/chosen" });
+    sure(existsSync(join(folders.work, "people", "turn_s0_back_cut.png")), "the chosen front's back cut out");
     let refusedTurn = "";
     try {
       await generate.call({ kind: "shape", prompt: "a crate", turnaround: true });

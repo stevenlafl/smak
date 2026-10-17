@@ -77,7 +77,15 @@ the base's stance and two strode, as a brief that says the character "runs" pull
 `HF_HUB_OFFLINE` and `PYTORCH_HIP_ALLOC_CONF=expandable_segments:True` in its `env` (generators.example.json).
 With `turnaround: true` it draws a character's front and back side by side in one 2048 x 1024 picture, held to the
 base's skeleton drawn from the front and from behind (no nose or eyes on the back, its right shoulder to the
-picture's right), and cuts it in two; the worker takes a `width` and a `height` for it.
+picture's right), and cuts it in two; the worker takes a `width` and a `height` for it. The shape worker cuts the
+back out with BiRefNet beside the front (its request's `cuts`), so that both project with their outlines found.
+
+The sides neither picture sees can be painted by Hunyuan3D-Paint 2.0 turbo, from the 3D folder's Hunyuan3D-2
+snapshot and repo (`research/zimage/paint_views.py`, run in `venvs/torch-rocm`; not yet in `generate`). Its CUDA
+rasterizer is not needed: the normal and position maps it is given are drawn in numpy exactly as its MeshRender
+draws them, and SMAK's `project` bakes the views. On the guard: maps in 16 s, de-lighting in 32 s (4.3 GB peak on
+the card), six views at 512 in 63 s (8.1 GB peak), about 55 s of that loading. Its unet's weights are read from the
+snapshot's `.safetensors` (the repo asks for a `.bin`), its image-prompt adapter's keys left out.
 
 ## A library of materials
 

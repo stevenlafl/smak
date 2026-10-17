@@ -333,7 +333,10 @@ async function generateShapes(folders, generators, model, args) {
       takes.push({ seed, error: `its picture: ${fromDrawn.error}` });
       continue;
     }
-    const said = await ask(worker, { prompt: prompt ?? "", picture: fromDrawn ?? given, guide: given || fromDrawn ? null : guide, seed, out, steps: args.steps, ...(only ? { only } : {}) });
+    // a turnaround's back: drawn in this call, or beside the front given (<name>_s<seed>_back.png), cut out with it
+    const sibling = given && given.endsWith(".png") ? given.replace(/\.png$/, "_back.png") : null;
+    if (!only && !backs.has(seed) && sibling && existsSync(sibling)) backs.set(seed, sibling);
+    const said = await ask(worker, { prompt: prompt ?? "", picture: fromDrawn ?? given, guide: given || fromDrawn ? null : guide, seed, out, steps: args.steps, ...(only ? { only } : {}), ...(!only && backs.has(seed) ? { cuts: [backs.get(seed)] } : {}) });
     if (!said.ok) {
       takes.push({ seed, error: said.error });
       continue;
@@ -373,7 +376,7 @@ async function generateShapes(folders, generators, model, args) {
     ),
     `Each .obj has a sidecar .json and the picture it was made from (its subject cut out beside it as _cut.png). Pick the one whose shape is right and put it in a model spec as a part { "kind": "mesh", "file": "work:<the .obj>", "size": [x, y, z], "triangles": n } (guide { doc: "spec" }), painted by its material, or by project from its cut-out ("picture": "work:<name>_s<seed>_cut.png", the side the picture shows as its view; the raw picture's background hides its outline). The shape is the generator's guess where the picture does not show it (the back, below): look at every side.`,
     ...(base ? [`Drawn in ${base}'s stance (work:${stem}_${posed ? "pose" : "guide"}.png${posed ? `, by ${painter.name}` : ""}): build it on that base in the same one, "base": { "file": "${base}" }, "pose": { "aim": ${JSON.stringify(GENERATED_STANCE)}, "bind": true }, so its limbs lie on its bones and it stands as the base stands. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`] : []),
-    ...(backs.size ? [`Its back was drawn with its front, in one picture (a turnaround): paint both, "project": [{ "picture": "work:<name>_s<seed>_cut.png", "view": "front" }, { "picture": "work:<name>_s<seed>_back.png", "view": "back" }]. ${[...backs].map(([seed, back]) => `seed ${seed}: work:${relative(folders.work, back)}`).join("; ")}.`] : []),
+    ...(backs.size ? [`Its back was drawn with its front, in one picture (a turnaround): paint both from their cut-outs, "project": [{ "picture": "work:<name>_s<seed>_cut.png", "view": "front" }, { "picture": "work:<its back>_cut.png", "view": "back" }] (the back's white background paints white streaks). ${[...backs].map(([seed, back]) => `seed ${seed}: work:${relative(folders.work, back).replace(/\.png$/, "_cut.png")}`).join("; ")}.`] : []),
   ];
   const answer = [text(lines.join("\n"))];
   if (made.length) {

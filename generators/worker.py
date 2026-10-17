@@ -236,6 +236,10 @@ def load_hunyuan(root, model):
             return {"picture": str(out.with_suffix(".png"))}
         cut = remove(image, session=session, bgcolor=[255, 255, 255, 0])
         cut.save(out.with_name(out.stem + "_cut.png"))
+        # a turnaround's back, cut out beside it for project: its white background left in drew white streaks
+        for more in r.get("cuts") or []:
+            more = Path(more)
+            remove(Image.open(more).convert("RGB"), session=session, bgcolor=[255, 255, 255, 0]).save(more.with_name(more.stem + "_cut.png"))
         mesh = pipe(image=cut, num_inference_steps=r.get("steps") or 30, octree_resolution=256, num_chunks=20000,
                     generator=torch.manual_seed(r["seed"]), output_type="trimesh")[0]
         mesh = DegenerateFaceRemover()(FloaterRemover()(mesh))
