@@ -1242,6 +1242,25 @@ export function reachOf(map, options = {}) {
     );
   if (carried.dead.length)
     warnings.push(`${carried.dead.length} teleports a player walks into lead nowhere: ${some(carried.dead)}`);
+  // each lift's two ends: a player stands on it at both, or it rides into a ceiling or the rock. The original
+  // mod's maker built one level with a floor with a height of -200, which rides up into the ceiling and never
+  // down to the pit it was for, and read the walk test's "no opening" as the test's own gap (2026-10-17)
+  for (const lift of (space.ladders ?? []).filter((way) => way.lift)) {
+    const middle = [(lift.min[0] + lift.max[0]) / 2, (lift.min[1] + lift.max[1]) / 2];
+    const [built, other] = lift.ends.map(Math.round);
+    const thing = things.find((each) => each.number === lift.number);
+    const said = `${thing ? named(thing) : `lift ${lift.number}`} rides from z ${built}, where it is built, ${other < built ? "down" : "up"} to z ${other}`;
+    // an end is of use where floor lies within a step of it: beside the lift to step off onto, or under it (a
+    // lift that fills its pit rests on the pit's floor)
+    const out = BODIES.standing.half + 8;
+    const around = [middle, [lift.min[0] - out, middle[1]], [lift.max[0] + out, middle[1]], [middle[0], lift.min[1] - out], [middle[0], lift.max[1] + out]];
+    const floorNear = (z) => around.some(([x, y]) => space.blocked(x, y, BODIES.standing).some(([, top]) => Math.abs(top - z) <= step));
+    const stuck = lift.ends.filter((z) => !restOf(space, [...middle, z + 1], BODIES.standing).fits).map(Math.round);
+    const nowhere = lift.ends.filter((z) => !floorNear(z)).map(Math.round);
+    if (stuck.length || nowhere.length)
+      warnings.push(`${said}: ${[stuck.length ? `at z ${stuck.join(" and ")} a standing player does not fit on it (a ceiling, a wall or the rock is there)` : null, nowhere.length ? `at z ${nowhere.join(" and ")} no floor lies within a step of it, beside it or under it, to step off onto` : null].filter(Boolean).join("; ")}. A func_plat's height is how far it rides DOWN from where it is built; one under 0 rides up`);
+    else facts.push(said);
+  }
   // where a teleport puts a player is no place one goes to: it is not counted, unless a marker names it
   const landings = new Set(teleports.map((thing) => targetOf(thing)?.number));
 

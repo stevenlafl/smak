@@ -89,14 +89,15 @@ export function classUnder(list, classname) {
 /** Brush entities a body climbs or swims up through: a ladder, and water that is an entity. */
 const LADDERS = /^func_ladder$/;
 /**
- * A lift: a body rides it between its top and its bottom, so the walk takes it as a ladder in its shaft, its
- * brush not a wall (it moves). It travels `height`, or with none its own height less 8, down from where it is
- * built (the Half-Life SDK's dlls/plats.cpp, CFuncPlat::Setup).
+ * A lift: a body rides it between its two ends, so the walk takes it as a ladder in its shaft, its brush not a
+ * wall (it moves). Its other end is `height` under where it is built, or with none its own height less 8 (the
+ * Half-Life SDK's dlls/plats.cpp, CFuncPlat::Setup); a height under 0 is over it: a lift built at the bottom
+ * that rides up (the original mod's control room has one of -200).
  */
 const LIFTS = /^func_plat$/;
 const liftOf = (number, min, max, height) => {
-  const travel = Number(height) || max[2] - min[2] - 8;
-  return { number, min: [min[0], min[1], max[2] - travel - 1], max };
+  const other = max[2] - (Number(height) || max[2] - min[2] - 8);
+  return { number, lift: true, ends: [max[2], other], min: [min[0], min[1], Math.min(max[2], other) - 1], max: [max[0], max[1], Math.max(max[2], other)] };
 };
 const WATERS = /^func_water$/;
 /**

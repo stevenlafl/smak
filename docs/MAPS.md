@@ -414,7 +414,9 @@ places to start (`info_player_start`, `info_player_deathmatch`, Master Sword's `
 `ms_player_spawn`; or `from`) a flood spreads from place to place: up a step of 18 at the most, down any drop,
 down a slope too steep to stand on and never up one, with room for the whole body on the way. A ladder (`func_ladder`) and a liquid carry it up,
 and so does a lift (`func_plat`), taken as a ladder in its shaft: from where it is built down by its `height`
-(its own height less 8 when it gives none, as the SDK's plats.cpp has it), its brush no wall since it moves; a
+(its own height less 8 when it gives none, as the SDK's plats.cpp has it; under 0, up), its brush no wall since
+it moves. A fact says where each lift rides, and a warning names an end with no floor within a step of it
+(beside it or under it) or no room for a player on it: a lift that rides up into the air instead of down; a
 `trigger_teleport` it walks into carries it to where its `target` is. Doors (`func_door`,
 `func_door_rotating`, `momentary_door`) are open unless `doors: "closed"`; `open` names more brush entities to
 take as not there (a wall that breaks), `shut` doors to take as closed (one that wants a key), each by number,

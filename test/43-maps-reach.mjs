@@ -171,6 +171,11 @@ test("a lift is ridden between its top and its bottom, as a ladder is climbed", 
   sure(item(reach).reached, `with it, it is: ${item(reach).why}`);
   const way = maps.spaceOf(map([lift])).ladders[0];
   sure(way.min[2] === -1 && way.max[2] === 64, `its shaft is its travel: ${JSON.stringify(way)}`);
+  sure(reach.facts.some((f) => /func_plat rides from z 64, where it is built, down to z 0/.test(f)) && !reach.warnings.some((w) => /func_plat/.test(w)), reach.warnings.join(" | "));
+  // built on the floor with a height under 0 it rides up, to no floor: told, with what the height means
+  const up = maps.brushEntity("func_plat", maps.box([LEDGE_FACE - 64, 16, -16], [LEDGE_FACE, 80, 0], "RUST"), { height: -40 });
+  const wrong = maps.reachOf(map([up]));
+  sure(wrong.warnings.some((w) => /func_plat rides from z 0, where it is built, up to z 40: at z 40 no floor lies within a step of it.*height under 0|one under 0 rides up/.test(w)), wrong.warnings.join(" | "));
 });
 
 test("a pit whose only way out is such a ladder is no one-way place", () => {
