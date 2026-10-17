@@ -9,6 +9,14 @@ import { toolsFor } from "../mcp/tools.mjs";
 import { openFolders } from "../mcp/folders.mjs";
 import { openGenerators, stopWorkers } from "../mcp/generate.mjs";
 import { png } from "../src/image.mjs";
+import { buildMdl, indexed, workshop as W } from "../src/index.mjs";
+
+/** a box of 12 triangles about the pelvis, on it */
+const boxTris = () => {
+  const M = W.shape(16, 16);
+  M.lathe([[0, 4], [20, 4]], { x: 0, y: 0, w: 16, h: 16 }, { sides: 4, caps: [true, true], at: (s, a, b) => [a, b, 30 + s] });
+  return M.tris.map((t) => t.map((c) => ({ ...c, bone: "Bip01 Pelvis" })));
+};
 
 const folder = join(tmp, "generators");
 mkdirSync(join(folder, "venv"), { recursive: true });
@@ -32,6 +40,7 @@ process.stdin.on("data", (chunk) => {
     buffer = buffer.slice(at + 1);
     if (r.prompt.includes("fail")) { say({ id: r.id, ok: false, error: "RuntimeError: asked to" }); continue; }
     if (r.out.endsWith(".obj")) {
+      if (r.guide) fs.appendFileSync(${JSON.stringify(join(folder, "guides.txt"))}, r.guide + "\\n");
       // a shape: a box twice as tall as it is wide, Y up, and the picture it was "made from"
       const v = [[-1,0,-1],[1,0,-1],[1,0,1],[-1,0,1],[-1,4,-1],[1,4,-1],[1,4,1],[-1,4,1]];
       const f = [[1,3,2],[1,4,3],[5,6,7],[5,7,8],[1,2,6],[1,6,5],[2,3,7],[2,7,6],[3,4,8],[3,8,7],[4,1,5],[4,5,8]];
@@ -117,6 +126,31 @@ async function generateCase() {
   sure(/^OK/.test(model) && /body: the shape of work:gen\/crate_s0\.obj, 12 triangles reduced to 12, fitted to 16 x 16 x 32 \(its own proportions 0\.5 : 0\.5 : 1\)/.test(model) && /body 12 -8 -8 0 to 8 8 32/.test(model), model);
   const squashed = (await tools.build.call({ spec: { spec: "smak.model/1", name: "crate2.mdl", kind: "prop", parts: [{ id: "body", kind: "mesh", file: "work:gen/crate_s0.obj", size: [32, 32, 32] }] } }))[0].text;
   sure(/stretched 100% more one way than another: give size its own proportions \(16 x 16 x 32/.test(squashed), squashed);
+  // a character: drawn over its base in the stance it is built in, the guide handed to the worker, the stance kept
+  const biped = buildMdl({
+    name: "biped.mdl",
+    bones: [
+      { name: "Bip01 Pelvis", parent: -1 },
+      ...["L", "R"].flatMap((s, k) => [
+        { name: `Bip01 ${s} UpperArm`, parent: 0 }, { name: `Bip01 ${s} Forearm`, parent: 1 + k * 6 }, { name: `Bip01 ${s} Hand`, parent: 2 + k * 6 },
+        { name: `Bip01 ${s} Thigh`, parent: 0 }, { name: `Bip01 ${s} Calf`, parent: 4 + k * 6 }, { name: `Bip01 ${s} Foot`, parent: 5 + k * 6 },
+      ]),
+    ],
+    bodyparts: [{ name: "body", models: [{ name: "b", meshes: [{ tris: boxTris(), texture: indexed(W.sheet(16, 16).image(), "b.bmp") }] }] }],
+    sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 40, 0, 0, 0], ...["L", "R"].flatMap((s, k) => { const y = k ? -1 : 1; return [[0, 8 * y, 14, 0, 0, 0], [0, 0, -11, 0, 0, 0], [0, 0, -10, 0, 0, 0], [0, 4 * y, -2, 0, 0, 0], [0, 0, -18, 0, 0, 0], [0, 0, -18, 0, 0, 0]]; })]] }],
+  });
+  writeFileSync(join(folders.work, "biped.mdl"), biped);
+  const guided = await tools.generate.call({ kind: "shape", prompt: "a security guard", base: "biped.mdl", seeds: 1, name: "guard" });
+  sure(/Drawn in biped\.mdl's stance \(work:gen\/guard_guide\.png\): build it on that base in the same one, "base": \{ "file": "biped\.mdl" \}, "pose": \{ "aim": \{"L arm":\{"out":30/.test(guided[0].text), guided[0].text);
+  sure(existsSync(join(folders.work, "gen", "guard_guide.png")) && readFileSync(join(folder, "guides.txt"), "utf8").includes("guard_guide.png"), "the guide drawn and handed to the worker");
+  sure(JSON.parse(readFileSync(join(folders.work, "gen", "guard_s0.json"), "utf8")).stance?.["L arm"]?.out === 30, "its sidecar keeps the stance");
+  let both = "";
+  try {
+    await tools.generate.call({ kind: "shape", picture: "work:gen/crate_s0.png", base: "biped.mdl", seeds: 1 });
+  } catch (error) {
+    both = error.message;
+  }
+  sure(/base: a character's base model .* not with picture/.test(both), both);
   stopWorkers();
   const none = toolsFor(openFolders({ work: join(tmp, "gen-work") }));
   sure(!none.some((t) => t.name === "generate"), "no generators, no tool");

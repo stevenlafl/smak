@@ -53,7 +53,11 @@ loads in 80 to 115 s and makes any take up to 30 s in 15.5 s (its first in about
 ACE-Step 2B
 loads in 45 to 65 s and makes 12 s of music in 3 s, XL loads in about 3 minutes and makes 4 minutes in 20 s;
 Hunyuan3D-2mini loads in about 2 minutes and makes a shape (a picture drawn, cut out, 30 steps, reduced to
-20,000 triangles) in under a minute.
+20,000 triangles) in under a minute; its process peaked at 18.7 GB of memory (resident, not the card's), so
+leave it room: not beside a game, or another heavy job. A character's take (`generate`'s `base`) is drawn over
+its base's figure in the stance it will be built in, image to image (`GUIDE_STRENGTH` 0.7 of `GUIDE_STEPS` 6 in
+`worker.py`), so its limbs stand clear of its body: from words alone SD-Turbo drew a guard's hands on its thighs,
+and the mesh fused there tore in every run.
 
 ## A library of materials
 
