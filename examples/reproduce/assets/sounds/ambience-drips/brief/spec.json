@@ -4,38 +4,21 @@
   "class": "loop drips",
   "seed": 1,
   "length": 5,
-  "loop": {
-    "crossfade": 0.25
-  },
   "layers": [
     {
       "id": "drips",
       "kind": "sample",
-      "file": "work:gen/drips_s0.wav",
-      "from": 0,
+      "file": "work:gen/cave_drip_steady_s9.wav",
+      "from": "onset",
       "length": 5,
       "filter": [
         {
-          "type": "lowpass",
-          "f": 2600,
-          "q": 0.7
-        },
-        {
-          "type": "peak",
-          "f": 1100,
-          "q": 0.8,
-          "gain": 5
-        },
-        {
-          "type": "peak",
-          "f": 320,
-          "q": 0.8,
-          "gain": -4
-        },
-        {
           "type": "highpass",
-          "f": 120,
-          "q": 0.7
+          "f": 250
+        },
+        {
+          "type": "lowpass",
+          "f": 2000
         }
       ]
     }
@@ -45,6 +28,9 @@
       "crest": 26,
       "release": 0.002
     },
-    "peak": -1
+    "peak": -0.5
+  },
+  "loop": {
+    "crossfade": 0.3
   }
 }

@@ -1,0 +1,59 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/357_shot1.wav",
+  "class": "gunshot",
+  "seed": 1,
+  "length": 1.2,
+  "layers": [
+    {
+      "id": "shot",
+      "kind": "sample",
+      "file": "work:gen/357_shot_s0.wav",
+      "from": "onset",
+      "length": 1.2,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.03,
+        "decay": 1.2
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 6000,
+          "q": 0.7
+        },
+        {
+          "type": "highpass",
+          "f": 60
+        }
+      ]
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 130,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.25
+      },
+      "env": {
+        "attack": 0.001,
+        "decay": 0.18
+      },
+      "gain": -22
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "saturate": 3,
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

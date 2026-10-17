@@ -1,60 +1,112 @@
 {
   "spec": "smak.sound/1",
   "name": "items/smallmedkit1.wav",
+  "class": "click",
   "seed": 7,
-  "length": 0.8,
+  "length": 1.4,
   "layers": [
     {
       "id": "beep1",
       "kind": "tone",
-      "f": 2600,
+      "f": 3200,
       "wave": "sine",
       "at": 0,
-      "length": 0.08,
-      "gain": -8,
+      "length": 0.09,
       "env": {
         "attack": 0.003,
         "hold": 0.05,
-        "decay": 0.02
-      }
+        "decay": 0.03
+      },
+      "gain": -6
     },
     {
       "id": "beep2",
       "kind": "tone",
-      "f": 2600,
+      "f": 3200,
       "wave": "sine",
-      "at": 0.13,
-      "length": 0.08,
-      "gain": -8,
+      "at": 0.16,
+      "length": 0.09,
       "env": {
         "attack": 0.003,
         "hold": 0.05,
-        "decay": 0.02
-      }
+        "decay": 0.03
+      },
+      "gain": -6
     },
     {
       "id": "hiss",
-      "kind": "sample",
-      "file": "work:gen/hypospray_hiss_s3.wav",
-      "from": "onset",
-      "at": 0.26,
-      "length": 0.5,
-      "gain": -6,
+      "kind": "noise",
+      "color": "white",
+      "iterations": 32,
+      "at": 0.36,
+      "length": 1,
       "env": {
-        "attack": 0.02,
+        "attack": 0.05,
         "hold": 0.15,
-        "decay": 0.2
+        "decay": 0.3
       },
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 2000
-        },
-        {
-          "type": "lowpass",
-          "f": 7000
-        }
-      ]
+      "shape": {
+        "keys": [
+          {
+            "at": 0,
+            "curve": [
+              [
+                1000,
+                -30
+              ],
+              [
+                4000,
+                -10
+              ],
+              [
+                8000,
+                -2
+              ],
+              [
+                12000,
+                0
+              ],
+              [
+                16000,
+                -4
+              ]
+            ]
+          },
+          {
+            "at": 0.6,
+            "curve": [
+              [
+                1000,
+                -38
+              ],
+              [
+                4000,
+                -18
+              ],
+              [
+                8000,
+                -10
+              ],
+              [
+                12000,
+                -8
+              ],
+              [
+                16000,
+                -14
+              ]
+            ]
+          }
+        ]
+      },
+      "gain": -10
     }
-  ]
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.1,
+      "wet": 0.05
+    },
+    "peak": -0.5
+  }
 }

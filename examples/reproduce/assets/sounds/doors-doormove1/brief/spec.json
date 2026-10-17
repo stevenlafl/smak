@@ -1,91 +1,32 @@
 {
   "spec": "smak.sound/1",
   "name": "doors/doormove1.wav",
-  "seed": 7,
-  "length": 3,
+  "seed": 1,
+  "length": 2.8,
   "layers": [
     {
-      "id": "whine",
-      "kind": "tone",
-      "f": 420,
-      "wave": "saw",
-      "sweep": {
-        "to": 1400,
-        "time": 2.4
-      },
-      "env": {
-        "attack": 0.15,
-        "hold": 1.9,
-        "decay": 0.35
-      },
-      "filter": [
-        {
-          "type": "lowpass",
-          "f": 2600,
-          "q": 0.7
-        }
-      ],
-      "gain": -14
-    },
-    {
-      "id": "whine_hi",
-      "kind": "tone",
-      "f": 630,
-      "wave": "square",
-      "sweep": {
-        "to": 2100,
-        "time": 2.4
-      },
-      "env": {
-        "attack": 0.2,
-        "hold": 1.8,
-        "decay": 0.35
-      },
-      "filter": [
-        {
-          "type": "bandpass",
-          "f": 1600,
-          "q": 1.5
-        }
-      ],
-      "gain": -22
-    },
-    {
-      "id": "thud",
-      "kind": "tone",
-      "f": 95,
-      "wave": "sine",
-      "sweep": {
-        "to": 38,
-        "time": 0.25
-      },
-      "at": 2.5,
-      "env": {
-        "attack": 0.002,
-        "decay": 0.35
-      },
-      "gain": -3
-    },
-    {
-      "id": "clack",
-      "kind": "noise",
-      "color": "white",
-      "at": 2.5,
-      "env": {
-        "attack": 0.001,
-        "decay": 0.012
-      },
+      "id": "door",
+      "kind": "sample",
+      "file": "work:gen/doormove1_take_stable-audio-3-sfx_s0.wav",
+      "from": 0,
+      "length": 2.8,
       "filter": [
         {
           "type": "highpass",
-          "f": 1200
+          "f": 70
+        },
+        {
+          "type": "lowpass",
+          "f": 9000
         }
-      ],
-      "gain": -6
+      ]
     }
   ],
   "finish": {
-    "saturate": 1.2
-  },
-  "reference": "doors/doormove1.wav"
+    "limit": {
+      "crest": 14,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
 }

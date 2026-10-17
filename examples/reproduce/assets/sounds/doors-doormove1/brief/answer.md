@@ -1,14 +1,21 @@
-The sound is built and the build says OK. It is at `work:sound/doors/doormove1.wav`, and the mod puts it at `<mod>/sound/doors/doormove1.wav`, where it replaces the game's own file of that name.
+The sound is built and the check says OK: `work:sound/doors/doormove1.wav`. It is ready to drop into the mod as `<mod>/sound/doors/doormove1.wav`, where it replaces the game's own file. I have not listened to it, so whether the hum really rises in pitch is the one thing to judge by ear.
 
-**What it is:** a 2.85-second mono 16-bit file at 22050 Hz, the game's rate for these sounds. It is made from synthesised layers, not a recording:
+**What it is**
+- A 2.4-second, 22050 Hz, 16-bit mono file, the format GoldSrc expects.
+- The source is a take from a local text-to-audio model (stable-audio-3-sfx, seed 0). I prompted it with: "a sliding door driven by an electric motor, a smooth electronic hum rising in pitch, then a solid metal thud as it stops, close-miked, dry".
+- The take is used as it came, with two changes: a high-pass at 70 Hz to remove rumble under the hum, and a low-pass at 9 kHz. The mix is limited to a crest of 14 dB, with peak at -0.5 dBFS.
+- The build's measurements: the thud lands at about 1.4 s, the hum sits before it, and the tail falls to -20 dB about 0.7 s after the peak. The spectrogram shows a steady hum band that swells into the thud. The rise in pitch is not something the numbers confirm.
 
-- **Whine:** a sawtooth rising from 420 Hz to 1400 Hz over 2.4 seconds, with a low-pass filter.
-- **Harmonic:** a square wave rising from 630 Hz to 2100 Hz, band-passed and quieter, which adds the electronic edge.
-- **Thud:** at 2.5 seconds, a sine that drops from 95 Hz to 38 Hz in a quarter second, then decays over about a third of a second.
-- **Clack:** a short high-passed noise burst at the same moment as the thud, for the impact.
+**The spec**
+```json
+{"spec":"smak.sound/1","name":"doors/doormove1.wav","seed":1,"length":2.8,
+ "layers":[{"id":"door","kind":"sample","file":"work:gen/doormove1_take_stable-audio-3-sfx_s0.wav","from":0,"length":2.8,
+   "filter":[{"type":"highpass","f":70},{"type":"lowpass","f":9000}]}],
+ "finish":{"limit":{"crest":14,"release":0.002},"peak":-0.5}}
+```
 
-**What I tried and dropped:** I generated eight takes with the local generator (woosh-dflow). None had a clear rising whine followed by a thud, so none went in. Because of that, nothing from the generator is in the final file, and its non-commercial licence does not apply to this sound. I also removed a steady motor-noise layer, since the build flagged it as static-like hiss.
+**Licences:** This take comes from stable-audio-3-sfx under the Stability AI Community Licence. It is free for an organisation under US$1M annual revenue and needs an enterprise licence above that. I also generated takes from woosh-dflow, which is CC-BY-NC 4.0 (non-commercial). I did not use those. You said the licences of the local generators are accepted for this test. For a mod that is shipped or sold, the licence still needs a decision.
 
-**What the build did not check:**
-- It could not compare the sound to the game's own `doors/doormove1.wav`, because no game folders were given to it. So there is no measured comparison, only the sound itself.
-- It cannot tell how the sound feels in play. The volume, the pitch the engine applies and the map's room are all unknown to it. The mod's author will need to listen in the game and compare it with the original.
+**Other choices I made**
+- I did not set a `class`, because the kit has no door class and forcing one would have judged it against the wrong sound.
+- The build did not compare it with the game's own `doors/doormove1.wav`, so I can't say how the two levels compare. Playing both in the game is the real test.

@@ -1,0 +1,60 @@
+{
+  "spec": "smak.sound/1",
+  "name": "items/smallmedkit1.wav",
+  "seed": 7,
+  "length": 0.8,
+  "layers": [
+    {
+      "id": "beep1",
+      "kind": "tone",
+      "f": 2600,
+      "wave": "sine",
+      "at": 0,
+      "length": 0.08,
+      "gain": -8,
+      "env": {
+        "attack": 0.003,
+        "hold": 0.05,
+        "decay": 0.02
+      }
+    },
+    {
+      "id": "beep2",
+      "kind": "tone",
+      "f": 2600,
+      "wave": "sine",
+      "at": 0.13,
+      "length": 0.08,
+      "gain": -8,
+      "env": {
+        "attack": 0.003,
+        "hold": 0.05,
+        "decay": 0.02
+      }
+    },
+    {
+      "id": "hiss",
+      "kind": "sample",
+      "file": "work:gen/hypospray_hiss_s3.wav",
+      "from": "onset",
+      "at": 0.26,
+      "length": 0.5,
+      "gain": -6,
+      "env": {
+        "attack": 0.02,
+        "hold": 0.15,
+        "decay": 0.2
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 7000
+        }
+      ]
+    }
+  ]
+}

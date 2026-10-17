@@ -1,16 +1,37 @@
-The drip loop is built and the build says OK. It's at `work:sound/ambience/drips.wav`, and it goes in the mod as `<mod>/sound/ambience/drips.wav` to replace the game's file. I have not heard it, and the build can't check how it plays in the game. Volume, pitch and the map's room are for the modder to judge in-game.
+The loop is built and passes every check (`OK: built, and every check passed`). Its file is `work:sound/ambience/drips.wav`, which goes at `<mod>/sound/ambience/drips.wav` to replace the game's own. I have not heard it, so the judgement of whether it is as good as the game's drips is yours to make in the game.
 
-**What I made**
+**What it is**
 
-- **Source:** a 5-second take from the local `woosh-dflow` generator, prompted "slow water drips falling one by one into a still pool in a cave, echoing." I generated four takes and picked seed 0. It had the most separate drips and the cleanest body.
-- **Shaping:** a band-limit filter (lowpass at 2.6 kHz, highpass at 120 Hz), a lift around 1.1 kHz, a cut around 320 Hz, and a light limiter to bring the quiet drips up.
-- **Loop:** it loops from its start with a 0.25-second crossfade at the seam.
-- **Format:** 22050 Hz, 16-bit, mono, 4.75 seconds, 205 KB.
+- A 4.7 s mono loop at 22050 Hz, 16-bit (the game's sound format). It has about ten separate water drops into a pool, each with its echo, spaced across the loop.
+- The drops come from a generated take, not from a recording. I made it with the local `stable-audio-3-sfx` model from the caption "a steady trickle of water drips falling one after another into a pool in a cave, many drips, echoing, dry close-miked". I tried eight takes across two wordings and two models. Most were too sparse or too noisy; this was the one with the most distinct drops.
+- The loop is cut to a band of 250 Hz to 2 kHz, so it sounds duller and closer to a cave than the bright raw take. Its loudness is set by a limiter, so it is at a steady level rather than quiet.
 
-**Licence:** `woosh-dflow` is CC-BY-NC 4.0, which is non-commercial. You accepted that for this test. If the mod is ever sold or monetised, this take can't be used as it is.
+**Licences**
 
-**Against the game's own drip loops:** 18 of 20 features are in range. Two are off:
-- **Length:** 4.75 s, against the game's 5.5 to 9 s. The game's loops hold more drips. I tried joining a second take to lengthen it. That made the spectrum worse, with too much 600 Hz to 2 kHz energy and a brighter centroid, so I kept the single take.
-- **Flatness:** the take is very clean and tonal (0.003, where the game's loops are about 0.05 to 0.15). Adding noise to fix it would be heard as hiss, so I left it.
+- The take comes from `stable-audio-3-sfx`, under the Stability AI Community Licence. It is free for an organisation under US$1M annual revenue; above that it needs an enterprise licence. You said you accept the local generators' licences, so I used it. If the mod is commercial, check that this covers it.
+- I did not use `woosh-dflow` in the end. Its takes were mostly noise, and it is non-commercial only.
 
-The big splash at about 3 seconds is one loud event in the middle of the loop. It is the take's own, and it is the most likely thing to sound out of place. If it does, the take can be swapped for another seed, or the layer can be turned down.
+**Build warnings (not failures)**
+
+- The report says the spectrum is still a bit off the game's drip loops: a little too bright, and light in the 150–600 Hz band. Those are its measurements, not a hearing test. Filtering more made the sound thinner, so I stopped there.
+- The loop is shorter than the game's typical drip loop (4.7 s against a typical 5.5–9 s). It is still a loop of many drips, and the report does not flag that.
+
+**The spec to rebuild it**
+
+```json
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "seed": 1,
+  "length": 5,
+  "layers": [
+    { "id": "drips", "kind": "sample", "file": "work:gen/cave_drip_steady_s9.wav", "from": "onset", "length": 5,
+      "filter": [{ "type": "highpass", "f": 250 }, { "type": "lowpass", "f": 2000 }] }
+  ],
+  "finish": { "limit": { "crest": 26, "release": 0.002 }, "peak": -0.5 },
+  "loop": { "crossfade": 0.3 }
+}
+```
+
+The take `work:gen/cave_drip_steady_s9.wav` and its sidecar `.json` (model, prompt, seed, licence) are in the work folder, so the build can be repeated with the same bytes.

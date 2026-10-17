@@ -2,53 +2,74 @@
   "spec": "smak.sound/1",
   "name": "weapons/explode3.wav",
   "class": "explosion",
-  "seed": 1,
-  "length": 1.6,
+  "seed": 3,
+  "length": 1.35,
   "layers": [
     {
-      "id": "boom",
+      "id": "blast",
       "kind": "sample",
-      "file": "work:gen/grenade_explode_s0.wav",
-      "from": 0.33,
-      "length": 1.6,
+      "file": "work:gen/grenade_explode_stable-audio-3-sfx_s0.wav",
+      "from": "onset",
+      "length": 1.35,
       "env": {
         "attack": 0.002,
-        "hold": 0.12,
+        "hold": 0.03,
         "decay": 0.9
       },
       "filter": [
         {
           "type": "lowpass",
-          "f": 2800,
-          "q": 0.7
+          "f": 8000
+        },
+        {
+          "type": "peak",
+          "f": 1200,
+          "q": 0.8,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 3000,
+          "q": 0.7,
+          "gain": 4
         }
       ]
     },
     {
-      "id": "body",
+      "id": "debris",
+      "kind": "particles",
+      "count": 120,
+      "band": [
+        800,
+        4000
+      ],
+      "grain": 0.008,
+      "env": {
+        "attack": 0.01,
+        "decay": 0.5
+      },
+      "gain": -10
+    },
+    {
+      "id": "boom",
       "kind": "tone",
-      "f": 110,
+      "f": 90,
       "wave": "sine",
       "sweep": {
-        "to": 45,
+        "to": 40,
         "time": 0.5
       },
       "env": {
-        "attack": 0.002,
-        "hold": 0.05,
+        "attack": 0.003,
         "decay": 0.6
       },
-      "gain": -3
+      "gain": -12
     }
   ],
   "finish": {
-    "room": {
-      "decay": 0.25,
-      "wet": 0.12
-    },
-    "saturate": 2,
+    "saturate": 4,
     "limit": {
-      "crest": 8,
+      "crest": 6,
       "release": 0.002
     },
     "peak": -0.5

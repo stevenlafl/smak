@@ -1,0 +1,45 @@
+{
+  "spec": "smak.sound/1",
+  "name": "player/pl_step1.wav",
+  "class": "step concrete",
+  "length": 0.4,
+  "layers": [
+    {
+      "id": "step",
+      "kind": "sample",
+      "file": "work:gen/step_concrete_s1.wav",
+      "from": "onset",
+      "length": 0.4,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.05,
+        "decay": 0.2
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 90
+        },
+        {
+          "type": "peak",
+          "f": 300,
+          "q": 0.8,
+          "gain": 3
+        },
+        {
+          "type": "peak",
+          "f": 3500,
+          "q": 0.8,
+          "gain": 4
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 20,
+      "release": 0.002
+    },
+    "peak": -2
+  }
+}

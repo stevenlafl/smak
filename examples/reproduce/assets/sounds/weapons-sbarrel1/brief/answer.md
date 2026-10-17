@@ -1,14 +1,15 @@
-The sound is built and the build says OK. It's at `work:sound/weapons/sbarrel1.wav`, and the modder copies it to `<mod>/sound/weapons/sbarrel1.wav` to replace the game's `sbarrel1.wav`.
+The sound is built and the check passes: `work:sound/weapons/sbarrel1.wav`, ready to go in the mod's `sound/weapons/` folder so it replaces the game's `sbarrel1.wav`.
 
-**What it is:** a clip of a pump shotgun firing, taken from a generated take, then shaped into the game's format: mono, 22050 Hz, 16-bit, 1.39 s long, with the peak at -0.5 dBFS. The shot hits at once (attack 5 ms), with a body around 150 to 600 Hz and little above 2 kHz. The spec is `smak.sound/1`, with one sample layer and a small crack added so the start stays sharp.
+**What it is:** a single shotgun blast, 1.0 s long, 22050 Hz 16-bit mono (the format GoldSrc expects). It has no pump racking clack. In the game that clack is a separate sound, so this file covers the shot only.
 
 **How I made it:**
-1. I asked the local sound generator (woosh-dflow) for four takes of "a pump action shotgun firing, sharp blast then a metallic slide rack". I picked take 0, which has the blast and then a second hit for the slide.
-2. The spec starts the take 0.07 s in, where its peak is, and cuts it to 1.15 s. A low lift at 160 Hz adds body, a cut at 900 Hz and 3 kHz removes the harsh top, and a lowpass at 1.5 kHz tames the brightness.
-3. A short white-noise crack (2 kHz and up, 4 ms) sits on the onset, and a small room gives a little space. Saturation and a limiter (crest 9 dB) make it loud for its peak.
+- I generated four takes from the local `stable-audio-3-sfx` model with the caption "a pump action shotgun firing, one loud blast with a short metallic echo, close-miked, dry". I picked seed 0 because its hit lands right at the start, so the shot doesn't play late.
+- The spec uses that take as a `sample` layer, trimmed to 1 s and given a short decay. It also has a low sine "body" that falls from 100 Hz to 50 Hz, for weight. A notch at 330 Hz tames the muddy middle.
+- The finish adds a short room (0.25 s, 12% wet), saturation of 3, and a limiter at a 9 dB crest, which keeps the shot punchy without clipping.
+- The first builds failed in two ways: a DC offset, and a sound that was too short or too bass-heavy. Each was fixed by changing the layers, not by ignoring the report. The final build is OK, and all 22 of its measured features are in the range of the game's own gunshot sounds.
 
-**Licence:** the generator's weights are CC-BY-NC 4.0, non-commercial. You accepted that for this test. The build's facts record it on the sample, so it will show up if anyone checks the file later.
+**Licences:** the chosen take is from Stability AI's model. Its licence is free for organisations under US$1M annual revenue and needs an enterprise licence above that. The other model (`woosh-dflow`) is CC-BY-NC, which is non-commercial. I didn't use it, so the non-commercial question doesn't apply to this file.
 
-**What the build reports:** 21 of the 22 measured features of the game's gunshot class are in range. The one left is the tail: it falls 20 dB in 0.44 s, against the game's at least 0.46 s, so it is a touch dry. The build also notes it has no game folders to compare against, so the comparison is with the class's typical figures, not the game's own `sbarrel1.wav`. I tried several settings: the longer room gave a tail that rang too long, and the shorter one dried it out, so I kept the middle setting.
+**What the check can't tell:** how it sounds, and how the game plays it (its volume, pitch, and the map's room). Those need an ear in the game. The build measures the file, not the likeness to the original. If the modder wants a bigger or drier shot, the levers are the `body` gain, the `room` wet amount, and the limiter's crest.
 
-**For the modder to judge by ear:** whether it sounds like a shotgun at least as good as the game's, whether the second hit (the slide) belongs in a single shot, and whether the tail is too dry in the map's room. The numbers can't show how it sounds, so this needs listening in the game.
+The spec was passed inline to the build and isn't saved as a file in the work folder. If the modder wants to regenerate the sound later, I can save it.

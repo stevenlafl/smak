@@ -3,80 +3,78 @@
   "name": "debris/bustmetal1.wav",
   "class": "metal hit",
   "seed": 1,
-  "length": 0.66,
+  "length": 0.8,
   "layers": [
-    {
-      "id": "crate",
-      "kind": "sample",
-      "file": "work:gen/bustmetal_s0.wav",
-      "from": "onset",
-      "length": 0.66,
-      "env": {
-        "attack": 0.002,
-        "hold": 0.03,
-        "decay": 0.25
-      },
-      "filter": [
-        {
-          "type": "highpass",
-          "f": 300,
-          "q": 0.7
-        },
-        {
-          "type": "peak",
-          "f": 1200,
-          "q": 1,
-          "gain": 4
-        },
-        {
-          "type": "lowpass",
-          "f": 2200,
-          "q": 0.7
-        }
-      ]
-    },
-    {
-      "id": "rattle",
-      "kind": "particles",
-      "rate": 120,
-      "band": [
-        800,
-        2500
-      ],
-      "grain": 0.003,
-      "at": 0.02,
-      "env": {
-        "attack": 0.001,
-        "hold": 0.02,
-        "decay": 0.25
-      },
-      "gain": -4
-    },
     {
       "id": "crack",
       "kind": "noise",
       "color": "white",
-      "post": true,
       "at": 0,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.012
+      },
       "filter": [
         {
           "type": "highpass",
-          "f": 2000,
-          "q": 0.7
+          "f": 1500
         }
       ],
+      "post": true,
+      "gain": 0
+    },
+    {
+      "id": "crash",
+      "kind": "sample",
+      "file": "work:gen/bustmetal_woosh-dflow_s2.wav",
+      "from": 0.12,
+      "length": 0.7,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.03,
+        "decay": 0.22
+      },
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 300
+        },
+        {
+          "type": "peak",
+          "f": 1000,
+          "q": 1,
+          "gain": -3
+        },
+        {
+          "type": "lowpass",
+          "f": 2500
+        }
+      ]
+    },
+    {
+      "id": "debris",
+      "kind": "particles",
+      "at": 0.08,
+      "count": 30,
+      "band": [
+        700,
+        2000
+      ],
+      "grain": 0.01,
       "env": {
         "attack": 0.001,
-        "hold": 0.002,
-        "decay": 0.01
-      },
-      "gain": -6
+        "decay": 0.35
+      }
     }
   ],
   "finish": {
-    "saturate": 2,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "saturate": 3,
     "limit": {
-      "crest": 11,
+      "crest": 9,
       "release": 0.002
     },
     "peak": -0.5

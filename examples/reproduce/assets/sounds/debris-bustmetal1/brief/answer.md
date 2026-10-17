@@ -1,20 +1,35 @@
-The sound is built and the build says OK. It's at `work:sound/debris/bustmetal1.wav`, and it takes the place of the game's `debris/bustmetal1.wav` when placed in the mod's `sound/` folder. Nothing has been checked by ear in the game yet.
+The sound is built: `work:sound/debris/bustmetal1.wav`. The build says OK, with three judge warnings left (below). I can't listen to it, so the check was the numbers and the waveform. Whether it beats the game's own is for the modder to hear in the game.
 
-**What I made**
+**What it is**
 
-- **Source:** I generated four takes with the local `woosh-dflow` model from the caption "a metal crate breaking apart, sheet metal cracking and clattering, close-miked, dry". I picked take 0 because it has a clean crack at its start.
-- **Shaping:** The sound is 0.53 s long at 22050 Hz, mono, 16-bit, peaking at -0.5 dBFS.
-  - The take is cut from its first hit, with a short envelope so the loudest part is at the start.
-  - It is high-passed at 300 Hz and low-passed at 2200 Hz, with a small boost around 1.2 kHz for the metal body.
-  - A short burst of particles adds rattle, and a short high-passed noise crack is added after the limiter for the initial snap.
-  - The finish saturates the sound, then limits its crest to 11 dB.
-- **Checks:** Against the game's metal-hit sounds, it passes 21 of 22 measures. The one still off is flatness (how much of it is noise rather than tone): 0.07, where the game's range is 0.16 to 0.28. I tried to close that gap by adding more noise, but it pushed the brightness and loudness measures out of range, so I stopped there.
+- A mono, 22050 Hz, 16-bit, 0.8 s file named `debris/bustmetal1.wav`, so it replaces the game's file with no code.
+- It starts with a short white-noise crack at the hit, then a cut of a generated take of a metal crate breaking apart. The take is from the local model `woosh-dflow`, seed 2, with the caption "a metal crate breaking apart, sheet metal cracking and clattering debris falling, one sharp bang, close-miked, dry".
+- A burst of high-pitched debris particles follows at 0.08 s.
+- A small room reverb, saturation, and a limiter finish it. The peak is -0.5 dB full scale.
 
-**Licence:** `woosh-dflow` is CC-BY-NC 4.0 (weights), which is non-commercial. You said that's acceptable for this test, so I've used it. If the mod is ever released commercially, this take would need replacing.
+**Licence:** `woosh-dflow` is CC-BY-NC 4.0 (non-commercial). You said the test accepts the local generators' licences. A commercial release would need a different take, or a licence check on the file itself.
 
-**What the build could not check**
+**Remaining warnings**
 
-- The game's own `debris/bustmetal1.wav` was not in the folders the server was given, so I had no side-by-side comparison.
-- Volume, pitch as the game plays it, and the map's room are not measured. Those decide how it compares in play.
+- The sample's own attack is about 75 ms, so the hit is a little soft rather than instant.
+- Its spectrum is somewhat brighter and more noise-like than the class's ranges, and the 600 to 2000 Hz band is heavier than usual.
+- The crest is a little spiky (13 dB against a range of 5 to 12.5).
 
-To test it, copy the file to `<mod>/sound/debris/bustmetal1.wav` and break a metal object in the game, next to the original if you can switch between them.
+I stopped there because the generated take's noisy body limits what filtering can fix, and further passes were giving small gains. The modder should judge it by ear.
+
+**How to use it**
+
+Copy the file to `<mod>/sound/debris/bustmetal1.wav`.
+
+**Spec used (to rebuild it)**
+
+```json
+{"spec":"smak.sound/1","name":"debris/bustmetal1.wav","class":"metal hit","seed":1,"length":0.8,
+ "layers":[
+  {"id":"crack","kind":"noise","color":"white","at":0,"env":{"attack":0.001,"decay":0.012},"filter":[{"type":"highpass","f":1500}],"post":true,"gain":0},
+  {"id":"crash","kind":"sample","file":"work:gen/bustmetal_woosh-dflow_s2.wav","from":0.12,"length":0.7,"env":{"attack":0.002,"hold":0.03,"decay":0.22},"filter":[{"type":"highpass","f":300},{"type":"peak","f":1000,"q":1,"gain":-3},{"type":"lowpass","f":2500}]},
+  {"id":"debris","kind":"particles","at":0.08,"count":30,"band":[700,2000],"grain":0.01,"env":{"attack":0.001,"decay":0.35}}],
+ "finish":{"room":{"decay":0.25,"wet":0.12},"saturate":3,"limit":{"crest":9,"release":0.002},"peak":-0.5}}
+```
+
+The spec is not saved as a file in the work folder; I only had the build call to pass it through. The take is in `work:gen/`, so the sound can be rebuilt from this text.

@@ -1,0 +1,50 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/drips.wav",
+  "class": "loop drips",
+  "seed": 1,
+  "length": 5,
+  "loop": {
+    "crossfade": 0.25
+  },
+  "layers": [
+    {
+      "id": "drips",
+      "kind": "sample",
+      "file": "work:gen/drips_s0.wav",
+      "from": 0,
+      "length": 5,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2600,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 1100,
+          "q": 0.8,
+          "gain": 5
+        },
+        {
+          "type": "peak",
+          "f": 320,
+          "q": 0.8,
+          "gain": -4
+        },
+        {
+          "type": "highpass",
+          "f": 120,
+          "q": 0.7
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 26,
+      "release": 0.002
+    },
+    "peak": -1
+  }
+}

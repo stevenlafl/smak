@@ -1,31 +1,12 @@
-I made a replacement for `player/pl_metal1.wav`, and the build says OK. It is at `work:sound/player/pl_metal1.wav`, and it is not yet in any mod folder.
+The sound is built and the build says **OK**, at `work:sound/player/pl_metal1.wav`. It is 22050 Hz, 16-bit, mono, 0.65 s long. To use it, copy it to `<mod>/sound/player/pl_metal1.wav`. The game then plays it in place of its own footstep, with no code.
 
-**What it is:** 0.66 s, 22050 Hz, 16-bit mono WAV, peak -0.5 dBFS. It is a generated take with a light heel tap and a second, softer tap about 0.2 s later, with a bright, hollow ring after the hit. The generator was woosh-dflow, and its licence is CC-BY-NC 4.0 (non-commercial). You accepted that for this test, and it would need a different sound before any commercial use.
+**What it is:** I generated six takes from the local `woosh-dflow` model with the prompt "a light footstep on a thin metal vent grate, one hollow tinny tap, close-miked, dry". I picked take 1 because it is a single clean hit with a bright, tinny character. It is then trimmed to start at the hit, high-passed at 200 Hz, low-passed at 1400 Hz, with a dip around 900 Hz to take the boxiness out, given a short room, and limited to -1 dBFS peak. The class was set to `step vent`, which is the game's class for vent steps.
 
-**How I made it:**
-1. I asked woosh-dflow for four takes from the caption "a light footstep on a thin metal vent grate, a hollow tinny tap and a short metallic rattle, close-miked, dry" (seeds 4 to 7, 1 s each). I picked seed 4 because it had the clearest two-tap shape. Seeds 0 to 3 from an earlier 0.6 s set were duller and lower.
-2. The spec took that take from its first hit (`from: "onset"`) and shaped it:
-   - a highpass at 1000 Hz to cut the boom,
-   - a +4 dB peak at 2800 Hz for the tinny edge,
-   - a lowpass at 7000 Hz,
-   - an envelope that holds for 0.4 s, then decays,
-   - a short room (decay 0.35, wet 0.2),
-   - a limiter with crest 16 and peak -0.5.
+**Licence:** the take comes from `woosh-dflow`, licence CC-BY-NC 4.0 (Creative Commons Attribution, non-commercial). That covers the weights, and the code is MIT. The non-commercial limit applies to the mod if it is ever released commercially. You accepted that for this test. The other local model, `stable-audio-3-sfx`, was also tried, and its takes were darker, around 350 to 440 Hz centroid, so I did not use them.
 
-**Spec used** (passed inline to `build`):
-```json
-{"spec":"smak.sound/1","name":"player/pl_metal1.wav","class":"step vent","length":1.0,
- "layers":[{"id":"tap","kind":"sample","file":"work:gen/pl_metal1b_s4.wav","from":"onset","length":1.0,
-   "env":{"attack":0.002,"hold":0.4,"decay":0.5},
-   "filter":[{"type":"highpass","f":1000},{"type":"peak","f":2800,"q":1.2,"gain":4},{"type":"lowpass","f":7000}]}],
- "finish":{"room":{"decay":0.35,"wet":0.2},"limit":{"crest":16,"release":0.002},"peak":-0.5}}
-```
+**What the build still warns about:**
+- **Decay:** it falls 20 dB in 0.32 s. The game's vent steps take at least 0.44 s. This is the main gap, and it is the one most likely to be heard as dry.
+- **Brightness:** its centre of energy is 860 Hz. The game's step-vent sounds sit at 136 to 336 Hz. The vent tap is meant to be brighter, so I did not push it fully into the game's range. Lowering it further would make it sound less tinny.
+- **Bass:** it has no energy under 150 Hz, which is the thud the game's steps have.
 
-**What the checks still say:**
-- The tail dies to -20 dB in 0.36 s. The game's step sounds take at least 0.44 s, so it sounds drier than theirs.
-- Its centroid is 904 Hz, against 136 to 336 Hz for the game's step sounds. That is deliberate: a tinny vent should be brighter than a boot on concrete. The judge does not know that, so it still flags it.
-- Its length is 0.66 s, which is shorter than the 0.64 to 1.06 s range of the game's step sounds. The sample's own decay sets this, and I could not stretch it without adding a steady noise or a bell.
-
-**What I could not check:** I had no game folder to read, so I could not compare the file against the game's own `pl_metal1.wav`. Whether it is at least as good is for the modder to hear in the game. In-game volume and the map's room are also not checked here.
-
-**Next steps if they want them:** copy `work:sound/player/pl_metal1.wav` to `<mod>/sound/player/`, listen in the game, and tell me if it should be longer, darker or drier. I can also try other seeds or a different caption.
+I stopped after three builds, since further tries made the tail ring and lost the tap. The build checks cannot say how it sounds. Please listen in the game, and compare it to the original in a few places. If it is too dry, the next step is a longer tail. If it is too bright, a lower low-pass cut will fix it.

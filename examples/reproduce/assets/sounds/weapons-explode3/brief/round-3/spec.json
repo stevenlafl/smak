@@ -1,0 +1,56 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/explode3.wav",
+  "class": "explosion",
+  "seed": 1,
+  "length": 1.6,
+  "layers": [
+    {
+      "id": "boom",
+      "kind": "sample",
+      "file": "work:gen/grenade_explode_s0.wav",
+      "from": 0.33,
+      "length": 1.6,
+      "env": {
+        "attack": 0.002,
+        "hold": 0.12,
+        "decay": 0.9
+      },
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 2800,
+          "q": 0.7
+        }
+      ]
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "f": 110,
+      "wave": "sine",
+      "sweep": {
+        "to": 45,
+        "time": 0.5
+      },
+      "env": {
+        "attack": 0.002,
+        "hold": 0.05,
+        "decay": 0.6
+      },
+      "gain": -3
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "saturate": 2,
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

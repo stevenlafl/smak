@@ -1,17 +1,12 @@
-The sound is built and the build says OK with every check passed. The file is at `work:sound/weapons/357_shot1.wav`. Copy it to the mod's `sound/weapons/` folder and it replaces the game's `weapons/357_shot1.wav` with no code. I have not heard it, and the checks can't say whether it is as good as the game's shot. That judgment is theirs, in the game.
+The sound is made and passes the build with every check OK: `work:sound/weapons/357_shot1.wav`. It is 0.9 s, 22050 Hz, 16-bit mono, peak -0.5 dBFS. To use it, put it at `<mod>/sound/weapons/357_shot1.wav`, and the game plays it in place of its own shot with no code.
 
-**What I made**
+**What it is:** a generated take of a revolver shot, from the local model stable-audio-3-sfx (seed 0, prompt "a heavy revolver firing, one sharp loud gunshot with a short metallic crack and a deep low boom tail, outdoors"). I cut it to start at the shot's onset, then:
+- a highpass at 120 Hz to take out the low rumble,
+- a +6 dB peak at 1.8 kHz for the crack,
+- a saturation of 2 and a limiter (crest 8 dB, the level Valve's weapons sit at), peak at -0.5 dBFS.
 
-- **Source:** I generated four takes with the local `woosh-dflow` model from the caption "a large magnum revolver firing one loud gunshot, sharp crack, close-miked, dry". Take 0 had the cleanest hit at the very start, so I used it. The other three were quieter or started late.
-- **Licence:** `woosh-dflow` is under CC-BY-NC 4.0 (Creative Commons Attribution, non-commercial). You said the test accepts this, so the sound is non-commercial only. The build report notes it, and it is the mod's call whether that is acceptable for a release.
-- **Shaping:** the spec is a sample layer from the take's onset, with a 1.2 s length and a decay envelope. It goes through a 6 kHz low-pass and a 60 Hz high-pass. A short sine body sweeps from 130 Hz down to 45 Hz at −22 dB, which gives the low thump. The finish adds a small room, a saturation of 3, and a limiter with a 9 dB crest, with the peak at −0.5 dBFS.
+**How I chose it:** I compared 8 takes from two models. The first pass had too much bass and too little 600 Hz to 2 kHz energy, so the build warned on the spectrum. After the filter, all 22 measured features fall in the range of the game's gunshot sounds.
 
-**How it measures**
-
-The output is 22050 Hz, 16-bit, mono, 1.2 s long. Its T20 (time to fall 20 dB) is 0.63 s and its centroid is 969 Hz. Against the game's gunshot sounds, all 22 features are in range. The build flagged no faults.
-
-**What isn't checked**
-
-The volume and pitch the game gives it, the map's room, and how it sits in the mix all depend on the game. Listen to it in place of the original before deciding.
-
-If it sounds wrong, the easiest knobs are the body gain (−22 dB now, so a louder thump needs a smaller number) and the low-pass frequency.
+**Things to know:**
+- **Licence:** stable-audio-3-sfx is under the Stability AI Community Licence. It is free for an organisation under US$1M annual revenue, and needs an enterprise licence above that. The other model (woosh-dflow) is CC-BY-NC, so I did not use it. You said you accept the local generators' licences for this test; if the mod is ever sold, check this one first.
+- **Not verified:** the build cannot say how it sounds, nor how it plays in the game (volume, the map's room). The modder should A/B it against `weapons/357_shot1.wav` in the game. I also could not compare against the game's own file, because no game folders were given to the tool, so the "in range" result is against the game's shot sounds in general.

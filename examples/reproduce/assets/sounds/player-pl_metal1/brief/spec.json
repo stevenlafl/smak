@@ -2,46 +2,49 @@
   "spec": "smak.sound/1",
   "name": "player/pl_metal1.wav",
   "class": "step vent",
+  "seed": 1,
   "length": 1,
   "layers": [
     {
       "id": "tap",
       "kind": "sample",
-      "file": "work:gen/pl_metal1b_s4.wav",
+      "file": "work:gen/pl_metal1_vent_woosh-dflow_s1.wav",
       "from": "onset",
-      "length": 1,
+      "length": 0.8,
       "env": {
         "attack": 0.002,
-        "hold": 0.4,
-        "decay": 0.5
+        "hold": 0.02,
+        "decay": 0.7
       },
       "filter": [
         {
           "type": "highpass",
-          "f": 1000
-        },
-        {
-          "type": "peak",
-          "f": 2800,
-          "q": 1.2,
-          "gain": 4
+          "f": 200
         },
         {
           "type": "lowpass",
-          "f": 7000
+          "f": 1400,
+          "q": 0.7
+        },
+        {
+          "type": "peak",
+          "f": 900,
+          "q": 1.2,
+          "gain": -4
         }
-      ]
+      ],
+      "gain": -3
     }
   ],
   "finish": {
     "room": {
-      "decay": 0.35,
-      "wet": 0.2
+      "decay": 0.3,
+      "wet": 0.15
     },
     "limit": {
-      "crest": 16,
+      "crest": 14,
       "release": 0.002
     },
-    "peak": -0.5
+    "peak": -1
   }
 }
