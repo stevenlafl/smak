@@ -15,6 +15,7 @@ import { carve, masksFromPicture, sheetViews } from "./carve.mjs";
 import { readObj, objMeshes } from "../obj.mjs";
 import { reduce } from "../qem.mjs";
 import { viewCharts } from "./charts.mjs";
+import { regionLayout } from "./regions.mjs";
 import { blob, nearestPiece } from "./blob.mjs";
 import { sub, cross } from "../vec.mjs";
 import { readFileSync, existsSync } from "node:fs";
@@ -108,7 +109,7 @@ const ON_SURFACE = new Set(["band", "boss", "ridge", "studs"]);
 /** The anchors every part has: the middles of the faces of its box, and its middle. */
 const BOX_ANCHORS = ["top", "bottom", "front", "back", "left", "right", "centre"];
 /** The fields a spec takes at its top. */
-const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "fidelity", "contract", "floor", "pose", "motion", "note"];
+const TOP = ["spec", "name", "kind", "size", "texture", "seed", "materials", "parts", "prefabs", "allow", "base", "weapon", "finish", "smooth", "project", "budget", "fidelity", "contract", "floor", "pose", "motion", "note", "palette", "layout"];
 /**
  * How finely a model is made: "game" (unless told) holds it to Half-Life's own of its kind and size, warning past
  * them; "high" (a person's own model, made to look its best) gets the larger picture and is told its triangles
@@ -730,6 +731,8 @@ export function validateModelSpec(spec, { prefabs = {} } = {}) {
   };
   finishErrors(spec.finish, "finish");
   if (spec.budget !== undefined && !(Number.isInteger(spec.budget) && spec.budget > 0)) errors.push("budget: the most triangles the model may have, a whole number");
+  if (spec.layout !== undefined && !["regions", "parts"].includes(spec.layout))
+    errors.push('layout: "regions" (the picture laid as Valve lays its own: a region of the body to each patch, projected flat from the side that sees it, a left and right limb on one picture) or "parts" (each part laid in its own zone, as unless told)');
   if (spec.palette !== undefined && spec.palette !== "own") errors.push('palette: "own" keeps a character\'s projected pictures\' colour as they are (unless told, they are pulled to the base\'s palette)');
   if (spec.fidelity !== undefined && !FIDELITY.includes(spec.fidelity)) errors.push(`fidelity: ${FIDELITY.map((f) => `"${f}"`).join(" or ")}`);
   if (spec.floor !== undefined && !(typeof spec.floor === "number" && Number.isFinite(spec.floor))) errors.push("floor: where its feet stand, 0 for a monster (its origin at its feet) or -36 for a player (its origin the middle of its hull)");
@@ -2175,6 +2178,13 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
   report.notes.push(...sound.notes);
   report.edges = sound.edges;
 
+  // the picture laid again as Valve lays its own (research/valve-uv.md): a region of the body to each patch, projected
+  // flat from the side that sees it, the head at twice the texels, a left and right limb on one picture; what the
+  // materials painted carried over point for point, before the finish and the pictures paint over it
+  if (spec.layout === "regions") {
+    const laid = regionLayout(meshes);
+    report.facts.push(`the picture laid by region: ${laid.regions} regions in ${laid.charts} charts, ${laid.shared} faces of a right side on their left's picture, ${Math.round(laid.used * 100)}% of the sheet in charts`);
+  }
   // the finish read from the shape (light, worn edges, grime, a part's own shade) painted over the materials
   if (spec.finish !== false) {
     const byTop = new Map(spec.parts.map((part) => [part.id, part]));

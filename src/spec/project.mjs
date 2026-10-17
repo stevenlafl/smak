@@ -256,9 +256,12 @@ export function paintProjections(meshes, views, { carry = false } = {}) {
     const mask = enclosedForegroundOf(picture, area);
     const rect = view.rect ?? outlineBox(foregroundOf(picture, area), picture.width, area);
     if (!rect) return null;
-    // the model's outline box in this view, in units across (right) and up
-    const across = all.flat().map((p) => dot(p, right));
-    const high = all.flat().map((p) => dot(p, up));
+    // the model's outline box in this view, in units across (right) and up: of the parts the view is for, when it
+    // names them (a picture of the body alone is not stretched over the gear hung on it)
+    const own = view.parts ? meshes.flatMap((mesh) => mesh.tris.filter((_, i) => view.parts.includes(String(mesh.partOf?.[i] ?? "").split(".")[0])).map((t) => t.map((c) => c.p))) : all;
+    const outline = own.length ? own : all;
+    const across = outline.flat().map((p) => dot(p, right));
+    const high = outline.flat().map((p) => dot(p, up));
     const [a0, a1, h0, h1] = [Math.min(...across), Math.max(...across), Math.min(...high), Math.max(...high)];
     const toPicture = (p) => [rect[0] + ((dot(p, right) - a0) / (a1 - a0 || 1)) * (rect[2] - rect[0]), rect[1] + ((h1 - dot(p, up)) / (h1 - h0 || 1)) * (rect[3] - rect[1])];
     // a depth buffer of the whole model from this view, at the picture's dots: what each dot sees nearest

@@ -11,6 +11,7 @@ import { buildMapSpec, layoutOf, withIncludes, validateMapSpec } from "../src/sp
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "../src/spec/paint.mjs";
 import { lookOf, lookFaults, ALLOWED } from "../src/spec/look.mjs";
 import { changesOf } from "../src/spec/changes.mjs";
+import { paintProjections } from "../src/spec/project.mjs";
 import { validateWadSpec } from "../src/spec/wad.mjs";
 import { sword, taper } from "../kits/swordkit.mjs";
 import { definitionsOf } from "../src/maps/fgd.mjs";
@@ -156,6 +157,43 @@ test("a model spec: repeat turns the part itself to `start` and copies it round 
   near(to[2], -from[2], 0.05, "the spokes' reach either way in z");
   near(to[0], to[2], 0.05, "turned to 45 degrees");
   sure(report.parts["cap.knob"] && report.parts["cap.knob"].from[1] < -2 && report.parts["cap.knob"].to[1] > 2, "the prefab mirrored to both sides");
+});
+
+test("layout regions: each part a picture from each side, laid flat, a mirrored copy on its left's picture", () => {
+  // a body and a mirrored boot either side: each face projected flat from the side it faces, the right boot's faces
+  // on the left boot's pixels, every texture coordinate on the sheet, the picture carried over
+  const spec = { spec: "smak.model/1", kind: "prop", layout: "regions", parts: [{ id: "body", kind: "box", size: [6, 8, 10], material: "steel" }, { id: "boot", kind: "box", size: [3, 2, 2], at: [0, 6, 0], mirror: "y", material: "wood" }] };
+  const { mdl, report } = buildModelSpec(spec);
+  sure(mdl && !report.errors.length, report.errors.join(" | "));
+  const laid = report.facts.find((f) => /^the picture laid by region: \d+ regions in \d+ charts, 12 faces of a right side on their left's picture/.test(f));
+  sure(laid, report.facts.filter((f) => /laid/.test(f)).join(" | "));
+  const posed = smak.posed(mdl, { seq: null }).tris;
+  const at = (side) => posed.filter((t) => t.c.every((c) => (side > 0 ? c.p[1] > 4.5 : c.p[1] < -4.5))).map((t) => t.c.map((c) => `${c.u},${c.v}`).sort().join("|")).sort();
+  sure(at(1).length === 12 && JSON.stringify(at(1)) === JSON.stringify(at(-1)), "the two boots wear the same pixels");
+  for (const t of posed) for (const c of t.c) sure(c.u >= 0 && c.v >= 0 && c.u <= t.tex.width && c.v <= t.tex.height, `on the sheet: ${c.u},${c.v}`);
+  // each face's texture coordinates a flat projection of its corners: along one axis they do not change
+  const flat = posed.every((t) => [0, 1, 2].some((axis) => t.c.every((c) => Math.abs(c.p[axis] - t.c[0].p[axis]) < 1e-3)));
+  sure(flat, "a box's faces each square to one axis, laid flat");
+  sure(validateModelSpec({ ...spec, layout: "atlas" }).errors.some((e) => /layout: "regions"/.test(e)), "another layout refused in words");
+  sure(!validateModelSpec({ ...spec, palette: "own" }).warnings.some((w) => /palette: not a field/.test(w)), "palette is a field of a model spec");
+});
+
+test("a projected view that names its parts is laid over their outline alone, not the gear beside them", () => {
+  // a front picture red on its left half, blue on its right, of the body alone; the gear stands beside the body
+  const W = 16;
+  const rgb = new Uint8Array(W * W * 3);
+  for (let y = 0; y < W; y++) for (let x = 0; x < W; x++) rgb.set(x < W / 2 ? [200, 30, 30] : [30, 30, 200], (y * W + x) * 3);
+  const quad = (y0, y1) => {
+    const P = (y, z, u, v) => ({ p: [1, y, z], uv: [u, v] });
+    return [[P(y0, 0, 0, 1), P(y1, 0, 1, 1), P(y1, 2, 1, 0)], [P(y0, 0, 0, 1), P(y1, 2, 1, 0), P(y0, 2, 0, 0)]];
+  };
+  const sheet = () => ({ width: 8, height: 8, rgb: new Uint8Array(8 * 8 * 3) });
+  const meshes = [{ tris: quad(-1, 1), partOf: ["body", "body"], image: sheet() }, { tris: quad(5, 7), partOf: ["gear", "gear"], image: sheet() }];
+  paintProjections(meshes, [{ picture: { width: W, height: W, rgb }, yaw: 0, pitch: 0, rect: [0, 0, W, W], parts: ["body"] }]);
+  const body = meshes[0].image.rgb;
+  const at = (x) => [body[(4 * 8 + x) * 3], body[(4 * 8 + x) * 3 + 2]];
+  // the front view's right is the model's +y: the body's low y takes the picture's left (red), its high y its right
+  sure(at(0)[0] > at(0)[1] && at(7)[1] > at(7)[0], `red at one end, blue at the other: ${JSON.stringify([at(0), at(7)])}`);
 });
 
 test("a mirrored part that reaches across the middle runs into its copy, and is told (the seal's boots)", () => {
