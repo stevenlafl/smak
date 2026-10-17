@@ -8,6 +8,8 @@ It loads one model once, then reads requests from stdin, one JSON object a line:
     "bpm": 120, "key": "D minor", "loop": false }
   { "id": 2, "prompt": "...", "picture": "/abs/refs/chair.png", "seed": 0, "out": "/abs/gen/chair_s0.obj" }  (a shape;
     "only": "picture" draws its picture from the prompt and stops there)
+  { "id": 3, "prompt": "...", "control": "/abs/gen/guard_pose.png", "seed": 0, "out": "/abs/gen/guard_s0.png" }  (a
+    picture: a picture model's, held to the pose picture `control` when given; answered with { "picture": out })
 
 and for each writes the take (the model's own rate and channels, 32-bit float) and answers on stdout, one line:
 
@@ -249,9 +251,78 @@ def load_hunyuan(root, model):
     return gen
 
 
+# Z-Image-Turbo with the Fun ControlNet Union 2.1 lite: a character's picture drawn from words and held to the
+# OpenPose picture of its base (src/openpose.mjs). The ControlNet's lite file applies control at three of the
+# transformer's layers (VideoX-Fun's config/z_image/z_image_control_2.1_lite.yaml), which diffusers cannot tell
+# from the file: generators/install-3d.sh writes that config beside the weights
+PICTURE_SIZE = 1024
+PICTURE_STEPS = 8
+# the lite file's control is weak: at 0.8 a brief that says the character "runs and fights" drew all four takes mid-
+# stride, at 1.0 two of four stood in the base's stance (the guard brief, 2026-10-17)
+CONTROL_SCALE = 1.0
+
+
+def load_zimage(root, model):
+    import torch
+    from huggingface_hub import hf_hub_download, snapshot_download
+    from diffusers import ZImageControlNetPipeline, ZImageControlNetModel, ZImageTransformer2DModel, GGUFQuantizationConfig
+    from PIL import Image
+    # the repo without its fp32 transformer (24.6 GB): the Q8 GGUF (7.2 GB) stands in for it
+    base = snapshot_download("Tongyi-MAI/Z-Image-Turbo", allow_patterns=["model_index.json", "scheduler/*", "text_encoder/*", "tokenizer/*", "vae/*", "transformer/config.json"])
+    transformer = ZImageTransformer2DModel.from_single_file(
+        hf_hub_download("unsloth/Z-Image-Turbo-GGUF", "z-image-turbo-Q8_0.gguf"),
+        quantization_config=GGUFQuantizationConfig(compute_dtype=torch.bfloat16), config=base, subfolder="transformer", torch_dtype=torch.bfloat16)
+    controlnet = ZImageControlNetModel.from_single_file(
+        hf_hub_download("alibaba-pai/Z-Image-Turbo-Fun-Controlnet-Union-2.1", "Z-Image-Turbo-Fun-Controlnet-Union-2.1-lite-2602-8steps.safetensors"),
+        config=str(root / "weights/zimage-controlnet-2.1-lite"), torch_dtype=torch.bfloat16)
+    pipe = ZImageControlNetPipeline.from_pretrained(base, transformer=transformer, controlnet=controlnet, torch_dtype=torch.bfloat16)
+    # the VAE at 1024 wants 4.5 GB at once beside the 10.4 the others hold: in tiles, and its tiles start above
+    # their size, so smaller ones, that a 1024 control picture's encoding is tiled too
+    pipe.vae.enable_tiling()
+    pipe.vae.tile_sample_min_size = 512
+    pipe.vae.tile_latent_min_size = 64
+    # the 16 GB card holds the text encoder (8 GB) or the transformer and ControlNet (9 GB), not both: the
+    # ControlNet borrows the transformer's embedders, which model offload leaves behind, so the two are swapped
+    # by hand for each new prompt, and a prompt's embedding is kept
+    on_card = {"which": None}
+    embedded = {}
+
+    def hold(which):
+        if on_card["which"] == which:
+            return
+        away, here = ((pipe.transformer, pipe.controlnet), (pipe.text_encoder,)) if which == "text" else ((pipe.text_encoder,), (pipe.transformer, pipe.controlnet, pipe.vae))
+        for part in away:
+            part.to("cpu")
+        torch.cuda.empty_cache()
+        for part in here:
+            part.to("cuda")
+        on_card["which"] = which
+
+    def gen(r):
+        out = Path(r["out"]).with_suffix(".png")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        prompt = r["prompt"]
+        if prompt not in embedded:
+            hold("text")
+            with torch.no_grad():
+                embedded[prompt] = pipe.encode_prompt(prompt, device="cuda", do_classifier_free_guidance=False)[0]
+        hold("draw")
+        size = r.get("size") or PICTURE_SIZE
+        options = {"prompt_embeds": embedded[prompt], "height": size, "width": size, "num_inference_steps": r.get("steps") or PICTURE_STEPS,
+                   "guidance_scale": 0.0, "generator": torch.Generator("cuda").manual_seed(r["seed"])}
+        if r.get("control"):
+            options.update(control_image=Image.open(r["control"]).convert("RGB").resize((size, size)), controlnet_conditioning_scale=r.get("scale") or CONTROL_SCALE)
+        else:
+            # no control: the ControlNet adds nothing at a scale of 0, on a black picture
+            options.update(control_image=Image.new("RGB", (size, size)), controlnet_conditioning_scale=0.0)
+        pipe(**options).images[0].save(out)
+        return {"picture": str(out)}
+    return gen
+
+
 LOADERS = {"woosh-dflow": load_woosh, "woosh-flow": load_woosh, "ezaudio": load_ezaudio, "moss-sfx": load_moss,
            "stable-audio-3-sfx": load_sa3, "acestep": load_acestep, "acestep-xl": load_acestep,
-           "hunyuan3d-mini": load_hunyuan}
+           "hunyuan3d-mini": load_hunyuan, "zimage-turbo": load_zimage}
 
 
 def main():

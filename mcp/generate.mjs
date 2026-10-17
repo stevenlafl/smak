@@ -25,11 +25,17 @@ import { readObj, objModel } from "../src/obj.mjs";
 import { render, tile } from "../src/render.mjs";
 import { aimedBase, GENERATED_STANCE } from "../src/spec/model.mjs";
 import { readMdl, textureOf, replaceTexture } from "../src/mdl.mjs";
+import { openPosePicture } from "../src/openpose.mjs";
 import { text, image } from "./protocol.mjs";
 import { pathOf } from "./folders.mjs";
 
 const WORKER = join(dirname(fileURLToPath(import.meta.url)), "..", "generators", "worker.py");
-const KINDS = ["sound", "music", "shape"];
+const KINDS = ["sound", "music", "shape", "picture"];
+/**
+ * What a picture model is told beside the prompt when it draws a character for a shape: whole, facing the viewer,
+ * its limbs clear of its body and its hands empty (a hand fused to a thigh tears in every motion), on white.
+ */
+const PICTURE_STYLE = ", full body, front view, facing the viewer, standing, arms held out from the body, empty hands, plain white background, even studio lighting, 3d render, video game character";
 /** How long a model may take to load (XL: about 3 minutes here), and a take to be made. */
 const LOAD_MS = 15 * 60 * 1000;
 const TAKE_MS = 10 * 60 * 1000;
@@ -44,7 +50,7 @@ export function openGenerators(folder) {
   const { models } = JSON.parse(readFileSync(file, "utf8"));
   if (!Array.isArray(models) || !models.length) throw new Error(`${file}: "models": [{ name, kind, python, licence }]`);
   for (const m of models) {
-    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music | shape, python }, not ${JSON.stringify(m)}`);
+    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music | shape | picture, python }, not ${JSON.stringify(m)}`);
     m.root = resolve(folder, m.root ?? ".");
     if (!existsSync(resolve(m.root, m.python))) throw new Error(`${file}: ${m.name}'s python ${m.python} is not there in ${m.root} (generators/install.sh)`);
   }
@@ -259,15 +265,43 @@ async function generateShapes(folders, generators, model, args) {
   const name = (args.name ?? words.replace(/\.[a-z]+$/i, "").split(/[\s/]+/).slice(-3).join("_")).toLowerCase().replace(/^work:/, "").replace(/\.obj$/, "").replace(/[^a-z0-9_/-]+/g, "_");
   const stem = name.includes("/") ? name : `gen/${name}`;
   const started = Date.now();
-  const { worker, load } = await workerFor(generators, model);
-  const loaded = worker.told ? null : load;
-  worker.told = true;
-  // a character: its base drawn in GENERATED_STANCE as a plain grey figure on white, the picture drawn over it
-  const guide = base && !given ? guideOf(folders, base, pathOf(folders, `${stem}_guide.png`, { write: true })) : null;
+  // a character from words, with a picture model (Z-Image-Turbo) and a biped base: its pictures drawn first, held
+  // to the OpenPose picture of its base in GENERATED_STANCE, and each shape made from its picture. Without one, or
+  // on a base that is not a biped, the shape model's own SD-Turbo draws over the base's grey figure. A picture
+  // given (a photograph, or renders of a model) goes to the shape model as it is: each input keeps its own route
+  const painter = !given && base ? generators.models.find((m) => m.kind === "picture") : null;
+  const posed = painter ? poseOf(folders, base, pathOf(folders, `${stem}_pose.png`, { write: true })) : null;
+  const drawn = new Map();
+  let drawLoad = null;
+  if (posed) {
+    const { worker: drawer, load: drawerLoad } = await workerFor(generators, painter);
+    drawLoad = drawer.told ? null : drawerLoad;
+    drawer.told = true;
+    for (const seed of seeds) {
+      const said = await ask(drawer, { prompt: `${prompt}${PICTURE_STYLE}`, control: posed, seed, out: pathOf(folders, `${stem}_s${seed}.png`, { write: true }) });
+      drawn.set(seed, said.ok ? said.picture : { error: said.error });
+    }
+    idleLater(drawer);
+  }
   const takes = [];
-  for (const seed of seeds) {
+  if (only && posed)
+    for (const seed of seeds) {
+      const said = drawn.get(seed);
+      takes.push(typeof said === "string" ? { seed, picture: relative(folders.work, said) } : { seed, error: said.error });
+    }
+  const { worker, load } = only && posed ? { worker: null, load: drawLoad } : await workerFor(generators, model);
+  const loaded = worker === null ? load : worker.told ? null : load;
+  if (worker) worker.told = true;
+  // a character on SD-Turbo: its base drawn in GENERATED_STANCE as a plain grey figure on white, the picture drawn over it
+  const guide = base && !given && !posed ? guideOf(folders, base, pathOf(folders, `${stem}_guide.png`, { write: true })) : null;
+  for (const seed of only && posed ? [] : seeds) {
     const out = pathOf(folders, `${stem}_s${seed}.obj`, { write: true });
-    const said = await ask(worker, { prompt: prompt ?? "", picture: given, guide: given ? null : guide, seed, out, steps: args.steps, ...(only ? { only } : {}) });
+    const fromDrawn = drawn.get(seed);
+    if (fromDrawn && typeof fromDrawn !== "string") {
+      takes.push({ seed, error: `its picture: ${fromDrawn.error}` });
+      continue;
+    }
+    const said = await ask(worker, { prompt: prompt ?? "", picture: fromDrawn ?? given, guide: given || fromDrawn ? null : guide, seed, out, steps: args.steps, ...(only ? { only } : {}) });
     if (!said.ok) {
       takes.push({ seed, error: said.error });
       continue;
@@ -276,19 +310,19 @@ async function generateShapes(folders, generators, model, args) {
       takes.push({ seed, picture: relative(folders.work, said.picture) });
       continue;
     }
-    const from = given ? relative(folders.work, given) : said.picture ? relative(folders.work, said.picture) : null;
-    writeFileSync(out.replace(/\.obj$/, ".json"), `${JSON.stringify({ model: model.name, kind: "shape", prompt, picture: from, ...(base ? { base, stance: GENERATED_STANCE } : {}), seed, faces: said.faces, licence: model.licence ?? "not given", took: said.took, made: new Date().toISOString() }, null, 1)}\n`);
+    const from = given ? relative(folders.work, given) : fromDrawn ? relative(folders.work, fromDrawn) : said.picture ? relative(folders.work, said.picture) : null;
+    writeFileSync(out.replace(/\.obj$/, ".json"), `${JSON.stringify({ model: model.name, kind: "shape", prompt, picture: from, ...(posed ? { drawnBy: painter.name, pose: relative(folders.work, posed) } : {}), ...(base ? { base, stance: GENERATED_STANCE } : {}), seed, faces: said.faces, licence: model.licence ?? "not given", took: said.took, made: new Date().toISOString() }, null, 1)}\n`);
     // drawn as it would stand: Y up, at a player's scale for the picture only
     const { mdl } = objModel(readObj(readFileSync(out, "utf8")), { up: "y", ground: true, centre: true, scale: 24, quiet: true });
     const view = render(mdl, { yaw: 30, pitch: 15, width: 320, height: 320 });
     const front = render(mdl, { view: "front", width: 320, height: 320 });
     takes.push({ seed, file: relative(folders.work, out), from, said, view, front });
   }
-  idleLater(worker);
+  if (worker) idleLater(worker);
   if (only) {
     const drawn = takes.filter((t) => t.picture);
     const said = [
-      `${drawn.length} of ${seeds.length} pictures of "${prompt}" by ${model.name}${loaded !== null ? `; the model loaded in ${loaded} s` : ""}; ${round((Date.now() - started) / 1000, 10)} s in all`,
+      `${drawn.length} of ${seeds.length} pictures of "${prompt}" by ${posed ? `${painter.name}, held to ${base}'s pose (work:${relative(folders.work, posed)})` : model.name}${loaded !== null ? `; the model loaded in ${loaded} s` : ""}; ${round((Date.now() - started) / 1000, 10)} s in all`,
       ...takes.map((t) => (t.error ? `seed ${t.seed}: failed: ${t.error}` : `work:${t.picture}`)),
       `Look at each against what was asked, part by part (a vest's lettering, a belt, boots, the face): what a picture lacks the model lacks, for the picture is its paint. Draw again with other words or seeds until one has it all, then make its shape: generate { kind: "shape", picture: "work:<it>"${base ? `, base: "${base}"` : ""} }.`,
     ];
@@ -305,7 +339,7 @@ async function generateShapes(folders, generators, model, args) {
         : `work:${t.file}: ${t.said.faces} triangles, ${size(t.said.box).join(" x ")} in the file's units (x, y up, z), from ${t.from ? `work:${t.from}` : "the picture"}, made in ${t.said.took} s`,
     ),
     `Each .obj has a sidecar .json and the picture it was made from (its subject cut out beside it as _cut.png). Pick the one whose shape is right and put it in a model spec as a part { "kind": "mesh", "file": "work:<the .obj>", "size": [x, y, z], "triangles": n } (guide { doc: "spec" }), painted by its material, or by project from its cut-out ("picture": "work:<name>_s<seed>_cut.png", the side the picture shows as its view; the raw picture's background hides its outline). The shape is the generator's guess where the picture does not show it (the back, below): look at every side.`,
-    ...(base ? [`Drawn in ${base}'s stance (work:${stem}_guide.png): build it on that base in the same one, "base": { "file": "${base}" }, "pose": { "aim": ${JSON.stringify(GENERATED_STANCE)}, "bind": true }, so its limbs lie on its bones and it stands as the base stands. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`] : []),
+    ...(base ? [`Drawn in ${base}'s stance (work:${stem}_${posed ? "pose" : "guide"}.png${posed ? `, by ${painter.name}` : ""}): build it on that base in the same one, "base": { "file": "${base}" }, "pose": { "aim": ${JSON.stringify(GENERATED_STANCE)}, "bind": true }, so its limbs lie on its bones and it stands as the base stands. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`] : []),
   ];
   const answer = [text(lines.join("\n"))];
   if (made.length) {
@@ -335,6 +369,20 @@ function guideOf(folders, base, file) {
   const drawn = render(src, { seq: 0, frame: 0, view: "front", width: 512, height: 512, background: [255, 255, 255] });
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, png(drawn.width, drawn.height, drawn.rgba));
+  return file;
+}
+
+/**
+ * A character's pose picture: its base (found as guideOf finds it) in GENERATED_STANCE from the front, as OpenPose
+ * draws a skeleton, at the picture model's size, written to `file`. Returns the file, or null for a base that is no
+ * biped (its picture is then drawn over its grey figure instead).
+ */
+function poseOf(folders, base, file) {
+  const src = aimedBase(base, { folder: folders.work, games: folders.wads ?? [], refuse: [...(folders.refuse ?? []), ...(folders.hide ?? [])] });
+  const pose = openPosePicture(src, { seq: 0, frame: 0, view: "front", width: 1024, height: 1024 });
+  if (!pose) return null;
+  mkdirSync(dirname(file), { recursive: true });
+  writeFileSync(file, png(pose.width, pose.height, pose.rgba));
   return file;
 }
 

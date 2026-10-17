@@ -10,6 +10,7 @@ import { openFolders } from "../mcp/folders.mjs";
 import { openGenerators, stopWorkers } from "../mcp/generate.mjs";
 import { png } from "../src/image.mjs";
 import { buildMdl, indexed, workshop as W } from "../src/index.mjs";
+import { openPosePicture } from "../src/openpose.mjs";
 
 /** a box of 12 triangles about the pelvis, on it */
 const boxTris = () => {
@@ -39,6 +40,14 @@ process.stdin.on("data", (chunk) => {
     const r = JSON.parse(buffer.slice(0, at));
     buffer = buffer.slice(at + 1);
     if (r.prompt.includes("fail")) { say({ id: r.id, ok: false, error: "RuntimeError: asked to" }); continue; }
+    if (model === "painter") {
+      // a picture model: the picture it "drew", and the pose it was held to
+      fs.appendFileSync(${JSON.stringify(join(folder, "controls.txt"))}, (r.control ?? "none") + "\\n");
+      fs.mkdirSync(require("node:path").dirname(r.out), { recursive: true });
+      fs.copyFileSync(${JSON.stringify(join(folder, "seen.png"))}, r.out);
+      say({ id: r.id, ok: true, picture: r.out, took: 0.01 });
+      continue;
+    }
     if (r.out.endsWith(".obj") && r.only === "picture") {
       fs.mkdirSync(require("node:path").dirname(r.out), { recursive: true });
       fs.copyFileSync(${JSON.stringify(join(folder, "seen.png"))}, r.out.replace(/\\.obj$/, ".png"));
@@ -171,6 +180,43 @@ async function generateCase() {
   const none = toolsFor(openFolders({ work: join(tmp, "gen-work") }));
   sure(!none.some((t) => t.name === "generate"), "no generators, no tool");
 }
+
+await testAsync("generate: a character from words with a picture model is drawn held to its base's pose, then shaped from that picture", "generate", async () => {
+  const painted = join(tmp, "generators-painted");
+  mkdirSync(painted, { recursive: true });
+  writeFileSync(join(painted, "generators.json"), JSON.stringify({ models: [{ name: "former", kind: "shape", root: folder, python: "venv/python", licence: "non-commercial", default: true }, { name: "painter", kind: "picture", root: folder, python: "venv/python", licence: "Apache-2.0" }] }));
+  try {
+    const folders = openFolders({ work: join(tmp, "gen-painted") });
+    folders.generators = openGenerators(painted);
+    const generate = toolsFor(folders).find((t) => t.name === "generate");
+    // a biped with a neck and a head: its skeleton is what OpenPose draws
+    const side = (s, k, from) => [{ name: `Bip01 ${s} UpperArm`, parent: 1 }, { name: `Bip01 ${s} Forearm`, parent: from }, { name: `Bip01 ${s} Hand`, parent: from + 1 }, { name: `Bip01 ${s} Thigh`, parent: 0 }, { name: `Bip01 ${s} Calf`, parent: from + 3 }, { name: `Bip01 ${s} Foot`, parent: from + 4 }];
+    const values = (y) => [[0, 8 * y, -4, 0, 0, 0], [0, 0, -11, 0, 0, 0], [0, 0, -10, 0, 0, 0], [0, 4 * y, -2, 0, 0, 0], [0, 0, -18, 0, 0, 0], [0, 0, -18, 0, 0, 0]];
+    writeFileSync(join(folders.work, "man.mdl"), buildMdl({
+      name: "man.mdl",
+      bones: [{ name: "Bip01 Pelvis", parent: -1 }, { name: "Bip01 Neck", parent: 0 }, { name: "Bip01 Head", parent: 1 }, ...side("L", 0, 3), ...side("R", 1, 9)],
+      bodyparts: [{ name: "body", models: [{ name: "b", meshes: [{ tris: boxTris(), texture: indexed(W.sheet(16, 16).image(), "b.bmp") }] }] }],
+      sequences: [{ name: "idle", fps: 10, frames: [[[0, 0, 40, 0, 0, 0], [0, 0, 20, 0, 0, 0], [0, 0, 6, 0, 0, 0], ...values(1), ...values(-1)]] }],
+    }));
+    // seen from the front, the subject's right shoulder (OpenPose's point 2) is to the picture's left of its left (5):
+    // what tells a drawing which way the figure faces
+    const pose = openPosePicture(readFileSync(join(folders.work, "man.mdl")), { width: 256, height: 256 });
+    sure(pose && pose.points.length === 18 && pose.points[2][0] < pose.points[5][0] && pose.points[0][1] < pose.points[1][1], JSON.stringify(pose?.points));
+    const looked = await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", only: "picture", seeds: 2, name: "people/man" });
+    sure(/2 of 2 pictures of "a security guard" by painter, held to man\.mdl's pose \(work:people\/man_pose\.png\)/.test(looked[0].text) && !existsSync(join(folders.work, "people", "man_s0.obj")), looked[0].text);
+    sure(existsSync(join(folders.work, "people", "man_pose.png")) && readFileSync(join(folder, "controls.txt"), "utf8").includes("man_pose.png"), "the pose drawn and handed to the picture model");
+    const shaped = await generate.call({ kind: "shape", prompt: "a security guard", base: "man.mdl", seeds: 1, name: "people/whole" });
+    sure(/1 of 1 shapes of "a security guard" by former/.test(shaped[0].text) && /from work:people\/whole_s0\.png/.test(shaped[0].text) && /Drawn in man\.mdl's stance \(work:people\/whole_pose\.png, by painter\)/.test(shaped[0].text), shaped[0].text);
+    const sidecar = JSON.parse(readFileSync(join(folders.work, "people", "whole_s0.json"), "utf8"));
+    sure(sidecar.drawnBy === "painter" && sidecar.picture === "people/whole_s0.png" && sidecar.pose === "people/whole_pose.png", JSON.stringify(sidecar));
+    // a base with no neck and head to draw a pose of: the shape model's own drawing over its grey figure
+    writeFileSync(join(folders.work, "stub.mdl"), readFileSync(join(tmp, "gen-work", "biped.mdl")));
+    const stub = await generate.call({ kind: "shape", prompt: "a security guard", base: "stub.mdl", seeds: 1, name: "people/stub" });
+    sure(/Drawn in stub\.mdl's stance \(work:people\/stub_guide\.png\)/.test(stub[0].text), stub[0].text);
+  } finally {
+    stopWorkers();
+  }
+});
 
 await testAsync("generate: several default models of a kind each make the takes, their files named after them", "generate", async () => {
   const two = join(tmp, "generators-two");
