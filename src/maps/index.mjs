@@ -33,3 +33,4 @@ export * from "./places.mjs";
 export * from "./match.mjs";
 export * from "./fidelity.mjs";
 export * from "./describe.mjs";
+export * from "./dressing.mjs";

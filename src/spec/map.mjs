@@ -24,7 +24,8 @@ import { lightReport } from "../maps/light.mjs";
 import { makeSky, skyFiles, SKY_KEYS } from "../maps/sky.mjs";
 import { PRECACHES_MODEL } from "../maps/entities.mjs";
 import { sweepOf, SAFE_DROP, LIGHT_REACH } from "../maps/sweep.mjs";
-import { planOfSource, planOf, drawMap, sectionOf, viewsOf } from "../maps/draw.mjs";
+import { planOfSource, planOf, drawMap, sectionOf, viewsOf, aimedStands } from "../maps/draw.mjs";
+import { dressingOf } from "../maps/dressing.mjs";
 import { tile, label, render } from "../render.mjs";
 import { png, unpicture } from "../image.mjs";
 import { materialOf, surfacePicture, MATERIALS, UNWORN } from "./paint.mjs";
@@ -2115,6 +2116,10 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       const swept = sweepOf(bsp, { reach: walked });
       report.facts.push(...swept.facts.map((line) => `sweep: ${line}`));
       if (swept.islands.length) report.faults.push(`sweep: ${swept.islands.length} pieces of solid touch nothing, floating in the air: ${swept.islands.slice(0, 4).map((i) => `${i.from.join(" ")} to ${i.to.join(" ")}`).join("; ")}: rest each on something, or take it out`);
+      // its dressing beside Valve's own, measured: what a maker revising it is told (research/level-dressing.md)
+      const dressed = dressingOf(bsp, { source: map });
+      report.facts.push(...dressed.facts);
+      warnings.push(...dressed.warnings);
       const seenFloating = swept.floating.filter((f) => f.seen);
       if (seenFloating.length) report.faults.push(`sweep: ${seenFloating.length} glows or sprites hang in the air with nothing within ${LIGHT_REACH} of them: put each on the lamp or the wall it shines from`);
       if (swept.drops.length) warnings.push(`sweep: ${swept.drops.length} places a player can step off and fall far enough to be hurt (more than ${SAFE_DROP}), the farthest ${swept.drops[0].fall} at ${swept.drops[0].at.join(" ")}: mean each, or rail it`);
@@ -2135,6 +2140,9 @@ export function buildMapSpec(given, { out, compilers, folder, fgd = [], wads = [
       });
       // a map of a floor plan has no rooms to look across: its views are from its starts and its largest spaces
       save("views", views.length ? tile(views, Math.min(4, views.length), [...rooms.keys()]) : viewsOf(bsp, drawing));
+      // views aimed at what the map has: its water, its largest standing piece, its lamps, its crowd, each storey
+      const aimed = aimedStands(bsp);
+      if (aimed.length) save("features", viewsOf(bsp, { ...drawing, at: aimed, width: 320, height: 240 }));
       // each building from the open room it stands in, at a man's height, before its front: what no view of a
       // room shows (its walls, its roof, its door and windows)
       if (standing.length) {

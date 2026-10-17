@@ -598,3 +598,51 @@ test("viewsOf: a view that is nearly one colour is left out, the next room shown
   const said = runSmak("map-views", file, "-o", inFolder("views.png"));
   sure(/6 views/.test(said) && /nearly one colour and are left out/.test(said), said);
 });
+
+test("dressingOf: a map's dressing beside Valve's campaign, measured; a measure outside Valve's band warned, with the way to go", () => {
+  const source = maps.readMap(readFileSync(join(FIXTURES, "tworooms.map"), "utf8"));
+  const dressed = maps.dressingOf(tworooms, { source });
+  const keys = dressed.rows.map((row) => row.key);
+  sure(["scaleOne", "bandedWalls", "oneTextureWalls", "lampFaces", "nonAxial", "detail", "darkFloor", "contrast", "panels", "strips"].every((k) => keys.includes(k)), keys.join(" "));
+  sure(dressed.facts.some((f) => /^dressing: faces at texture scale 1: 100% \(Valve's: 26% to 97%, median 79%\)/.test(f)), dressed.facts.join(" | "));
+  // two plain rooms: every tall wall one texture, nothing off the axes: both outside Valve's 5th to 95th
+  sure(dressed.warnings.some((w) => /tall walls of one texture only: 100%.*over the 95th in 100 of Valve's campaign maps; break tall walls with a second texture/.test(w)), dressed.warnings.join(" | "));
+  sure(dressed.warnings.some((w) => /off the axes: 0%.*under the 5th in 100.*cut corners/.test(w)), dressed.warnings.join(" | "));
+  // a brush's role, as Valve's sources are read: lamp, strip, panel, block
+  const role = (max, texture = "WALL") => maps.brushRole({ min: [0, 0, 0], max, faces: Array.from({ length: 6 }, () => ({ texture })) }).role;
+  sure(role([8, 64, 128]) === "panel" && role([8, 16, 200]) === "strip" && role([16, 32, 8], "~LIGHT3A") === "lit" && role([64, 64, 64]) === "block", "panel, strip, lit, block");
+  const roles = maps.dressingOfSource({ brushes: [maps.box([0, 0, 0], [8, 64, 128], "WALL"), maps.box([0, 0, 0], [8, 16, 200], "TRIM"), maps.box([0, 0, 0], [32, 16, 8], "~LIGHT3A"), maps.box([0, 0, 0], [64, 64, 64], "WALL")], entities: [] });
+  sure(roles.brushes === 4 && roles.panels === 0.25 && roles.strips === 0.25 && roles.litBrushes === 0.25, JSON.stringify(roles));
+  // a map's own texture lights (info_texlights) are its lamps: a spec's glowing fixtures among them
+  const isLamp = maps.lampsOf({ entities: [[["classname", "info_texlights"], ["origin", "0 0 0"], ["FIXTURE_GLASS", "255 220 180 600"]]] });
+  sure(isLamp("fixture_glass") && isLamp("+0~GENERIC65") && !isLamp("concrete"), "texture lights");
+  // a view's complexity: none on a flat picture, much on a chequer
+  const picture = (fill) => ({ width: 16, height: 16, rgba: Uint8Array.from({ length: 16 * 16 * 4 }, (_, i) => (i % 4 === 3 ? 255 : fill(Math.floor(i / 4)))) });
+  const flat = maps.pictureComplexity(picture(() => 128));
+  const chequer = maps.pictureComplexity(picture((p) => (((p % 16) + Math.floor(p / 16)) % 2 ? 255 : 0)));
+  sure(flat.edges === 0 && chequer.edges > 0.9 && chequer.compression > flat.compression, JSON.stringify({ flat, chequer }));
+});
+
+test("viewsOf with aim: views aimed at what the map has, a landmark among them, and none facing a wall", () => {
+  const stands = maps.aimedStands(tworooms, { landmark: "info_player_start" });
+  const at = stands.find((s) => s.name === "landmark info_player_start");
+  sure(at && Math.hypot(at.to[0] - 96, at.to[1] - 96) < 1 && maps.contentsAt(tworooms, at.from) === maps.CONTENTS.EMPTY, JSON.stringify(stands));
+  const views = maps.viewsOf(tworooms, { count: 6, aim: true, landmark: "info_player_start" });
+  sure(views.facts.views.length === 6 && views.facts.views.some((v) => /^landmark info_player_start/.test(v.name)), views.facts.views.map((v) => v.name).join(" | "));
+  // the rooms' level views, the most open first: one facing a wall within 256 only after every open one
+  const openness = views.facts.views.filter((each) => /^room /.test(each.name)).map((v) => {
+    const a = (v.yaw * Math.PI) / 180;
+    let open = 0;
+    for (let d = 8; d <= 256 && maps.contentsAt(tworooms, [v.from[0] + Math.cos(a) * d, v.from[1] + Math.sin(a) * d, v.from[2]]) !== maps.CONTENTS.SOLID; d += 8) open = d;
+    return open;
+  });
+  const firstShut = openness.findIndex((o) => o < 248);
+  sure(firstShut < 0 || openness.slice(firstShut).every((o) => o < 248), `open ahead, in order: ${openness.join(", ")}`);
+});
+
+test("smak map-dressing: a compiled map's dressing beside Valve's, its source's brush roles", () => {
+  const said = runSmak("map-dressing", join(FIXTURES, "tworooms.bsp"), "--source", join(FIXTURES, "tworooms.map"));
+  sure(/^dressing: faces at texture scale 1: 100%/m.test(said) && /^WARNING dressing: tall walls of one texture only/m.test(said) && /panels \(thin, wide\): 70%/.test(said), said);
+  const source = runSmak("map-dressing", join(FIXTURES, "tworooms.map"));
+  sure(/^panels: 70%/m.test(source) && /of a compiled map: compile it/.test(source), source);
+});

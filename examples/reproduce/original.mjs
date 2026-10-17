@@ -188,7 +188,7 @@ async function judgeAll(which) {
       const bsp = maps.readBsp(bytes);
       const folders = [made, GAME];
       savePng(join(dir, "plan.png"), maps.planOf(bsp, { heights: true, legend: true, folders }));
-      savePng(join(dir, "views.png"), maps.viewsOf(bsp, { count: 8, folders, models: true }));
+      savePng(join(dir, "views.png"), maps.viewsOf(bsp, { count: 8, folders, models: true, aim: true }));
       const check = maps.checkBsp(bytes, { folders });
       const reach = maps.reachOf(bsp, { exits: ["trigger_changelevel"] });
       const ents = bsp.entities.map((e) => Object.fromEntries(e));
