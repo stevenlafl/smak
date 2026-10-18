@@ -5,32 +5,84 @@
  "label": "zombie, in the place of the game's models/zombie.mdl",
  "measured": {
   "size": [
-   37.7,
-   45.5,
-   72.6
+   32,
+   29.9,
+   71.1
   ],
   "sizeAsked": {
    "high": 68
   },
-  "sizeOff": 0.067,
-  "triangles": 722,
+  "sizeOff": 0.045,
+  "triangles": 690,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
   "halfLifeMost": 1640,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/hgrunt.mdl, models/barney.mdl, models/hassassin.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, D, D, A where the asset was B, D, D, B: told apart",
-  "lineupWhy": "1. Its head is an oversized, rounded shape wrapped in tan and brown stripes, while the other three have heads sized to normal Half-Life human proportions.\n2. Its white coat is frayed and tattered with dark patches, where the other three have clean, solid fabric and paint.\n3. Its arm carries a long, blade-like protrusion that sticks out at an odd angle, and the figure stoops forward, unlike the upright stance of the other three."
+  "lineup": "the asset is one of A to D in lineup.png beside models/barney.mdl, models/hassassin.mdl, models/scientist.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked C, B, D, D where the asset was B, D, D, B: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 1
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M6"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Against the brief's words the outline reads right: a hunched figure with the head pushed forward, a long lab coat to the knees, and arms reaching forward with claws. In the side and front-left views the body leans as the brief asks. The claws sit a little above the fists in the side views, which blurs the hand's line, but the overall silhouette matches the brief."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The brief gives about 68 units tall. The asset measures 71.1 in height, 4.5% over, within the 15% band. Width (32) and length (29.9) are not asked for and are not charged."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The parts the brief names are all there: the lab coat (white, torn at the hem in the front, left, right and back views), the parasite's body over the head (the tan dome with a horn at the back, in the front, top and back views), long clawed hands (white claws on both sides, about three per hand, in the left and right views), and the scientist's trousers and shoes, which all Valve's line-up models show. Nothing the brief names is missing."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The regions read as the brief asks: a white-grey lab coat, tan skin on the parasite head, maroon bloodied hands, dark trousers and black shoes. The dark red blood on the chest and back and on the hands reads as bloodied cloth and skin, not as a different material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief's torn and bloodied coat is shown in the painted picture: dark jagged tears at the hem and sleeves in the front, left and right views, and a dark red stain on the chest and back in the back and back-right views. The detail is simple but in the right places and at a sharpness that suits the game's low-poly look."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured on the line-up test: judges picked the asset as the one not made by Valve in only one of four readings, which is below the twice-in-three threshold that would cap it. Beside the three Valve models it looks like a low-poly model of the game's kind, though the tan head and white blade claws are unusual."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front view is upright and the feet sit flat on the floor line in the front and side views, with the walk frames standing on the floor line without sinking or floating."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The SMAK check reports no errors. It has 690 triangles, under twice the median of Half-Life's creatures of its kind (504, so a limit of 1008) and within the third-quartile band. The underside in the below view is a closed, dark surface and nothing visible is open or inside out. The claws look attached to the wrists in the attack frames."
+  },
+  "C1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In the walk frames (0 to 23) the head, coat, arms, claws and legs stay on the body through the cycle, and the hunch holds. In the attack frames the arm and claws move with the hand and nothing comes apart, sinks or floats. The slash is a modest swing, so the motion is not large, but every part stays put."
+  }
+ },
+ "total": 18,
+ "of": 18,
+ "passes": true
 }

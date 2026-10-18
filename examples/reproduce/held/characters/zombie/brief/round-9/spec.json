@@ -1,0 +1,173 @@
+{
+  "spec": "smak.model/1",
+  "name": "zombie.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 68
+  },
+  "materials": {
+    "claw": {
+      "base": "bone",
+      "tone": [
+        0.85,
+        0.8,
+        0.7
+      ]
+    },
+    "flesh": {
+      "base": "leather",
+      "tone": [
+        0.45,
+        0.2,
+        0.18
+      ]
+    }
+  },
+  "pose": {
+    "keys": {
+      "Bip01 Spine": {
+        "turn": {
+          "y": -8
+        }
+      },
+      "Bip01 Spine1": {
+        "turn": {
+          "y": -10
+        }
+      },
+      "Bip01 Spine2": {
+        "turn": {
+          "y": -10
+        }
+      },
+      "Bip01 Neck": {
+        "turn": {
+          "y": -8
+        }
+      }
+    },
+    "aim": {
+      "L arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "R arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
+    },
+    "bind": true
+  },
+  "project": [
+    {
+      "picture": "work:gen/zombie_shape_s1_cut.png",
+      "view": "front"
+    },
+    {
+      "picture": "work:gen/zombie_shape_s1_sides/view_1.png",
+      "yaw": 90
+    },
+    {
+      "picture": "work:gen/zombie_shape_s1_sides/view_3.png",
+      "yaw": 270
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "kind": "mesh",
+      "file": "work:gen/zombie_shape_s1.obj",
+      "size": [
+        19,
+        39,
+        68
+      ],
+      "triangles": 500,
+      "symmetric": true
+    },
+    {
+      "id": "claws_left",
+      "kind": "fingers",
+      "hand": "Bip01 L Arm2",
+      "palm": 8,
+      "count": 3,
+      "length": 4.5,
+      "radius": [
+        1,
+        0.3
+      ],
+      "spread": 25,
+      "curl": 10,
+      "sides": 3,
+      "material": "claw"
+    },
+    {
+      "id": "claws_right",
+      "kind": "fingers",
+      "hand": "Bip01 R Arm2",
+      "palm": 8,
+      "count": 3,
+      "length": 4.5,
+      "radius": [
+        1,
+        0.3
+      ],
+      "spread": 25,
+      "curl": 10,
+      "sides": 3,
+      "material": "claw"
+    },
+    {
+      "id": "parasite",
+      "kind": "sphere",
+      "radius": 7,
+      "sides": 6,
+      "material": "flesh",
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "centre",
+        "offset": [
+          11,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "tentacle_left",
+      "kind": "cylinder",
+      "radius": 1.1,
+      "height": 9,
+      "sides": 4,
+      "rotate": [
+        0,
+        -120,
+        0
+      ],
+      "material": "flesh",
+      "attach": {
+        "bone": "Bip01 Head",
+        "at": "top",
+        "offset": [
+          4,
+          3,
+          1
+        ]
+      }
+    }
+  ]
+}

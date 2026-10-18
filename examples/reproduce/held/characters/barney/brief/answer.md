@@ -1,28 +1,19 @@
-The visor now reads as a visor, but I could not fix the white streaks. The model is built and the build says OK, with the same warnings as before.
+The guard model is built: `work:barney.mdl`, and the build says **OK**. The `check` tool also reports it as fit for GoldSrc (1,300 triangles, 42 bones, 77 animations, 3 textures). I could not run it in the game, so whether it is at least as good as Barney is for the modder to judge there.
 
-**What I changed**
-- **Visor:** added a dark blue-grey plate across the front of the helmet, on the head bone. The first try floated 1 unit off the helmet, so I moved it in. In the full front render it reads as a dark band over the eyes, separate from the helmet and the face.
-- **Wear:** the default is back; I had tried turning it off as a test.
+**What I made**
 
-**What I tried for the streaks (none removed them)**
+1. **Picture.** I drew the guard with the picture model (Z-Image-Turbo) in Gordon's stance, with a front and a back for each take. Four takes were drawn. Take 3 was the one I chose: a dark visor on the helmet, SECURITY lettering on both the front and back of the vest, a holster on the belt, blue shirt, blue-violet trousers, and black boots. Take 0 had the front lettering garbled, and take 1 had no visor.
+2. **Shape.** Hunyuan3D-mini made a 20,000-triangle body from that picture, and I reduced it to 650 triangles, about the median for a person of this size in Half-Life.
+3. **Paint.** The front and back pictures, and two side views from Hunyuan3D-Paint, are projected onto the body as its texture, at 512 x 512.
+4. **Character.** The body is bound to `player/gordon/gordon.mdl`'s skeleton, in a stance with the arms out a little and the legs slightly apart. Its own animations are kept, and the feet stand at origin (`floor: 0`). The height is 75.
 
-| Test | Result |
-|---|---|
-| Wear set to 0 | Streaks unchanged |
-| Back picture first in the projection order | Streaks unchanged |
-| Paint finish off (`finish: false`) | Streaks unchanged |
-| Body given a blue-violet cloth material | Streaks unchanged |
-| Side-view picture from the picture model | Not possible: all four takes came out front or back |
+The spec is `work:barney.spec.json`, and the picture sheet is `work:guard_sheet.png`. To use it, copy `work:barney.mdl` into the mod's `models` folder as `barney.mdl`, replacing the game's.
 
-**Why they remain:** 15,758 texels that no picture sees (the sides and back of the legs, the boot soles, the outer edges of the hands) take the colour the front picture shows at the same height and side. At those spots the nearest colour in the picture is the white background. None of the spec's settings override that carry, so the streaks stay on the trouser backs, the soles and the hand edges. The render also shows a light line between the legs.
+**Problems the report still shows**
 
-**What would fix it**
-1. **Recommended:** a left-side photo or render of a guard in the same stance. I would project it as the `left` view and mirror it for the right, so the carry no longer reaches the legs' sides.
-2. Accept the streaks as they are.
-3. Build the legs and boots as their own parts. That needs the body carved rather than taken from the generated mesh, which the carve kind would make less faithful.
+- **Arms touch the trunk.** The generated body fuses the arms to the torso at the hips and shoulders, in 39 triangles. It is a warning, not a fault, but the arms may tear in some motions. Fixing it means generating a take with the arms apart, which I did not do.
+- **Colour at one shoulder.** The colour differs from the pictures on one shoulder. It is a small patch.
+- **Visor hides the face.** The face is under the visor, so the guard reads as a helmet and a vest.
+- **Animations are Gordon's, not Barney's.** Barney's own animations are not on this skeleton, so any mod code that plays Barney's animations by number may not behave as before. I have not tested this in the game.
 
-Which do you want? I'd go with 1.
-
-**Still the same from the last build:** the back outline is 0.798 (just under 0.8), 45 triangles tear at the arm joints in motion, and the front look differs from the pictures (mean 14.7). The shirt, helmet, vest and trousers are as before, and the SECURITY lettering reads on front and back.
-
-**Files:** `work:barney.mdl` is the current model, 698 triangles (650 body, 48 visor). It has not been run in the game. The test builds `barney_nofinish.json/.mdl` and their sheet are still in the work folder; I have no delete tool here, so say if you want them removed.
+**Licences.** Z-Image-Turbo is Apache-2.0. Hunyuan3D-mini and Hunyuan3D-Paint are under the Tencent Hunyuan Community Licence, which is non-commercial and excludes the EU, UK and South Korea. You accepted that for this test. If the mod is ever sold, the shape and paint need replacing.

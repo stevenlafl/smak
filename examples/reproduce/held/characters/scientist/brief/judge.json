@@ -5,32 +5,84 @@
  "label": "scientist, in the place of the game's models/scientist.mdl",
  "measured": {
   "size": [
-   23.4,
-   30.4,
-   68.3
+   31.4,
+   39.3,
+   68.5
   ],
   "sizeAsked": {
    "high": 68
   },
-  "sizeOff": 0.005,
-  "triangles": 1464,
+  "sizeOff": 0.008,
+  "triangles": 598,
   "halfLifeMedianOfItsKind": 504,
   "halfLifeThreeQuartersUnder": 731,
   "halfLifeMost": 1640,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/gman.mdl, models/hassassin.mdl, models/barney.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, B, C, C where the asset was D, B, C, C: told apart",
-  "lineupWhy": "The head is a rounded, low-detail blob with a flat pink face and no real facial features, unlike the sculpted faces on A to C.\n\nThe body is stubby and boxy, with short limbs and a bulky torso, where the other three have slim, anatomically proportioned builds.\n\nThe paint is flat, with pale, unshaded skin and clothing and plain colour blocks, while A to C have textured fabric, shading and detailed trim."
+  "lineup": "the asset is one of A to D in lineup.png beside models/barney.mdl, models/hassassin.mdl, models/gman.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, A, D, A where the asset was D, B, C, C: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
   "M8": 2,
-  "M6": 1
+  "M6": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "M6"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Outline matches the brief's older man in a lab coat across all ten views (sides.png): a white coat over a blue shirt and red tie, light trousers below, a bald crown with grey at the sides, and glasses. Nothing sticks out or is missing in the front, side, back, top or below views, and the feet sit on the floor line."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured height is 68.5 against the brief's 68 (0.8% off), inside the 15% band. The measured length and width (31.4 and 39.3) are not checked against a brief figure because it gives none."
+  },
+  "M3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Every part the brief names is present: glasses (front and side views), the blue shirt collar and cuffs, the red tie, the coat's lapels and pockets, the light trousers, the bald crown with grey hair above the ears, and black shoes. Head, two arms, two hands and two legs are all there, with no part missing or doubled."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Colours follow the brief: white coat, blue shirt, red tie, light grey trousers, peach skin, grey hair, dark shoes. Each region reads as its own material, with the coat matte cloth and the glasses frames dark."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief asks for no surface detail beyond the coat's lapels, pockets and cuffs, and those are there. The coat has soft folds and some streaks in the back and hem views, which read as cloth shading rather than a fault."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 by the rubric. In the four-way line-up test (lineup.png), judges caught the asset once in four readings (asset at D, picked D) and missed it three times (asset at B, C, C, picked A, D, A). A player would take it for one of the game's."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The front faces the viewer and the figure stands upright. In motion.png and attack.png the shoes stay on the floor line in every frame, so it stands on its origin."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. 598 triangles is under the 1008 allowed (twice the 504 median of Half-Life's people, which is more than three quarters' 731). No open or floating parts show in any view, and the underside is hidden from the game anyway."
+  },
+  "C1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "In motion.png (run, frames 0 to 22) the arms, coat tails, legs and shoes stay attached through the stride, and the feet stay on the floor line. In attack.png (two-hand shoot, frames 0 to 7) the arms stay attached from the shoulders and the hands hold their pose without drifting off the body. Nothing comes apart, sinks or floats."
+  }
+ },
+ "total": 18,
+ "of": 18,
+ "passes": true
 }

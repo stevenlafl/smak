@@ -3,7 +3,7 @@
   "name": "scientist.mdl",
   "kind": "character",
   "base": {
-    "file": "barney.mdl"
+    "file": "player/gordon/gordon.mdl"
   },
   "floor": 0,
   "size": {
@@ -13,453 +13,60 @@
     "width": 512,
     "height": 512
   },
-  "materials": {
-    "coat": {
-      "base": "paint",
-      "tone": [
-        0.86,
-        0.86,
-        0.84
-      ]
+  "layout": "regions",
+  "pose": {
+    "aim": {
+      "L arm": {
+        "out": 8,
+        "forward": 0,
+        "bend": 5
+      },
+      "R arm": {
+        "out": 8,
+        "forward": 0,
+        "bend": 5
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
     },
-    "sleeve": {
-      "base": "paint",
-      "tone": [
-        0.86,
-        0.86,
-        0.84
-      ]
-    },
-    "trousers": {
-      "base": "paint",
-      "tone": [
-        0.72,
-        0.58,
-        0.38
-      ]
-    },
-    "shoe": {
-      "base": "paint",
-      "tone": [
-        0.08,
-        0.08,
-        0.08
-      ]
-    },
-    "skin": {
-      "base": "paint",
-      "tone": [
-        0.82,
-        0.6,
-        0.48
-      ]
-    },
-    "shirt": {
-      "base": "paint",
-      "tone": [
-        0.2,
-        0.45,
-        0.85
-      ]
-    },
-    "tie": {
-      "base": "paint",
-      "tone": [
-        0.8,
-        0.08,
-        0.08
-      ]
-    },
-    "hair": {
-      "base": "paint",
-      "tone": [
-        0.55,
-        0.55,
-        0.54
-      ]
-    },
-    "frame": {
-      "base": "paint",
-      "tone": [
-        0.12,
-        0.12,
-        0.14
-      ]
-    }
+    "bind": true
   },
+  "project": [
+    {
+      "picture": "work:gen/scientist_shape_s0_cut.png",
+      "view": "front"
+    },
+    {
+      "picture": "work:gen/scientist_s0_back_cut.png",
+      "view": "back"
+    },
+    {
+      "picture": "work:gen/scientist_shape_s0_sides/view_1.png",
+      "yaw": 90
+    },
+    {
+      "picture": "work:gen/scientist_shape_s0_sides/view_3.png",
+      "yaw": 270
+    }
+  ],
   "parts": [
     {
-      "id": "torso",
-      "kind": "blob",
-      "material": "coat",
-      "blend": 5,
-      "pieces": [
-        {
-          "at": [
-            -7,
-            2,
-            28
-          ],
-          "radius": [
-            6,
-            8.9,
-            11
-          ]
-        },
-        {
-          "at": "Bip01 Spine1",
-          "radius": [
-            5.5,
-            9.1,
-            6
-          ]
-        },
-        {
-          "at": "Bip01 Spine2",
-          "radius": [
-            5.7,
-            8.9,
-            2.2
-          ]
-        }
-      ]
-    },
-    {
-      "id": "shirt",
-      "kind": "superquadric",
-      "material": "shirt",
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 Spine2",
-        "at": "centre",
-        "offset": [
-          6,
-          0,
-          -2.5
-        ]
-      },
+      "id": "body",
+      "kind": "mesh",
+      "file": "work:gen/scientist_shape_s0.obj",
       "size": [
-        1,
-        4.6,
-        6.4
+        17.7,
+        41.1,
+        68
       ],
-      "round": [
-        0.3,
-        0.3
-      ]
-    },
-    {
-      "id": "tie",
-      "kind": "superquadric",
-      "material": "tie",
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 Spine2",
-        "at": "centre",
-        "offset": [
-          6.6,
-          0,
-          -4.5
-        ]
-      },
-      "size": [
-        0.8,
-        1.6,
-        6
-      ],
-      "round": [
-        0.2,
-        0.2
-      ]
-    },
-    {
-      "id": "neck",
-      "kind": "blob",
-      "material": "skin",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 Spine2",
-            "Bip01 Head"
-          ],
-          "radius": 2.6
-        }
-      ]
-    },
-    {
-      "id": "head",
-      "kind": "superquadric",
-      "material": "skin",
-      "sides": 12,
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "centre",
-        "offset": [
-          0,
-          0,
-          -2.7
-        ]
-      },
-      "size": [
-        12,
-        12,
-        13.2
-      ],
-      "round": [
-        0.8,
-        1
-      ]
-    },
-    {
-      "id": "hair",
-      "kind": "superquadric",
-      "material": "hair",
-      "sides": 12,
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "centre",
-        "offset": [
-          -1.6,
-          0,
-          1.7
-        ]
-      },
-      "size": [
-        11.2,
-        13.4,
-        3.6
-      ],
-      "round": [
-        0.5,
-        0.6
-      ]
-    },
-    {
-      "id": "glasses",
-      "kind": "superquadric",
-      "material": "frame",
-      "sides": 6,
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "centre",
-        "offset": [
-          6,
-          0,
-          -1.5
-        ]
-      },
-      "size": [
-        0.9,
-        8.4,
-        3.2
-      ],
-      "round": [
-        0.4,
-        0.4
-      ]
-    },
-    {
-      "id": "arm_left",
-      "kind": "blob",
-      "material": "sleeve",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 L Arm1",
-            "Bip01 L Arm2"
-          ],
-          "radius": [
-            2.6,
-            2.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Arm2",
-            "Bip01 L Hand"
-          ],
-          "radius": 2.2
-        }
-      ]
-    },
-    {
-      "id": "arm_right",
-      "kind": "blob",
-      "material": "sleeve",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 R Arm1",
-            "Bip01 R Arm2"
-          ],
-          "radius": [
-            2.6,
-            2.6
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Arm2",
-            "Bip01 R Hand"
-          ],
-          "radius": 2.2
-        }
-      ]
-    },
-    {
-      "id": "hand_left",
-      "kind": "superquadric",
-      "material": "skin",
-      "sides": 10,
-      "attach": {
-        "bone": "Bip01 L Hand",
-        "at": "centre",
-        "offset": [
-          0,
-          0,
-          -3
-        ]
-      },
-      "size": [
-        4,
-        3.5,
-        6
-      ],
-      "round": [
-        0.5,
-        0.5
-      ]
-    },
-    {
-      "id": "hand_right",
-      "kind": "superquadric",
-      "material": "skin",
-      "sides": 10,
-      "attach": {
-        "bone": "Bip01 R Hand",
-        "at": "centre",
-        "offset": [
-          0,
-          0,
-          -3
-        ]
-      },
-      "size": [
-        4,
-        3.5,
-        6
-      ],
-      "round": [
-        0.5,
-        0.5
-      ]
-    },
-    {
-      "id": "leg_left",
-      "kind": "blob",
-      "material": "trousers",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 L Leg",
-            "Bip01 L Leg1"
-          ],
-          "radius": [
-            4.9,
-            4.4
-          ]
-        },
-        {
-          "span": [
-            "Bip01 L Leg1",
-            "Bip01 L Foot"
-          ],
-          "radius": [
-            4.4,
-            3.3
-          ]
-        }
-      ]
-    },
-    {
-      "id": "leg_right",
-      "kind": "blob",
-      "material": "trousers",
-      "blend": 2,
-      "pieces": [
-        {
-          "span": [
-            "Bip01 R Leg",
-            "Bip01 R Leg1"
-          ],
-          "radius": [
-            4.9,
-            4.4
-          ]
-        },
-        {
-          "span": [
-            "Bip01 R Leg1",
-            "Bip01 R Foot"
-          ],
-          "radius": [
-            4.4,
-            3.3
-          ]
-        }
-      ]
-    },
-    {
-      "id": "shoe_left",
-      "kind": "superquadric",
-      "material": "shoe",
-      "sides": 10,
-      "attach": {
-        "bone": "Bip01 L Foot",
-        "at": "centre",
-        "offset": [
-          0,
-          0,
-          -3
-        ]
-      },
-      "size": [
-        12,
-        6,
-        6
-      ],
-      "round": [
-        0.3,
-        0.3
-      ]
-    },
-    {
-      "id": "shoe_right",
-      "kind": "superquadric",
-      "material": "shoe",
-      "sides": 10,
-      "attach": {
-        "bone": "Bip01 R Foot",
-        "at": "centre",
-        "offset": [
-          0,
-          0,
-          -3
-        ]
-      },
-      "size": [
-        12,
-        6,
-        6
-      ],
-      "round": [
-        0.3,
-        0.3
-      ]
+      "triangles": 598,
+      "symmetric": true
     }
   ]
 }

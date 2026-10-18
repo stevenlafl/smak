@@ -1,37 +1,40 @@
-The build says **OK: built, and every check passed**. It still reports two warnings, listed below.
+The revised houndeye builds OK with no faults, no warnings and no notes. It is at `work:houndeye.mdl`, with its spec at `work:houndeye.json` and the render sheet at `work:houndeye-sheet.png`. The render from before this revision is `work:houndeye-now.png`.
 
-**What I changed**
+**What I changed, by the three points**
 
-- **Hide:** I replaced the zebra stripe picture with a softer dappled picture, `work:gen/hide_soft_s0.png` (seed 0 of four takes from the local shape generator). The tone is now a paler yellow-tan, and the picture is scaled up from 24 to 60, so the spots are body-sized instead of grain.
-- **Body:** a squat dome, lower and wider, with the head built into its front blob. The old separate head part is gone, because it floated when the creature bent in a jump.
-- **Eye:** it now sits on the front-top of the head, set in the body's blob, with the pupil in front of it.
-- **Legs:** the three legs are unchanged in count. The front leg is now part of the body blob, so it stays attached in the crouch.
+1. **Body (smooth, rounded, turtle-like shell):**
+   - I removed the shell look: the two fold rings, the four lengthwise seam lines and the back ridge.
+   - The body is now hunched. The shoulders rise to the front and the rump drops low.
+   - Five back spines run along the shoulders and back, tallest in the middle.
+2. **Paint (flat bright yellow, dark green stripes):**
+   - The hide is a grimy dull mustard, which keeps the yellow but mutes it.
+   - The stripes and spots are dark plum, which replaces the olive green.
+   - The stripes are thinner and more broken, so they read as dapples rather than bands.
+   - Wear and grime are raised, so the surface looks used.
+3. **Head and eye (bulbous head, no face, legs upright):**
+   - The head is a rounded wedge rather than a ball.
+   - A brow overhangs the eye, a jaw sits under it, and a dark mouth slit marks the front.
+   - The eye stays on the front of the head, with its red iris, black pupil and thin lid.
+   - The two hind legs are splayed 28 degrees out from the body, and the front leg now angles forward. The splay is bound to the bones, so the game's own animations keep it.
 
-```
-                 before            now
-height           48.1              47.1  (spec 45)
-length           50.2              47.8  (spec 49)
-triangles        496               496
-legs             3                 3
-eye placement    beside body       on the head's front
-hide             zebra stripes     dappled spots
-```
+**Kept as it was:** the squat yellow-brown body, three legs (two hind, one front), one large eye at the front, striped and spotted hide, and the feet on the floor (`"floor": 0`). The skeleton is still the headcrab's.
 
-**What the build still reports**
+**Measures from the report:**
 
-- A warning that 13% of the triangles stretch past three times their length in the run (`run2`). It is on the front and hind leg joints.
-- A warning that 8 triangles join the two thighs. They are where the legs meet at the hips.
+| Measure | Now | Asked for | Note |
+|---|---|---|---|
+| Height | 44.7 | 45 | the head was raised to close the gap |
+| Length | 51.4 | 49 | 2.4 long, the head and spines add to it |
+| Triangles | 866 | none | the median for creatures this size is 740, the third quartile 785, the most 1640 |
 
-Both are warnings, not faults, and the build says OK. I did not fix them, because the legs' thickness was already at the edge of what built clean.
+The previous revision had 752 triangles. The spines, brow and jaw account for the rise, and 866 is above the third quartile but well under the most.
 
-**What I could not do**
+**What the person should still judge:**
+- I could not put it beside Half-Life's own houndeye, because that model is not on this machine. The three-model line-up has to be done in the game.
+- The animations are the headcrab's own. The model does not have a run or a sonic-blast animation, so "runs and charges a sonic blast" is not shown.
+- The body is still a turned shape with paint for the detail, and the spines are plain cones.
+- The paint is flat colour with the light setting's shading, not a photographic texture.
 
-- I could not put it beside the game's own houndeye. The original brief said its own model is not available, so the comparison with the game's own has not been run. The line-up result from the person is the only evidence on the new look.
-- The hide now reads as leopard spots, not stripes. The brief asked for striped and dappled. The stripe picture read as zebra, so I traded the stripes for spots. If the person wants stripes back, I need a new picture with broad, low-contrast stripes.
-- The attack is still not fixed. That is the open choice from last time: a side-view charge strip for the `motion` key, or a hand-keyed edit. The sequence `shoot_1` still moves only the arms and spine.
+If the person wants the hide greyer or more purple, the tone is one word in `work:houndeye.json` (`"grimy dull mustard"`), and a rebuild takes seconds.
 
-**Files**
-
-- The spec is `work:houndeye.spec.json`; the model is `work:houndeye.mdl`; the new sheet is `work:houndeye-sheet.png`.
-- The new hide is `work:gen/hide_soft_s0.png`. The spec no longer uses `hide_stripe_s1.png`.
-- I did not delete the old files in the work folder (the stripe takes, `hide_s0`/`s1`, the older `houndeye_*` takes, `houndeye-sheet-rev.png` and `shoot_1.json`). I have no delete tool here; say which to remove.
+No generator was used for this model, so no generator licence applies to it.

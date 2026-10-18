@@ -1,40 +1,40 @@
-The build says OK, but the model is flatter than the last revision, and the picture-painted detail is gone. Each fix below is in place, but the look is a step back in some ways. That is the trade I made to get the build through.
+I rebuilt the model and the build says **OK** (every check passed). The dark wedges are mostly gone, but I changed the stance to get rid of them, and that is a choice you should look at.
 
-**What is in the work folder**
+**What the wedges were**
 
-- `work:scientist.mdl`, built from `work:scientist.spec.json` on `barney.mdl`'s skeleton, `floor: 0`, 68 units tall, keeping Barney's animations.
-- `work:scientist-sheet.png`, the six-side sheet.
-- The build reports 1388 triangles. That is under twice the base body's 709, and under the 1640 Valve's most-detailed model spends.
+- Not inside-out faces. With culling turned off, the picture did not change, so no back faces were showing through.
+- Not unpainted texture. With lighting off the coat is white in the same places.
+- They were shading. Faces at the armpits, where the arms stand 30 degrees out from the coat, had normals pointing away from the light, so they came out dark.
 
-**What I changed, by the person's points**
+**What I changed**
 
-```
-Point                          Before                          Now
-Outline (squat head, no neck)  head 12 x 12 x 14, sat low      head 12 x 12 x 13.2, sits on a short neck
-                               on the shoulders, no neck       (neck piece from the spine to the head)
-Wide shoulders, thick arms     upper arm radius 3.4            upper arm 2.6, forearm 2.2
-Torso                          pear shape                      hip and chest pieces narrowed to 8.9 deep
-Hair (skin-tone bald top)      head painted from the picture   grey hair cap at the back and top, bare front
-Glasses not readable           none                            one dark bar across the face
-Face features                  none                            the glasses only
-Stray black slivers (hips)     present                         still present (see below)
-Triangles                      1452 (over the base's 709 x 2)  1388
-```
+| Setting | Before | Now |
+|---|---|---|
+| Arm stance, out from the body | 30 degrees | 8 degrees |
+| Smoothing angle | default | default (I tried 10 and 30; neither removed the wedges) |
+| Triangles | 598 | 598 (700 failed: the pictures saw through the armpit at 0.3%) |
 
-Colours are now set exactly: white coat, light blue shirt (a small block at the chest), red tie (a thin block), tan trousers, black shoes.
+**Result, as I checked it**
 
-**What is still wrong**
+| Check | Before | Now |
+|---|---|---|
+| Front-right view, armpit wedge | large, dark | gone |
+| Back-left view, chest wedge | large, dark | gone |
+| Right side, armpit | large, dark | one small dark speck |
+| Pictures seen through the model | 0.00% | 0.08% |
+| Colour difference from the front picture (mean) | 16 | 12.5 |
+| Joins that tear in motion | 61 | 55 |
 
-- **No picture detail.** The coat has no pockets, buttons, pocket lines or lettering. These came from painting the picture onto the body, which the build now rejects.
-- **Why I dropped the painting.** The build requires each painted part's outline to match the picture's outline at 0.7 or better. The best the torso and legs reached was about 0.65. The head never got above 0.4, because the picture's head is about a quarter bigger than the head part. With the full-height paint, the picture's face landed on the chest.
-- **Black slivers** at the back and right hip still show in close views. The build check does not flag them, so I did not confirm whether they are open or inside-out faces.
-- **Coat length.** The tan trousers still show at the front of the hips, so the coat reads short.
-- **Glasses.** One bar, not two round lenses. I dropped the second lens to stay under the triangle limit.
-- **Tear warning.** The build warns that 19 triangles join the legs to the trunk and may tear in motion.
-- **Carry-overs.** The spec header still names `barney.mdl`. 43 animations come from Barney's external files, so the mod needs those files alongside.
-- **Lost earlier version.** I overwrote the previous spec and model without keeping a copy. I cannot restore the picture-painted version from the work folder.
-- **Licence.** The model no longer uses the generated picture-based shape, so the non-commercial licence accepted for that run does not reach the model.
+**What is left**
 
-**What I would do next**
+- The run cycle still flares the coat hem in several frames, as before. Fixing it needs the coat and trousers cut as separate parts, which I have not done.
+- The colour warning remains: the mean difference from the pictures is over 10 in all four views (12.5 to 14.7).
+- The lower front edge on the right side shows a thin dark line where the trousers show through the open coat. That is the coat's open front, not a hole, but a player may notice it.
+- I did not run the model in the game, and the game's own scientist file is not here, so the bodygroup and sequence check is not run.
 
-Carve the body from the pictures (the `carved` kind in the spec guide). Its outline matches the picture, so the coat detail and the face can come back without the outline fault. I have not tried this yet. Say if you want it, and whether the flat version should stay until then.
+**Files**
+
+- `work:scientist.mdl` is the new model, built from `work:scientist.json`.
+- The earlier version is kept at `work:scientist_v1_backup.mdl`.
+- Debug pictures named `dbg_*.png` are in the work folder; they can be deleted.
+- Nothing is copied into the game folder yet. To test it, copy `scientist.mdl` over the game's `models/scientist.mdl` and keep the game's copy as a backup.

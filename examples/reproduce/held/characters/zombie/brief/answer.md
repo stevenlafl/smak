@@ -1,41 +1,36 @@
-The revision builds OK, but it does not yet look like the game's own zombie. The person's verdict still stands on the coat and the head.
+The build says OK, with three warnings and no faults. The parasite is still tan, which is the part of the feedback I could not fix.
 
 **What I changed**
 
-| Part | Before | Now |
-|---|---|---|
-| Claws | 10 units, stubby | 15 units, thinner, forked, 4 per hand |
-| Parasite colour | Olive | Pale cream-tan, closer to the reference head |
-| Chest | Clean coat | A dark red flesh blob on the upper chest (`chest_wound`, 40 triangles) |
-| Legs and arms | Out 30 / 6 | Unchanged |
+- **Claws:** longer and thicker. They are now 10 units long (was 4.5), 1.3 units thick at the hand (was 1), with 3 claws per hand (was 3, but short). The spec is `work:zombie.spec.json`, `claws_left` and `claws_right`.
+- **Parasite:** replaced the sphere with a superquadric (a rounded box with eased corners), 14 by 11 by 8 units. It sits over the skull, 3 units further forward than before, so the back half no longer hangs out past the head in side view. It uses a dark olive tone (`slime`).
+- **Tendrils:** the single tentacle is now two tubes, `tendril_left` and `tendril_right`, hanging from the parasite's sides and down toward the collar. A third tendril at the back was removed because it stuck out into the side view.
+- **Triangles:** 690 of 724. Claws have 3 per hand, and tendrils have 3 sides each.
+- **Nothing else:** the body mesh, pose, bind, floor and arm angles are as they were.
 
-Parasite shape, the lean and the arms are as the previous revision had them.
+**What the build says now**
 
-**What I tried and reverted**
+| Check | Result |
+|---|---|
+| Build | OK |
+| Faults | none |
+| Front outline | 0.829 (passes the 0.8 line) |
+| Side outlines | 0.796 and 0.778 (warning, just under 0.8) |
+| Triangles | 690 of 724 |
+| Limb joins | 36 triangles join limbs at the trunk, which may tear (warning, existed before) |
+| Colour | some parts take a neighbour's colour (warning, see below) |
 
-- Arms reaching forward and bent legs: the front outline dropped below 0.8, so I took both out.
-- Body cut from 340 to 320 triangles: the outline dropped too. I restored 340 and took the 20 back from the chest wound.
-- A dirtier coat through the body's finish: the build ignores a finish on this mesh body, so I removed the key.
+**What's still open**
 
-**Final checks** (`work:zombie.mdl`, from `work:zombie.json`)
+- **The parasite is still tan.** On a character, any surface that no picture sees takes the colour of the front picture at the same height. The parasite sits at the head's height, so it takes the skin colour. I tried projecting a generated dark olive parasite picture onto it, but the picture's outline failed the front check (0.143), so I reverted it. The fix would need either a hand touch-up of its texture in the editor, or a different approach to the colour rule.
+- **Right claws** still sit a few units off the coat in the front view. Changing that means redrawing the body's right arm or angling the arms, which broke the see-through check earlier.
+- **Left claws** are hidden behind the coat in the front view. They are visible from the side and in motion.
+- **Walk and run** strips show the claws following the arms. There is no attack animation in this skeleton.
 
-- Build says OK, every check passed.
-- Height 69.8 (asked for about 68).
-- 722 triangles: body 340, parasite 150, chest wound 40, claws 192. The reference median for creatures this size is 655, and the largest is 731.
-- Warnings still standing:
-  - Front outline 0.765, under 0.8. The longer claws stick out past the front picture. The 10-unit claws gave 0.805, so I chose the reach over the outline.
-  - 26 triangles join the arms to the trunk and may tear in some motions. This was already there.
-  - The look check flags the parasite and wound against the coat's picture (mean difference 11.3, worst at the top middle). That is expected, since they are deliberately different paint.
+**What I made**
 
-**What is still short of the reference**
+- `work:zombie.mdl`, built from `work:zombie.spec.json` on Gordon's skeleton with `floor: 0` and a height of 68.
+- The body is the earlier mesh: zimage-turbo picture, hunyuan3d-mini shape, hunyuan3d-paint sides.
+- Pictures of the sheet, the head close-up, and the walk strip are in the work folder.
 
-- The coat is still clean white. The coat is the picture's paint, and I can't repaint it here. Making it bloodied and torn needs a new body picture, then a new shape, then a carve.
-- The head still reads as a striped cap, from the parasite's facets.
-- The stance is still upright. A real hunch needs a body carved to a bent pose, which changes the outline.
-- The chest wound barely shows in the front view.
-
-Earlier revisions are kept: `work:zombie_v2.mdl` and `.json` (the one the person judged), and `work:zombie_v1.*`.
-
-The next real step is a new body picture of a bloodied, torn coat with an exposed chest, a shape from it, and a carve in a bent pose. That changes the body and needs its own outline check. Do you want me to go that way? It is a larger change than this revision.
-
-Licence note: the shape model is non-commercial and not allowed in the EU, UK or South Korea. This is for the test only, not for shipping commercially.
+**Licences:** the body mesh is from hunyuan3d-mini, whose source headers say non-commercial. You accepted the local generators' licences for this test only.

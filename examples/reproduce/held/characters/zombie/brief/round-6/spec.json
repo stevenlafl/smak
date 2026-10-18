@@ -1,0 +1,202 @@
+{
+  "spec": "smak.model/1",
+  "name": "zombie.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 68
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "layout": "regions",
+  "materials": {
+    "claw": {
+      "base": "bone",
+      "tone": [
+        0.35,
+        0.22,
+        0.18
+      ]
+    },
+    "parasite": {
+      "base": "flat",
+      "tone": [
+        0.7,
+        0.6,
+        0.48
+      ]
+    },
+    "flesh": {
+      "base": "flat",
+      "tone": [
+        0.42,
+        0.1,
+        0.09
+      ]
+    }
+  },
+  "pose": {
+    "aim": {
+      "L arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "R arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
+    },
+    "keys": {
+      "Bip01 Spine2": {
+        "turn": {
+          "y": 8
+        }
+      },
+      "Bip01 Spine3": {
+        "turn": {
+          "y": 11
+        }
+      },
+      "Bip01 Neck": {
+        "turn": {
+          "y": 8
+        }
+      }
+    },
+    "bind": true
+  },
+  "project": [
+    {
+      "picture": "work:gen/zombie_body_s0_cut.png",
+      "view": "front",
+      "parts": [
+        "body"
+      ]
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "kind": "mesh",
+      "file": "work:gen/zombie_body_s0.obj",
+      "size": [
+        21,
+        46,
+        68
+      ],
+      "up": "y",
+      "triangles": 340
+    },
+    {
+      "id": "claws_left",
+      "kind": "fingers",
+      "hand": "Bip01 L Hand",
+      "material": "claw",
+      "count": 4,
+      "length": 15,
+      "radius": [
+        1.1,
+        0.2
+      ],
+      "spread": 40,
+      "curl": 30,
+      "sides": 4
+    },
+    {
+      "id": "claws_right",
+      "kind": "fingers",
+      "hand": "Bip01 R Hand",
+      "material": "claw",
+      "count": 4,
+      "length": 15,
+      "radius": [
+        1.1,
+        0.2
+      ],
+      "spread": 40,
+      "curl": 30,
+      "sides": 4
+    },
+    {
+      "id": "parasite",
+      "kind": "blob",
+      "material": "parasite",
+      "blend": 3,
+      "triangles": 150,
+      "pieces": [
+        {
+          "at": "Bip01 Head",
+          "offset": [
+            1,
+            0,
+            -2
+          ],
+          "radius": [
+            9,
+            8,
+            7
+          ]
+        },
+        {
+          "at": "Bip01 Neck",
+          "offset": [
+            -1,
+            0,
+            0
+          ],
+          "radius": 5
+        },
+        {
+          "at": "Bip01 Spine3",
+          "offset": [
+            -4,
+            0,
+            6
+          ],
+          "radius": [
+            7,
+            8,
+            6
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chest_wound",
+      "kind": "blob",
+      "material": "flesh",
+      "blend": 2,
+      "triangles": 40,
+      "pieces": [
+        {
+          "at": "Bip01 Spine2",
+          "offset": [
+            7,
+            0,
+            3
+          ],
+          "radius": [
+            3,
+            6,
+            5
+          ]
+        }
+      ]
+    }
+  ]
+}

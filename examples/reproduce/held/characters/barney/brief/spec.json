@@ -9,6 +9,12 @@
   "size": {
     "height": 75
   },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "smooth": 60,
+  "layout": "regions",
   "pose": {
     "aim": {
       "L arm": {
@@ -32,30 +38,22 @@
     },
     "bind": true
   },
-  "texture": {
-    "width": 512,
-    "height": 512
-  },
-  "layout": "regions",
-  "smooth": 80,
-  "materials": {
-    "visor": {
-      "base": "flat",
-      "tone": [
-        0.07,
-        0.09,
-        0.13
-      ]
-    }
-  },
   "project": [
     {
       "picture": "work:gen/guard_shape_s0_cut.png",
       "view": "front"
     },
     {
-      "picture": "work:gen/guard_back_s2.png",
+      "picture": "work:gen/guard_visor_s3_back_cut.png",
       "view": "back"
+    },
+    {
+      "picture": "work:gen/guard_shape_s0_sides/view_1.png",
+      "yaw": 90
+    },
+    {
+      "picture": "work:gen/guard_shape_s0_sides/view_3.png",
+      "yaw": 270
     }
   ],
   "parts": [
@@ -64,35 +62,12 @@
       "kind": "mesh",
       "file": "work:gen/guard_shape_s0.obj",
       "size": [
-        18,
+        19,
         42,
         75
       ],
+      "up": "y",
       "triangles": 650
-    },
-    {
-      "id": "visor",
-      "kind": "superquadric",
-      "material": "visor",
-      "size": [
-        1.2,
-        11,
-        2.6
-      ],
-      "round": [
-        0.2,
-        0.3
-      ],
-      "sides": 8,
-      "attach": {
-        "bone": "Bip01 Head",
-        "at": "centre",
-        "offset": [
-          4.8,
-          0,
-          2
-        ]
-      }
     }
   ]
 }

@@ -1,0 +1,88 @@
+{
+ "kind": "character",
+ "subject": "zombie",
+ "leg": "brief",
+ "label": "zombie, in the place of the game's models/zombie.mdl",
+ "measured": {
+  "size": [
+   32,
+   28.2,
+   67.5
+  ],
+  "sizeAsked": {
+   "high": 68
+  },
+  "sizeOff": 0.007,
+  "triangles": 658,
+  "halfLifeMedianOfItsKind": 504,
+  "halfLifeThreeQuartersUnder": 731,
+  "halfLifeMost": 1640,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/scientist.mdl, models/hassassin.mdl, models/gman.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, B, D, D where the asset was B, D, D, B: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The outline matches the brief: a hunched figure in a long coat, leaning forward in the left, right and front-left views, with a tan head on top and the arms hanging forward. Nothing extra sticks out of the body outline apart from the claws (charged under M3 and C1)."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Height is 67.5 against the 68 asked (0.7% off), well inside 15%. The brief gives no width or depth to measure against."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names a parasite body over the head, long clawed hands, and a torn, bloodied lab coat. The head has a tan dome with a stick-like protrusion on top, and the coat has torn hems and blood smears, so those are there. The claws are the fault. In the front view the upper-left white claws sit about 9 units above the left hand, not on it, and in the walk and attack frames the white claws hold a fixed offset from the hand instead of sitting on the fingers. Each hand has claws, but they do not read as long claws on the hands, so a named part is not right in place."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Coat in grey-white with darker dirtied patches, red-brown blood on the back shoulder and front hand, tan skin on the head, and dark trousers and shoes. These are plausible colours for a bloodied lab coat and a tainted scientist. Nothing reads as a wrong material."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Torn hem and lapel edges, blood smears on the back and shoulder, dark eye and mouth detail on the head, and coat folds shaded in the side views. The wear the brief asks for is there at a similar sharpness to a low-poly Valve model."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Capped at 2 as the rubric says for this judging. The line-up test was run by the harness: the asset was picked as not Valve's on 2 of 4 readings, under the three-of-four catch line, so the harness passed it. Visually at the line-up scale it reads as a low-poly Valve-style figure beside the three Valve models."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The face is at the front in the front view, the figure stands upright, and its feet meet the floor in the walk frames and the front and back views."
+  },
+  "M8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "SMAK's check passes with no errors and 658 triangles, under the 1008 limit (twice the kind's median 504) and under the 731 third quartile. But the claws do not read as attached: in the front view the upper-left claws float about 9 units off the left hand, and in the walk and attack frames the white claws hang in the air at a fixed offset from the hand, so a player would see floating parts."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the walk the body, coat and legs move together, and the hunch and leg swing read well. In the attack the body and arm barely move across the eight frames, and the white claw piece on the left stays in the air at the same spot above and ahead of the hand instead of moving with the arm, so it looks like it is floating apart from the body. The claw part does not move as a part of the body does."
+  }
+ },
+ "total": 15,
+ "of": 18,
+ "passes": false
+}

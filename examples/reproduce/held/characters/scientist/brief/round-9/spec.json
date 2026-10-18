@@ -1,0 +1,72 @@
+{
+  "spec": "smak.model/1",
+  "name": "scientist.mdl",
+  "kind": "character",
+  "base": {
+    "file": "player/gordon/gordon.mdl"
+  },
+  "floor": 0,
+  "size": {
+    "height": 68
+  },
+  "texture": {
+    "width": 512,
+    "height": 512
+  },
+  "layout": "regions",
+  "pose": {
+    "aim": {
+      "L arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "R arm": {
+        "out": 30,
+        "forward": 0,
+        "bend": 5
+      },
+      "L leg": {
+        "out": 6,
+        "forward": 0
+      },
+      "R leg": {
+        "out": 6,
+        "forward": 0
+      }
+    },
+    "bind": true
+  },
+  "project": [
+    {
+      "picture": "work:gen/scientist_arms_s0_cut.png",
+      "view": "front"
+    },
+    {
+      "picture": "work:gen/scientist_arms_s0_back_cut.png",
+      "view": "back"
+    },
+    {
+      "picture": "work:gen/scientist_arms_s0_sides/view_1.png",
+      "yaw": 90
+    },
+    {
+      "picture": "work:gen/scientist_arms_s0_sides/view_3.png",
+      "yaw": 270
+    }
+  ],
+  "parts": [
+    {
+      "id": "body",
+      "kind": "mesh",
+      "file": "work:gen/scientist_arms_s0.obj",
+      "size": [
+        17.7,
+        41.1,
+        68
+      ],
+      "triangles": 680,
+      "symmetric": true
+    }
+  ]
+}
