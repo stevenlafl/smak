@@ -130,6 +130,8 @@ async function generateCase() {
   sure(/3 of 3 takes of "a wrench on a pipe" by clang \(sound; licence CC-BY-NC 4\.0\); the model loaded in 0\.1 s/.test(said), said);
   sure(/work:gen\/hit_s2\.wav: 0\.5 s at 48000 Hz, made in 0\.01 s; peak .* against metal hit: \d+ of \d+/.test(said), said);
   sure(answer[1]?.type === "image", "one picture of the takes");
+  // kept for the person, and the person's choice comes before any shaping
+  sure(/work:gen\/hit_takes\.png/.test(said) && existsSync(join(folders.work, "gen", "hit_takes.png")) && /let them choose before you shape one/.test(said), said);
   const sidecar = JSON.parse(readFileSync(join(folders.work, "gen", "hit_s1.json"), "utf8"));
   sure(sidecar.model === "clang" && sidecar.seed === 1 && sidecar.licence === "CC-BY-NC 4.0" && sidecar.prompt === "a wrench on a pipe", JSON.stringify(sidecar));
   // more seeds of the same prompt: the model is not loaded again, the load not told again
@@ -148,6 +150,7 @@ async function generateCase() {
   // a take used in a sound spec through build
   const built = (await tools.build.call({ spec: { spec: "smak.sound/1", name: "weapons/hit.wav", layers: [{ kind: "sample", file: "work:gen/hit_s0.wav", from: "onset" }] } }))[0].text;
   sure(!/made of layers alone/.test(built), "no note once a take is used");
+  sure(/picture: work:weapons_hit\.png/.test(built) && existsSync(join(folders.work, "weapons_hit.png")), "the sound's picture kept beside its spec");
   sure(/^OK/.test(built) && /made by clang seed 0 from "a wrench on a pipe", licence CC-BY-NC 4\.0 \(non-commercial\)/.test(built) && !/may not be sold/.test(built), built);
   // refused in words
   for (const [args, said] of [[{ prompt: "", length: 1 }, /prompt:/], [{ prompt: "x", length: 0 }, /length:/], [{ prompt: "x", length: 1, model: "none" }, /model: one of clang \(sound\), tune \(music\)/], [{ prompt: "x", length: 1, seeds: 99 }, /seeds:/]]) {
@@ -287,6 +290,22 @@ await testAsync("generate: a character from words with a picture model is drawn 
       wrongSides = error.message;
     }
     sure(/sides: false leaves a character's sides unpainted/.test(wrongSides), wrongSides);
+    // every step takes the person's own file: their picture with a back of their own, in a stance of its own (fitted)
+    writeFileSync(join(folders.work, "people", "mine.png"), readFileSync(join(folders.work, "people", "sided_s0.png")));
+    writeFileSync(join(folders.work, "people", "mine_rear.png"), readFileSync(join(folders.work, "people", "sided_s0_back.png")));
+    const mine = (await generate.call({ kind: "shape", picture: "work:people/mine.png", back: "work:people/mine_rear.png", base: "man.mdl", sides: false, seeds: 1, name: "people/mine" }))[0].text;
+    sure(/"pose": \{ "fit": true, "bind": true \}/.test(mine) && !/Drawn in man\.mdl's stance/.test(mine) && /mine_rear_cut\.png/.test(mine), mine);
+    sure(JSON.parse(readFileSync(join(folders.work, "people", "mine_s0.json"), "utf8")).back === "people/mine_rear.png", "its back is the one given");
+    // and the sides of any mesh painted on their own, from its front
+    const alone = (await generate.call({ kind: "paint", mesh: "work:people/mine_s0.obj", picture: "work:people/mine_s0_cut.png" }))[0].text;
+    sure(readFileSync(join(folder, "sides.txt"), "utf8").includes("people/mine_s0.obj") && /"project": \[\{"picture":"work:people\/mine_s0_cut\.png","view":"front"\},\{"picture":"work:people\/mine_s0_sides\/view_1\.png","yaw":90\}/.test(alone), alone);
+    let noMesh = "";
+    try {
+      await generate.call({ kind: "paint", picture: "work:people/mine_s0_cut.png" });
+    } catch (error) {
+      noMesh = error.message;
+    }
+    sure(/generate \{ kind: "paint", mesh: /.test(noMesh), noMesh);
   } finally {
     stopWorkers();
   }

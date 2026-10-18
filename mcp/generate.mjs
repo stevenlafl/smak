@@ -196,7 +196,10 @@ export async function generate(folders, args) {
   }
   const model = models[0];
   if (model.kind === "shape") return generateShapes(folders, generators, model, args);
-  if (model.kind === "paint") throw new Error(`${model.name} paints a character's sides once its shape is made: generate { kind: "shape", base, ... } calls it`);
+  if (model.kind === "paint") {
+    if (args.mesh !== undefined) return paintSides(folders, generators, model, args);
+    throw new Error(`${model.name} paints a character's sides: generate { kind: "shape", base, ... } calls it once its shape is made, and generate { kind: "paint", mesh: "work:<it>.obj", picture: "<its front>" } paints those of any mesh (one made elsewhere, or changed)`);
+  }
   if (model.kind === "segment") return generateCut(folders, generators, model, args);
   if (model.kind === "photogrammetry" || model.kind === "learned-match") throw new Error(`${model.name} is the map commands' (map-overlay --locate, map-shots, map-sfm), run through command`);
   if (typeof prompt !== "string" || !prompt.trim()) throw new Error("prompt: what to make, in words (\"a wrench hitting a steel pipe, one sharp clang\")");
@@ -242,11 +245,17 @@ export async function generate(folders, args) {
       ? "Each take has a sidecar .json (model, prompt, seed, licence). No spec writes music for the game yet: a take is a 48 kHz stereo WAV, and the game plays its music as 44.1 kHz stereo MP3 under media/ (research/local-music-generators.md). Tell the person which take, and that it is to be converted and named for the game."
       : `Each take has a sidecar .json (model, prompt, seed, licence). Listen to them, or read the picture; put the one you choose in a sound spec as a layer { "kind": "sample", "file": "work:${stem}_s<seed>.wav", "from": "onset" } and shape it there (guide { doc: "spec" }, "A sound"); "finish": { "fit": "bands" } brings its bands to its class's or the game's own.${/\bNC\b|non-?commercial/i.test(model.licence ?? "") ? ` ${model.name}'s licence is non-commercial: whether that suits their mod is the person's choice, not yours. Tell them, and use a take unless they have said not to.` : ""}`,
   ];
-  const answer = [text(lines.join("\n"))];
+  // the person's choice comes before any shaping: the takes go to them, and the picture is kept for them to open
+  lines.push(`With a person: send them the takes (file) and let them choose before you shape one (guide { doc: "workflow", topic: "sound" }).`);
+  let picture;
   if (made.length) {
-    const picture = soundPicture(made.map((t) => ({ name: `${t.file} (seed ${t.seed})`, x: t.x, rate: 22050 })));
-    answer.push(image(png(picture.width, picture.height, picture.rgba)));
+    picture = soundPicture(made.map((t) => ({ name: `${t.file} (seed ${t.seed})`, x: t.x, rate: 22050 })));
+    const drawn = pathOf(folders, `${stem}_takes.png`, { write: true });
+    writeFileSync(drawn, png(picture.width, picture.height, picture.rgba));
+    lines.push(`The takes drawn one under another: work:${relative(folders.work, drawn)}`);
   }
+  const answer = [text(lines.join("\n"))];
+  if (picture) answer.push(image(png(picture.width, picture.height, picture.rgba)));
   return answer;
 }
 
@@ -291,6 +300,39 @@ function seedsOf(args, unless = 4) {
   return seeds;
 }
 
+/** Whether a picture was drawn by this kit in a base's stance (<name>_s<seed>.png beside its <name>_pose.png or _guide.png). */
+const drawnHere = (picture) => {
+  const stem = /^(.*)_s\d+\.png$/.exec(picture)?.[1];
+  return Boolean(stem) && (existsSync(`${stem}_pose.png`) || existsSync(`${stem}_guide.png`));
+};
+
+/**
+ * The sides of a mesh made anywhere (by generate, by hand, changed by the person) painted from a picture of its
+ * front by the paint model: the views from its left and right, ready to project, as a shape of a character gets.
+ */
+async function paintSides(folders, generators, model, args) {
+  const mesh = pathOf(folders, args.mesh);
+  if (!/\.obj$/i.test(mesh)) throw new Error("mesh: an .obj of the folders");
+  if (typeof args.picture !== "string") throw new Error("picture: its front, the picture its sides are painted from (a cut-out on white is best)");
+  const reference = pathOf(folders, args.picture);
+  const started = Date.now();
+  const { worker, load } = await workerFor(generators, model);
+  const loaded = worker.told ? null : load;
+  worker.told = true;
+  const seed = seedsOf(args, 1)[0];
+  const out = pathOf(folders, `work:${relative(folders.work, mesh).replace(/\.obj$/i, "_sides")}`, { write: true });
+  const said = await ask(worker, { mesh, reference, out, seed });
+  idleLater(worker);
+  if (!said.ok) throw new Error(`its sides: ${said.error}`);
+  const sides = [90, 270].map((yaw) => [said.views.find((v) => v.azim === yaw && v.elev === 0)?.file, yaw]).filter(([file]) => file).map(([file, yaw]) => ({ picture: `work:${relative(folders.work, file)}`, yaw }));
+  const lines = [
+    `The sides of work:${relative(folders.work, mesh)} painted by ${model.name} from ${args.picture} (licence ${model.licence ?? "not given"})${loaded !== null ? `; the model loaded in ${loaded} s` : ""}; ${round((Date.now() - started) / 1000, 10)} s in all`,
+    `Project them with its front (and its back, when there is one): "project": ${JSON.stringify([{ picture: args.picture, view: "front" }, ...sides])}`,
+  ];
+  const shown = sides.map((one) => fitted(unpicture(readFileSync(pathOf(folders, one.picture))), 320));
+  return [text(lines.join("\n")), ...(shown.length ? [(({ width, height, rgba }) => image(png(width, height, rgba)))(tile(shown, shown.length, sides.map((one) => `from ${one.yaw}`)))] : [])];
+}
+
 /**
  * Shapes: a picture of the thing (the person's, of the folders, or drawn from the prompt), its subject cut out,
  * made into a mesh, a take a seed: work:gen/<name>_s<seed>.obj (Y up, its front towards +z as an .obj's is), with
@@ -298,6 +340,7 @@ function seedsOf(args, unless = 4) {
  */
 async function generateShapes(folders, generators, model, args) {
   const { prompt, picture, base, only, turnaround, sides } = args;
+  if (args.back !== undefined && (typeof args.back !== "string" || typeof picture !== "string")) throw new Error("back: a picture of its back in the folders, beside picture (its front)");
   if (sides !== undefined && typeof sides !== "boolean") throw new Error("sides: false leaves a character's sides unpainted (they are painted from its front picture by a paint model unless told)");
   if (turnaround !== undefined && (turnaround !== true || !base || picture)) throw new Error("turnaround: true draws a character's front and back together in one picture, held to its base's skeleton from both sides: with a prompt and a base, not a picture");
   if (!(typeof prompt === "string" && prompt.trim()) && typeof picture !== "string") throw new Error("prompt: the thing in words (\"a wooden kitchen chair\"), or picture: a picture of it in the folders");
@@ -378,7 +421,8 @@ async function generateShapes(folders, generators, model, args) {
     }
     // a turnaround's back: drawn in this call, or beside the front given (<name>_s<seed>_back.png), cut out with it
     const sibling = given && given.endsWith(".png") ? given.replace(/\.png$/, "_back.png") : null;
-    if (!only && !backs.has(seed) && sibling && existsSync(sibling)) backs.set(seed, sibling);
+    if (!only && !backs.has(seed) && args.back) backs.set(seed, pathOf(folders, args.back));
+    else if (!only && !backs.has(seed) && sibling && existsSync(sibling)) backs.set(seed, sibling);
     const said = await ask(worker, { prompt: prompt ?? "", picture: fromDrawn ?? given, guide: given || fromDrawn ? null : guide, seed, out, steps: args.steps, ...(only ? { only } : {}), ...(!only && backs.has(seed) ? { cuts: [backs.get(seed)] } : {}) });
     if (!said.ok) {
       takes.push({ seed, error: said.error });
@@ -445,7 +489,10 @@ async function generateShapes(folders, generators, model, args) {
         : `work:${t.file}: ${t.said.faces} triangles, ${size(t.said.box).join(" x ")} in the file's units (x, y up, z), from ${t.from ? `work:${t.from}` : "the picture"}, made in ${t.said.took} s`,
     ),
     `Each .obj has a sidecar .json and the picture it was made from (its subject cut out beside it as _cut.png). Pick the one whose shape is right and put it in a model spec as a part { "kind": "mesh", "file": "work:<the .obj>", "size": [x, y, z], "triangles": n } (guide { doc: "spec" }), painted by its material, or by project from its cut-out ("picture": "work:<name>_s<seed>_cut.png", the side the picture shows as its view; the raw picture's background hides its outline). The shape is the generator's guess where the picture does not show it (the back, below): look at every side.`,
-    ...(base ? [`Drawn in ${base}'s stance (work:${stem}_${posed ? "pose" : "guide"}.png${posed ? `, by ${painter.name}` : ""}): build it on that base in the same one, "base": { "file": "${base}" }, "pose": { "aim": ${JSON.stringify(GENERATED_STANCE)}, "bind": true }, so its limbs lie on its bones and it stands as the base stands. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`] : []),
+    ...(base && given && !drawnHere(given)
+      ? [`Its picture was not drawn by this kit, so its stance is its own: build it on ${base} with "pose": { "fit": true, "bind": true }, which finds the stance from the pictures' outlines and binds the body in it. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`]
+      : []),
+    ...(base && !(given && !drawnHere(given)) ? [`Drawn in ${base}'s stance (work:${stem}_${posed ? "pose" : "guide"}.png${posed ? `, by ${painter.name}` : ""}): build it on that base in the same one, "base": { "file": "${base}" }, "pose": { "aim": ${JSON.stringify(GENERATED_STANCE)}, "bind": true }, so its limbs lie on its bones and it stands as the base stands. Reject a take whose arms touch its body or that holds anything: fused there, it tears in every motion.`] : []),
     ...(backs.size && !takes.some((t) => t.sides) ? [`Its back was drawn with its front, in one picture (a turnaround): paint both from their cut-outs, "project": [{ "picture": "work:<name>_s<seed>_cut.png", "view": "front" }, { "picture": "work:<its back>_cut.png", "view": "back" }] (the back's white background paints white streaks). ${[...backs].map(([seed, back]) => `seed ${seed}: work:${relative(folders.work, back).replace(/\.png$/, "_cut.png")}`).join("; ")}.`] : []),
     // what the spec projects, ready to paste: the front and back cut-outs, and the sides painted from them
     ...(takes.some((t) => t.sides)

@@ -20,8 +20,8 @@
 //   --materials   a library of material photographs (generators/fetch-materials.mjs; SMAK_MATERIALS unless told):
 //             the tool `materials` searches it, and a material's picture may be "library:<name>"
 //
-// The protocol is in protocol.mjs, the tools in tools.mjs (and run.mjs), the two folders' rule in
-// folders.mjs. Nothing is printed on stdout but the protocol's messages; what is worth saying goes to stderr.
+// The protocol is in protocol.mjs, the tools in tools.mjs (and run.mjs), the prompts in prompts.mjs, the two
+// folders' rule in folders.mjs. Nothing is printed on stdout but the protocol's messages; what is worth saying goes to stderr.
 import { readFileSync, realpathSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -31,10 +31,11 @@ import { toolsFor } from "./tools.mjs";
 import { openGenerators } from "./generate.mjs";
 import { openMaterials } from "./materials.mjs";
 import { KIT } from "./guide.mjs";
+import { PROMPTS } from "./prompts.mjs";
 
 /** What a client's model is told beside the tools, once. */
 const INSTRUCTIONS =
-  "SMAK makes and changes GoldSrc studio models (.mdl) and maps. Call `guide` first and read only the sections the task needs. To make a model or a map from a person's words (or a drawing), read `guide { doc: \"spec\" }`, write a spec and `build` it; change models and maps in other ways with `command` (any command of the command line, every flag) or `run`. `file` reads back what was made (a sound to listen to), `page` opens the viewer or the editor for the person. Look at every result's pictures before reporting it.";
+  "SMAK makes and changes GoldSrc studio models (.mdl) and maps. Call `guide` first and read only the sections the task needs. To make a model or a map from a person's words (or a drawing), read `guide { doc: \"spec\" }`, write a spec and `build` it; change models and maps in other ways with `command` (any command of the command line, every flag) or `run`. `file` reads back what was made (a sound to listen to), `page` opens the viewer or the editor for the person. Look at every result's pictures before reporting it. When a person asks you to make something, read `guide { doc: \"workflow\", topic: <its kind> }` and follow it: ask first, show them at each checkpoint and wait.";
 export const USAGE = "node mcp/server.mjs --models <dir> --work <dir> [--no-run] [--compilers <dir>] [--fgd <file> ...] [--wads <dir> ...] [--generators <dir>] [--materials <dir>]";
 
 /** The server's flags read: { models, work, run }. `--name value`, and `--no-run`. */
@@ -78,6 +79,7 @@ export function start({ models, work, run = true, compilers, fgd = [], wads = []
     serverInfo: { name: "smak", version },
     instructions: INSTRUCTIONS,
     tools: toolsFor(folders, { allowRun: run }),
+    prompts: PROMPTS,
     log,
   });
 }

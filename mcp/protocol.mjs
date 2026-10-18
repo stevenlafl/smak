@@ -2,7 +2,8 @@
 // a line, read from one stream and answered on another (the "stdio transport"). Nothing here knows about
 // models: `serve` is handed the tools and calls them.
 //
-// What is answered: initialize, ping, tools/list and tools/call; the notifications a client sends
+// What is answered: initialize, ping, tools/list and tools/call, and prompts/list and prompts/get when the
+// server has prompts (starting messages a person picks from the client's menu); the notifications a client sends
 // (notifications/initialized, notifications/cancelled) are taken and not answered, as the protocol asks.
 // A tool that throws is not a fault of the protocol: its message goes back as an ordinary result marked
 // `isError`, so that the model that called it reads what went wrong.
@@ -51,10 +52,12 @@ const protocolError = (code, message) => Object.assign(new Error(message), { cod
  *   tools          [{ name, description, inputSchema, call }]. `call(args, { signal })` returns the pieces of
  *                  its result (see `text` and `image`), or { content, isError }; it may wait. `signal` is
  *                  aborted when the client takes the request back
+ *   prompts        [{ name, title, description, arguments, message(args) }], or none. `message` returns the
+ *                  words of the user's message the prompt starts a conversation with
  *   log            where a line about something odd is written (never the output stream)
  * Calls of tools are run one after another, in the order they came; everything else is answered at once.
  */
-export function serve({ input, output, serverInfo, instructions, tools, log = () => {} }) {
+export function serve({ input, output, serverInfo, instructions, tools, prompts = [], log = () => {} }) {
   const send = (message) => output.write(`${JSON.stringify({ jsonrpc: "2.0", ...message })}\n`);
   const sendError = (id, code, message) => send({ id, error: { code, message } });
   // the calls of tools still to be answered, by the request's id: each can be taken back
@@ -77,7 +80,7 @@ export function serve({ input, output, serverInfo, instructions, tools, log = ()
   const METHODS = {
     initialize: ({ protocolVersion } = {}) => ({
       protocolVersion: PROTOCOL_VERSIONS.includes(protocolVersion) ? protocolVersion : PROTOCOL_VERSIONS[0],
-      capabilities: { tools: {} },
+      capabilities: { tools: {}, ...(prompts.length ? { prompts: {} } : {}) },
       serverInfo,
       ...(instructions ? { instructions } : {}),
     }),
@@ -92,6 +95,19 @@ export function serve({ input, output, serverInfo, instructions, tools, log = ()
       // the next call waits for this one, whether it went well or not
       lastCall = answer.catch(() => {}).finally(() => running.delete(id));
       return answer.then((result) => (stop.signal.aborted ? TAKEN_BACK : result));
+    },
+    "prompts/list": () => ({
+      prompts: prompts.map(({ name, title, description, arguments: args = [] }) => ({ name, title, description, arguments: args })),
+    }),
+    "prompts/get": ({ name, arguments: args = {} } = {}) => {
+      const prompt = prompts.find((one) => one.name === name);
+      if (!prompt) throw protocolError(ERROR.invalidParams, `no prompt ${name}`);
+      const missing = (prompt.arguments ?? []).filter((one) => one.required && !args?.[one.name]);
+      if (missing.length) throw protocolError(ERROR.invalidParams, `prompt ${name} wants ${missing.map((one) => one.name).join(", ")}`);
+      return {
+        description: prompt.description,
+        messages: [{ role: "user", content: text(prompt.message(args ?? {})) }],
+      };
     },
   };
 

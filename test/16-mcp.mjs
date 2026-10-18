@@ -148,6 +148,33 @@ await testAsync("guide lists the guide's sections and hands one out", "mcp: guid
   );
 });
 
+await testAsync("the server's prompts start each kind's workflow, which the guide hands out", "mcp: prompts", async () => {
+  const hello = (await server.request("initialize", { protocolVersion: "2025-06-18" })).result;
+  sure(typeof hello.capabilities.prompts === "object", "no prompts in the capabilities");
+  sure(/doc: "workflow"/.test(hello.instructions), "the instructions do not send the client to the workflow");
+
+  const prompts = (await server.request("prompts/list")).result.prompts;
+  sure(
+    prompts.map((prompt) => prompt.name).join() ===
+      "make-model,make-weapon,make-character,make-map,make-sound,make-textures,make-sprite" &&
+      prompts.every((prompt) => prompt.title && prompt.description && prompt.arguments.every((one) => !one.required)),
+    `the prompts are ${prompts.map((prompt) => prompt.name).join()}`,
+  );
+
+  // each prompt's message names a section of the workflow that the guide finds, one and only one
+  for (const { name } of prompts) {
+    const got = (await server.request("prompts/get", { name, arguments: { request: "A rusty barrel." } })).result;
+    const words = got.messages[0].content.text;
+    const topic = /topic: "([^"]+)"/.exec(words)?.[1];
+    sure(got.messages[0].role === "user" && /A rusty barrel\./.test(words), `${name}: ${words}`);
+    const section = await server.tool("guide", { doc: "workflow", topic });
+    sure(!section.isError && /^## /.test(wordsOf(section)) && /Checkpoint/.test(wordsOf(section)), `${name}: ${wordsOf(section).slice(0, 200)}`);
+  }
+  const bare = (await server.request("prompts/get", { name: "make-sound" })).result.messages[0].content.text;
+  sure(/^I want to make a sound for my GoldSrc mod\. Read/.test(bare), `with no request: ${bare}`);
+  sure((await server.request("prompts/get", { name: "make-ship" })).error?.code === -32602, "an unknown prompt was answered");
+});
+
 await testAsync("models, info and check read the knife", "mcp: info", async () => {
   const listed = wordsOf(await server.tool("models"));
   sure(new RegExp(`knife\\.mdl ${knife.mdl.length}`).test(listed), "the knife with its size");

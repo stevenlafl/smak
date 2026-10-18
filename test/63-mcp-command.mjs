@@ -1,7 +1,7 @@
 // The MCP tool `command`: the command line's own commands, run on the server's folders. A model's info and a
 // picture through it, a name outside the folders refused, what it writes kept to the work folder, and code
 // refused on a server that runs none.
-import { mkdirSync, writeFileSync, existsSync } from "node:fs";
+import { mkdirSync, writeFileSync, existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { testAsync, sure, tmp } from "./helper.mjs";
 import { toolsFor } from "../mcp/tools.mjs";
@@ -84,6 +84,16 @@ await testAsync("file: a work file read back as words, a picture or a sound, and
   sure(/copied: models:crate\.mdl to models\/fw_crate\.mdl/.test(copied[0].text) && existsSync(join(work, "models", "fw_crate.mdl")), copied[0].text);
   sure(/outside the work folder/.test(await refused(() => file.call({ name: "models:crate.mdl", to: "../x.mdl" }))), "a copy outside refused");
   sure(/text or to, not both/.test(await refused(() => file.call({ name: "x.txt", text: "x", to: "y.txt" }))), "text and to refused together");
+  // the person's own picture or mesh, anywhere on their disk: refused where it is, with how to copy it in, then copied
+  const theirs = join(tmp, "elsewhere");
+  mkdirSync(theirs, { recursive: true });
+  writeFileSync(join(theirs, "guard.png"), readFileSync(join(work, "crate.png")));
+  writeFileSync(join(theirs, "secret.txt"), "not theirs to hand over");
+  const told = await refused(() => file.call({ name: join(theirs, "guard.png") }));
+  sure(/is copied in first: file \{ name: ".*guard\.png", to: "theirs\/guard\.png" \}/.test(told), told);
+  const brought = await file.call({ name: join(theirs, "guard.png"), to: "theirs/guard.png" });
+  sure(/copied: .*guard\.png to theirs\/guard\.png/.test(brought[0].text) && existsSync(join(work, "theirs", "guard.png")), brought[0].text);
+  sure(/outside the models and work folders/.test(await refused(() => file.call({ name: join(theirs, "secret.txt"), to: "secret.txt" }))), "only a picture or a mesh comes in from outside");
 });
 
 await testAsync("page: the viewer kept up on the server's folders, its address given, then closed", "mcp: page", async () => {

@@ -13,6 +13,10 @@ import { isAbsolute, join, relative, resolve } from "node:path";
 
 /** What a name may begin with to say which folder it is in. */
 const PREFIX = /^(work|models):/;
+/** What the person may hand over from anywhere on their disk, copied in by the tool `file` with `to`: their own file for any
+ * step (a picture, a mesh and its materials, a recording, a model, a map's source or a compiled one, a .wad, a sprite),
+ * never words or settings. */
+export const THEIRS = /\.(png|bmp|jpe?g|obj|mtl|wav|mp3|mdl|map|bsp|wad|spr)$/i;
 /** A folder that is never listed and never counted as written: where the kit is linked for scripts. */
 export const LINK_FOLDER = "node_modules";
 
@@ -62,7 +66,7 @@ export function pathOf(folders, name, { write = false, folder = false } = {}) {
   const allowed = candidates.filter((path) => roots.some((root) => isInside(root, realOf(path))));
   if (!allowed.length)
     throw new Error(
-      `${name} is outside the ${write ? "work folder" : "models and work folders"}: refused. Name files by their path under one of them`,
+      `${name} is outside the ${write ? "work folder" : "models and work folders"}: refused. Name files by their path under one of them${!write && isAbsolute(name) && THEIRS.test(name) ? `. The person's own file from elsewhere is copied in first: file { name: "${name}", to: "theirs/${name.split(/[\\/]/).pop()}" }` : ""}`,
     );
   if (write) return allowed[0];
   // a folder, where one is asked for (a command's --game, a folder of maps to learn from)
