@@ -306,6 +306,8 @@ distance), CLAP (contrastive language-audio pre-training), PAM (prompt-based aud
 | 10. Carved hull for characters | OPEN | After the Node QEM |
 | 11. A creature's own skeleton and gait in a spec | OPEN | |
 | The pictures leg's `project` hands back Valve's own texture | DECLINED until Steven decides | Section 6: copying by the section-7 line |
+| A weapon at its own size held at its grip (the piece's origin, as `held` defines it), not at the old weapon's low end | OPEN | `atOwnSize` (`src/build.mjs`) keeps the piece's low end where the old one's was. The game's crowbar runs -5.9 to 20 along the hand bone, so every weapon keeps 6 units behind the hand: the original mod's 18-unit pipe wrench (16 drawn) was held a third of the way up its handle, its jaw low in first person (W1 1, 2026-10-17). Holding the origin at the old grip changes every held leg (passing 3 of 3): rebuild them and judge before keeping it |
+| An NPC character on a player's skeleton idles holding a gun | OPEN | Gordon's `look_idle` raises the forearms for a weapon; Barney's and the scientist's own idles hang the arms. A hands-down idle written for an NPC brief (`animate.poseOf`, arms down), the order kept. Proposed to Steven 2026-10-17, not yet approved |
 
 ## Steven's blind reviews (examples/reproduce/reviews/, from 2026-10-14)
 
