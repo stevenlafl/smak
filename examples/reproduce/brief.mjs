@@ -17,6 +17,7 @@ import { tile, render, framing } from "../../src/render.mjs";
 import { PROP_TRIANGLES, HELD_SCALE } from "../../src/spec/model.mjs";
 import { measureSprite, againstClass, SPRITE_CLASSES } from "../../src/sprite/measure.mjs";
 import { sheetOf } from "../../src/sprite/draw.mjs";
+import { rangesOf } from "../../src/audio/classes.mjs";
 
 const A = smak.audio;
 
@@ -287,7 +288,9 @@ export async function judgeSoundAgainstBrief(label, bytes, dir, { brief, what, c
   const loop = Boolean(wav.cue?.length);
   const shown = [{ name: label, x: wav.x, rate: wav.rate, loop: loop ? 0 : undefined }];
   let against;
-  if (kind) against = A.scoreAgainst(f, kind);
+  // the class's ranges beside the score: a judge told only "20 of 20" said it had no range to check the length,
+  // the envelope or the bands against, and gave S2 and S3 a 1 (the original mod's drips, 2026-10-17)
+  if (kind) against = { ...A.scoreAgainst(f, kind), ranges: Object.fromEntries(Object.entries(rangesOf(kind)).map(([k, [lo, hi]]) => [k, [round(lo, 3), round(hi, 3)]])) };
   else {
     const game = A.readWav(readFileSync(join(GAME, like)));
     shown.push({ name: `the game's own ${like}`, x: game.x, rate: game.rate });
