@@ -26,12 +26,22 @@ Where the files go in a mod (`<mod>` is its folder, beside `valve`): models in `
 the game's under the same name works with no code; a new name needs the mod's code or scripts to name it
 (AGENTS.md, rule 8). The tool `file` with `to` copies a built file to that place in the work folder.
 
+**Their own files, at any step.** Every step takes the person's own file in place of the kit's, so they can do any
+part themselves and hand it back: a photo or drawing in place of a generated picture, the generated picture after
+they fixed it in an image editor, a back view, a mesh changed in Blender (`.obj`), a recording, a texture painted by
+hand, a model touched up elsewhere, a map edited in Hammer. A file on their disk is copied in first with
+`file { name: "<its whole path>", to: "theirs/<name>" }` (pictures, meshes, sounds, models, maps, .wad and sprites;
+nothing else is read from outside), then used by its `work:` name at the step it belongs to. Go on from that step;
+do not redo the steps before it. When a note is one the generator does not follow after a redraw or two ("take the
+holster off" a picture), say so and offer that route: they edit the picture, you carry on from it.
+
 ## A prop or other model
 
 For a thing that stands in the world: a crate, a lamp, a console, a pickup. Spec: "A model".
 
 - **Ask:** what it is and where it stands; its size (or what it stands beside); worn or new; a picture of one if
-  they have it.
+  they have it (a shape is made from it: `generate { kind: "shape", picture }`, and it can paint the model:
+  "Pictures projected onto it"), or a mesh of theirs (`.obj`: the spec's mesh part).
 - **Checkpoint 1, the shape:** `build` it and show the sheet of sides (the build's picture). Ask whether the
   shape and proportions are right before painting anything in detail.
 - **Checkpoint 2, the paint:** the materials and finish on it, the sides again, and one close angle. With
@@ -67,8 +77,12 @@ For a person or a monster on one of the game's skeletons. Spec: "A character on 
 - **Checkpoint 1, the picture:** `generate { kind: "shape", prompt, base, only: "picture", turnaround: true }`
   draws it front and back in seconds. Show the pictures. This is the cheapest place to get it right: the
   picture is all the paint it will have. Redraw with other words or seeds until they say it is right.
+  A picture of their own (a photo, a drawing, the drawn one after they edited it) skips this checkpoint: it goes
+  straight to the next with `picture`, and a back of theirs with `back`.
 - **Checkpoint 2, the shape:** `generate` again with the chosen `picture` and `base` (its sides are painted for
-  you), then `build` the spec its answer gives. Show it from every side, front and back.
+  you), then `build` the spec its answer gives (a picture not drawn here is built with `"pose": { "fit": true,
+  "bind": true }`, as the answer says). Show it from every side, front and back. A mesh they changed elsewhere goes
+  in as the spec's mesh part; `generate { kind: "paint", mesh, picture }` paints its sides again.
 - **Checkpoint 3, moving:** `page { kind: "view" }` with it walking and running beside the game's own, or
   `render { kind: "gif" }` of its walk.
 - **Notes:** a note about the clothes or face goes back to checkpoint 1 (a new picture); a note about the size
@@ -82,7 +96,9 @@ A level from words, a sketch or a floor plan. Spec: "A map" (and `guide { doc: "
 - **Ask:** what happens there and the rooms it needs; how big; how it joins the maps before and after it; the
   mood (lit, dark, industrial, outdoor); a sketch or plan if they have one.
 - **Checkpoint 1, the plan:** `build` it and show the plan from above, rooms named. Ask about layout before any
-  detail.
+  detail. A sketch of theirs is read by you and written as the plan ("A drawing of the layout"), and drawn beside the
+  result (`build { reference }`) so both of you compare; a `.map` they edited in Hammer is compiled and checked as
+  it is (`command` with `map-compile`, then `check { walk: true }`).
 - **Checkpoint 2, the views:** the build's view of each room and its views aimed at what the map has (its
   `features`), compiled and lit. Ask about look and light (`lighting`, `focus`, a room's `use`).
 - **Checkpoint 3, walking it:** the walk test's faults fixed, and a flythrough video (spec "A video") so they see
@@ -117,7 +133,8 @@ A flame, a glow, smoke, a spark: a flat picture the engine shows facing the play
 A hit, a shot, a step, a pain cry, a loop. Spec: "A sound".
 
 - **Ask:** what makes the sound and when it plays; whether it replaces one of the game's (its name); one-shot or
-  loop; any sound they like as a reference.
+  loop; any sound they like as a reference. A recording of their own takes the place of the takes: it goes in the
+  sound spec as the `sample` layer, and checkpoint 2 follows.
 - **Checkpoint 1, the takes:** with `--generators`, `generate { kind: "sound", ... }` makes several takes; send
   them with `file` so the person can listen, and ask which is closest. Tell them each take's licence (its
   sidecar names it): whether a non-commercial one will do is their call.

@@ -1,11 +1,11 @@
 // The tool `file`: a file of the server's folders read back as what it is (words, a picture, a sound), or a text
 // file written into the work folder. What a build, a command or a generator made is so seen and heard by a
 // client with no shell, and a .map, a rules file or a list of steps written for a command to take.
-import { readFileSync, writeFileSync, mkdirSync, statSync, copyFileSync } from "node:fs";
-import { dirname, extname, basename } from "node:path";
+import { readFileSync, writeFileSync, mkdirSync, statSync, copyFileSync, existsSync } from "node:fs";
+import { dirname, extname, basename, isAbsolute } from "node:path";
 import * as smak from "../src/index.mjs";
 import { text, image, audio } from "./protocol.mjs";
-import { pathOf } from "./folders.mjs";
+import { pathOf, THEIRS } from "./folders.mjs";
 import { pictureWithin, OUTPUT_MOST } from "./run.mjs";
 
 /** Files read as words. */
@@ -21,12 +21,15 @@ const READ_MOST = OUTPUT_MOST * 4;
  * The tool. `name` alone: the file read back, by what it is (words from `from`, READ_MOST characters at a time;
  * a picture; a sound); `text`: written as the file's whole text, in the work folder only; `to`: copied to that
  * place of the work folder, as a mod lays its files out (a model built at the top into models/). A maker with no
- * way to copy put a model under models/ by retexturing it with its own picture (2026-10-17).
+ * way to copy put a model under models/ by retexturing it with its own picture (2026-10-17). A picture or a mesh the
+ * person names by its whole path, anywhere on their disk, is copied in with `to` too: it is theirs to use at any
+ * step (a picture in place of one drawn, a back, a mesh changed in Blender), and nothing else outside is read.
  */
 export function file(folders, { name, text: words, from = 0, to }) {
   if (typeof to === "string") {
     if (typeof words === "string") throw new Error("file: text or to, not both");
-    const source = pathOf(folders, name);
+    const outside = isAbsolute(name) && THEIRS.test(name) && existsSync(name);
+    const source = outside ? name : pathOf(folders, name);
     const path = pathOf(folders, to.startsWith("work:") ? to : `work:${to}`, { write: true });
     if (source === path) throw new Error(`file: ${name} is already there`);
     mkdirSync(dirname(path), { recursive: true });

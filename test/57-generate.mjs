@@ -290,6 +290,22 @@ await testAsync("generate: a character from words with a picture model is drawn 
       wrongSides = error.message;
     }
     sure(/sides: false leaves a character's sides unpainted/.test(wrongSides), wrongSides);
+    // every step takes the person's own file: their picture with a back of their own, in a stance of its own (fitted)
+    writeFileSync(join(folders.work, "people", "mine.png"), readFileSync(join(folders.work, "people", "sided_s0.png")));
+    writeFileSync(join(folders.work, "people", "mine_rear.png"), readFileSync(join(folders.work, "people", "sided_s0_back.png")));
+    const mine = (await generate.call({ kind: "shape", picture: "work:people/mine.png", back: "work:people/mine_rear.png", base: "man.mdl", sides: false, seeds: 1, name: "people/mine" }))[0].text;
+    sure(/"pose": \{ "fit": true, "bind": true \}/.test(mine) && !/Drawn in man\.mdl's stance/.test(mine) && /mine_rear_cut\.png/.test(mine), mine);
+    sure(JSON.parse(readFileSync(join(folders.work, "people", "mine_s0.json"), "utf8")).back === "people/mine_rear.png", "its back is the one given");
+    // and the sides of any mesh painted on their own, from its front
+    const alone = (await generate.call({ kind: "paint", mesh: "work:people/mine_s0.obj", picture: "work:people/mine_s0_cut.png" }))[0].text;
+    sure(readFileSync(join(folder, "sides.txt"), "utf8").includes("people/mine_s0.obj") && /"project": \[\{"picture":"work:people\/mine_s0_cut\.png","view":"front"\},\{"picture":"work:people\/mine_s0_sides\/view_1\.png","yaw":90\}/.test(alone), alone);
+    let noMesh = "";
+    try {
+      await generate.call({ kind: "paint", picture: "work:people/mine_s0_cut.png" });
+    } catch (error) {
+      noMesh = error.message;
+    }
+    sure(/generate \{ kind: "paint", mesh: /.test(noMesh), noMesh);
   } finally {
     stopWorkers();
   }
