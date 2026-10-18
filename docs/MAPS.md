@@ -427,8 +427,15 @@ agreeing, 63 and 71 units off: not trusted under 30); walls without features (fl
 where they are; a wall whose texture is laid from its brush's edge slides its texture with it, so a wall moved
 along the way the shots look is the true room seen from further off (no picture tells them apart); structure
 from motion wants several overlapping shots with floor in them (four shots of one wall gave no floor to scale
-by). The learned matchers and reconstructors (VGGT, MASt3R, LightGlue) would help with few views and repeated
-textures; none is installed.
+by).
+
+**Learned** (research/map-overlay.md, with the card free): LightGlue put every shot within 2 units where SIFT
+missed one to three (c1a0 6 of 6 against 5, c2a5 5 of 6 against 3, from the near guess), and held on the room of
+one repeating texture from a far guess where SIFT put one a tile off. VGGT's cameras from one anchor shot,
+over shots that overlap, came within 0.1 to 19 units, and PnP then put all six within 0.9 on both maps; it placed
+the four shots of one wall that structure from motion could not. With few views spread over a map, VGGT's frame
+means nothing: it wants shots that overlap. As built, LightGlue takes 65 to 100 seconds a shot (its models
+loaded again for each match), SIFT 3 to 5.
 
 ## A map's dressing (`src/maps/dressing.mjs`)
 
