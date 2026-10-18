@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, chmodSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../src/index.mjs";
 import { geometryOf, rasterOf, overlayOf, fitCamera } from "../src/maps/overlay.mjs";
-import { locateShot, shotsAgainst, structureOf } from "../src/maps/photo.mjs";
+import { locateShot, shotsAgainst, structureOf, guessesFrom } from "../src/maps/photo.mjs";
 import { test, sure, tmp, HERE, runSmak } from "./helper.mjs";
 
 const { maps, png } = smak;
@@ -37,6 +37,23 @@ test("map overlay: a room's edges laid over a picture of it from its camera, and
   const fitted = fitCamera(room(0), shot, { from: [430, 120, 70], yaw: 177 });
   sure(dist(fitted.camera.from, camera.from) < 40 && Math.abs(fitted.camera.yaw - camera.yaw) < 8, `found within 40 units and 8 degrees: ${JSON.stringify(fitted.camera)}`);
   sure(fitted.score < off.score, `and scores better than the guess: ${fitted.score}`);
+});
+
+test("map overlay: green on the picture's lines, red off a line that is there, amber where no line is near", () => {
+  const count = (o) => {
+    const n = { green: 0, red: 0, amber: 0 };
+    for (let k = 0; k < o.rgba.length; k += 4) {
+      const [r, g, b] = [o.rgba[k], o.rgba[k + 1], o.rgba[k + 2]];
+      if (r === 60 && g === 255 && b === 60) n.green++;
+      else if (r === 255 && g === 50 && b === 40) n.red++;
+      else if (r === 235 && g === 180 && b === 40) n.amber++;
+    }
+    return n;
+  };
+  const right = count(overlayOf(room(0), shot, camera, { width: 320, height: 240, offsets: false }));
+  sure(right.green > 4 * right.red && right.green > right.amber, `at the true camera mostly green: ${JSON.stringify(right)}`);
+  const far = count(overlayOf(room(0), shot, { ...camera, from: [250, 300, 64], yaw: 120 }, { width: 320, height: 240, offsets: false }));
+  sure(far.red + far.amber > far.green && far.amber > 0, `far off, red and amber: ${JSON.stringify(far)}`);
 });
 
 test("map overlay: a wall built 32 units off is told by the edges, the most off of the faces, and by about how much", () => {
@@ -95,6 +112,48 @@ test("photogrammetry bridge: a shot located by the venv's PnP is kept as it is; 
     said = error.message;
   }
   sure(/needs the photogrammetry venv/.test(said), said);
+});
+
+// a stand-in for the learned-match venv's python: it writes down each step and matcher it was asked, and answers
+const learned = join(tmp, "photo-standin", "learned");
+const asked = join(tmp, "photo-standin", "asked.txt");
+writeFileSync(
+  learned,
+  `#!${process.execPath}
+const fs = require("node:fs");
+const job = JSON.parse(fs.readFileSync(process.argv[4], "utf8"));
+const step = process.argv[3];
+fs.appendFileSync(${JSON.stringify(asked)}, step + " " + (job.matcher ?? "-") + "\\n");
+if (step === "locate") console.log(JSON.stringify({ ok: true, from: [400, 150, 64], yaw: 165, pitch: -5, roll: 0, matches: 600, inliers: 520, error: 0.3, pairs: [], without: {} }));
+else console.log(JSON.stringify({ ok: true, registered: job.pictures.length, of: job.pictures.length, points: 90000, seconds: 0.4, peak: 3.1, cameras: job.pictures.map((p, n) => ({ picture: p, from: [n * 40, n * 10, 64], yaw: 30 + n * 5, pitch: 0 })), planes: [] }));
+`,
+);
+chmodSync(learned, 0o755);
+
+test("learned matching: LightGlue and VGGT run in the learned venv; VGGT's cameras turned into the map's by one anchor", () => {
+  writeFileSync(asked, "");
+  const located = locateShot(room(0), shot, { from: [430, 120, 70], yaw: 177 }, { python: standIn, learnedPython: learned, matcher: "lightglue" });
+  sure(located.by === "pnp" && located.inliers === 520, JSON.stringify(located));
+  const vggt = structureOf([shot, shot, shot], { python: standIn, learnedPython: learned, method: "vggt" });
+  sure(vggt.ok && vggt.method === "vggt" && vggt.peak === 3.1 && vggt.cameras[2].picture === 2, JSON.stringify(vggt).slice(0, 200));
+  const lines = readFileSync(asked, "utf8").trim().split("\n");
+  sure(lines.includes("locate lightglue") && lines.includes("vggt -") && !lines.some((l) => /sfm/.test(l)), `the learned venv was asked: ${lines.join(" | ")}`);
+  // the structure's frame is the map's turned and shifted: shot 0 is at [0,0,64] yaw 30 in it, and at [500,200,64]
+  // yaw 120 in the map: shot 1, 40 along x and 10 along y of the structure, is turned 90 degrees with it
+  const guesses = guessesFrom(vggt, 0, { from: [500, 200, 64], yaw: 120 });
+  sure(dist(guesses[0].from, [500, 200, 64]) < 1e-9 && Math.abs(guesses[0].yaw - 120) < 1e-9, JSON.stringify(guesses[0]));
+  sure(dist(guesses[1].from, [490, 240, 64]) < 1e-9 && Math.abs(guesses[1].yaw - 125) < 1e-9, `turned and shifted: ${JSON.stringify(guesses[1])}`);
+  const refused = (run) => {
+    try {
+      run();
+    } catch (error) {
+      return error.message;
+    }
+    return "";
+  };
+  sure(/matcher: sift or lightglue/.test(refused(() => locateShot(room(0), shot, { from: [430, 120, 70], yaw: 177 }, { matcher: "orb" }))), "an unknown matcher refused");
+  sure(/learned-match venv/.test(refused(() => locateShot(room(0), shot, { from: [430, 120, 70], yaw: 177 }, { python: standIn, learnedPython: null, matcher: "lightglue" }))), "lightglue without its venv refused");
+  sure(/method: sfm or vggt/.test(refused(() => structureOf([shot], { method: "nerf" }))), "an unknown method refused");
 });
 
 test("map-overlay: the command draws the edges over the picture and says how far apart", () => {

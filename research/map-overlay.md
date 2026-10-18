@@ -69,11 +69,50 @@ Six views spread over c1a0 (viewsOf)          no reconstruction: the views do no
 - Flat-lit plain walls: no features; such a wall says nothing of where it is, and the edges are its only witness.
 - Textures laid from a brush's edge: a moved wall and a moved camera look alike.
 
+## Learned matching and reconstruction (2026-10-17)
+
+Steven approved them ("sure"). Installed by `generators/install-learned-match.sh` under local-3d: a venv of its
+own (PyTorch 2.9.1 on ROCm 6.4, about 15 GB), DISK and LightGlue's weights (50 MB, Apache-2.0), VGGT-1B (5.0 GB
+safetensors, CC-BY-NC-4.0: non-commercial; its code under the VGGT Licence). MASt3R was not downloaded.
+`research/map-overlay/learned.mjs` measures it; every method stays (SIFT and pycolmap are still the defaults).
+
+```
+Located, within 2 units of the true camera     c1a0 (lab)    c2a5 (canyon)   kit room, one repeating texture
+near guess (48 units, 12 deg off), SIFT        5 of 6        3 of 6          4 of 4
+near guess, LightGlue                          6 of 6        5 of 6          4 of 4
+far guess (150 units, 40 deg off), SIFT        2 of 6        3 of 6          3 of 4 (one a tile off: 256)
+far guess, LightGlue                           3 of 6        4 of 6          4 of 4
+VGGT start (one anchor by PnP) + LightGlue     6 of 6        6 of 6
+  VGGT's guesses, before PnP                   0.1 to 5.6    0.5 to 19 units off
+```
+
+- LightGlue wins on every set; SIFT never beats it. The repeated texture's tile-off camera is SIFT's.
+- VGGT as the start of the shot-by-shot fit, over shots that overlap (six about one room), puts every guess
+  within 19 units, and PnP then each within 0.9. Over six views spread across a map that barely overlap, its
+  frame meant nothing (guesses 1000 units off): it wants overlapping shots, as structure from motion does.
+- A wall built 32 off in the kit's room: told as -32 by all four shots, by either matcher.
+- A first run had three of c1a0's shots fall to the edges with LightGlue: out of the card's memory (its
+  attention asked 5.9 GB in one block) while another of the measuring runs held VGGT there. It falls to the
+  CPU now; the numbers above are with the card free.
+
+```
+Structure                     c1a0 room (6)        c2a5 room (6)        four shots of one wall
+SfM (pycolmap)                eye 63.9-64.1,       eye 58.6-69.1,       no floor to scale by (once the
+                              spacing 7.2-13.7%    spacing 27-31%       process died with no answer)
+VGGT-1B                       eye 63.8-64.2,       eye 59.7-68.1,       4 of 4 placed, eye 62-68.5,
+                              spacing 12.4%        spacing 40.6%        spacing 5.7%
+```
+
+VGGT places the four shots of one wall that structure from motion cannot, and finds more planes (27 against 17
+on c1a0, 36 against 5 on c2a5); on c2a5's canyon its spacing is the worse. Its pass takes 1.8 to 15 seconds
+(30 with its first load) and peaks at 8.9 GB on the card.
+
+**Slow as built**: each locate starts the learned venv's python and loads its models again, three to five times a
+shot (the match again from PnP's camera, each camera found without one plane): 65 to 100 seconds a shot with
+LightGlue, against 3 to 5 with SIFT. A worker that keeps them loaded, as the generators' does, is the next step.
+
 ## Next
 
-- Learned matching and reconstruction, which hold with few views and repeated textures: VGGT (Meta, the 1B model,
-  weights about 5 GB), MASt3R (Naver, ViT-Large, about 2.7 GB, non-commercial licence), LightGlue with DISK
-  (small, tens of MB). Sizes are as their model cards gave them when last read; none is downloaded here (asked
-  not to). On the 16 GB card VGGT's 1B model in bf16 should fit; not tried.
+- A kept learned worker (above).
 - The maker's loop: `map-shots` after each build, the OFF lines as the critique (measured, as the dressing
   report is), the overlay pictures beside them.

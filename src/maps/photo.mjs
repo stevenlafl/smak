@@ -35,20 +35,32 @@ const PNP_LEAST = 30;
 /** The size a shot is matched at: features need detail, and PnP is quick. */
 const MATCH_WIDTH = 640;
 
-/** The photogrammetry venv's python, or null. */
+/**
+ * The photogrammetry venv's python, or null. The learned steps (LightGlue's matching, VGGT) run in the
+ * learned-match venv (generators/install-learned-match.sh): its python is `options.learnedPython`, or
+ * SMAK_LEARNED_MATCH. It has OpenCV and numpy too, so it runs every step.
+ */
 const pythonOf = (options) => options.python ?? process.env.SMAK_PHOTOGRAMMETRY ?? null;
+const learnedPythonOf = (options) => options.learnedPython ?? process.env.SMAK_LEARNED_MATCH ?? null;
+/** The matchers a shot is located by: SIFT (OpenCV), or DISK keypoints matched by LightGlue (learned). */
+export const MATCHERS = ["sift", "lightglue"];
 
 /** One job of generators/photogrammetry.py: its answer. */
 function runPhotogrammetry(python, step, job, folder) {
   const path = join(folder, `${step}.json`);
   writeFileSync(path, JSON.stringify(job));
-  const run = spawnSync(python, [RUNNER, step, path], { encoding: "utf8", maxBuffer: 1 << 26 });
+  // the card's memory in segments that grow: LightGlue and VGGT share it with whatever else is on it
+  const env = { ...process.env, PYTORCH_HIP_ALLOC_CONF: process.env.PYTORCH_HIP_ALLOC_CONF ?? "expandable_segments:True" };
+  const run = spawnSync(python, [RUNNER, step, path], { encoding: "utf8", maxBuffer: 1 << 26, env });
   if (run.error) throw new Error(`photogrammetry: ${python} could not be run (${run.error.message}): make the venv with generators/install-photogrammetry.sh`);
   const line = run.stdout.trim().split("\n").at(-1);
   try {
     return JSON.parse(line);
   } catch {
-    throw new Error(`photogrammetry ${step}: no answer (${(run.stderr || run.stdout).trim().split("\n").slice(-3).join(" | ")})`);
+    // a process that died without answering (pycolmap has, now and then, on the same pictures that answered the
+    // next time): how it ended, then its last words
+    const ended = run.signal ? `killed by ${run.signal}` : `exit code ${run.status}`;
+    throw new Error(`photogrammetry ${step}: no answer, ${ended} (${(run.stderr || run.stdout).trim().split("\n").slice(-3).join(" | ")})`);
   }
 }
 
@@ -72,7 +84,10 @@ export function locateShot(map, picture, guess = {}, options = {}) {
   const notes = [];
   const fov = guess.fov ?? 90;
   let camera = guess.from ? { yaw: 0, pitch: 0, ...guess, fov } : fitCamera(geometry, picture, { fov }).camera;
-  const python = pythonOf(options);
+  const matcher = options.matcher ?? "sift";
+  if (!MATCHERS.includes(matcher)) throw new Error(`matcher: ${MATCHERS.join(" or ")}, not ${JSON.stringify(matcher)}`);
+  const python = matcher === "lightglue" ? learnedPythonOf(options) : pythonOf(options);
+  if (matcher === "lightglue" && !python) throw new Error("matcher lightglue needs the learned-match venv: SMAK_LEARNED_MATCH, or learnedPython (generators/install-learned-match.sh)");
   let by = "edges";
   let inliers = 0;
   let error = null;
@@ -100,7 +115,7 @@ export function locateShot(map, picture, guess = {}, options = {}) {
         }
         writeFileSync(join(folder, "points.bin"), Buffer.from(points.buffer));
         writeFileSync(join(folder, "planes.bin"), Buffer.from(labels.buffer));
-        const answer = runPhotogrammetry(python, "locate", { picture: join(folder, "picture.png"), render: join(folder, "render.png"), points: join(folder, "points.bin"), planes: join(folder, "planes.bin"), width, height, fov }, folder);
+        const answer = runPhotogrammetry(python, "locate", { picture: join(folder, "picture.png"), render: join(folder, "render.png"), points: join(folder, "points.bin"), planes: join(folder, "planes.bin"), width, height, fov, matcher }, folder);
         return { answer, raster };
       };
       // render and match, then render again from what PnP found and match once more: the nearer the render's
@@ -252,8 +267,10 @@ export function shotsAgainst(map, shots, options = {}) {
  * level plane; the scene's own origin and turn, which the map's are not.
  */
 export function structureOf(pictures, options = {}) {
-  const python = pythonOf(options);
-  if (!python) throw new Error("structure from motion needs the photogrammetry venv: SMAK_PHOTOGRAMMETRY, or python");
+  const method = options.method ?? "sfm";
+  if (!["sfm", "vggt"].includes(method)) throw new Error(`method: sfm or vggt, not ${JSON.stringify(method)}`);
+  const python = method === "vggt" ? learnedPythonOf(options) : pythonOf(options);
+  if (!python) throw new Error(method === "vggt" ? "VGGT needs the learned-match venv: SMAK_LEARNED_MATCH, or learnedPython (generators/install-learned-match.sh)" : "structure from motion needs the photogrammetry venv: SMAK_PHOTOGRAMMETRY, or python");
   const folder = mkdtempSync(join(tmpdir(), "smak-sfm-"));
   try {
     const files = pictures.map((p, n) => {
@@ -262,12 +279,35 @@ export function structureOf(pictures, options = {}) {
       writeFileSync(file, png(p.width, p.height, p.rgba));
       return file;
     });
-    const answer = runPhotogrammetry(python, "sfm", { pictures: files, fov: options.fov ?? 90, work: join(folder, "work"), eye: options.eye ?? 64 }, folder);
+    const answer = runPhotogrammetry(python, method, { pictures: files, fov: options.fov ?? 90, work: join(folder, "work"), eye: options.eye ?? 64, conf: options.conf ?? 50 }, folder);
     if (answer.cameras) for (const c of answer.cameras) c.picture = files.indexOf(c.picture);
-    return answer;
+    return { method, ...answer };
   } finally {
     rmSync(folder, { recursive: true, force: true });
   }
+}
+
+/**
+ * Guesses for every shot in the map's frame, from a structure (structureOf: its own frame, upright and scaled by
+ * the eye's height) and one shot whose camera in the map is known (an anchor, located by PnP): the structure's
+ * frame differs from the map's by a turn about z and a shift, read off the anchor, and each shot's camera moved by
+ * them. `[{ picture, from, yaw, pitch }]`, the anchor's own as given. The start for locateShot shot by shot, where
+ * a guess from nothing is far off.
+ */
+export function guessesFrom(structure, anchor, anchorCamera) {
+  const own = structure.cameras?.find((c) => c.picture === anchor);
+  if (!own) throw new Error(`guessesFrom: shot ${anchor} has no camera in the structure`);
+  const turn = ((anchorCamera.yaw - own.yaw) * Math.PI) / 180;
+  const [c, s] = [Math.cos(turn), Math.sin(turn)];
+  return structure.cameras.map((cam) => {
+    const d = [cam.from[0] - own.from[0], cam.from[1] - own.from[1]];
+    return {
+      picture: cam.picture,
+      from: [anchorCamera.from[0] + c * d[0] - s * d[1], anchorCamera.from[1] + s * d[0] + c * d[1], anchorCamera.from[2] + cam.from[2] - own.from[2]],
+      yaw: cam.yaw + (turn * 180) / Math.PI,
+      pitch: cam.pitch,
+    };
+  });
 }
 
 /**

@@ -399,17 +399,21 @@ motion. `smak map-overlay`, `map-shots` and `map-sfm` do it from the command lin
 
 | Function | Gives |
 | --- | --- |
-| `overlayOf(map, picture, camera, { width, height, offsets })` | The map's edges (creases, depth steps; texture joins in blue) drawn over the picture from `camera` (`{ from, yaw, pitch, fov }`, fov 90 unless told), green within 2 pixels of the picture's own long straight edges and red further: `{ width, height, rgba, score, toPicture, fromPicture, faces }`. `score` in pixels (lower is better). `faces`: each face whose edges the view shows, how far it would move along its normal (`move`, units) to lie on the picture's edges, the largest first. A reading of edges: on a picture of flat colours it is sharp, on a textured one the texture's own lines pull it |
+| `overlayOf(map, picture, camera, { width, height, offsets })` | The map's edges (creases, depth steps; texture joins in blue) drawn over the picture from `camera` (`{ from, yaw, pitch, fov }`, fov 90 unless told), green within 2 pixels of the picture's own long straight edges, red with a picture line 2 to 10 pixels off (off: a line is there and the edge is not on it), amber with none within 10 (nothing to compare: a soft line the detector missed, or a camera so far off nothing is near): `{ width, height, rgba, score, toPicture, fromPicture, faces }`. `score` in pixels (lower is better). `faces`: each face whose edges the view shows, how far it would move along its normal (`move`, units) to lie on the picture's edges, the largest first. A reading of edges: on a picture of flat colours it is sharp, on a textured one the texture's own lines pull it |
 | `fitCamera(map, picture, { from, yaw, pitch, fov, fitFov })` | The camera that best lays the map's edges on the picture's, searched from a guess (or, with none, from places over the map's floor at eye height): `{ camera, score }` |
 | `geometryOf(map)`, `rasterOf(geometry, camera, width, height)`, `cameraOf(...)` | The faces a view draws (`plane` keys coplanar faces alike), which face each pixel shows and the point of the map there (`point(i)`), and drawMap's own camera |
-| `locateShot(map, picture, guess, { python, folders, textures, light })` | A shot's camera against the map as built: the map rendered at the guess, the picture's SIFT features matched to the render's (each render pixel's point known), the camera by PnP with RANSAC, rendered and matched again; each camera found without one plane, where it differs, judged on its own render (a wall built off draws RANSAC's camera with it when most features lie on it). Kept as PnP gives it when 30 or more matches agree; else the edges' fit. `{ camera, by: "pnp" \| "edges", inliers, planes, notes }`: `planes`, each plane's shift along its normal for its features to agree (`featureShifts`) |
+| `locateShot(map, picture, guess, { python, learnedPython, matcher, folders, textures, light })` | A shot's camera against the map as built: the map rendered at the guess, the picture's features matched to the render's (`matcher`: `"sift"`, OpenCV's, unless told; `"lightglue"`, DISK keypoints matched by LightGlue, in the learned venv; `MATCHERS`) (each render pixel's point known), the camera by PnP with RANSAC, rendered and matched again; each camera found without one plane, where it differs, judged on its own render (a wall built off draws RANSAC's camera with it when most features lie on it). Kept as PnP gives it when 30 or more matches agree; else the edges' fit. `{ camera, by: "pnp" \| "edges", inliers, planes, notes }`: `planes`, each plane's shift along its normal for its features to agree (`featureShifts`) |
 | `shotsAgainst(map, shots, options)` | Every shot (`[{ picture, guess }]`) located, and over them all each plane most of the shots that see it say is off, with its median move: what a maker changes, then calls again. Each shot's `overlay` is the picture to look at |
-| `structureOf(pictures, { python, fov, eye })` | The pictures alone, by structure from motion and bundle adjustment (pycolmap): cameras and points, stood up by the cameras' up (a game's camera has no roll) and scaled by the eye's height (64) over the lowest large level plane; the level and upright planes RANSAC finds in the points |
+| `structureOf(pictures, { method, python, learnedPython, fov, eye, conf })` | The pictures alone: by structure from motion and bundle adjustment (`method: "sfm"`, pycolmap, unless told), or in one pass of VGGT-1B (`"vggt"`: cameras and dense points, its points over the `conf` percentile of its confidence; with `seconds` and the card's `peak` GB), cameras and points stood up by the cameras' up (a game's camera has no roll) and scaled by the eye's height (64) over the lowest large level plane; the level and upright planes RANSAC finds in the points |
+| `guessesFrom(structure, anchor, anchorCamera)` | Every shot's camera in the map's frame, from a structure (its own frame, upright and to scale) and one shot whose camera in the map is known (`anchor`, located by PnP): the two frames differ by a turn about z and a shift, read off the anchor. The start for `locateShot` shot by shot where a guess from nothing is far off |
 | `liftFromShots(bsp, name, shots)` | A texture read off shots whose cameras are fitted, as `liftTexture` reads one off views of known cameras |
 
 The photogrammetry runs in a venv of its own (`generators/install-photogrammetry.sh`: OpenCV and pycolmap, CPU,
 about 350 MB, no weights): its python is `python`, or `SMAK_PHOTOGRAMMETRY`. Without it, cameras are fitted by
-the edges alone, and that is said.
+the edges alone, and that is said. The learned steps (`matcher: "lightglue"`, `method: "vggt"`) run in another
+(`generators/install-learned-match.sh`: PyTorch on ROCm, LightGlue with DISK, VGGT; about 15 GB of venv, 50 MB of
+DISK and LightGlue weights, 5 GB of VGGT-1B): its python is `learnedPython`, or `SMAK_LEARNED_MATCH`. Licences:
+LightGlue and DISK Apache-2.0; VGGT-1B's weights CC-BY-NC-4.0, non-commercial.
 
 **Measured** (research/map-overlay.md; Valve's maps read only, views drawn by `drawMap` at known cameras standing
 for screenshots, each located from a guess 48 units and 12 degrees off): on c1a0 the features put all six shots
@@ -423,8 +427,15 @@ agreeing, 63 and 71 units off: not trusted under 30); walls without features (fl
 where they are; a wall whose texture is laid from its brush's edge slides its texture with it, so a wall moved
 along the way the shots look is the true room seen from further off (no picture tells them apart); structure
 from motion wants several overlapping shots with floor in them (four shots of one wall gave no floor to scale
-by). The learned matchers and reconstructors (VGGT, MASt3R, LightGlue) would help with few views and repeated
-textures; none is installed.
+by).
+
+**Learned** (research/map-overlay.md, with the card free): LightGlue put every shot within 2 units where SIFT
+missed one to three (c1a0 6 of 6 against 5, c2a5 5 of 6 against 3, from the near guess), and held on the room of
+one repeating texture from a far guess where SIFT put one a tile off. VGGT's cameras from one anchor shot,
+over shots that overlap, came within 0.1 to 19 units, and PnP then put all six within 0.9 on both maps; it placed
+the four shots of one wall that structure from motion could not. With few views spread over a map, VGGT's frame
+means nothing: it wants shots that overlap. As built, LightGlue takes 65 to 100 seconds a shot (its models
+loaded again for each match), SIFT 3 to 5.
 
 ## A map's dressing (`src/maps/dressing.mjs`)
 
