@@ -1,0 +1,54 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/fw_drips.wav",
+  "class": "loop drips",
+  "seed": 9,
+  "length": 7,
+  "layers": [
+    {
+      "id": "drips_a",
+      "kind": "sample",
+      "file": "work:gen/water_drips_stable-audio-3-sfx_s2.wav",
+      "from": 0,
+      "length": 7,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100
+        }
+      ]
+    },
+    {
+      "id": "drips_b",
+      "kind": "sample",
+      "file": "work:gen/water_drips_woosh-dflow_s0.wav",
+      "from": 0,
+      "length": 5,
+      "gain": -6,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 1100
+        }
+      ]
+    },
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 900
+        }
+      ],
+      "gain": -34
+    }
+  ],
+  "finish": {
+    "peak": -0.5
+  },
+  "loop": {
+    "crossfade": 0.3
+  }
+}

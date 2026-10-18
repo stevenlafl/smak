@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.82,
+   "peak": -0.5,
+   "rms": -11.6,
+   "crest": 11.1,
+   "dc": -0.0001,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.015,
+   "peakAt": 0.015,
+   "t20": 0.614,
+   "t40": 0.773,
+   "centroid": 3177,
+   "rolloff": 4328,
+   "flatness": 0.539,
+   "bands": {
+    "<150": 0,
+    "150-600": 0.3,
+    "600-2k": 15.8,
+    "2k-5k": 75.9,
+    ">5k": 8.1
+   },
+   "onsets": 0
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Right kind of event, wrong character. Against the game's pain, which is a series of about 30 separate pulses over 0.8 s with a tail (lower picture), the replacement (upper picture) is one continuous noisy block from 0 to about 0.55 s, then a short spike near 0.58 s and a decay. Read from the picture and features it sounds like a noise wash, not a wet, pulsing squeal. Heard, this may differ; the judge cannot listen."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Envelope holds. Length 0.82 s against the game's 0.795 s (3% off, within 25%). Attack 0.015 s, peak at 0.015 s. t20 0.614 s against 0.544 s (13% off, inside the range). t40 at 0.773 s gives a decay of about 0.16 s from t20. No class range was given, so this rests on the measures."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Spectrum holds. Centroid 3177 Hz against 2682 Hz is 18.5% off, inside 20%. Band shares against the game's: under 150 Hz 0 vs 0.2; 150-600 Hz 0.3 vs 0; 600-2k 15.8 vs 15.6; 2k-5k 75.9 vs 83.8 (7.9 points); above 5k 8.1 vs 0.3 (7.8 points). Every band is within 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Character is clearly off. The measure reports 0 onsets, while the game's sound has about 30 distinct pulses (lower picture). The replacement's waveform (upper picture) is one continuous block through 0 to 0.55 s, so the pulsing is missing. Flatness is 0.539, which reads as noisy; the game's flatness was not given, so the tone-or-noise comparison cannot be made from these measures."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Fit for the game holds as far as the measures show. Clipped 0, DC -0.0001, lead 0, peak -0.5 dBFS, and engineFaults is empty. The name is sound/headcrab/hc_pain1.wav, the same as the game's. The sample rate, bit depth and channel count are not in the measures, so those are not confirmed here. No loop cue applies to a pain sound."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

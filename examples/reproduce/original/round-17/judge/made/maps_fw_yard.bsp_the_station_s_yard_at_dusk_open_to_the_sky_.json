@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1548,
+   1548
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard has the areas the brief names: a perimeter wall, a gatehouse (top right, with two rotating doors and a changelevel) and a pump-house-like room (bottom left, with func_door 1). The joins are inverted. The start (info_player_start 22) sits at the pump house's east door, and the only way out (trigger_changelevel) is in the gatehouse. The brief has the player start by the gate and leave through the pump house's double doors. No drums or pipe section appear in the plan as separate areas or props."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The plan measures 1548 by 1548 units against the asked 1500 by 1500, about 3% over, inside the 25% bar. The gatehouse (about 440 by 360 units) and the pump house (about 300 units square) are plausible sizes for the brief's areas."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The gatehouse carries a column of floor-height labels down its right side (2 240 to 2 346), which suggests a stair or ramp, but the views from the yard never show it. The yard floor reads flat in the start view and the yaw 0 and 90 views. The brief's ground levels and any stairs cannot be confirmed from the pictures, and nothing in the pictures matches the brief's gate and pump house heights."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "There is one info_player_start (22), but it sits by func_door 1 at the pump house's east side, not by a gate. The gatehouse has two func_door_rotating (2 and 3) and the only trigger_changelevel (at the gatehouse, with info_landmark 23). The start and the exit are in the wrong rooms against the brief. No drums or pipe entities are placed. The brief's gatehouse door is there but its place in the layout is wrong."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls in the views are a rust-brown, rough surface and the floor is a grey mottled pattern. Neither is clearly the brief's concrete wall, wet concrete floor or grate. No PUMP 3 sign or steel grate is seen in any picture, so the surfaces do not read as the brief's materials."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "There are 15 light entities and light_environment 40, with env_glow and cycler_sprite lamps on the walls. The sodium-orange glow shows on the gatehouse's walls and the right-hand trim. The sky is clear blue in the start view and the yaw 90 and 180 views, which reads as daylight, not the brief's dusk. The bright and dark areas do not match a dusk yard."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "A yellow and black hazard-striped trim runs along the base of the walls in the start and yaw -90 views, which is a brief detail. The brief's drums (a 55-gallon drum with a hazard stripe) and the broken truck-sized pipe section are not visible in any view. The gatehouse and gate are the only other distinctive features, and the gate's door and pump house's double doors are not shown as such."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The build reports no check errors and no unreached entities, and the walk-test warnings are empty. The changelevel to fw_pumphall (with landmark fw_lm_yard, which is listed) is reached on foot from the start. The map compiles and does not leak."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From the start the view is a flat floor, a striped base trim and one wall, with the sky open above. The yard's walls and floor look like Half-Life's textures, but nothing in the views is recognisably the brief's yard: no gate, no drums, no pipe section, and the lighting reads as daytime. A player would not place it as the station's yard at dusk."
+  }
+ },
+ "total": 11,
+ "of": 18,
+ "passes": false
+}

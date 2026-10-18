@@ -1,0 +1,76 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.641,
+   "peak": -0.5,
+   "rms": -10.5,
+   "crest": 10,
+   "dc": -0.0002,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.035,
+   "attack": 0.005,
+   "peakAt": 0.01,
+   "t20": 0.399,
+   "t40": 0.509,
+   "centroid": 1507,
+   "rolloff": 1960,
+   "flatness": 0.279,
+   "bands": {
+    "<150": 0,
+    "150-600": 8.4,
+    "600-2k": 77.7,
+    "2k-5k": 10.8,
+    ">5k": 3
+   },
+   "onsets": 1
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 22,
+   "of": 22,
+   "lines": []
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows one impact: a dense burst at the start (attack 0.005 s, peak at 0.01 s) that decays over about 0.4 s, with a broadband body in the 600 Hz to 2 kHz range. That reads as a single strike on a hard surface, the wrench-on-metal event the brief names. The waveform does not show a clear ring, so it is a hit, not a long clang, which is acceptable for a wrench strike."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 0.641 s, attack 5 ms, t20 0.399 s and tail 0.035 s. The waveform shows a sharp onset and a steady decay to about 0.5 s, then a quiet tail. That is a plausible impact envelope by eye. The class range for 'metal hit' is not among the measures I was given, so the range check could not be made here; this is a judgement from the picture and the numbers."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid 1507 Hz and bands 8.4 / 77.7 / 10.8 / 3 % put most energy at 600 Hz to 2 kHz, which matches the spectrogram's bright lower third. But the <150 Hz band reads 0 while the bottom rows of the spectrogram (about y 190 to 220) are bright orange, so the low end of the measure and the picture disagree. The class's allowed centroid and band shares were not given, so the measure cannot be confirmed against Half-Life's metal hits."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One onset (onsets 1), matching a single strike. Flatness 0.279 falls in the noisy-impact range. The spectrogram shows no pitch glide: the bands stay level through the decay. The noisy decay tail is what a struck metal body does, and nothing in the picture is clearly off."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Peak -0.5 dBFS with no clipping, DC -0.0002, no lead, and an empty engine-faults list, with the name sound/weapons/cbar_hit1.wav as the brief's file. The sample rate, channel count and bit depth are not given in the pictures or the measures, so the format is taken on the engine check's word, not checked by me."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

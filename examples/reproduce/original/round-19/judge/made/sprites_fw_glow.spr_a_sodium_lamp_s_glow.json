@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.71,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frame is a soft radial glow, bright at the centre and fading out to the edges, which is what a lamp's glow is. It is the same effect as the class's glows."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "64 x 64, as the measures give. The glow fills the frame and fades to nothing at the border (border max and mean 0, inside 0.005), so no hard edge shows when it is blended."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Warm sodium orange-amber at the core, fading to dark, as the brief asks for a sodium lamp. The colour reads as the engine blends it, on the dark background."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "One frame, a static glow, held to the glow class's measures: the class's border measure is 0 (range 0 to 0.005) and it holds. The brief asks for a glow, not motion, so one frame and no envelope is right for it."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Recorded as parallel and additive at 64 x 64, with the name fw_glow. The additive format is what a glow is blended with, and nothing in the record contradicts it. The brief gives no type, so this is judged against the glow class's measures, not a stated type."
+  }
+ },
+ "total": 10,
+ "of": 10,
+ "passes": true
+}

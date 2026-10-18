@@ -1,0 +1,326 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/fw_drips.wav",
+  "class": "loop drips",
+  "seed": 9,
+  "length": 6.7,
+  "onsets": 8,
+  "layers": [
+    {
+      "id": "d1",
+      "kind": "tone",
+      "at": 0.35,
+      "f": 1100,
+      "wave": "sine",
+      "sweep": {
+        "to": 760,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -8
+    },
+    {
+      "id": "c1",
+      "kind": "noise",
+      "at": 0.35,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -12
+    },
+    {
+      "id": "d2",
+      "kind": "tone",
+      "at": 1.2,
+      "f": 700,
+      "wave": "sine",
+      "sweep": {
+        "to": 480,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -10
+    },
+    {
+      "id": "c2",
+      "kind": "noise",
+      "at": 1.2,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -14
+    },
+    {
+      "id": "d3",
+      "kind": "tone",
+      "at": 1.55,
+      "f": 1250,
+      "wave": "sine",
+      "sweep": {
+        "to": 880,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -7
+    },
+    {
+      "id": "c3",
+      "kind": "noise",
+      "at": 1.55,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -12
+    },
+    {
+      "id": "d4",
+      "kind": "tone",
+      "at": 2.6,
+      "f": 620,
+      "wave": "sine",
+      "sweep": {
+        "to": 420,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -12
+    },
+    {
+      "id": "c4",
+      "kind": "noise",
+      "at": 2.6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -16
+    },
+    {
+      "id": "d5",
+      "kind": "tone",
+      "at": 3.3,
+      "f": 950,
+      "wave": "sine",
+      "sweep": {
+        "to": 660,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -9
+    },
+    {
+      "id": "c5",
+      "kind": "noise",
+      "at": 3.3,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -13
+    },
+    {
+      "id": "d6",
+      "kind": "tone",
+      "at": 4.4,
+      "f": 500,
+      "wave": "sine",
+      "sweep": {
+        "to": 340,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -11
+    },
+    {
+      "id": "c6",
+      "kind": "noise",
+      "at": 4.4,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -15
+    },
+    {
+      "id": "d7",
+      "kind": "tone",
+      "at": 5.1,
+      "f": 1150,
+      "wave": "sine",
+      "sweep": {
+        "to": 800,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -8
+    },
+    {
+      "id": "c7",
+      "kind": "noise",
+      "at": 5.1,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -12
+    },
+    {
+      "id": "d8",
+      "kind": "tone",
+      "at": 6,
+      "f": 800,
+      "wave": "sine",
+      "sweep": {
+        "to": 540,
+        "time": 0.07
+      },
+      "env": {
+        "attack": 0.002,
+        "decay": 0.12
+      },
+      "gain": -10
+    },
+    {
+      "id": "c8",
+      "kind": "noise",
+      "at": 6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 900
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -14
+    },
+    {
+      "id": "grains",
+      "kind": "particles",
+      "rate": 60,
+      "band": [
+        300,
+        1800
+      ],
+      "grain": 0.006,
+      "length": 6.7,
+      "env": {
+        "attack": 0.001,
+        "decay": 0.02
+      },
+      "gain": -16
+    },
+    {
+      "id": "hiss",
+      "kind": "noise",
+      "color": "white",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        },
+        {
+          "type": "lowpass",
+          "f": 6000
+        }
+      ],
+      "env": {
+        "attack": 0.05,
+        "hold": 6.5,
+        "decay": 0.05
+      },
+      "gain": -38
+    },
+    {
+      "id": "bed",
+      "kind": "noise",
+      "color": "pink",
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 700
+        }
+      ],
+      "env": {
+        "attack": 0.05,
+        "hold": 6.5,
+        "decay": 0.05
+      },
+      "gain": -26
+    }
+  ],
+  "finish": {
+    "peak": -0.5
+  },
+  "loop": {
+    "crossfade": 0.3
+  }
+}

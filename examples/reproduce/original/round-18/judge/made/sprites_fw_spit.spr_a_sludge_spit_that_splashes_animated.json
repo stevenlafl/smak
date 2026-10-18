@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 8,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0.063,
+    "mean": 0.001
+   },
+   "envelope": {
+    "peakAt": 0.43,
+    "first": 0.66,
+    "last": 0
+   },
+   "dark": 0.63,
+   "wrap": 1.28,
+   "jitter": 1.48
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.48,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.001,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.43,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.66,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a sludge spit splashing: a green blob that bursts in frames 1 to 3, throws droplets downward in frames 4 and 5 and thins to nothing by frame 7. That is the effect the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The frames are 32 by 32 as the measures give, and the splash fills the middle of each frame without touching the edges (border mean 0.001, max 0.063). The effect fills the frame as a splash should."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Frames 1 to 3 show a muted, slightly olive green, close to the green-grey sludge in the brief. It is not neon, and nothing in the frames contradicts the colour the brief asks for. Judged by eye."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The envelope fails its class measure at the first frame: first is 0.66 against the class range of 0 to 0.22, and frame 0 starts visibly brighter than the rest of the attack. Frame 0 is the bright attack the measure flags. Peak at 0.43 and last at 0 are in range, and the splash ends dark at frame 7, so the one-shot shape is right. Capped at 1 by the failed measure."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The file is named sprites/fw_spit.spr, and the measures give it as parallel with index alpha, which is a valid GoldSrc type and format. No measure fails it. The brief does not name a type for this sprite, so I could check only that it is a valid one."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

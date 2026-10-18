@@ -1,0 +1,202 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_valvewheel.mdl",
+  "kind": "prop",
+  "size": {
+    "width": 32,
+    "height": 52
+  },
+  "materials": {
+    "red": {
+      "base": "paint",
+      "tone": [
+        0.62,
+        0.08,
+        0.06
+      ],
+      "picture": "library:rusty_painted_metal",
+      "size": 87
+    },
+    "steel": {
+      "base": "steel",
+      "picture": "library:metal_plate",
+      "size": 20
+    }
+  },
+  "parts": [
+    {
+      "id": "post",
+      "kind": "cylinder",
+      "material": "steel",
+      "radius": 3,
+      "height": 36,
+      "sides": 8
+    },
+    {
+      "id": "hub",
+      "kind": "cylinder",
+      "material": "red",
+      "radius": 4.5,
+      "height": 6,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -3,
+        0,
+        36
+      ]
+    },
+    {
+      "id": "rim_a",
+      "kind": "tube",
+      "material": "steel",
+      "sides": 8,
+      "path": [
+        [
+          0,
+          14,
+          36,
+          1.8
+        ],
+        [
+          0,
+          11.74,
+          43.62,
+          1.8
+        ],
+        [
+          0,
+          5.69,
+          48.79,
+          1.8
+        ],
+        [
+          0,
+          -2.43,
+          49.79,
+          1.8
+        ]
+      ]
+    },
+    {
+      "id": "rim_b",
+      "kind": "tube",
+      "material": "steel",
+      "sides": 8,
+      "path": [
+        [
+          0,
+          0,
+          50,
+          1.8
+        ],
+        [
+          0,
+          -7.62,
+          47.74,
+          1.8
+        ],
+        [
+          0,
+          -12.89,
+          41.47,
+          1.8
+        ],
+        [
+          0,
+          -13.79,
+          33.57,
+          1.8
+        ]
+      ]
+    },
+    {
+      "id": "rim_c",
+      "kind": "tube",
+      "material": "steel",
+      "sides": 8,
+      "path": [
+        [
+          0,
+          -14,
+          36,
+          1.8
+        ],
+        [
+          0,
+          -11.74,
+          28.38,
+          1.8
+        ],
+        [
+          0,
+          -5.69,
+          23.21,
+          1.8
+        ],
+        [
+          0,
+          2.43,
+          22.21,
+          1.8
+        ]
+      ]
+    },
+    {
+      "id": "rim_d",
+      "kind": "tube",
+      "material": "steel",
+      "sides": 8,
+      "path": [
+        [
+          0,
+          0,
+          22,
+          1.8
+        ],
+        [
+          0,
+          7.62,
+          24.26,
+          1.8
+        ],
+        [
+          0,
+          12.79,
+          30.31,
+          1.8
+        ],
+        [
+          0,
+          13.79,
+          38.43,
+          1.8
+        ]
+      ]
+    },
+    {
+      "id": "spoke",
+      "kind": "box",
+      "material": "red",
+      "size": [
+        3,
+        2.2,
+        26
+      ],
+      "at": [
+        0,
+        0,
+        23
+      ],
+      "repeat": {
+        "count": 3,
+        "around": "hub",
+        "axis": "x"
+      }
+    }
+  ]
+}

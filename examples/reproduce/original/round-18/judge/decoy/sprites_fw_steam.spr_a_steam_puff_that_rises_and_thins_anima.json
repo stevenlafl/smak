@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Not a steam puff. The single frame is one flat light-grey disc with a hard edge, no soft falloff, billowing edge or wisps, so it does not read as smoke or steam (the frame at /decoy/fw_steam/frames.png, frame 1)."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 x 32 as the original's is, and the disc fills it roughly edge to edge. But the effect is a plain circle, not a puff that fills the frame with density falling off toward the edges, so the shape is wrong even though the size is right."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colour is a neutral grey-white, which is plausible for steam against the dark background. It is one flat tone with no variation, though, so it does not show the layered, thinning colour of a steam puff. Judged by eye, that is a fault."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The measures fail, and the picture agrees. The sprite has 1 frame, where the brief asks for an animated puff that rises and thins. The envelope is bright at the start (first 1.0, class range 0 to 0.35), bright at the end (last 1.0, range 0 to 0.1, so it does not end dark), and its peak is at frame 0 (range 0.2 to 0.6). Nothing rises or thins."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The format is additive, as the original's is. The type is 'parallel', but the brief's slot for this steam sprite is 'parallel oriented' (as the original steam1 is), so the type does not match its slot. The name fw_steam.spr is what the game looks for, but the type fault fails the item."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

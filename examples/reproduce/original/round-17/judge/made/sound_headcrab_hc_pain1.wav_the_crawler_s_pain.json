@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.771,
+   "peak": -0.5,
+   "rms": -12.5,
+   "crest": 12,
+   "dc": 0.0052,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.02,
+   "peakAt": 0.02,
+   "t20": 0.728,
+   "t40": 0.738,
+   "centroid": 2692,
+   "rolloff": 3165,
+   "flatness": 0.128,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 0,
+    "600-2k": 16.1,
+    "2k-5k": 83.3,
+    ">5k": 0.3
+   },
+   "onsets": 1
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for the crawler's pain. The picture shows about 0.45 s of continuous, dense noise (0 to about 0.45 s on the top waveform) followed by about eight sparse, decaying hits (0.45 to 0.77 s). The game's own hc_pain1 is a dense train of about 40 evenly spaced wet pulses over 0.8 s. The spectrogram suggests a noisy, squelchy sound, but it does not show the pulsed, wet pattern of the game's pain. Judging from pictures alone, the event cannot be confirmed as a pain; sound is not listened to here."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length is 0.771 s against the game's 0.795 s (3%, within 25%) and attack is 0.02 s, both fine. The decay fails the measure: t20 is 0.728 s against the game's own 0.544 s, 34% longer. The picture shows full level holding for most of the file, so the sound does not decay like the game's. The class range from src/audio/classes.mjs is not given in the measurements, so the t20 cannot be cleared against it; it stays at 1."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid is 2692 Hz against the game's 2682 Hz (0.4%, within 20%). Band shares match within 0.5 points in every band: <150 0.2 vs 0.2, 150-600 0 vs 0, 600-2k 16.1 vs 15.6, 2k-5k 83.3 vs 83.8, >5k 0.3 vs 0.3. The spectrum is right to a close look."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.128, inside the game's sound range (0.05 to 0.28), so the noise character is in range. Onsets do not match: the measure counts 1 onset against the game's many pulses, and the picture shows the made sound as one continuous noise block followed by sparse hits rather than a rapid wet train. Pitch movement is not measured and cannot be checked from the picture, so the mismatch in onsets caps the item at 1."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine check reports no faults (engineFaults is empty). There is no clipping (clipped 0), peak is -0.5 dB, DC is 0.0052 (small), and the name matches the game's: sound/headcrab/hc_pain1.wav. The sample rate and bit depth are not among the given measurements, so the format rests on the engine check, which is recorded as clean."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

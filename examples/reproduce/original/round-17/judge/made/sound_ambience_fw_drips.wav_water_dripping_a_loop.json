@@ -1,0 +1,76 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 7.35,
+   "peak": -2,
+   "rms": -28.3,
+   "crest": 26.3,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0.01,
+   "tail": 0.559,
+   "attack": 3.482,
+   "peakAt": 6.4,
+   "t20": 0.11,
+   "t40": 0.264,
+   "centroid": 808,
+   "rolloff": 711,
+   "flatness": 0.084,
+   "bands": {
+    "<150": 1.1,
+    "150-600": 27.1,
+    "600-2k": 66.3,
+    "2k-5k": 4.5,
+    ">5k": 1
+   },
+   "onsets": 8
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 20,
+   "of": 20,
+   "lines": []
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The spectrogram shows eight sharp broadband onsets, each followed by a short resonant tail in the mid band, over a continuous low noise bed. That is the event the brief names: water dripping, looped. The sound is read from the picture only, since the judge cannot listen."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Each drip has a vertical onset line, which is a fast attack, and decays within about 0.26 s (t40 0.264, t20 0.11). The 7.35 s length suits a loop. The sheet gives no unit for the attack value and no class range for loop drips, so this is judged on the picture and the listed measures, not a measured range."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The energy is mid-heavy: 66.3% in 600 Hz to 2 kHz, centroid 808 Hz, rolloff 711 Hz, only 4.5% in 2k to 5k and 1% above 5 kHz. The drip's ring is dark, with almost no bright top, which reads as muffled for water. The class range is not on the sheet, so this is a lower score that the measures alone suggest is off."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Two clear faults in the picture. The drip onsets fall at near-identical spacing, about 0.87 s apart (x 40, 152, 270, 380, 493, 608, 720, 836 of 960 px), which sounds mechanical rather than like water. The continuous noise bed also stops with a hard edge near 6.66 s and restarts at full level at 0 s, so the seam has a step in the bed."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine checks pass: engineFaults is empty, clipped is 0, dc is 0, and the peak is -2 dBFS, so nothing clips and there is no offset. The name sound/ambience/fw_drips.wav is the one the brief asks for. The sheet does not give the sample rate or bit depth, and the loop seam is a hard bed cut noted under S4; both are the judge's limits, not proven faults."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

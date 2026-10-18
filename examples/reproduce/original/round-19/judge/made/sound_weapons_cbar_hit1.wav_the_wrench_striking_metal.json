@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.754,
+   "peak": -0.5,
+   "rms": -10.6,
+   "crest": 10.1,
+   "dc": -0.0012,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.015,
+   "attack": 0.06,
+   "peakAt": 0.065,
+   "t20": 0.534,
+   "t40": 0.604,
+   "centroid": 1643,
+   "rolloff": 2153,
+   "flatness": 0.199,
+   "bands": {
+    "<150": 5.2,
+    "150-600": 17.6,
+    "600-2k": 18.3,
+    "2k-5k": 58.1,
+    ">5k": 0.8
+   },
+   "onsets": 0
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 17,
+   "of": 22,
+   "lines": [
+    "band 150-600 17.6% (0 to 16.8): over the range",
+    "band 600-2k 18.3% (63.7 to 83.8): under the range",
+    "band 2k-5k 58.1% (3.7 to 24.6): over the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a dense, broadband transient at 0 s that drops off in about 0.6 s, with a short tail after 0.75 s. That fits a metal strike, and the title names the wrench striking metal. Judged from the waveform and spectrogram only: the judge cannot listen, so this is a visual read."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 0.754 s, attack 0.06 s to the peak at 0.065 s, t20 0.534 s. The class range for a metal hit is not in the measures given, so the envelope cannot be confirmed within range. The waveform fades over most of its length rather than dropping off quickly, which reads slow for an impact. Held at 1 until the class range is checked."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectrum measures fail two bands by more than the 10-point allowance. 2k-5k is 58.1% against a range of 3.7 to 24.6 (over by about 33 points). 600-2k is 18.3% against 63.7 to 83.8 (under by about 45 points). 150-600 is 17.6% against 0 to 16.8, also over. The centroid (1643) has no class range to compare against. The spectrogram's brightest energy sits in the lower part of its height, which does not obviously match a 58% share at 2k-5k, so the band measure and the picture disagree."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measure reports onsets 0, but the waveform shows one clear hit transient at the start, so the onset count looks under-reported. Flatness 0.199 sits inside the game's noise-to-tone span (0.05 to 0.28 per the amendments). The spectrogram shows no obvious pitch glide, which is right. Held at 1 because of the onset mismatch."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine check reports no faults. Clipped is 0, DC is -0.0012 (negligible), lead is 0, and the file name is sound/weapons/cbar_hit1.wav as the title shows. The measures do not report sample rate or bit depth, so the format is taken from the engine check rather than confirmed here."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

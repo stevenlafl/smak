@@ -1,0 +1,78 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 6.4,
+   "peak": -0.5,
+   "rms": -26.8,
+   "crest": 26.3,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 1.202,
+   "peakAt": 1.551,
+   "t20": 4.49,
+   "t40": 4.849,
+   "centroid": 1023,
+   "rolloff": 1184,
+   "flatness": 0.099,
+   "bands": {
+    "<150": 5.8,
+    "150-600": 15,
+    "600-2k": 75.4,
+    "2k-5k": 1.8,
+    ">5k": 1.9
+   },
+   "onsets": 7
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 19,
+   "of": 20,
+   "lines": [
+    "centroid 1023 Hz (671 to 1007): too bright: less over 2000 Hz"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Judged from the picture and features only; not heard. The waveform shows seven sharp onsets (near 52, 180, 232, 390, 495, 660, 766 and 900 px) on a continuous bed, each with a short fast decay in the spectrogram. That is water dripping in a room, which is what the brief asks for."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length 6.40 s, the same as the file's label. The measures flag nothing on the envelope against the class: attack 1.202, peak at 1.551 s, t20 4.49 s and t40 4.849 s are not marked outside range. Each drip's onset is sharp and its decay short, as drips are. Only the centroid is flagged against the class."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid 1023 Hz, above the class's 671 to 1007 Hz range, so clearly too bright. The spectrogram's energy sits low: the 600 Hz to 2 kHz band holds 75.4% and everything over 2 kHz only about 3.7%. The measure's line says 'less over 2000 Hz'. Band shares against the class cannot be checked here, since the class's band ranges are not given, so this is held at 1."
+  },
+  "S4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Onsets match a drip loop: seven clear hits in 6.4 s, each a sharp vertical streak in the spectrogram. Flatness 0.099 sits inside the game's 0.05 to 0.28 range for noisy sounds, and the bed reads as noise, not a tone. Any pitch drop in each drip cannot be checked from the pictures."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The name is sound/ambience/fw_drips.wav, as the picture's title shows, and the label says 'A LOOP'. Measures: clipped 0, dc 0, peak -0.5 dBFS (not clipped), and engineFaults is empty. Sample rate and bit depth are not in the measures, so they rest on the empty fault list. The loop's start and end look alike in the waveform (lead 0, tail 0), but the seam is not proven from pictures."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

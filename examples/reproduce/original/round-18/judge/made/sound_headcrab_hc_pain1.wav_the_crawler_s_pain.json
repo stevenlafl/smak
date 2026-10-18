@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.7,
+   "peak": -0.5,
+   "rms": -21.4,
+   "crest": 20.9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.115,
+   "peakAt": 0.165,
+   "t20": 0.509,
+   "t40": 0.534,
+   "centroid": 2946,
+   "rolloff": 3316,
+   "flatness": 0.131,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 0.2,
+    "600-2k": 16.4,
+    "2k-5k": 82.8,
+    ">5k": 0.3
+   },
+   "onsets": 2
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a loud burst of irregular spikes from about 0.1 to 0.4 s, then a quiet tail with a few small blips out to 0.7 s. The game's hc_pain1 is a steady train of pulses across its whole 0.8 s, a wet chittering rather than one yelp. A burst-and-fade could read as a pain cry, but the shape is clearly off, and the judge cannot listen to confirm the event."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length is 0.70 s against the original's 0.795 s, 12% short and inside the 25% band. The decay t20 is 0.509 s against the original's 0.544 s. The class range is not in the measures given, but nothing measured here falls outside what the original shows."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid is 2946 Hz against the original's 2682 Hz, 9.9% off and inside 20%. Band shares differ by at most 1.0 point (600-2k 16.4 vs 15.6, 2k-5k 82.8 vs 83.8), and the 150-600 band is 0.2 vs 0. All are within 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Character is not a must-have, but the onsets do not match: the made file has 2 onsets, while the picture shows the original's many closely spaced pulses across its length. The made spectrogram holds a steady mid band and a bright low band that fades early, which does not match the original's continuous chatter. Flatness is 0.131, and the original's flatness is not given, so the tone or noise comparison cannot be made."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Engine faults are empty. Peak is -0.5 dBFS, with 0 clipped samples, 0 DC, 0 s lead and a 0.005 s tail. The file name sound/headcrab/hc_pain1.wav matches the original's. It is not a loop, so no loop cue is needed. The sample rate, bit depth and channel count are not in the measures given, so the format is taken from the engine check's silence."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

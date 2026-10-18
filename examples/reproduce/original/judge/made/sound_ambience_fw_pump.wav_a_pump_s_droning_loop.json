@@ -3,37 +3,35 @@
  "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
  "measured": {
   "features": {
-   "length": 3.05,
-   "peak": -6,
-   "rms": -13.6,
-   "crest": 7.6,
+   "length": 2.3,
+   "peak": -0.5,
+   "rms": -9.3,
+   "crest": 8.8,
    "dc": 0,
    "clipped": 0,
    "lead": 0,
    "tail": 0,
-   "attack": 0.19,
-   "peakAt": 1.197,
-   "t20": 1.656,
-   "t40": 1.741,
-   "centroid": 260,
-   "rolloff": 194,
-   "flatness": 0.025,
+   "attack": 0.379,
+   "peakAt": 1.177,
+   "t20": 1.127,
+   "t40": 1.127,
+   "centroid": 252,
+   "rolloff": 388,
+   "flatness": 0,
    "bands": {
-    "<150": 0.2,
-    "150-600": 96,
-    "600-2k": 2.5,
-    "2k-5k": 1.1,
-    ">5k": 0.2
+    "<150": 10,
+    "150-600": 85.5,
+    "600-2k": 4.5,
+    "2k-5k": 0,
+    ">5k": 0
    },
-   "onsets": 4
+   "onsets": 1
   },
   "class": "loop machine",
   "against": {
-   "score": 19,
+   "score": 20,
    "of": 20,
-   "lines": [
-    "crest 7.6 dB (8.3 to 14.3): too squashed"
-   ]
+   "lines": []
   },
   "engineFaults": []
  },
@@ -45,31 +43,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The picture shows one sustained drone: a steady band of energy from about 150 to 600 Hz across the full 3.05 s, with no strike or transient, which fits a pump's droning loop. Judged from the picture and features only; the judge cannot listen to the sound."
+   "reason": "The picture (sound.png) shows a sustained, tonal low drone: steady horizontal harmonic lines in the spectrogram, almost all energy in the bottom third, and a regular ~30 Hz ripple as vertical striping, with no hits or sweeps. That fits a pump's droning loop. The judge cannot listen, so this is read from the picture and features only."
   },
   "S2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Length 3.05 s, attack 0.19 s, t20 1.656 s and t40 1.741 s are not flagged by the class check (the only line in the measurement is about crest), so the envelope is within the loop machine class's range."
+   "reason": "Length is 2.3 s, attack 0.379 s and t20 1.127 s. The waveform keeps a near-constant amplitude across the full length, with no fade-in or tail, as a loop should. The class check reports 20 of 20 with no failing lines, so the envelope is within the loop machine class's range as measured. The class table itself was not given to the judge."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Centroid 260 Hz, with 96% of the energy in the 150-600 Hz band and 2.5% in 600-2k, 1.1% in 2k-5k, and 0.2% under 150 Hz and over 5k. The class check raises nothing on the spectrum, so it is within the class's range. The spectrogram agrees: the bright band sits at the bottom, with a dark top half."
+   "reason": "Centroid is 252 Hz, rolloff 388 Hz, and the bands are 10% under 150 Hz, 85.5% at 150-600 Hz, 4.5% at 600-2k Hz and nothing above 2 kHz. The spectrogram matches: energy is concentrated in the low harmonic stack and fades out above it. The class check passes 20 of 20."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The crest is 7.6 dB where a loop machine sits at 8.3 to 14.3 dB: the measurement reads it as too squashed, with the waveform near a constant level and little dynamic movement across the loop. The tone is clearly tonal (flatness 0.025), which suits a drone, and four onsets are measured, but the squashed dynamics are a character fault the picture shows (the waveform band is uniformly thick from about 0.2 s to 2.9 s)."
+   "reason": "The spectrogram's left edge shows a bright broadband column, about the first 10 px (roughly 0.02 s), running the full height. That is a click or transient at the loop's start, which would repeat on every loop. A drone loop should not have a hit there. The measured onsets count of 1 is consistent with this. The tonal character (flatness 0) and the steady pitch fit a drone. The 1 holds because the click is visible in the picture, though its audibility cannot be confirmed by ear."
   },
   "S5": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "No clipping (0), no DC offset (0), peak -6 dBFS, and the engine faults list is empty. The features do not state the sample rate, bit depth or channel count, so the format is attested only by the empty engine check. The waveform shows no cue marker, and the brief asks for none."
+   "reason": "The measures show no clipping (peak -0.5 dB, clipped 0), no DC (0), no lead or tail silence, and no engine faults. The file is named sound/ambience/fw_pump.wav, as the brief asks. Sample rate, bit depth and channel count are not in the measures, and the loop cue is not reported, so those are unverified rather than failed."
   }
  },
  "total": 9,

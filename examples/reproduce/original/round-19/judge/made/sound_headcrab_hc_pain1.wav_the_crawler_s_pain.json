@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_pain1.wav: the crawler's pain",
+ "measured": {
+  "features": {
+   "length": 0.863,
+   "peak": -0.5,
+   "rms": -25.9,
+   "crest": 25.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.07,
+   "peakAt": 0.13,
+   "t20": 0.589,
+   "t40": 0.654,
+   "centroid": 2533,
+   "rolloff": 3208,
+   "flatness": 0.212,
+   "bands": {
+    "<150": 0.2,
+    "150-600": 0,
+    "600-2k": 16.2,
+    "2k-5k": 83.2,
+    ">5k": 0.3
+   },
+   "onsets": 2
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.795,
+    "centroid": 2682,
+    "t20": 0.544,
+    "bands": {
+     "<150": 0.2,
+     "150-600": 0,
+     "600-2k": 15.6,
+     "2k-5k": 83.8,
+     ">5k": 0.3
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture (waveform, top panel) shows a run of about eleven separate sharp bursts, each with a short decay and silence between them. That reads as a rapid series of hits or chirps. The game's own sound (bottom panel) is one continuous, dense rattle over 0.8 s. The reproduction does not clearly read as a crawler's pain cry, so it is there but clearly off in what it is."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length is 0.863 s against the game's 0.795 s, 8.5% off and within 25%. Decay t20 is 0.589 s against 0.544 s, a 0.045 s gap, inside the fallback of a quarter or 0.05 s. Attack is 0.07 s, peak at 0.13 s. The class is null, so the original's own decay is the reference, and the reproduction sits within it."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid is 2533 Hz against 2682 Hz, 5.6% off and within 20%. Band shares match within 0.6 points each: under 150 Hz 0.2 vs 0.2, 150-600 Hz 0 vs 0, 600-2k 16.2 vs 15.6, 2k-5k 83.2 vs 83.8, over 5k 0.3 vs 0.3. The spectrogram's energy sits in the same bands as the game's."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The character differs. The reproduction's waveform is a set of separated hits with gaps (about eleven bursts in the picture), while the game's is a continuous, dense amplitude texture. The measured onset count of 2 does not match what the waveform shows, and the measure is what the judge is given, so the mismatch is taken as a fault. Flatness (0.212) is not compared with the game's own here, and no clear pitch glide is visible in either spectrogram."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file name is sound/headcrab/hc_pain1.wav, the same as the game's. Peak is -0.5 dB with no clipping, and DC is 0. The harness's engine checks returned no faults (engineFaults empty), which covers the format. The sample rate, bit depth and channel count are not printed in these measurements, so they rest on that empty fault list."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

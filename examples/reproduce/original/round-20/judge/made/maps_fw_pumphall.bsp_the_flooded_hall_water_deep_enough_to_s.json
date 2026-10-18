@@ -1,0 +1,97 @@
+{
+ "kind": "map",
+ "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+ "measured": {
+  "size": [
+   2588,
+   792
+  ],
+  "sizeAsked": {
+   "long": 2500
+  },
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_control",
+    "landmark": "fw_lm_pumphall_control"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard_pumphall",
+   "fw_lm_pumphall_control"
+  ],
+  "itemsAsked": [
+   "weapon_crowbar",
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "weapon_crowbar: 1",
+   "monster_headcrab: 3"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Plan shows the brief's areas in the brief's order: a start room at the west end (x 30-85), the flooded hall with three pumps and two catwalks (top and bottom strips, y 30-55 and 290-315) joined by a central bridge (x 452-475), and a stair (x 826-900) up to a small room at the east end (x 903-995) that holds the changelevel. Ladders sit at the top right (func_ladder, x 730-785) and the bottom left (x 80-140)."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Plan scale bar (256 units ~ 96 px) puts the map at about 2,590 units overall: the hall about 2,300 long plus a stair room about 250. That is within 25% of the asked 2,500. No overlap figure is in the measurements, so this rests on the plan's proportions, not a measured overlap."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan gives floor labels (Z 112 at the start, Z 162 on the top catwalk, Z 190 by the far pump, Z 236 at the stair room in the storey view), and the stair, ladders and raised catwalks are there. But at this scale labels such as '-2 90' and '2 190' are hard to read, and the water depth is not shown. The brief gives no heights, so I cannot confirm the levels by eye and score them 1."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Entities the brief names are all present and reached: one info_player_start (x 57, y 172); one weapon_crowbar standing in for the wrench, on the top catwalk (x 200, y 45); three monster_headcrab, all in the water at (238,113), (540,230) and (812,118); a trigger_changelevel to fw_control with landmark fw_lm_pumphall_control. The measured counts match: itemsFound weapon_crowbar 1, monster_headcrab 3, notReached empty."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Views show walls in a tan, wood-grain or plank-like texture (view 'PLAYER_START yaw 0', 'ROOM -1081 yaw 90', 'ROOM 533 yaw 90'), where the brief asks for concrete, pipe-covered and hazard-striped surfaces. The storey view at Z 236 shows a smoother grey concrete. The water is a flat teal with no visible surface. The floor in 'ROOM -1081 yaw 90' reads as a tan grit. A player would notice the wood-like walls."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Lights are placed in rows along the ceiling of both halves and along the stair room (LIGHT x 21 in the plan), in the warm sodium colour the brief asks for. The views show the yellow-orange lamp pools on the ceiling evenly down the hall. No lamp is in the water or left in dark open air."
+  },
+  "P7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief's distinctive features are present and in place: three pumps (large circles at x 125, 320 and 697 on the plan), catwalks on both sides, a central bridge, two ladders, a stair up to the corridor, and drum-like cylinders with hazard stripes at the start (view 'PLAYER_START yaw 0')."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The checkErrors list is empty and notReached is empty, so every item was reached on foot from the start. The map compiled and the walk test ran. No leak result is listed separately. Its passing rests on checkErrors being empty, which is the SMAK check, so I score it 2 on that basis."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside the hall reads as a Half-Life industrial space: a yellow-lit ceiling, a concrete arch in 'ROOM 1284 yaw 180', and olive pump drums. But the walls in most views are tan wood-grain rather than concrete, the water is flat teal with no surface, and the lamps are flat yellow boxes. A player who knows Half-Life would likely notice the walls as not the game's own."
+  }
+ },
+ "total": 15,
+ "of": 18,
+ "passes": false
+}

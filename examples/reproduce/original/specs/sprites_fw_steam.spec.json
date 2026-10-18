@@ -11,38 +11,36 @@
       ],
       "frames": 12,
       "loop": false,
-      "fps": 10,
+      "fps": 8,
+      "origin": "centre",
       "type": "parallel oriented",
       "format": "index alpha",
       "colour": [
         0.82,
-        0.86,
+        0.84,
         0.82
       ],
-      "origin": "centre",
-      "finish": {
-        "edge": 3
-      },
       "layers": [
         {
-          "kind": "billow",
-          "count": 22,
+          "kind": "smoke",
+          "density": 0.7,
           "spread": 0.5,
-          "size": 0.3,
-          "rise": 0.6,
-          "drift": 0.12,
-          "dissolve": 0.7,
           "colour": [
             0.82,
-            0.86,
+            0.84,
             0.82
           ],
+          "rise": 0.4,
           "env": {
-            "attack": 0.2,
-            "decay": 0.8
+            "attack": 0.15,
+            "decay": 0.6,
+            "start": 0.05
           }
         }
-      ]
+      ],
+      "finish": {
+        "edge": 4
+      }
     },
     {
       "name": "sprites/fw_glow.spr",
@@ -53,95 +51,110 @@
         64
       ],
       "frames": 1,
-      "type": "parallel",
-      "format": "additive",
+      "fps": 1,
       "origin": "centre",
       "layers": [
         {
           "kind": "glow",
-          "radius": 0.95,
-          "core": 0.12,
+          "radius": 0.9,
+          "core": 0.15,
           "colour": [
             1,
-            0.55,
-            0.16
+            0.6,
+            0.2
           ],
-          "at": [
-            0,
-            0
-          ]
+          "gain": 1
         }
       ]
     },
     {
       "name": "sprites/fw_spit.spr",
-      "class": "sparks",
-      "use": "env_sprite",
+      "class": "explosion",
+      "use": "tempent",
       "size": [
         64,
         64
       ],
       "frames": 8,
       "loop": false,
-      "fps": 10,
+      "fps": 12,
+      "origin": "centre",
       "type": "parallel",
       "format": "index alpha",
       "colour": [
-        0.56,
-        0.63,
-        0.48
+        0.46,
+        0.52,
+        0.4
       ],
-      "origin": "centre",
       "layers": [
         {
-          "kind": "smoke",
-          "density": 0.5,
-          "spread": 0.2,
-          "rise": 0.1,
+          "kind": "blobs",
+          "count": 5,
+          "radius": 0.12,
+          "spread": 0.08,
           "colour": [
-            0.5,
-            0.56,
-            0.44
+            0.4,
+            0.46,
+            0.36
           ],
           "env": {
-            "attack": 0.3,
-            "decay": 0.7
-          }
-        },
-        {
-          "kind": "sparks",
-          "count": 12,
-          "speed": 1.4,
-          "gravity": 1,
-          "trail": 0.3,
-          "colour": [
-            0.56,
-            0.63,
-            0.48
-          ],
-          "env": {
-            "attack": 0.3,
-            "decay": 0.7
+            "attack": 0.2,
+            "decay": 0.5,
+            "start": 0
           }
         },
         {
           "kind": "blobs",
-          "count": 18,
-          "radius": 0.2,
-          "spread": 0.55,
-          "core": 0.4,
-          "soft": 0.4,
+          "count": 22,
+          "radius": 0.1,
+          "spread": 0.6,
           "colour": [
-            0.56,
-            0.63,
-            0.48
+            0.4,
+            0.46,
+            0.36
           ],
           "env": {
-            "attack": 0.3,
-            "decay": 0.7
+            "attack": 0.55,
+            "decay": 0.45,
+            "start": 0
+          }
+        },
+        {
+          "kind": "blobs",
+          "count": 90,
+          "radius": 0.05,
+          "spread": 0.7,
+          "colour": [
+            0.46,
+            0.52,
+            0.4
+          ],
+          "env": {
+            "attack": 0.5,
+            "decay": 0.45,
+            "start": 0
+          }
+        },
+        {
+          "kind": "sparks",
+          "count": 110,
+          "speed": 1.2,
+          "gravity": 2.4,
+          "colour": [
+            0.46,
+            0.52,
+            0.4
+          ],
+          "env": {
+            "attack": 0.5,
+            "decay": 0.45,
+            "start": 0
           }
         }
-      ]
+      ],
+      "finish": {
+        "edge": 2
+      }
     }
   ]
 }

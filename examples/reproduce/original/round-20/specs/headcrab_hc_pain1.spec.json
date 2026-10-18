@@ -1,0 +1,51 @@
+{
+  "spec": "smak.sound/1",
+  "name": "headcrab/hc_pain1.wav",
+  "seed": 7,
+  "length": 0.8,
+  "layers": [
+    {
+      "id": "rattle",
+      "kind": "particles",
+      "rate": 120,
+      "band": [
+        1500,
+        4000
+      ],
+      "grain": 0.008,
+      "length": 0.8,
+      "env": {
+        "attack": 0.005,
+        "decay": 0.5
+      },
+      "gain": -4
+    },
+    {
+      "id": "chirp",
+      "kind": "particles",
+      "rate": 60,
+      "band": [
+        2200,
+        4000
+      ],
+      "grain": 0.015,
+      "length": 0.8,
+      "env": {
+        "attack": 0.005,
+        "decay": 0.5
+      },
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.2,
+      "wet": 0.1
+    },
+    "limit": {
+      "crest": 9,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

@@ -1,0 +1,97 @@
+{
+ "kind": "map",
+ "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+ "measured": {
+  "size": [
+   2588,
+   792
+  ],
+  "sizeAsked": {
+   "long": 2500
+  },
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_control",
+    "landmark": "fw_lm_pumphall_control"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard_pumphall",
+   "fw_lm_pumphall_control"
+  ],
+  "itemsAsked": [
+   "weapon_crowbar",
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "weapon_crowbar: 1",
+   "monster_headcrab: 3"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The plan has the long hall with the water floor, three pumps (squares with circles) along it, catwalks on both long sides (top and bottom bands), a bridge across the middle at about x 465, ladders at the catwalk ends (4 at the top right, 2 at the bottom left), and a stair at the east end (x 825 to 900) up to a small room with the changelevel trigger. The areas and joins match the brief. The corridor is a small room rather than a corridor, which is a minor point."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The size is 2588 by 792 against the brief's about 2500 long, 3.5% over, within 10%. The hall and the stair room sit in the plan where the brief puts them. No walkable-floor overlap measurement was supplied, so this rests on the sizes and the plan alone."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan labels the top catwalk at Z 162 and the bottom catwalk at Z 0 (label '2 0' near the bridge's bottom end), so the two catwalks read at different heights. The water surface is not drawn, so the picture does not confirm that both catwalks stand above the water as the brief asks. The stair up to a storey at 236 (views, 'STOREY AT 2 236') is present, but the floor heights of the corridor are only partly legible."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The start (info_player_start) is at the west end by the yard landmark (fw_lm_yard_pumphall at about x 45). The weapon_crowbar (the wrench's class) lies on the top catwalk at about (200, 45). The three monster_headcrab entities are in the water at (237, 113), (540, 230) and (810, 117). The changelevel trigger is at the stair's top in the corridor, with its landmark fw_lm_pumphall_control. The measures report no unreached items and no walk warnings."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hall walls are a tan, streaked texture that reads more like wood grain than the concrete or rusted steel the brief asks for. The views show no visible hazard-striped trim or steel grate. The concrete room in the 'STOREY' view is closer to the brief."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Caged lamps hang across the hall's ceiling (views 519 2 154), with 21 light entities spread along the hall, so the lamp positions are plausible. The start view is solid black, and the hall reads evenly dim, so the bright and dark areas of a sodium-lit hall do not show."
+  },
+  "P7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The distinctive features are present and in place: three pumps along the floor, catwalks on both sides, a bridge across the middle, ladders at the catwalk ends, the stair up to the corridor, the water, and hanging lamps and ceiling beams in the views."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The compile check reports no errors. The walk test reaches every item and the changelevel with no notReached entries and no reach warnings. The measures do not report a leak, and the length of 2588 is within the engine's limits."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The first view, from info_player_start at yaw 0, is solid black, with a dark pump face filling the frame about 28 units away, so a player's first view is unreadable. The water reads as a flat grey-green plane with little sense of depth. The hall views (519 2 154) read as a flooded hall with a green band along the walls, lit ceilings and hanging lamps, which is close to a player's impression, but the start view fails the test."
+  }
+ },
+ "total": 14,
+ "of": 18,
+ "passes": false
+}

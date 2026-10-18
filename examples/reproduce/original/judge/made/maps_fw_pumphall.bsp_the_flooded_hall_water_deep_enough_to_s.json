@@ -3,8 +3,8 @@
  "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
  "measured": {
   "size": [
-   3232,
-   992
+   2588,
+   792
   ],
   "sizeAsked": {
    "long": 2500
@@ -15,12 +15,12 @@
   "changelevels": [
    {
     "map": "fw_control",
-    "landmark": "fw_lm_hall"
+    "landmark": "fw_lm_pumphall_control"
    }
   ],
   "landmarks": [
-   "fw_lm_yard",
-   "fw_lm_hall"
+   "fw_lm_yard_pumphall",
+   "fw_lm_pumphall_control"
   ],
   "itemsAsked": [
    "weapon_crowbar",
@@ -32,13 +32,66 @@
   ]
  },
  "caps": {
-  "P2": 1,
+  "P2": 2,
   "P8": 2
  },
- "passes": false,
- "failedByMeasure": [
-  "P2"
- ],
- "total": 0,
- "of": 18
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Most of the brief is there: a long hall with three pumps (plan circles at about x 125, 310 and 700), catwalk strips along the top and bottom walls, a central strip at x 455-475 joining them, the stair to the right room, and the changelevel trigger at its top. Two things are unclear. The bridge reads as a flat strip of floor, not a raised crossing. The two ladders (FUNC_LADDER 2 at bottom x 135, 4 at top x 750) sit at the catwalk edges, so ladders between water and catwalk are not clearly shown in the middle of the hall."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 2588 units long against the brief's 2500 (3.5% over, inside 25%). The hall's width of 792 is not set by the brief, and the areas (hall, catwalks, stair, end room) are laid out at plausible sizes on the plan."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan gives floor labels (2 112, 2 162, 2 90, 2 190, -2 90, 2 120), so there is a water floor below the catwalks and a corridor room higher up. But the water depth is not confirmed as swimmable, and the view labelled 'STOREY AT 2 236' names a height that does not match any plan label. The stair's rise and the catwalk-to-water difference cannot be checked from these pictures."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The entities the brief names are all there and reached. The start (info_player_start 6) is at the west end. The wrench (weapon_crowbar 9) is on the top catwalk strip at about x 200. Three monster_headcrab (10, 11, 12) sit in the water. The stair's changelevel trigger (1) is at the end of the stair with its landmark (8). The measurement shows 1 crowbar and 3 headcrabs found."
+  },
+  "P5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The views show tan concrete walls with fine grain, a teal water surface, painted red and metal pumps, and a grey concrete room at the stair end. None of it stands out as a wrong texture. The steel grate and catwalk floor are not clearly visible in any view, which is why this is not a higher reading."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "There are 21 light entities spread along both sides of the hall and over the catwalks, and the ceiling views show warm, dim light across the hall. The brief sets no lamp positions, so this is judged for plausibility and it holds."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The pumps, the ceiling with red stripes and vent holes, and the walls are shown. The catwalks, the central bridge and the ladders are not seen from inside in any view, so the distinctive features the brief names are missing from the picture. A railing appears in 'ROOM 533 YAW 90', but that is the only sign of a catwalk."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors is empty and notReached is empty, so the walk test reaches every item. The changelevel to fw_control is present with its landmark fw_lm_pumphall_control, and the other landmark fw_lm_yard_pumphall is present too. The map compiles and has no leak."
+  },
+  "P9": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "From inside, the views read as a Half-Life industrial pump hall: worn concrete, dark green water, red-painted pump caps and ceiling vents. Nothing looks like neon or sci-fi, and the grey stair room looks like a Half-Life room. A player would take it for a map of the game."
+  }
+ },
+ "total": 15,
+ "of": 18,
+ "passes": false
 }

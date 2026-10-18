@@ -24,7 +24,7 @@
     "first": 1,
     "last": 1
    },
-   "dark": 0.76,
+   "dark": 0.71,
    "wrap": null,
    "jitter": null
   },
@@ -48,31 +48,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The frame is a soft, radial sodium-orange glow: a bright core at the centre fading evenly to the edges. That is the effect the brief asks for, a sodium lamp's glow, and it reads as one at a glance."
+   "reason": "The frame is a soft radial glow, bright at the centre and fading out to the edges, which is what a lamp's glow is. It is the same effect as the class's glows."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "One 64 x 64 frame, as measured. The glow sits centred and fills the frame in the way a glow sprite does, with the halo fading to black before the edges (border max 0, mean 0), so nothing is clipped."
+   "reason": "64 x 64, as the measures give. The glow fills the frame and fades to nothing at the border (border max and mean 0, inside 0.005), so no hard edge shows when it is blended."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye the core is a warm orange-yellow falling to deep orange and then dark, which matches a sodium lamp's colour and not neon or white. The dark grey surround in the contact sheet is the viewer's backdrop around the sprite, not part of the glow, since the border measures 0."
+   "reason": "Warm sodium orange-amber at the core, fading to dark, as the brief asks for a sodium lamp. The colour reads as the engine blends it, on the dark background."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "A single static frame, as the class takes it: frames = 1, peak at frame 0, first and last frame both 1, and border 0 inside the glow class's range (0 to 0.005, ok: true). The brief asks for a glow, not an animation, so there is no motion to match and nothing wrong with a steady sprite."
+   "reason": "One frame, a static glow, held to the glow class's measures: the class's border measure is 0 (range 0 to 0.005) and it holds. The brief asks for a glow, not motion, so one frame and no envelope is right for it."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Written as type parallel and format additive, which is what a glow sprite takes in the game, and named fw_glow.spr. Additive is right for light that adds to the scene. I could only check the values in the measurements, not the file as the engine reads it back, so this rests on those values."
+   "reason": "Recorded as parallel and additive at 64 x 64, with the name fw_glow. The additive format is what a glow is blended with, and nothing in the record contradicts it. The brief gives no type, so this is judged against the glow class's measures, not a stated type."
   }
  },
  "total": 10,

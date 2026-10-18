@@ -1,0 +1,38 @@
+{
+  "spec": "smak.sound/1",
+  "name": "ambience/fw_pump.wav",
+  "class": "loop machine",
+  "seed": 8,
+  "length": 3,
+  "bands": {
+    "<150": 5,
+    "150-600": 90,
+    "600-2k": 5
+  },
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/pump_drone_stable-audio-3-sfx_s1.wav",
+      "from": 0,
+      "length": 3,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 120
+        },
+        {
+          "type": "lowpass",
+          "f": 900
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "peak": -0.5,
+    "fit": "bands"
+  },
+  "loop": {
+    "crossfade": 0.6
+  }
+}

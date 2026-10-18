@@ -1,0 +1,165 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipesection.mdl",
+  "kind": "prop",
+  "materials": {
+    "pipe": {
+      "base": "metal",
+      "rust": 0.6,
+      "tone": [
+        0.36,
+        0.3,
+        0.26
+      ],
+      "picture": "library:rust_coarse_01",
+      "size": 87
+    },
+    "flange": {
+      "base": "metal",
+      "rust": 0.4,
+      "tone": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "picture": "library:rust_coarse_01",
+      "size": 87
+    },
+    "stripe": {
+      "base": "hazard",
+      "tone": [
+        0.9,
+        0.7,
+        0.08
+      ]
+    },
+    "bore": {
+      "base": "iron",
+      "rust": 0.3,
+      "tone": [
+        0.12,
+        0.11,
+        0.1
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "pipe",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 48,
+      "height": 300,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -150,
+        0,
+        48
+      ]
+    },
+    {
+      "id": "flange",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 56,
+      "height": 12,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -162,
+        0,
+        48
+      ]
+    },
+    {
+      "id": "band",
+      "kind": "cylinder",
+      "material": "stripe",
+      "radius": 49,
+      "height": 30,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        -60,
+        0,
+        48
+      ]
+    },
+    {
+      "id": "bore",
+      "kind": "cylinder",
+      "material": "bore",
+      "radius": 40,
+      "height": 3,
+      "sides": 12,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        150,
+        0,
+        48
+      ]
+    },
+    {
+      "id": "shard_a",
+      "kind": "box",
+      "material": "pipe",
+      "size": [
+        18,
+        14,
+        20
+      ],
+      "at": [
+        152,
+        -22,
+        74
+      ]
+    },
+    {
+      "id": "shard_b",
+      "kind": "box",
+      "material": "pipe",
+      "size": [
+        16,
+        16,
+        14
+      ],
+      "at": [
+        150,
+        24,
+        22
+      ]
+    },
+    {
+      "id": "shard_c",
+      "kind": "box",
+      "material": "pipe",
+      "size": [
+        14,
+        12,
+        18
+      ],
+      "at": [
+        148,
+        2,
+        84
+      ]
+    }
+  ]
+}

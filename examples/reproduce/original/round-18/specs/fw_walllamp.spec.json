@@ -1,0 +1,115 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_walllamp.mdl",
+  "kind": "piece",
+  "size": {
+    "height": 16,
+    "width": 12,
+    "length": 13
+  },
+  "materials": {
+    "plate": {
+      "base": "steel",
+      "rust": 0.3,
+      "picture": "library:rusty_metal_sheet",
+      "size": 79
+    },
+    "cage": {
+      "base": "mesh",
+      "cell": 2
+    },
+    "glass": {
+      "base": "glass",
+      "tone": [
+        1,
+        0.62,
+        0.18
+      ]
+    }
+  },
+  "parts": [
+    {
+      "id": "plate",
+      "kind": "box",
+      "material": "plate",
+      "size": [
+        2,
+        12,
+        16
+      ],
+      "at": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "glass",
+      "kind": "cylinder",
+      "material": "glass",
+      "radius": 4.2,
+      "height": 9,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        1.5,
+        0,
+        8
+      ]
+    },
+    {
+      "id": "cage",
+      "kind": "turn",
+      "material": "cage",
+      "sides": 10,
+      "axis": "z",
+      "caps": [
+        false,
+        false
+      ],
+      "open": true,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        0.5,
+        0,
+        8
+      ],
+      "rings": [
+        [
+          0,
+          5.6
+        ],
+        [
+          10,
+          5.6
+        ]
+      ]
+    },
+    {
+      "id": "hood",
+      "kind": "cylinder",
+      "material": "plate",
+      "radius": 6,
+      "height": 2,
+      "sides": 10,
+      "rotate": [
+        0,
+        90,
+        0
+      ],
+      "at": [
+        10.5,
+        0,
+        8
+      ]
+    }
+  ]
+}

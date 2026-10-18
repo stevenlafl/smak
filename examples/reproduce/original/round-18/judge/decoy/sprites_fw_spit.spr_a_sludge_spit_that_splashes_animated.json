@@ -1,0 +1,111 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": false,
+    "words": "peaks too soon"
+   },
+   {
+    "measure": "first",
+    "value": 1,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 1,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": false,
+    "words": "does not end dark: a decay in its envelope"
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for a sludge spit that splashes. The frame is one pale grey disc filling the 32 x 32 frame, with no spit, no splash and no sludge shape. It reads as the plain disc the decoy is built from."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is 32 x 32 and the disc fills it evenly, but that is a round blob, not a spit with a splash spreading from it. The shape is clearly off what the brief describes."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The disc is near-white grey (the picture is not tinted green-grey). The brief asks for a sludge colour, green-grey, so the colour is clearly off."
+  },
+  "R4": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief asks for an animated sprite, but the file has one frame. Measured against the explosion class: first frame 1 (the class allows 0 to 0.22, so it starts too bright), last frame 1 (the class needs 0 to 0.03, so it does not end dark), and the peak falls at frame 0 (the class allows 0.22 to 0.71). No motion is present."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measured type is parallel and the format is additive, which is a valid sprite format. However, the pictures show nothing to confirm the file's name or that it reads back as written, and the content fails the other items, so this is not a pass."
+  }
+ },
+ "total": 3,
+ "of": 10,
+ "passes": false
+}

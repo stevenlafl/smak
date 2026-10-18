@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "fw_lm_yard_pumphall"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "fw_lm_yard_pumphall",
+     "fw_lm_pumphall_control"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "fw_lm_pumphall_control"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 322944
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 293352
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 4959070
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1247764
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list nothing missing and no failed SMAK checks, and every named prop, the wrench, the crawler and the three maps are visible in everything.png. The wad, sounds and sprites are not in this picture, so this rests on the measurement and the file list, not on looking at them."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain holds: fw_yard leads to fw_pumphall through fw_lm_yard_pumphall, fw_pumphall leads to fw_control through fw_lm_pumphall_control, and fw_control ends the chain at the valve room. Each change of level has its landmark, and the walk test reaches each one from the start."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The props share a grimy green-grey, rust and hazard-yellow palette, but they do not all read as one place. The control room's walls in the fw_control view are a pale tan with a wood-like grain, not the concrete or steel of the yard and the props. The pumphall view is mostly black with a flat green-grey band, so the hall's materials cannot be compared with the rest. The drum's saturated blue also sits apart from the green and grey around it."
+  },
+  "O4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The three videos and the props picture are present by measurement, and the sheet shows every prop. But the wrench reads as a grey block with a red tip, not a pipe wrench with a toothed jaw, and the crawler's six legs are not visible in this picture. The console shows a box with two windows and small lamps, with no dials or switches visible at this scale. The asset is not shown as it is for those two."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

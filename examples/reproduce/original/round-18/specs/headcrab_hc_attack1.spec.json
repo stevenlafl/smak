@@ -1,0 +1,24 @@
+{
+  "spec": "smak.sound/1",
+  "name": "headcrab/hc_attack1.wav",
+  "seed": 6,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/crawler_attack_woosh-dflow_s0.wav",
+      "from": "onset",
+      "length": 0.9,
+      "filter": [
+        {
+          "type": "lowpass",
+          "f": 3000
+        }
+      ]
+    }
+  ],
+  "finish": {
+    "peak": -0.5,
+    "fit": "bands"
+  }
+}

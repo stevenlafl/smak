@@ -1,0 +1,81 @@
+{
+ "kind": "model",
+ "label": "models/fw_drum.mdl: a rusted 55-gallon drum with a hazard stripe",
+ "measured": {
+  "size": [
+   23,
+   23,
+   34
+  ],
+  "sizeAsked": {
+   "high": 34,
+   "across": 23
+  },
+  "sizeOff": 0,
+  "triangles": 12,
+  "halfLifeMedianOfItsKind": 99,
+  "halfLifeThreeQuartersUnder": 156,
+  "halfLifeMost": 422,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_crowbar.mdl, models/w_longjump.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked A, C, B, C where the asset was D, A, C, C: passed for one of the game's"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The outline is a plain box in all ten views: a rectangle from the front and sides, a square from the top, and a square from below. The brief asks for a 55-gallon drum, which is round in the top and below views and has a rounded body in the side views. The outline does not match the brief's words, so this is a shape fault, not paint."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured size is 23 x 23 x 34, exactly the 23 across and 34 high the brief gives, so within 15% on every axis."
+  },
+  "M3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The brief names a drum body and a hazard stripe. The body is a four-sided box where the drum is a round part, which caps M3 at 1. The hazard stripe is absent from every view: no yellow or hazard paint appears on any face or on the line-up's picture, so it is missing as paint too. Both named parts fail."
+  },
+  "M4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The whole surface is one mid grey with a mottled noise pattern. The brief asks for rusted steel with a yellow hazard stripe, and no rust brown, orange or yellow appears anywhere. The grey could pass as bare steel, so this is clearly off rather than absent."
+  },
+  "M5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "No surface marking the brief names is there: no hazard stripe, no rust patches, no wear at the rim. Only an even noise texture covers every face, so the markings are missing."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Scored at the rubric's measured cap for this kind of asset: the line-up test caught it in 1 of 4 readings (the reading where it stood at C, which was picked as not made by Valve), so the cap is 2. Note for the record: beside the Valve models, it reads as a plain grey box rather than a drum, and a viewer who knows the game's props would likely take it for a decoy. That is not measured here and is not scored above the cap."
+  },
+  "M7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The box stands upright on its origin, which is the drum's orientation, and is 34 high as it should be. But with no hazard stripe and no rim or lid, there is no front to check against the brief, so it is not clearly right either."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "SMAK's check reports no errors. The model has 12 triangles, far below the allowance of 198 (twice the median of 99, which exceeds the third quartile of 156). It is a closed box with no open faces, inside-out faces or floating parts."
+  }
+ },
+ "total": 8,
+ "of": 16,
+ "passes": false
+}

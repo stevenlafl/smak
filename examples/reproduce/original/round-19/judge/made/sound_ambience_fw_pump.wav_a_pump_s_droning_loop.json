@@ -1,0 +1,76 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 2.4,
+   "peak": -0.5,
+   "rms": -12.3,
+   "crest": 11.8,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 1.212,
+   "peakAt": 1.462,
+   "t20": 0.943,
+   "t40": 0.943,
+   "centroid": 274,
+   "rolloff": 388,
+   "flatness": 0,
+   "bands": {
+    "<150": 5.4,
+    "150-600": 89.3,
+    "600-2k": 5.3,
+    "2k-5k": 0,
+    ">5k": 0
+   },
+   "onsets": 5
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 20,
+   "of": 20,
+   "lines": []
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture is a continuous low machine drone: the waveform is a dense, even band across all 2.4 s with no event in it, and the spectrogram's energy sits in the lower third from start to end. That reads as a pump's droning loop, the event the brief asks for."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Length 2.4 s is a plausible loop length, but the envelope is not confirmable. The waveform is already at full level from the first frame, yet the measure gives attack 1.212 s and peak at 1.462 s, which does not match the picture. t20 and t40 are both 0.943 s, which is also suspicious. The class range for a loop machine is not given in the measures, so the attack and decay cannot be checked against it."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Centroid 274 Hz, with 89.3% of energy in 150 to 600 Hz, 5.4% below 150 Hz, 5.3% at 600 Hz to 2 kHz and nothing above 2 kHz. This matches the picture's yellow mass in the bottom band. No reference spectrum is given, so the centroid and band shares cannot be checked to within 20% and 10 points. Judged by eye, the spectrum is very narrow and dark for a pump, with no upper content at all."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measures report 5 onsets in a 2.4 s loop, and the picture shows spikes across the waveform. For a steady drone that is busier than it should be. Flatness is reported as 0, which reads as tonal, but the spectrogram's speckled texture looks noisy. The measure and the picture disagree on the noise or tone character, so the match cannot be confirmed."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The file name sound/ambience/fw_pump.wav is the name the game uses. The engine's checks report no faults (engineFaults empty), clipped 0, dc 0, and peak -0.5 dBFS with no clipping. The lead and tail are 0, so there is no dead time to trim. The sample rate and bit depth are not in the measures, so they rest on the engine's checks passing."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

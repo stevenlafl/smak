@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1472,
+   1472
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard_pumphall"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard_pumphall"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The brief's areas are present and joined as asked: an open yard, a gatehouse with a rotating door (func_door_rotating 1, bottom-left room, plan), and a pump house at top-right with two func_doors (2 and 3) on its south side opening onto the yard. The start (17) sits below the gatehouse door, outside it. The drums and the broken pipe section are props, not areas, and the plan does not mark them."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Map is 1472 x 1472 against the asked 1500 x 1500 (within 2%). On the plan's scale (256 units = about 162 px), the gatehouse is roughly 280 x 245 units and the pump house roughly 310 x 280 units, both plausible for the brief. No room sizes are given in the brief to test them against more closely."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The pump house (top-right) and gatehouse (bottom-left) are drawn with raised floors, and the views show pitched roofs (ROOM -206 308 64 YAW 0, ROOM 211 -252 64 YAW 90), so storeys exist. But the only link from the yard to the raised pump house floor is a thin bar at about (730-790, 413) that is not identified as a step or ramp, and the views do not confirm the step heights."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The entities the brief names are present: one info_player_start (17) at the gate side, func_door_rotating (1) for the gatehouse door, two func_doors (2, 3) at the pump house's doors, and a trigger_changelevel (4) with info_landmark (18) for fw_pumphall. The brief names no items for this map, and the measurement reports none missing or unreached."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls in all eight views are tan vertical boards that read as wood planking, not the concrete or rusted steel the brief asks for, and the ground is a sandy brown. A player would tell these apart at a glance. The yellow-black hazard trim at the wall base and the PUMP sign are the only parts that match the brief's materials."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Lamps are placed (light 19, 20, 21, 22, 24, 25; light_environment 26), but the lighting is daytime, not dusk: the sky in the views is clear blue and the walls are bright and evenly lit. The brief asks for dusk with sodium lamps, and the views show no warm sodium glow."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard trim along the wall base, the pitched-roof gatehouse, and the PUMP sign on the pump house (view ROOM 211 -252 64 YAW 90) are there. The stacked drums and the broken truck-sized pipe section the brief asks for are not clearly identifiable in the views or the plan; the nearest candidate, cycler_sprite 19 in ROOM -206 308 64 YAW 0, reads as a valve or wheel rather than a drum."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements report no check errors, no unreached items, and no reach warnings, with one changelevel to fw_pumphall and its landmark present. The start-to-exit walk therefore reaches the way out. Leaks are not reported separately, so this rests on the check output."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show a daytime yard of plank walls under a blue sky, with a dark door and a PUMP sign. A player who knows the brief's dusk station yard would not recognise it: there is no dusk, no sodium glow, and no concrete or rusted steel, so it reads as a generic yard rather than the brief's place."
+  }
+ },
+ "total": 13,
+ "of": 18,
+ "passes": false
+}

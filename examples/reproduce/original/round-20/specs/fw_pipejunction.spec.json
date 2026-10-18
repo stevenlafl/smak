@@ -1,0 +1,150 @@
+{
+  "spec": "smak.model/1",
+  "name": "fw_pipejunction.mdl",
+  "kind": "prop",
+  "size": {
+    "length": 34,
+    "height": 34,
+    "width": 14
+  },
+  "materials": {
+    "pipe": {
+      "base": "metal",
+      "rust": 0.7,
+      "tone": [
+        0.4,
+        0.32,
+        0.25
+      ],
+      "picture": "library:rust_coarse_01",
+      "size": 87
+    },
+    "flange": {
+      "base": "iron",
+      "rust": 0.8,
+      "picture": "library:rust_coarse_01",
+      "size": 87
+    },
+    "bolt": {
+      "base": "steel",
+      "picture": "library:metal_plate",
+      "size": 20
+    }
+  },
+  "parts": [
+    {
+      "id": "pipe_x",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 4,
+      "height": 24,
+      "sides": 10,
+      "rotate": [
+        0,
+        -90,
+        0
+      ],
+      "at": [
+        0,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "elbow",
+      "kind": "sphere",
+      "material": "pipe",
+      "radius": 5.4,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        6.6
+      ]
+    },
+    {
+      "id": "pipe_z",
+      "kind": "cylinder",
+      "material": "pipe",
+      "radius": 4,
+      "height": 27,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "flange_x",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 7,
+      "height": 2.5,
+      "sides": 10,
+      "rotate": [
+        0,
+        -90,
+        0
+      ],
+      "at": [
+        -10,
+        0,
+        12
+      ]
+    },
+    {
+      "id": "flange_z",
+      "kind": "cylinder",
+      "material": "flange",
+      "radius": 7,
+      "height": 2.5,
+      "sides": 10,
+      "at": [
+        0,
+        0,
+        26
+      ]
+    },
+    {
+      "id": "bolt_x",
+      "kind": "box",
+      "material": "bolt",
+      "size": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "at": [
+        -12.5,
+        6.2,
+        11.4
+      ],
+      "repeat": {
+        "count": 6,
+        "around": "flange_x",
+        "axis": "x"
+      }
+    },
+    {
+      "id": "bolt_z",
+      "kind": "box",
+      "material": "bolt",
+      "size": [
+        1.2,
+        1.2,
+        1.2
+      ],
+      "at": [
+        6.2,
+        0,
+        28.5
+      ],
+      "repeat": {
+        "count": 6,
+        "around": "flange_z",
+        "axis": "z"
+      }
+    }
+  ]
+}

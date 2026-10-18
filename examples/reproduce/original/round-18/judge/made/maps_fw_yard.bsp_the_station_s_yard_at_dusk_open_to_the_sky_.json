@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1472,
+   1472
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard_pumphall"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard_pumphall"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Areas present: a yard inside a perimeter wall, a gatehouse (upper right, with its func_door at its south side), a pump house (lower left, with a func_door_rotating on its south edge), a pipe ring at centre. The joins are wrong: the brief has the player leave through the pump house's double doors, but the trigger_changelevel (magenta, plan about x 760-790, y 230-280) sits inside the gatehouse. The perimeter wall has no gate opening, so 'starts by the gate' cannot be seen in the plan."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Size 1472 by 1472 against 1500 asked, well inside 25% and the brief's 'about 1500'. The gatehouse (about 320 by 290 units) and pump house (about 280 by 250) are plausible building sizes; the brief gives no other areas to measure against."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan shows no floor heights, so the yard's level and the buildings' floors cannot be checked. The views label a 'storey at z 276', which is a camera height, not a level shown in the plan. The yard is open to sky, as the brief asks, but its ground and walls are not shown as sections."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The classes are right: one info_player_start (plan about x 230, y 893), func_door on the gatehouse, func_door_rotating on the pump house, one trigger_changelevel with landmark fw_lm_yard_pumphall. The exit is in the wrong place: the trigger is in the gatehouse, not at the pump house's double doors. The start faces a single dark door straight ahead (view 1), so the start-to-exit path is reversed from the brief."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The yard walls in views 2 to 8 read as vertical wood planks with brown streaks, not concrete or rusted steel. The pipe in view 8 is a brown wooden-looking cylinder. Ground is a generic brown-grey, not wet concrete. No hazard-stripe trim or 'PUMP 3' sign is visible. Textures are wrong for the place."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief asks for dusk with sodium lamps. The views show a bright, clear blue daytime sky over the whole yard. The lamps that are seen (yellow glow on the wall in view 6, plan lights 15 to 18 and 20 to 21) are sodium-coloured, but the sky and overall brightness are not dusk."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Present: the gatehouse with a door, the pump house, the pipe ring at centre, the high perimeter wall. Missing or unclear: no gate in the wall, no stacked drums (the plan has no drum entities or stack, and the views show only one tall brown cylinder in view 8), no hazard trim, no visible pump house double doors in the views."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured: checkErrors is empty, notReached and reachWarnings are empty, so the walk test reaches every item and the changelevel. No leak result is in the measurements, but nothing reports one."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside (views 1 to 8) it looks like a yard of the game's kind: walls, a door, a sky, a cylinder. But the wood-plank walls, the daytime blue sky and the plain box gatehouse would not read to a player as the dusk concrete station the brief describes. The start view (view 1) is a close dark door rather than the yard."
+  }
+ },
+ "total": 11,
+ "of": 18,
+ "passes": false
+}

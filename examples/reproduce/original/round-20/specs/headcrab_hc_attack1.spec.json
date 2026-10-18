@@ -1,0 +1,248 @@
+{
+  "spec": "smak.sound/1",
+  "name": "headcrab/hc_attack1.wav",
+  "seed": 6,
+  "length": 0.9,
+  "onsets": 5,
+  "t20": 0.39,
+  "layers": [
+    {
+      "id": "tail",
+      "kind": "particles",
+      "rate": 60,
+      "band": [
+        150,
+        600
+      ],
+      "grain": 0.02,
+      "length": 0.9,
+      "env": {
+        "attack": 0.005,
+        "decay": 1.2
+      },
+      "gain": -26
+    },
+    {
+      "id": "bite1",
+      "kind": "noise",
+      "at": 0.015,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 330,
+          "q": 1.4
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": 0
+    },
+    {
+      "id": "bite2",
+      "kind": "noise",
+      "at": 0.12,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 1.4
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -1
+    },
+    {
+      "id": "bite3",
+      "kind": "noise",
+      "at": 0.22,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 350,
+          "q": 1.4
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -2
+    },
+    {
+      "id": "bite4",
+      "kind": "noise",
+      "at": 0.3,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 320,
+          "q": 1.4
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -4
+    },
+    {
+      "id": "bite5",
+      "kind": "noise",
+      "at": 0.37,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 360,
+          "q": 1.4
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -6
+    },
+    {
+      "id": "bite6",
+      "kind": "noise",
+      "at": 0.43,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 330,
+          "q": 1.4
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -8
+    },
+    {
+      "id": "bite7",
+      "kind": "noise",
+      "at": 0.55,
+      "filter": [
+        {
+          "type": "bandpass",
+          "f": 330,
+          "q": 1.4
+        }
+      ],
+      "env": {
+        "attack": 0.002,
+        "decay": 0.05
+      },
+      "gain": -30
+    },
+    {
+      "id": "snap1",
+      "kind": "noise",
+      "at": 0.015,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.006
+      },
+      "gain": -16
+    },
+    {
+      "id": "snap2",
+      "kind": "noise",
+      "at": 0.12,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.006
+      },
+      "gain": -17
+    },
+    {
+      "id": "snap3",
+      "kind": "noise",
+      "at": 0.22,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.006
+      },
+      "gain": -18
+    },
+    {
+      "id": "snap4",
+      "kind": "noise",
+      "at": 0.3,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.006
+      },
+      "gain": -20
+    },
+    {
+      "id": "snap5",
+      "kind": "noise",
+      "at": 0.37,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.006
+      },
+      "gain": -22
+    },
+    {
+      "id": "snap6",
+      "kind": "noise",
+      "at": 0.43,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.006
+      },
+      "gain": -24
+    }
+  ],
+  "finish": {
+    "limit": {
+      "crest": 12,
+      "release": 0.002
+    },
+    "peak": -0.5
+  }
+}

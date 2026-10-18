@@ -1,0 +1,81 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_pump.wav: a pump's droning loop",
+ "measured": {
+  "features": {
+   "length": 4.6,
+   "peak": -0.5,
+   "rms": -12.9,
+   "crest": 12.4,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.1,
+   "attack": 0.319,
+   "peakAt": 1.267,
+   "t20": 3.203,
+   "t40": 3.223,
+   "centroid": 172,
+   "rolloff": 280,
+   "flatness": 0.001,
+   "bands": {
+    "<150": 52.4,
+    "150-600": 43.1,
+    "600-2k": 4.5,
+    "2k-5k": 0,
+    ">5k": 0
+   },
+   "onsets": 6
+  },
+  "class": "loop machine",
+  "against": {
+   "score": 14,
+   "of": 20,
+   "lines": [
+    "length 4.6 s (2.03 to 3.39): too long",
+    "centroid 172 Hz (237 to 437): too dark: more 600 to 5000 Hz",
+    "band <150 52.4% (0 to 13.9): over the range",
+    "band 150-600 43.1% (84.2 to 100): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows a steady, sustained low rumble over the full 4.6 s, with no transients or decay and a very tonal spectrum (flatness 0.001). That reads as a machine drone, the event the brief asks for. The judge cannot listen, so a pump specifically is inferred from the picture."
+  },
+  "S2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The length of 4.6 s is outside the loop machine class range of 2.03 to 3.39 s; it is about 36% over the top of the range, not within 25%. The measure's line 'length 4.6 s (2.03 to 3.39): too long' is the fault. Attack 0.319 s has a visible fade-in in the waveform, but the length alone fails the item."
+  },
+  "S3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The spectrum is far too dark. The centroid is 172 Hz against 237 to 437 Hz, and the spectrogram shows nearly all energy below about 600 Hz with the upper half dark. Bands: under 150 Hz is 52.4% against 0 to 13.9%, 150 to 600 Hz is 43.1% against 84.2 to 100%, and 600 Hz to 5 kHz is only 4.5%. Each band is wrong by more than 10 points."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The drone holds one pitch across the whole length with no pitch movement, which fits a pump drone. But the measure reports 6 onsets in a loop that should be steady. The waveform shows a few tall spikes that look like hits, not the steady hum of a pump. Flatness is very low (0.001), so the tone is more pure than the noise the class suggests. Not a must-have."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "No engine fault is reported, and clipping is 0, DC is 0 and the peak is -0.5 dB. But the measures given do not state the sample rate, bit depth or loop cue, and the picture does not show where the loop closes. So the file's format and loop point are not confirmed, and the item cannot be scored 2 on what was measured."
+  }
+ },
+ "total": 5,
+ "of": 10,
+ "passes": false
+}

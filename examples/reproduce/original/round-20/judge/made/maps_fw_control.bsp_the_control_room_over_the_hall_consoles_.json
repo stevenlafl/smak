@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1648,
+   392
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   "fw_lm_pumphall_control"
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan shows one large room on the right with a func_plat lift, a trigger and two crawlers, plus a second block on the left with two circles and no entities. Nothing in the plan or views shows the rows of windows onto the hall, the lift landing or a valve room with a wheel. The two blocks are separated by a narrow gap with no visible door, so the joins the brief asks for are unclear."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no size for the control room. Measured from the plan's 256-unit scale bar, each block is roughly 785 units across. The left block's two circles (about 190 units across) do not read as a valve room with a 32-unit wheel, and the walkable area of the control room cannot be checked against the brief's words."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan's floor heights are not legible at this size. The views show one floor level with a low, flat platform (func_plat) at floor height, and no visible stair, ledge or drop down to a valve room. The control room's storey above the hall cannot be seen from inside this map, and the lift's drop is not shown."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "info_player_start (entity 9) sits at the room's near end. Two monster_headcrab entities (11 and 12) are placed in the room, matching the brief's two crawlers. A func_plat (1) is the lift, and a game_end (13) closes the mod. The measurement reports no unreached items and no walk warnings."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls use a sandy, grained tan texture that reads more like wood or plaster than a painted concrete wall. The dark olive panel in the lower-left view is striped and reads as a generic panel, not a console face with dials. The teal water and the ceiling panels are plausible but the wall reads as one repeated texture."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Seven light entities (14 to 20) sit along the ceiling and the side walls. The views show them as warm yellow-orange ceiling lamps, close to the sodium glow the brief describes. Bright and dark areas follow the lamp positions."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's distinctive features are mostly missing. No row of windows onto the hall shows in any view, no console waist high with dials and screens is visible (the dark block in the lower-left view is not clearly a console), and no valve wheel is visible in the room. The only feature clearly there is the lift platform and a grey crate in the water."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements report no check errors, no notReached items and no reach warnings, so the map compiles and the walk test reaches its items. The game_end closes the mod in place of a changelevel, as the brief asks."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the room reads as a plain box with a sandy wall, a grey ceiling and water on the floor. Nothing in the views says control room over a pump hall: no window onto a hall, no console, no valve wheel. A player would not recognise the brief's place from these views."
+  }
+ },
+ "total": 12,
+ "of": 18,
+ "passes": false
+}

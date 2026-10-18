@@ -2,154 +2,139 @@
   "spec": "smak.map/1",
   "name": "fw_yard",
   "size": [
-    1500,
-    1500
+    1440,
+    1440
   ],
   "wads": [
     "fw.wad"
   ],
+  "theme": {
+    "floor": "f_floor",
+    "wall": "f_wall",
+    "ceiling": "f_panel",
+    "door": "f_door",
+    "furniture": "f_panel",
+    "outside": "f_wall",
+    "roof": "f_rust"
+  },
+  "textures": {
+    "f_floor": {
+      "texture": "fw_wetfloor"
+    },
+    "f_wall": {
+      "texture": "fw_concrete"
+    },
+    "f_panel": {
+      "texture": "fw_panel"
+    },
+    "f_door": {
+      "texture": "fw_door"
+    },
+    "f_rust": {
+      "texture": "fw_rustplate"
+    },
+    "f_pipes": {
+      "texture": "fw_pipes"
+    },
+    "f_hazard": {
+      "texture": "fw_hazard"
+    },
+    "f_sign": {
+      "texture": "fw_sign"
+    },
+    "f_lamp": {
+      "texture": "~fw_lamp"
+    }
+  },
   "sky": {
     "zenith": [
+      0.04,
       0.05,
-      0.06,
-      0.12
+      0.09
     ],
     "horizon": [
-      0.55,
-      0.3,
+      0.42,
+      0.24,
       0.12
     ],
     "ground": [
-      0.08,
-      0.07,
+      0.06,
+      0.06,
       0.06
     ],
-    "haze": 0.6,
     "clouds": {
-      "cover": 0.5,
-      "colour": [
-        0.35,
-        0.22,
-        0.18
-      ]
+      "cover": 0.5
     },
     "hills": {
-      "height": 4,
-      "colour": [
-        0.06,
-        0.06,
-        0.07
-      ]
-    },
-    "sun": {
-      "size": 4,
-      "glow": 0.6,
-      "colour": [
-        1,
-        0.5,
-        0.2
-      ]
+      "height": 4
     }
   },
   "sun": {
-    "pitch": -12,
+    "pitch": 6,
     "yaw": 235,
-    "brightness": 35,
+    "brightness": 60,
     "color": [
-      255,
-      130,
-      60
+      1,
+      0.55,
+      0.25
     ]
-  },
-  "theme": {
-    "floor": "wetfloor",
-    "wall": "concrete",
-    "ceiling": "concrete2",
-    "door": "door",
-    "furniture": "rust"
-  },
-  "textures": {
-    "wetfloor": {
-      "texture": "fw_wetfloor"
-    },
-    "concrete": {
-      "texture": "fw_concrete"
-    },
-    "concrete2": {
-      "texture": "fw_concrete2"
-    },
-    "door": {
-      "texture": "fw_door"
-    },
-    "rust": {
-      "texture": "fw_rust"
-    },
-    "hazard": {
-      "texture": "fw_hazard"
-    },
-    "grate": {
-      "texture": "{fw_grate"
-    }
   },
   "rooms": [
     {
       "id": "yard",
       "size": [
-        1500,
-        1500,
-        384
+        1440,
+        1440,
+        320
       ],
       "sky": true,
-      "surfaces": {
-        "floor": "wetfloor",
-        "walls": "concrete"
-      }
+      "light": "none"
     },
     {
       "id": "gatehouse",
       "size": [
-        256,
         224,
+        192,
         160
       ],
       "place": {
         "in": "yard",
         "offset": [
-          80,
-          80
+          160,
+          200
         ],
         "stand": true
       },
       "building": {
-        "walls": "concrete",
+        "walls": "outside",
         "roof": {
-          "material": "rust",
-          "pitch": 25,
-          "overhang": 8
+          "material": "f_rust",
+          "pitch": 30,
+          "overhang": 12
         }
       }
     },
     {
-      "id": "pump",
+      "id": "pumphouse",
       "size": [
-        400,
-        320,
-        224
+        256,
+        224,
+        176
       ],
       "place": {
         "in": "yard",
         "offset": [
-          1050,
-          1000
+          1022,
+          988
         ],
         "stand": true
       },
       "building": {
-        "walls": "concrete",
+        "walls": "outside",
         "roof": {
-          "material": "rust",
-          "pitch": 20,
-          "overhang": 10
+          "material": "f_rust",
+          "pitch": 30,
+          "overhang": 12
         }
       }
     }
@@ -161,275 +146,272 @@
         "yard"
       ],
       "kind": "door",
-      "side": "east"
-    },
-    {
-      "between": [
-        "pump",
-        "yard"
-      ],
-      "kind": "door",
-      "side": "west",
-      "width": 96,
-      "height": 128,
-      "along": 0.35,
+      "side": "east",
       "door": {
         "swing": true
       }
     },
     {
       "between": [
-        "pump",
+        "pumphouse",
         "yard"
       ],
       "kind": "door",
-      "side": "west",
-      "width": 96,
-      "height": 128,
-      "along": 0.65,
-      "door": {
-        "swing": true,
-        "hinge": "end"
-      }
+      "side": "south",
+      "along": 0.375,
+      "width": 48,
+      "height": 112
+    },
+    {
+      "between": [
+        "pumphouse",
+        "yard"
+      ],
+      "kind": "door",
+      "side": "south",
+      "along": 0.625,
+      "width": 48,
+      "height": 112
     }
   ],
   "prefabs": {
-    "levelchange": {
+    "wall_x": {
       "pieces": [
         {
           "box": [
             [
-              -24,
+              -720,
+              -12,
+              0
+            ],
+            [
+              720,
+              12,
+              240
+            ]
+          ],
+          "texture": "f_wall"
+        }
+      ]
+    },
+    "wall_y": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -12,
+              -720,
+              0
+            ],
+            [
+              12,
+              720,
+              240
+            ]
+          ],
+          "texture": "f_wall"
+        }
+      ]
+    },
+    "trim_s": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -720,
+              12,
+              0
+            ],
+            [
+              720,
+              16,
+              24
+            ]
+          ],
+          "texture": "f_hazard"
+        }
+      ]
+    },
+    "trim_n": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -720,
+              -16,
+              0
+            ],
+            [
+              720,
+              -12,
+              24
+            ]
+          ],
+          "texture": "f_hazard"
+        }
+      ]
+    },
+    "trim_e": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -720,
+              0
+            ],
+            [
+              -12,
+              720,
+              24
+            ]
+          ],
+          "texture": "f_hazard"
+        }
+      ]
+    },
+    "trim_w": {
+      "pieces": [
+        {
+          "box": [
+            [
+              12,
+              -720,
+              0
+            ],
+            [
+              16,
+              720,
+              24
+            ]
+          ],
+          "texture": "f_hazard"
+        }
+      ]
+    },
+    "sign": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -60,
+              -4,
+              128
+            ],
+            [
+              60,
+              0,
+              166
+            ]
+          ],
+          "texture": "f_sign"
+        }
+      ]
+    },
+    "trigger": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -48,
               -40,
               0
             ],
             [
-              24,
+              48,
               40,
               96
             ]
           ],
-          "texture": "concrete"
+          "texture": "f_wall"
         }
       ],
       "entity": {
         "class": "trigger_changelevel",
         "map": "fw_pumphall",
-        "landmark": "fw_lm_yard"
+        "landmark": "fw_lm_yard_pumphall"
       }
-    },
-    "wallstripe": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -740,
-              -8,
-              0
-            ],
-            [
-              740,
-              8,
-              28
-            ]
-          ],
-          "texture": "hazard"
-        }
-      ]
-    },
-    "pillar": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -28,
-              -28,
-              0
-            ],
-            [
-              28,
-              28,
-              300
-            ]
-          ],
-          "texture": "concrete"
-        }
-      ]
-    },
-    "grate": {
-      "pieces": [
-        {
-          "box": [
-            [
-              -64,
-              -64,
-              0
-            ],
-            [
-              64,
-              64,
-              2
-            ]
-          ],
-          "texture": "grate"
-        }
-      ]
-    }
-  },
-  "models": {
-    "fw_pipesection": {
-      "spec": "smak.model/1",
-      "name": "fw_pipesection.mdl",
-      "kind": "prop",
-      "size": {
-        "height": 96,
-        "length": 260
-      },
-      "materials": {
-        "pipes": {
-          "base": "steel",
-          "picture": "library:rusty_metal_04",
-          "size": 79,
-          "rust": 0.5
-        }
-      },
-      "parts": [
-        {
-          "id": "pipe",
-          "kind": "turn",
-          "axis": "x",
-          "material": "pipes",
-          "rings": [
-            [
-              0,
-              48
-            ],
-            [
-              214,
-              48
-            ],
-            [
-              232,
-              44
-            ],
-            [
-              246,
-              36
-            ],
-            [
-              260,
-              28
-            ]
-          ],
-          "at": [
-            -130,
-            0,
-            48
-          ],
-          "sides": 12
-        },
-        {
-          "id": "flange_a",
-          "kind": "turn",
-          "axis": "x",
-          "material": "pipes",
-          "rings": [
-            [
-              0,
-              56
-            ],
-            [
-              8,
-              56
-            ]
-          ],
-          "at": [
-            -138,
-            0,
-            48
-          ],
-          "sides": 12
-        },
-        {
-          "id": "flange_b",
-          "kind": "turn",
-          "axis": "x",
-          "material": "pipes",
-          "rings": [
-            [
-              0,
-              56
-            ],
-            [
-              8,
-              56
-            ]
-          ],
-          "at": [
-            122,
-            0,
-            48
-          ],
-          "sides": 12
-        }
-      ]
     }
   },
   "furniture": [
     {
-      "prefab": "levelchange",
-      "room": "pump",
+      "prefab": "wall_x",
+      "room": "yard",
       "at": [
-        -120,
+        0,
+        700
+      ]
+    },
+    {
+      "prefab": "wall_x",
+      "room": "yard",
+      "at": [
+        0,
+        -700
+      ]
+    },
+    {
+      "prefab": "wall_y",
+      "room": "yard",
+      "at": [
+        700,
         0
       ]
     },
     {
-      "prefab": "wallstripe",
+      "prefab": "wall_y",
+      "room": "yard",
+      "at": [
+        -700,
+        0
+      ]
+    },
+    {
+      "prefab": "trim_s",
       "room": "yard",
       "at": [
         0,
-        728
+        -700
       ]
     },
     {
-      "prefab": "wallstripe",
+      "prefab": "trim_n",
       "room": "yard",
       "at": [
         0,
-        -728
+        700
       ]
     },
     {
-      "prefab": "pillar",
+      "prefab": "trim_e",
       "room": "yard",
       "at": [
-        -520,
-        250
+        700,
+        0
       ]
     },
     {
-      "prefab": "pillar",
+      "prefab": "trim_w",
       "room": "yard",
       "at": [
-        -520,
-        -320
+        -700,
+        0
       ]
     },
     {
-      "prefab": "grate",
+      "prefab": "sign",
       "room": "yard",
       "at": [
-        -150,
-        120
+        430,
+        252
       ]
     },
     {
-      "prefab": "grate",
-      "room": "yard",
+      "prefab": "trigger",
+      "room": "pumphouse",
       "at": [
-        250,
-        -350
+        0,
+        60
       ]
     }
   ],
@@ -438,146 +420,139 @@
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -220,
-        -300
-      ],
-      "solid": true
+        -150,
+        -540
+      ]
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -176,
-        -330
-      ],
-      "solid": true
+        -118,
+        -508
+      ]
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -200,
-        -250
-      ],
-      "solid": true
+        -182,
+        -500
+      ]
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -200,
-        -250
+        -150,
+        -540
       ],
-      "z": 35,
-      "solid": true
+      "z": 36
     },
     {
       "model": "models/fw_drum.mdl",
       "room": "yard",
       "at": [
-        -200,
-        -250
+        -118,
+        -508
       ],
-      "z": 70,
-      "solid": true
+      "z": 36
     },
     {
-      "model": "models/fw_drum.mdl",
+      "model": "models/fw_pipesection.mdl",
       "room": "yard",
       "at": [
-        -420,
-        360
-      ],
-      "solid": true
-    },
-    {
-      "model": "models/fw_drum.mdl",
-      "room": "yard",
-      "at": [
-        -380,
-        380
-      ],
-      "solid": true
-    },
-    {
-      "model": "fw_pipesection",
-      "room": "yard",
-      "at": [
-        -80,
-        380
-      ],
-      "facing": "east",
-      "solid": true
-    },
-    {
-      "model": "models/fw_console.mdl",
-      "room": "gatehouse",
-      "at": [
-        0,
-        60
-      ],
-      "facing": "east",
-      "solid": true
-    },
-    {
-      "model": "models/fw_walllamp.mdl",
-      "room": "yard",
-      "at": [
-        -727,
+        80,
         -200
       ],
-      "facing": "east",
-      "z": 150
+      "facing": "east"
     },
     {
-      "model": "models/fw_walllamp.mdl",
+      "model": "models/fw_valvewheel.mdl",
       "room": "yard",
       "at": [
-        -727,
-        300
+        260,
+        -420
       ],
-      "facing": "east",
-      "z": 150
+      "facing": "west"
     },
     {
-      "model": "models/fw_walllamp.mdl",
+      "model": "models/fw_pipejunction.mdl",
       "room": "yard",
       "at": [
-        727,
-        -300
+        -120,
+        330
       ],
-      "facing": "west",
-      "z": 150
+      "facing": "east"
     },
     {
       "model": "models/fw_walllamp.mdl",
       "room": "yard",
       "at": [
-        727,
+        -672,
         200
       ],
-      "facing": "west",
-      "z": 150
+      "z": 180,
+      "facing": "east"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": [
+        672,
+        -200
+      ],
+      "z": 180,
+      "facing": "west"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": [
+        -672,
+        -420
+      ],
+      "z": 180,
+      "facing": "east"
+    },
+    {
+      "model": "models/fw_walllamp.mdl",
+      "room": "yard",
+      "at": [
+        672,
+        420
+      ],
+      "z": 180,
+      "facing": "west"
     },
     {
       "model": "models/fw_walllamp.mdl",
       "room": "yard",
       "at": [
         -300,
-        -727
+        -672
       ],
-      "facing": "north",
-      "z": 150
+      "z": 180,
+      "facing": "north"
     },
     {
       "model": "models/fw_walllamp.mdl",
       "room": "yard",
       "at": [
-        300,
-        727
+        500,
+        672
       ],
-      "facing": "south",
-      "z": 150
+      "z": 180,
+      "facing": "south"
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "gatehouse",
+      "at": [
+        -22,
+        -6
+      ],
+      "facing": "east"
     }
   ],
   "entities": [
@@ -585,185 +560,121 @@
       "class": "info_player_start",
       "room": "yard",
       "at": [
-        -360,
-        -560
+        -300,
+        -424
       ],
       "facing": "east"
     },
     {
       "class": "info_landmark",
-      "room": "pump",
+      "room": "pumphouse",
       "at": [
-        -120,
-        70
+        0,
+        60
       ],
-      "id": "fw_lm_yard"
-    },
-    {
-      "class": "ambient_generic",
-      "room": "pump",
-      "at": [
-        60,
-        0
-      ],
-      "message": "ambience/fw_pump.wav",
-      "health": 6
-    },
-    {
-      "class": "env_glow",
-      "room": "yard",
-      "at": [
-        -722,
-        -200
-      ],
-      "z": 162,
       "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": 3,
-        "renderamt": 90,
-        "rendercolor": "255 150 60",
-        "scale": 1
+        "targetname": "fw_lm_yard_pumphall"
       }
     },
     {
-      "class": "env_glow",
+      "class": "light",
       "room": "yard",
       "at": [
-        -722,
-        300
-      ],
-      "z": 162,
-      "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": 3,
-        "renderamt": 90,
-        "rendercolor": "255 150 60",
-        "scale": 1
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "yard",
-      "at": [
-        722,
-        -300
-      ],
-      "z": 162,
-      "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": 3,
-        "renderamt": 90,
-        "rendercolor": "255 150 60",
-        "scale": 1
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "yard",
-      "at": [
-        722,
+        -640,
         200
       ],
-      "z": 162,
+      "z": 200,
       "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": 3,
-        "renderamt": 90,
-        "rendercolor": "255 150 60",
-        "scale": 1
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "yard",
-      "at": [
-        -296,
-        -722
-      ],
-      "z": 162,
-      "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": 3,
-        "renderamt": 90,
-        "rendercolor": "255 150 60",
-        "scale": 1
-      }
-    },
-    {
-      "class": "env_glow",
-      "room": "yard",
-      "at": [
-        296,
-        722
-      ],
-      "z": 162,
-      "keys": {
-        "model": "sprites/fw_glow.spr",
-        "rendermode": 3,
-        "renderamt": 90,
-        "rendercolor": "255 150 60",
-        "scale": 1
+        "_light": "255 170 90 300"
       }
     },
     {
       "class": "light",
       "room": "yard",
       "at": [
-        -736,
+        640,
         -200
       ],
-      "z": 150,
-      "_light": "255 150 60 260"
-    },
-    {
-      "class": "light",
-      "room": "yard",
-      "at": [
-        -736,
-        300
-      ],
-      "z": 150,
-      "_light": "255 150 60 260"
-    },
-    {
-      "class": "light",
-      "room": "yard",
-      "at": [
-        736,
-        -300
-      ],
-      "z": 150,
-      "_light": "255 150 60 260"
-    },
-    {
-      "class": "light",
-      "room": "yard",
-      "at": [
-        736,
-        200
-      ],
-      "z": 150,
-      "_light": "255 150 60 260"
+      "z": 200,
+      "keys": {
+        "_light": "255 170 90 300"
+      }
     },
     {
       "class": "light",
       "room": "yard",
       "at": [
         -300,
-        -736
+        -672
       ],
-      "z": 150,
-      "_light": "255 150 60 260"
+      "z": 200,
+      "keys": {
+        "_light": "255 170 90 300"
+      }
     },
     {
       "class": "light",
       "room": "yard",
       "at": [
-        300,
-        736
+        500,
+        672
       ],
-      "z": 150,
-      "_light": "255 150 60 260"
+      "z": 200,
+      "keys": {
+        "_light": "255 170 90 300"
+      }
+    },
+    {
+      "class": "light",
+      "room": "yard",
+      "at": [
+        -150,
+        -120
+      ],
+      "z": 200,
+      "keys": {
+        "_light": "255 170 90 320"
+      }
+    },
+    {
+      "class": "light",
+      "room": "yard",
+      "at": [
+        330,
+        -330
+      ],
+      "z": 200,
+      "keys": {
+        "_light": "255 170 90 320"
+      }
+    },
+    {
+      "class": "light",
+      "room": "yard",
+      "at": [
+        -150,
+        -520
+      ],
+      "z": 200,
+      "keys": {
+        "_light": "255 170 90 300"
+      }
+    },
+    {
+      "class": "env_sprite",
+      "room": "pumphouse",
+      "at": [
+        -150,
+        0
+      ],
+      "z": 110,
+      "keys": {
+        "model": "sprites/fw_steam.spr",
+        "framerate": "8",
+        "scale": "1.2",
+        "rendermode": "4",
+        "spawnflags": "1"
+      }
     }
   ]
 }

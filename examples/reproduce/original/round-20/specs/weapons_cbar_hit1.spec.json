@@ -1,0 +1,140 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 3,
+  "length": 0.7,
+  "layers": [
+    {
+      "id": "click",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.008
+      },
+      "gain": 0
+    },
+    {
+      "id": "hit",
+      "kind": "noise",
+      "at": 0.005,
+      "shape": [
+        [
+          80,
+          -40
+        ],
+        [
+          300,
+          -9
+        ],
+        [
+          600,
+          -3
+        ],
+        [
+          1000,
+          -1
+        ],
+        [
+          1800,
+          -2
+        ],
+        [
+          2600,
+          -15
+        ],
+        [
+          4000,
+          -26
+        ],
+        [
+          7000,
+          -38
+        ],
+        [
+          11000,
+          -48
+        ]
+      ],
+      "env": {
+        "attack": 0.01,
+        "decay": 0.32
+      },
+      "gain": -3
+    },
+    {
+      "id": "ping",
+      "kind": "tone",
+      "at": 0.005,
+      "f": 1100,
+      "wave": "sine",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.12
+      },
+      "gain": -7
+    },
+    {
+      "id": "body",
+      "kind": "tone",
+      "at": 0.005,
+      "f": 320,
+      "wave": "sine",
+      "env": {
+        "attack": 0.001,
+        "decay": 0.1
+      },
+      "gain": -12
+    },
+    {
+      "id": "second",
+      "kind": "noise",
+      "at": 0.13,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 1500
+        }
+      ],
+      "env": {
+        "attack": 0.001,
+        "decay": 0.01
+      },
+      "gain": -3
+    }
+  ],
+  "finish": {
+    "saturate": 2,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "limit": {
+      "crest": 10,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "bands": {
+    "<150": 1,
+    "150-600": 8,
+    "600-2k": 74,
+    "2k-5k": 14,
+    ">5k": 3
+  },
+  "t20": 0.4,
+  "onsets": 1,
+  "variants": [
+    {
+      "name": "weapons/cbar_hit2.wav",
+      "seed": 4,
+      "pitch": 3
+    }
+  ]
+}

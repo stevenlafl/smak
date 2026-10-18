@@ -1,0 +1,80 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_hit1.wav: the wrench striking metal",
+ "measured": {
+  "features": {
+   "length": 0.757,
+   "peak": -0.5,
+   "rms": -14.9,
+   "crest": 14.4,
+   "dc": 0.0002,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.005,
+   "attack": 0.015,
+   "peakAt": 0.015,
+   "t20": 0.584,
+   "t40": 0.683,
+   "centroid": 1617,
+   "rolloff": 1981,
+   "flatness": 0.146,
+   "bands": {
+    "<150": 2.1,
+    "150-600": 10.7,
+    "600-2k": 79.1,
+    "2k-5k": 7.1,
+    ">5k": 1
+   },
+   "onsets": 1
+  },
+  "class": "metal hit",
+  "against": {
+   "score": 19,
+   "of": 22,
+   "lines": [
+    "crest 14.4 dB (5.3 to 12.5): too spiky: saturate more, or hold its body longer",
+    "rms -14.9 dBFS (-12.9 to -5.7): under the range",
+    "flatness 0.146 (0.16 to 0.28): too pure: more noise"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The waveform has one dense, sharp burst at 0.015 s that decays into a long ring with a small secondary bump near 0.6 s. The spectrogram shows a steady metallic tone under the attack. That reads as a single metal strike that rings, which is the event the brief names."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length is 0.757 s, attack 0.015 s, t20 0.584 s and t40 0.683 s. The measurement flags none of these as out of range, and the waveform's decay matches them. The measurement gives no class range for decay, so the envelope is held to no stricter bar. The rms of -14.9 dBFS is under its range, but that is a level, not one of this item's measures, so it is not charged here."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid 1617 Hz and rolloff 1981 Hz. Band shares are 79.1% at 600 to 2k, 10.7% at 150 to 600 and 7.1% at 2k to 5k, with 2.1% under 150 and 1% over 5k. The spectrogram's energy sits in the lower-middle band and the measurement flags no spectrum line."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.146 against a range of 0.16 to 0.28. The measurement says 'too pure: more noise', and the spectrogram shows a bright, nearly horizontal tonal line through the middle of the sound, with too little broadband grit in the decay. The crest of 14.4 dB against 5.3 to 12.5 is also flagged as too spiky, so the onset is harsher than the class's hits. Onsets (1) and pitch movement (none visible) are right."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Peak is -0.5 dBFS with clipped 0, DC 0.0002 and no engine faults. The file is mono and the measurement reports nothing the engine would reject. The picture shows no flat-topped clipping at the start."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

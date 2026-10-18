@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "fw_lm_yard_pumphall"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "fw_lm_yard_pumphall",
+     "fw_lm_pumphall_control"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "fw_lm_pumphall_control"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 232147
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 311019
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 5215088
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1149623
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements list nothing missing and no failed SMAK checks. Every brief asset kind is reported present, including the props, wrench, crawler, the three maps, the wad, sprites and sounds. The picture cannot confirm the textures, sprites or sounds, so this rests on the measurement, not on what I could see."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain holds: fw_yard leads to fw_pumphall through fw_lm_yard_pumphall, and fw_pumphall leads to fw_control through fw_lm_pumphall_control. Each map's asked target is reached. fw_control has no onward link, which is correct because it is the last map and the valve ends the mod. The measurements do not separately confirm arrival points or that every named model and sound is among the mod's files."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The palette mostly agrees: rust, hazard yellow, sodium-orange lamp glass, green-grey water and the olive ceiling tiles recur across props and maps. The map walls, though, read as tan, sandy or wood-brown in the corridor and the door view, while the props and the brief's concrete and steel read grey. The door's dark brown panel looks like wood, not steel. The wall material does not sit with the props in one sheet."
+  },
+  "O4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The measurements show the three videos and fw_props.png present, and the sheet shows every prop. The wrench reads poorly in that sheet: it looks like a boxy clamp with a red shaft, not an 18-unit pipe wrench with a toothed jaw. The videos' content could not be checked from this picture."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

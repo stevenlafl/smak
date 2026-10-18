@@ -1,0 +1,131 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_ladtest",
+  "wads": [
+    "fw.wad"
+  ],
+  "theme": {
+    "floor": "f_floor",
+    "wall": "f_wall",
+    "ceiling": "f_panel"
+  },
+  "textures": {
+    "f_floor": {
+      "texture": "fw_wetfloor"
+    },
+    "f_wall": {
+      "texture": "fw_concrete"
+    },
+    "f_panel": {
+      "texture": "fw_panel"
+    },
+    "f_catwalk": {
+      "texture": "fw_catwalk"
+    }
+  },
+  "rooms": [
+    {
+      "id": "hall",
+      "size": [
+        400,
+        300,
+        300
+      ]
+    }
+  ],
+  "ladders": [
+    {
+      "room": "hall",
+      "side": "south",
+      "along": 0.5,
+      "width": 32,
+      "height": 162
+    }
+  ],
+  "prefabs": {
+    "cat": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -150,
+              -31,
+              150
+            ],
+            [
+              150,
+              31,
+              162
+            ]
+          ],
+          "texture": "f_catwalk"
+        }
+      ]
+    },
+    "post": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -16,
+              -16,
+              0
+            ],
+            [
+              16,
+              16,
+              150
+            ]
+          ],
+          "texture": "f_catwalk"
+        }
+      ]
+    }
+  },
+  "furniture": [
+    {
+      "prefab": "cat",
+      "room": "hall",
+      "at": [
+        0,
+        -115
+      ]
+    },
+    {
+      "prefab": "post",
+      "room": "hall",
+      "at": [
+        -120,
+        -115
+      ]
+    },
+    {
+      "prefab": "post",
+      "room": "hall",
+      "at": [
+        120,
+        -115
+      ]
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "hall",
+      "at": [
+        0,
+        60
+      ],
+      "facing": "north"
+    },
+    {
+      "class": "weapon_crowbar",
+      "room": "hall",
+      "at": [
+        0,
+        -115
+      ],
+      "z": 164
+    }
+  ]
+}

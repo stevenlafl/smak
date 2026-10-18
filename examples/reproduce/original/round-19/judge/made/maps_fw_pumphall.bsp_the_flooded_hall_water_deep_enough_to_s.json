@@ -1,0 +1,97 @@
+{
+ "kind": "map",
+ "label": "maps/fw_pumphall.bsp: the flooded hall: water deep enough to swim, three pumps, catwalks both sides joined by a bridge, ladders; the wrench on a catwalk, three crawlers in the water; out by a stair to a corridor",
+ "measured": {
+  "size": [
+   2588,
+   792
+  ],
+  "sizeAsked": {
+   "long": 2500
+  },
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_control",
+    "landmark": "fw_lm_pumphall_control"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard_pumphall",
+   "fw_lm_pumphall_control"
+  ],
+  "itemsAsked": [
+   "weapon_crowbar",
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "weapon_crowbar: 1",
+   "monster_headcrab: 3"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Plan matches the brief's arrangement: one long hall with three pumps along it (circles at about x 125, 310 and 697), catwalk strips along the top and bottom edges, a central bridge across the middle at about x 453-475, ladders at the catwalk ends (func_ladder 2 bottom-left, 4 top-middle), and a stair from the hall's east side up to a corridor room on the right with the changelevel trigger (1). The views show the catwalk standing above the water."
+  },
+  "P2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Overall length is 2588 against the brief's about 2500, about 4% over. The hall's width (about 792) and the corridor room's size are consistent with the brief's sizing. No walkable-floor overlap was measured, but nothing in the plan is out of proportion."
+  },
+  "P3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Levels read as the brief describes: the start ledge at the far left (floor 112), catwalks above the water (floor 162 at the top), the water well below them (the views show the catwalk above the surface, e.g. 'room -1081 yaw 0'), a stair rising from the hall to the corridor (the 'storey at z 236' view). The water depth itself is not labelled, so this is judged from the views only."
+  },
+  "P4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Start (info_player_start 6) at the west end. weapon_crowbar (9) on the top catwalk at about (200, 45), which is the brief's wrench placed on a catwalk. monster_headcrab 10, 11 and 12 all sit in the water (about (237,113), (540,230), (810,117)). Ladders 2 and 4 at the catwalk ends. The changelevel trigger (1) to fw_control, with landmark fw_lm_pumphall_control, is at the corridor end. Ambient sounds 19 and 20 are in the hall."
+  },
+  "P5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Walls read as worn tan concrete or stone, the ceiling as dark green-grey, the water as teal-grey, and a pump in view 'start yaw 0' as green-grey steel with a pale patch. Nothing clearly off against the brief's concrete, steel and water. A hazard stripe and a grate are not clearly visible in the views."
+  },
+  "P6": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "LIGHT entities (21) are laid out in a regular grid under the ceiling and the views show them as warm yellow-orange glows. The hall reads as evenly and dimly lit, with brighter ceiling strips over the catwalks. Nothing clearly off."
+  },
+  "P7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The distinctive features are there and in place: three pumps (the cylinders in the views and the circles on the plan), the central bridge across the hall, ladders, the catwalks above the water, and the stair up to the corridor. Their proportions match the plan."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "checkErrors and reachWarnings are both empty, and notReached is empty, so the compile is clean and every item (the wrench and all three crawlers) is reached on foot from the start. The measures do not report a leak check by name, so this is judged from the clean result."
+  },
+  "P9": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "From inside, the views (start yaw 0, water yaw -158, storey at z 236, room -1081 yaw 90) show a low, industrial, dimly lit hall with a ceiling of lamp strips, concrete walls, a pump and a flooded floor. A player of Half-Life would take it for one of its own maps. The water is a flat teal, which is plausible for the palette."
+  }
+ },
+ "total": 18,
+ "of": 18,
+ "passes": true
+}

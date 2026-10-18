@@ -1,0 +1,91 @@
+{
+ "kind": "map",
+ "label": "maps/fw_yard.bsp: the station's yard at dusk, open to the sky, a gatehouse door, drums, a pipe section; start by the gate, out by the pump house's double doors",
+ "measured": {
+  "size": [
+   1472,
+   1472
+  ],
+  "sizeAsked": [
+   1500,
+   1500
+  ],
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [
+   {
+    "map": "fw_pumphall",
+    "landmark": "fw_lm_yard_pumphall"
+   }
+  ],
+  "landmarks": [
+   "fw_lm_yard_pumphall"
+  ],
+  "itemsAsked": [],
+  "itemsFound": []
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan shows a yard inside a wall, a gatehouse box top right with the changelevel and a func_door, a second building bottom left with a func_door_rotating, and a round brush stack near centre. The pump house with the PUMP sign is shown in the views. No drums or broken pipe section are marked as separate features in the plan, and the pipe-like white bar at (730-790, 413) is not clearly a pipe section. The arrangement is plausible but the brief's drums and pipe are not clearly there."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The whole map is 1472 by 1472 against 1500 asked, well within 25%. The plan's scale bar puts the gatehouse box near 320 by 290 units and the bottom-left building near 290 by 290, which are plausible. No walkable-floor overlap measure was given, and the pump house's footprint against the brief's yard cannot be checked from the pictures, so this is not a 2."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The top-right box carries a raised storey (the view 'STOREY AT Z 276' and the two-tone floor shading in the plan), and the rest of the yard is open at ground level under the sky, as the brief asks. The ramps, drops and stairs the brief implies are not shown, and the ceiling and section data are absent, so the levels cannot be confirmed."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "info_player_start (13) is at the bottom wall and its view faces a door close up, so the start is by a door as the brief wants. The changelevel (3) with its landmark (14) is inside the top-right building, and func_door (2) sits at its foot. But the brief's gate door and the pump house's double doors are not clearly separate: the func_door is a single thin bar, and the func_door_rotating (1) sits mid-floor inside the bottom-left building, not in a wall. The gate itself is not marked."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The walls read as a tan, stone-like texture with yellow and black hazard-striped trim on the floor edges, as the brief's hazard trim asks, and the PUMP sign is in place. The floor and walls look generic and flat, not clearly wet concrete or rusted steel plate. Not a must-have item."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Six light entities and one light_environment give a dim grey-green dusk. Warm glows show near the lamp sprites (view 4 near 'ENV_SPRITE', view 6 near 'CYCLER_SPRITE 11'), but the sodium-orange brightness and bright and dark areas the brief implies are weak, and the yard is largely flat grey."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The PUMP sign on the pump house, the hazard stripes and the gatehouse box are there. The drums and the broken truck-sized pipe section, which the brief names as distinctive features, cannot be identified in the views or the plan; the round brush stack at (393, 679) is the only candidate."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements show no checkErrors, no notReached, and no reachWarnings, the changelevel is reached, and the landmark fw_lm_yard_pumphall is present. The leak result is not reported, so this is held to what the measurements give."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the start view shows a door at close range, and the pump house view shows a PUMP sign, a sky and hazard trim, which fit a Half-Life yard. The long views (ROOM -206 312 64, yaw 90 and 180) are large bare walls with little on them, and the drums and pipe that would make it the brief's station yard are not in the views. A player would not yet recognise it as this place."
+  }
+ },
+ "total": 10,
+ "of": 18,
+ "passes": false
+}

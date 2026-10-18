@@ -16,23 +16,23 @@
     64
    ],
    "border": {
-    "max": 0.22,
-    "mean": 0.001
+    "max": 0.314,
+    "mean": 0.005
    },
    "envelope": {
-    "peakAt": 0.29,
+    "peakAt": 0.57,
     "first": 0,
     "last": 0
    },
-   "dark": 0.68,
-   "wrap": 0.68,
-   "jitter": 1.28
+   "dark": 0.56,
+   "wrap": 1.38,
+   "jitter": 1.13
   },
   "class": "explosion",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.28,
+    "value": 1.13,
     "range": [
      1.04,
      1.48
@@ -42,7 +42,7 @@
    },
    {
     "measure": "border",
-    "value": 0.001,
+    "value": 0.005,
     "range": [
      0,
      0.005
@@ -52,7 +52,7 @@
    },
    {
     "measure": "peakAt",
-    "value": 0.29,
+    "value": 0.57,
     "range": [
      0.22,
      0.71
@@ -85,37 +85,37 @@
  "caps": {},
  "scores": {
   "R1": {
-   "judge": 2,
+   "judge": 1,
    "cap": null,
-   "score": 2,
-   "reason": "Frames 2 to 5 read as a sludge splash: a greenish mass that spreads outward, with radiating streaks at frames 3 to 5 (about x 540-600 in frame 4) that look like flung drops. The edges are soft and cloud-like, with no crown or drips, but a player would call it a splash of sludge."
+   "score": 1,
+   "reason": "Reads as a soft, diffuse olive cloud rather than a sludge spit that splashes. Frames 2 to 6 (numbered) fade into a blur. The radiating streaks in frames 3 to 5 hint at splatter, but no discrete droplets or splat are distinct, so the effect is a generic puff, not the brief's splash."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Frames are 64 by 64 with the effect centred and filling roughly half to 60% of the cell. The border measure (max 0.22, mean 0.001) confirms nothing is clipped at the edges, and the effect is held inside the frame throughout."
+   "reason": "The frames are 64 by 64 as the brief's sprite size, and the effect is centred and fills roughly the middle of each frame. The streaks in frames 3 to 5 reach the bottom edge without being cut off, and the border measure (mean 0.005) shows the frames stay clear at the edges."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye the effect is a sickly olive green-grey over the neutral grey backing, matching the brief's green-grey sludge and water palette. The colour stays muted, with no neon or bright tint."
+   "reason": "The colour is a muted olive-green with a grey-green core, which fits sludge and matches the brief's green-grey palette. It is dim and low in contrast, but it is the colour the brief asks for and it reads as sludge rather than a clean green or neon."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Measured against Half-Life's sprite class: 8 frames (the class count, within 25%), envelope peak at 0.29 (class range 0.22 to 0.71), first frame empty (0, within 0 to 0.22), last frame dark (0, within 0 to 0.03), jitter 1.28 (within 1.04 to 1.48) and border 0.001 (within 0 to 0.005). The motion grows, peaks around frames 2 to 3, thins and fades, which is the class's kind of motion. Frame 0 is empty, so the one-shot starts from nothing and ends dark."
+   "reason": "Eight frames is within the explosion class's range, and the envelope matches it: first frame 0 and last frame 0 (both blank, so it starts and ends dark), peak at 0.57 of the run, jitter 1.13 and wrap 1.38 inside the class's ranges, and border 0.005 (mean). It grows, spreads and fades, which is the motion a splash takes."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The type (parallel) and format (index alpha) are what an alpha-blended splash needs; the effect is not additive, so index alpha is correct. The name fw_spit.spr is the mod's own. The contact sheet cannot show the file header, so the type and format are taken from the measurements as written."
+   "reason": "The file is named fw_spit.spr, as the brief says, and is measured as parallel type with index alpha format, which is a readable GoldSrc sprite format. Whether the engine reads it exactly as written was not checked here beyond the measured type and format, so this score rests on those measures."
   }
  },
- "total": 10,
+ "total": 9,
  "of": 10,
- "passes": true
+ "passes": false
 }

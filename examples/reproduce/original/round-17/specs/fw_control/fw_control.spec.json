@@ -1,0 +1,456 @@
+{
+  "spec": "smak.map/1",
+  "name": "fw_control",
+  "wads": [
+    "fw.wad"
+  ],
+  "theme": {
+    "floor": "wetfloor",
+    "wall": "concrete2",
+    "ceiling": "concrete",
+    "door": "door",
+    "furniture": "rust",
+    "trim": "hazard"
+  },
+  "textures": {
+    "wetfloor": {
+      "texture": "fw_wetfloor"
+    },
+    "concrete": {
+      "texture": "fw_concrete"
+    },
+    "concrete2": {
+      "texture": "fw_concrete2"
+    },
+    "door": {
+      "texture": "fw_door"
+    },
+    "rust": {
+      "texture": "fw_rust"
+    },
+    "hazard": {
+      "texture": "fw_hazard"
+    },
+    "panel": {
+      "texture": "fw_panel"
+    }
+  },
+  "frame": true,
+  "rooms": [
+    {
+      "id": "control",
+      "size": [
+        1280,
+        448,
+        256
+      ],
+      "light": {
+        "count": 10,
+        "brightness": 220,
+        "color": [
+          255,
+          160,
+          80
+        ]
+      }
+    },
+    {
+      "id": "hall",
+      "size": [
+        1280,
+        448,
+        448
+      ],
+      "place": {
+        "south_of": "control",
+        "align": "centre"
+      },
+      "floor": -192
+    },
+    {
+      "id": "valve",
+      "size": [
+        320,
+        256,
+        384
+      ],
+      "place": {
+        "in": "control",
+        "offset": [
+          960,
+          96
+        ]
+      },
+      "floor": -128
+    }
+  ],
+  "links": [
+    {
+      "between": [
+        "control",
+        "hall"
+      ],
+      "kind": "window",
+      "along": 0.1,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hall"
+      ],
+      "kind": "window",
+      "along": 0.26,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hall"
+      ],
+      "kind": "window",
+      "along": 0.42,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hall"
+      ],
+      "kind": "window",
+      "along": 0.58,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hall"
+      ],
+      "kind": "window",
+      "along": 0.74,
+      "glass": true
+    },
+    {
+      "between": [
+        "control",
+        "hall"
+      ],
+      "kind": "window",
+      "along": 0.9,
+      "glass": true
+    }
+  ],
+  "prefabs": {
+    "valvebutton": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -8,
+              -8,
+              0
+            ],
+            [
+              8,
+              8,
+              16
+            ]
+          ],
+          "texture": "rust"
+        }
+      ],
+      "entity": {
+        "class": "func_button",
+        "target": "fw_valve_end",
+        "spawnflags": 256,
+        "wait": -1
+      }
+    },
+    "endtrig": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -24,
+              -24,
+              0
+            ],
+            [
+              24,
+              24,
+              64
+            ]
+          ],
+          "texture": "rust"
+        }
+      ],
+      "entity": {
+        "class": "trigger_endsection",
+        "targetname": "fw_valve_end",
+        "spawnflags": 1
+      }
+    },
+    "lift": {
+      "pieces": [
+        {
+          "box": [
+            [
+              -56,
+              -28,
+              112
+            ],
+            [
+              56,
+              28,
+              128
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -28,
+              -14,
+              0
+            ],
+            [
+              28,
+              14,
+              112
+            ]
+          ],
+          "texture": "rust"
+        }
+      ],
+      "entity": {
+        "class": "func_plat",
+        "height": 128,
+        "speed": 60
+      }
+    },
+    "pump": {
+      "pieces": [
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 110,
+            "from": 0,
+            "to": 20,
+            "sides": 12
+          }
+        },
+        {
+          "cylinder": {
+            "centre": [
+              0,
+              0
+            ],
+            "radius": 90,
+            "from": 20,
+            "to": 200,
+            "sides": 14
+          }
+        },
+        {
+          "box": [
+            [
+              -80,
+              -130,
+              200
+            ],
+            [
+              80,
+              40,
+              260
+            ]
+          ],
+          "texture": "rust"
+        },
+        {
+          "box": [
+            [
+              -40,
+              60,
+              60
+            ],
+            [
+              40,
+              200,
+              140
+            ]
+          ],
+          "texture": "rust"
+        }
+      ]
+    }
+  },
+  "models": {},
+  "furniture": [
+    {
+      "prefab": "lift",
+      "room": "valve",
+      "at": [
+        -104,
+        0
+      ]
+    },
+    {
+      "prefab": "valvebutton",
+      "room": "valve",
+      "at": [
+        120,
+        96
+      ]
+    },
+    {
+      "prefab": "endtrig",
+      "room": "valve",
+      "at": [
+        0,
+        -90
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        -300,
+        0
+      ]
+    },
+    {
+      "prefab": "pump",
+      "room": "hall",
+      "at": [
+        300,
+        0
+      ]
+    }
+  ],
+  "props": [
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -500,
+        -170
+      ],
+      "facing": "south",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        -250,
+        -170
+      ],
+      "facing": "south",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        0,
+        -170
+      ],
+      "facing": "south",
+      "solid": true
+    },
+    {
+      "model": "models/fw_console.mdl",
+      "room": "control",
+      "at": [
+        250,
+        -170
+      ],
+      "facing": "south",
+      "solid": true
+    },
+    {
+      "model": "models/fw_pipejunction.mdl",
+      "room": "control",
+      "at": [
+        -420,
+        150
+      ],
+      "facing": "south",
+      "solid": true
+    },
+    {
+      "model": "models/fw_pipejunction.mdl",
+      "room": "control",
+      "at": [
+        120,
+        150
+      ],
+      "facing": "south",
+      "solid": true
+    },
+    {
+      "model": "models/fw_valvewheel.mdl",
+      "room": "valve",
+      "at": [
+        144,
+        0
+      ],
+      "facing": "west",
+      "z": 36
+    }
+  ],
+  "entities": [
+    {
+      "class": "info_player_start",
+      "room": "control",
+      "at": [
+        -540,
+        -100
+      ],
+      "facing": "east"
+    },
+    {
+      "class": "info_landmark",
+      "room": "control",
+      "at": [
+        -560,
+        -100
+      ],
+      "id": "fw_lm_hall"
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -300,
+        -60
+      ],
+      "z": 0,
+      "angles": "0 0 0"
+    },
+    {
+      "class": "monster_headcrab",
+      "room": "control",
+      "at": [
+        -80,
+        40
+      ],
+      "z": 0,
+      "angles": "0 180 0"
+    },
+    {
+      "class": "ambient_generic",
+      "room": "valve",
+      "at": [
+        0,
+        90
+      ],
+      "message": "ambience/fw_pump.wav",
+      "health": 4
+    }
+  ]
+}

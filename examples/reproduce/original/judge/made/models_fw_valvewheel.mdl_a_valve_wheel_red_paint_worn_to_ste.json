@@ -3,21 +3,21 @@
  "label": "models/fw_valvewheel.mdl: a valve wheel, red paint worn to steel at the rim",
  "measured": {
   "size": [
-   5,
-   32,
-   32
+   6,
+   31.5,
+   51.7
   ],
   "sizeAsked": {
    "across": 32
   },
-  "sizeOff": 0.001,
-  "triangles": 372,
+  "sizeOff": 0.017,
+  "triangles": 364,
   "halfLifeMedianOfItsKind": 99,
   "halfLifeThreeQuartersUnder": 156,
   "halfLifeMost": 422,
   "checkErrors": [],
-  "lineup": "the asset is one of A to D in lineup.png beside models/snapbug.mdl, models/w_crowbar.mdl, models/w_medkit.mdl",
-  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, C, D, C where the asset was C, A, B, D: passed for one of the game's"
+  "lineup": "the asset is one of A to D in lineup.png beside models/w_sqknest.mdl, models/floater.mdl, models/w_isotopebox.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked B, B, C, D where the asset was C, A, B, D: passed for one of the game's"
  },
  "caps": {
   "M2": 2,
@@ -29,49 +29,49 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Front, back and side views all show a wheel: a ring rim, six spokes and a central hub, with the same outline in every view (front, back, top and the diagonal views). The rim is slightly polygonal, but nothing sticks out or is missing."
+   "reason": "The outline is a valve handwheel: a ring rim with five red spokes and a hub, on a stem that drops from the bottom of the ring. The front, back and front-left views show the ring, spokes and stem in place, and the side and top views show a flat ring of the right depth. Nothing sticks out or is missing in any of the ten views."
   },
   "M2": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Measured 32 by 32 by 5 units against the 32 asked, a 0.1% difference, well inside 15%."
+   "reason": "The measured width is 31.5 against the 32 the brief asks, 1.7% off, well within 15%. Height is 51.7 with the stem; the brief gives no height, so it is not charged."
   },
   "M3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The brief names a wheel with red paint worn to steel at the rim. The rim (steel), the spokes (red) and the hub (red, a short cylinder protruding both sides) are all present, and the rim's cross-section is round. Nothing named is missing."
+   "reason": "The brief names a valve wheel, its rim and its red paint. The wheel has its rim, five red spokes, a red hub and a stem, all in the right places. The small tabs or bolts on the rim (front view, top and bottom of the ring, left and right) are not named by the brief and no Valve model in the line-up is shown to carry them, so their presence or absence is not charged. No round part's facet count is set against a Valve model in the line-up, so none is charged."
   },
   "M4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Spokes and hub are painted red, the rim is steel-grey with lighter worn patches and some brown rust spots. This matches the brief's red paint worn to steel at the rim, with each region in its own colour and material."
+   "reason": "The spokes and hub are a saturated red, and the rim and stem are grey steel with a faint green-grey tint, which reads as steel worn in a wet station. That matches the brief's red paint worn to steel at the rim. No measured colour difference is given for a brief-led asset, so this rests on the pictures."
   },
   "M5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Wear is visible on the rim: light chipped patches at about 3 and 9 o'clock in the front and back views, streaks on the steel, and a worn look on the red spokes. The wear sits where the brief puts it, at a sharpness close to the game's own props."
+   "reason": "The wear the brief asks for is there: the rim is bare steel while the spokes and hub keep their red. The rim has a fine mesh-like pattern, and the stem has darker streaks. Both sit in their places at a sharpness that suits the prop."
   },
   "M6": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "Capped at 2 by the line-up test. Across four readings, the asset was never picked as the one not made by Valve (the judges picked D, C, D, C where the asset was C, A, B, D), so it passed for one of the game's."
+   "reason": "Capped at 2 by the rubric. The line-up test caught the asset once in four readings (the judges picked the asset in the order where it was D, and picked a Valve model in the other three), which is not the two or more catches that would cap it at 1."
   },
   "M7": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The wheel stands upright, its face toward the front view, with the hub at the centre of the rim. The brief sets no facing, and the placement is sound."
+   "reason": "The wheel stands upright on its stem, with the spokes facing the front view and the stem running straight down from the ring's bottom. The bottom view shows the stem's end at the centre of the ring, so it stands on its origin as a valve wheel on a post would."
   },
   "M8": {
    "judge": 2,
    "cap": 2,
    "score": 2,
-   "reason": "SMAK's check passes with no errors. At 372 triangles it is under the 422 that Half-Life's most-complex props of this kind and size use, so the triangle count is within the amended limit. Nothing visibly open: the spokes and hub join the rim, and the rim's small notches at about 3 and 9 o'clock read as chips, not holes."
+   "reason": "SMAK's check reports no errors. The triangle count is 364, under the 422 that is the most Valve spends on a prop of its kind and size, so the current triangle rule passes it. It is over Valve's third quartile (156), which is the kit's warning, not a fail. Nothing is open, inside out or floating: the spokes meet the hub and rim, and the stem joins the ring at its bottom."
   }
  },
  "total": 16,

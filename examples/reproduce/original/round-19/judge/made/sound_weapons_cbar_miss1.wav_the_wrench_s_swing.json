@@ -1,0 +1,78 @@
+{
+ "kind": "sound",
+ "label": "sound/weapons/cbar_miss1.wav: the wrench's swing",
+ "measured": {
+  "features": {
+   "length": 0.309,
+   "peak": -0.5,
+   "rms": -20.4,
+   "crest": 19.9,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0.01,
+   "attack": 0.03,
+   "peakAt": 0.05,
+   "t20": 0.055,
+   "t40": 0.13,
+   "centroid": 782,
+   "rolloff": 775,
+   "flatness": 0.155,
+   "bands": {
+    "<150": 1,
+    "150-600": 65,
+    "600-2k": 25.7,
+    "2k-5k": 6.7,
+    ">5k": 1.6
+   },
+   "onsets": 0
+  },
+  "class": "swing",
+  "against": {
+   "score": 21,
+   "of": 22,
+   "lines": [
+    "crest 19.9 dB (10.43 to 17.38): too spiky: saturate more, or hold its body longer"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The picture shows one swept whoosh: a burst of energy near 0.05 s (the waveform's peak) that decays over about 0.3 s, with the spectrogram's energy moving from low-mid to high and fading. That reads as a wrench's swing, not a strike, which is what the brief asks for. The file is a one-off, so no hit is expected."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Length is 0.309 s and attack is 0.03 s. t20 (0.055 s) and t40 (0.13 s) give a fast decay from the peak at 0.05 s. The measurement's only failed line is crest, which is a spike measure, not an envelope item, so length, attack and decay all sit within the swing class's range."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid is 782 Hz. Band shares are 1% under 150 Hz, 65% at 150-600 Hz, 25.7% at 600-2k, 6.7% at 2k-5k and 1.6% over 5k, summing to 100. The spectrogram matches: the colour is concentrated in the low-mid rows and fades above about 2 kHz. The measurement passed this item."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The waveform is spiky where a swing's whoosh should be smooth. Crest is 19.9 dB, above the class's 10.43 to 17.38 range, and the waveform shows sharp peaks clustered between about 0.03 and 0.12 s (the 'too spiky' line in the measurement). Onsets are 0 and flatness 0.155 is plausible for a whoosh, so the fault is the spiky body, not the noise or the onsets. S4 is not a must-have, but the fault is real and lowers the score."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The engine checks are clean: engineFaults is empty, clipped is 0, DC is 0, lead is 0, tail is 0.01 s, and peak is -0.5 dBFS, so nothing clips. The name is cbar_miss1.wav and it is a one-shot, so no loop cue is needed. The sample rate and bit depth are not listed in the measurements; the empty fault list is the basis for passing this item, and it is the engine's check, not my listening."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": true
+}

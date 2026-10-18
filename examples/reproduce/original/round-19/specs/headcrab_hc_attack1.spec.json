@@ -1,0 +1,58 @@
+{
+  "spec": "smak.sound/1",
+  "name": "headcrab/hc_attack1.wav",
+  "seed": 6,
+  "length": 0.9,
+  "layers": [
+    {
+      "id": "lunge",
+      "kind": "sample",
+      "file": "work:gen/crawler_attack_stable-audio-3-sfx_s0.wav",
+      "from": 0,
+      "length": 0.6,
+      "env": {
+        "attack": 0.005,
+        "decay": 1
+      }
+    },
+    {
+      "id": "snap",
+      "kind": "sample",
+      "file": "work:gen/crawler_attack_woosh-dflow_s1.wav",
+      "from": "onset",
+      "length": 0.6,
+      "at": 0.36,
+      "gain": -4,
+      "env": {
+        "attack": 0.005,
+        "decay": 0.8
+      }
+    },
+    {
+      "id": "chomps",
+      "kind": "particles",
+      "every": 0.13,
+      "jitter": 0.3,
+      "band": [
+        150,
+        1200
+      ],
+      "grain": 0.01,
+      "at": 0.45,
+      "length": 0.45,
+      "gain": -10,
+      "env": {
+        "attack": 0.005,
+        "decay": 0.3
+      }
+    }
+  ],
+  "finish": {
+    "room": {
+      "decay": 0.3,
+      "wet": 0.15
+    },
+    "peak": -0.5,
+    "fit": "bands"
+  }
+}

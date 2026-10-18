@@ -1,0 +1,162 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_plain0",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain1",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain2",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain3",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain4",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain5",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain6",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain7",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain8",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain9",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain10",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   },
+   {
+    "name": "fw_plain11",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 0
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "liquids": [
+    0,
+    20.1
+   ],
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2. A liquid (its name begins !) is held to Valve's own liquids instead, 0 to 20.1: the engine warps it as it draws it, and its water is smooth"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The picture shows twelve identical flat mid-grey tiles, labelled fw_plain0 to fw_plain11. None reads as a material. The brief asks for a concrete wall, a wet floor, a grate, a catwalk, a pipe wall, hazard trim, rusted plate, control panel, lit lamp face, water, a PUMP 3 sign and a door. Nothing in the set is any of these."
+  },
+  "T2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Every tile is the same flat grey. The brief asks for green-grey water, yellow hazard paint, rust, sodium orange in the lamp, and concrete tones. None of those colours is present, so the colour cannot match what the brief asks."
+  },
+  "T3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "No panels, seams, bricks, tiles, grate holes, pipes or stripes appear on any tile. Layout and scale are absent from all twelve, so none can line up with a wall's spacing."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "A flat tile has no seam where it repeats, and the measured step across its edges is zero, no larger than inside it. The test passes, though only because nothing is drawn. This is not a must-have item."
+  },
+  "T5": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Measured fine detail is 0 on every tile, below Half-Life's wall band (least 10.8). The brief does not ask for a plain colour on any of these twelve, so flatness is not right here; it reads smeared or flat, as the band note describes. Beside Valve's own textures it is far from at least as good."
+  },
+  "T6": {
+   "judge": 0,
+   "cap": 2,
+   "score": 0,
+   "reason": "The names fw_plain0 to fw_plain11 do not say what each texture is, and the brief names twelve different kinds. The kinds are not kept: no `{` texture has holes, the grate's holes are absent, the `!` water is a flat grey, the lamp's face is not lit, and the PUMP 3 sign has no lettering. Sizes are 64x64 on each, but the kinds fail."
+  }
+ },
+ "total": 2,
+ "of": 12,
+ "passes": false
+}

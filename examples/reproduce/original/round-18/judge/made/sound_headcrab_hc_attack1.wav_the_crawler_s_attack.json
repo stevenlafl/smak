@@ -1,0 +1,85 @@
+{
+ "kind": "sound",
+ "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
+ "measured": {
+  "features": {
+   "length": 0.562,
+   "peak": -0.5,
+   "rms": -22.1,
+   "crest": 21.6,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 0,
+   "attack": 0.404,
+   "peakAt": 0.459,
+   "t20": 0.01,
+   "t40": 0.1,
+   "centroid": 936,
+   "rolloff": 1787,
+   "flatness": 0.243,
+   "bands": {
+    "<150": 0.6,
+    "150-600": 67.5,
+    "600-2k": 19.2,
+    "2k-5k": 11.1,
+    ">5k": 1.6
+   },
+   "onsets": 1
+  },
+  "class": null,
+  "against": {
+   "gameOwn": {
+    "length": 0.906,
+    "centroid": 921,
+    "t20": 0.394,
+    "bands": {
+     "<150": 0.5,
+     "150-600": 68.1,
+     "600-2k": 18.8,
+     "2k-5k": 10.9,
+     ">5k": 1.6
+    }
+   }
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The picture shows a crawler-like event: a lunge with a few noise bursts in the 150 to 600 Hz band, which is the same spectral make-up as the game's own (67.5% against 68.1%). But the reproduction's energy is in two clusters, about 0 to 0.27 s and 0.41 to 0.56 s, with a silent gap between them, and its waveform stops at 0.56 s. The game's version runs on for 0.9 s with a fading tail. From the picture alone it reads as a bite or lunge, but not clearly the same event."
+  },
+  "S2": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "Length is 0.562 s against the original's 0.906 s, 38% short, outside the 25% allowed (measure fails). The 20% decay point (t20) is 0.01 s against the original's 0.394 s, so the decay is wrongly sharp. The waveform in the picture drops to a thin line after about 0.5 s, where the original keeps a tail to about 0.9 s. The class range is not given, but the length failure alone fails S2."
+  },
+  "S3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Centroid is 936 Hz against the original's 921 Hz, 1.6% apart (within 20%). Band shares: under 150 Hz 0.6 vs 0.5; 150 to 600 Hz 67.5 vs 68.1; 600 to 2k 19.2 vs 18.8; 2k to 5k 11.1 vs 10.9; over 5k 1.6 vs 1.6. Every band is within 1 point, well inside the 10-point limit. The spectrogram's colour pattern matches the original's low-mid weight."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Flatness is 0.243, inside the game's noise-like range (0.05 to 0.28), so the noisy character is right. The onsets are 1 against the original's several sharp hits: the waveform shows spikes near 0.05, 0.12, 0.45 and 0.49 s, but the original's hits run through the whole 0.9 s, while the reproduction's are in two clusters. The original's pitch movement (the 0.45 to 0.55 s crack) is not reproduced, as the spectrogram shows its bright lower band ending abruptly."
+  },
+  "S5": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "No clipping (clipped 0), no DC offset (dc 0), no silence added at the start or end (lead 0, tail 0), and peak -0.5 dBFS with no engine faults recorded (engineFaults is empty). The format (mono, rate, bit depth) and the name sound/headcrab/hc_attack1.wav are not in the measurements, so this rests on the engine check passing. The picture's waveform shows no flat-topped peaks."
+  }
+ },
+ "total": 6,
+ "of": 10,
+ "passes": false
+}

@@ -1,0 +1,62 @@
+{
+  "spec": "smak.sound/1",
+  "name": "weapons/cbar_hit1.wav",
+  "class": "metal hit",
+  "seed": 3,
+  "layers": [
+    {
+      "id": "take",
+      "kind": "sample",
+      "file": "work:gen/wrench_hit_woosh-dflow_s0.wav",
+      "from": "onset",
+      "length": 0.6,
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 200
+        },
+        {
+          "type": "lowpass",
+          "f": 1500
+        },
+        {
+          "type": "lowpass",
+          "f": 1500
+        }
+      ]
+    },
+    {
+      "id": "crack",
+      "kind": "noise",
+      "filter": [
+        {
+          "type": "highpass",
+          "f": 2000
+        }
+      ],
+      "env": {
+        "decay": 0.006
+      },
+      "gain": -8
+    }
+  ],
+  "finish": {
+    "saturate": 1,
+    "room": {
+      "decay": 0.25,
+      "wet": 0.12
+    },
+    "limit": {
+      "crest": 8,
+      "release": 0.002
+    },
+    "peak": -0.5
+  },
+  "variants": [
+    {
+      "name": "weapons/cbar_hit2.wav",
+      "seed": 4,
+      "pitch": 3
+    }
+  ]
+}

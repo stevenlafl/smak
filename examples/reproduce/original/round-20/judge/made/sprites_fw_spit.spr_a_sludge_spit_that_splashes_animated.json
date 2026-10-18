@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_spit.spr: a sludge spit that splashes, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 8,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 8,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.275,
+    "mean": 0.002
+   },
+   "envelope": {
+    "peakAt": 0.57,
+    "first": 0.27,
+    "last": 0
+   },
+   "dark": 0.53,
+   "wrap": 0.77,
+   "jitter": 1.05
+  },
+  "class": "explosion",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.05,
+    "range": [
+     1.04,
+     1.48
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.002,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.57,
+    "range": [
+     0.22,
+     0.71
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.27,
+    "range": [
+     0,
+     0.22
+    ],
+    "ok": false,
+    "words": "starts too bright: an attack in its envelope"
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.03
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a sludge spit that splashes. Frame 0 is a small glow, frames 1 to 3 bloom into a green burst, and frames 3 to 5 throw streaks of droplets downward, which is the splash the brief asks for."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Frames are 64 by 64 and the border measure is clean (max 0.275 but mean 0.002, the outer edge is essentially empty). The burst fills roughly two thirds of the frame at its peak (frames 3 to 5) and sits small and centred in the early frames, which is how a growing splash works."
+  },
+  "R3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The colour is a fairly saturated lime-green on the grey ground (frames 1 to 5), not the muted green-grey of the brief's sludge and water. It is close to the palette but leans toward the bright, toxic green the brief rules out as neon."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Eight frames, with frame 7 blank, and the envelope ends dark (last 0, in range). But the first-frame measure fails its class range: first 0.27 against the explosion class's 0 to 0.22, so the sprite starts too bright, which caps R4 at 1. Peak timing (0.57, in range 0.22 to 0.71), jitter (1.05, in range 1.04 to 1.48) and border (0.002, in range) all hold."
+  },
+  "R5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Named fw_spit.spr as the brief names the sprite, and the stated type (parallel) and format (index alpha) are valid GoldSrc values for a sprite that is not additive. Nothing in the measures contradicts the file as written; the class measures do not include type, so this is a check of the stated fields rather than against an original's type."
+  }
+ },
+ "total": 8,
+ "of": 10,
+ "passes": false
+}

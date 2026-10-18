@@ -1,0 +1,78 @@
+{
+ "kind": "sound",
+ "label": "sound/ambience/fw_drips.wav: water dripping, a loop",
+ "measured": {
+  "features": {
+   "length": 6.7,
+   "peak": -0.5,
+   "rms": -27,
+   "crest": 26.5,
+   "dc": 0,
+   "clipped": 0,
+   "lead": 0,
+   "tail": 1.701,
+   "attack": 1.272,
+   "peakAt": 1.357,
+   "t20": 3.607,
+   "t40": 3.642,
+   "centroid": 934,
+   "rolloff": 1206,
+   "flatness": 0.047,
+   "bands": {
+    "<150": 8.2,
+    "150-600": 11.6,
+    "600-2k": 71.6,
+    "2k-5k": 8.6,
+    ">5k": 0
+   },
+   "onsets": 8
+  },
+  "class": "loop drips",
+  "against": {
+   "score": 19,
+   "of": 20,
+   "lines": [
+    "band 150-600 11.6% (13.2 to 33.2): under the range"
+   ]
+  },
+  "engineFaults": []
+ },
+ "caps": {
+  "S5": 2
+ },
+ "scores": {
+  "S1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The waveform is a run of sharp, separate transients (about a dozen bursts across 0 to 5.0 s) with quiet gaps between them, and the spectrogram shows short tonal plinks over a low bed. That reads as water dripping, the event the brief asks for. The sound is labelled water dripping and is a loop."
+  },
+  "S2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The length is 6.7 s and the attack (time to the 1.36 s peak, at x about 195 in the waveform) and the T20/T40 decay (3.61 and 3.64 s) are not flagged by the measurement. The only failed line is the band share, so the envelope is held to within the class range by measure. I could not check the class range itself, so this is by the measure."
+  },
+  "S3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 150-600 Hz band is 11.6%, below the class range of 13.2 to 33.2 (measured, the one failed line). The energy sits mostly in 600-2k at 71.6%, with centroid 934 Hz and rolloff 1206 Hz. The shortfall is small (1.6 points below the range's floor), so a 2 is not justified, but the measure flags it and the judge may not score it higher."
+  },
+  "S4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The onsets are present (8 by measure, matching the separate transients in the waveform), but the spectrogram's tonal lines near 600 to 2k Hz are held level from start to finish. A real drip's plink falls in pitch, and no sweep shows here. Flatness is 0.047, very tonal for a noise-like drip. The character is not right on pitch movement."
+  },
+  "S5": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The measures show no clipping (peak -0.5 dB, not at full scale), no DC offset, and no engine faults. The file's format (mono, rate, bit depth) and its loop cue are not in the measurements, and the picture's header does not state them, so I cannot confirm they match the engine's list. Unverified, not shown wrong, so this is held to 1 rather than 2. The sound's own loop closes on silence (1.7 s tail, zero lead), which is plausible for drips but the cue is not shown."
+  }
+ },
+ "total": 7,
+ "of": 10,
+ "passes": false
+}

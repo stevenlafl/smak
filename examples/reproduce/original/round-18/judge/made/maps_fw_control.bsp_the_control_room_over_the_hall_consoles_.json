@@ -1,0 +1,89 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1648,
+   392
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [
+   "1 func_plat rides from z 112, where it is built, down to z -112: at z 112 a standing player does not fit on it (a ceiling, a wall or the rock is there). A func_plat's height is how far it rides DOWN from where it is built; one under 0 rides up"
+  ],
+  "changelevels": [],
+  "landmarks": [
+   "fw_lm_pumphall_control"
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Plan shows a control room on the right (windows absent, shown as plain walls) and two separate boxes on the left (x 90 to 450) with octagonal shapes. No door, corridor or lift joins the left boxes to the right room in the plan, so the arrangement and joins to the valve room are not clear. The brief's windows over the hall are not shown."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no sizes for this map, so no area size can be checked against it. The plan's rooms are plausible in scale (about 256-unit scale bar), but there is no overlap measure for P2 here, so this is a judgement from the picture only."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Floor heights are marked (-128, -192 in the control room; 90 and 190 in the left boxes). The func_plat (lift) rides from z 112 to -112, and the measure warns that a standing player does not fit at its top (z 112), so the lift's upper stop is blocked by a ceiling, wall or rock. The lift is the only drop to the valve room, so this is a level fault, not a clean ledge."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Present and right: one info_player_start (6), two monster_headcrab (8 and 9), one func_plat lift (1), a trigger_once (2) and game_end (10). The lift cannot be boarded at its top (see P3). The main valve wheel is not among the listed entities; the only object near the valve room in the views is a plain drum (room 101 10 154, yaw 180), which is not a 32-unit wheel."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Walls in the views are one tan, vertically streaked texture, and the floor is a grate-like texture. Neither shows the brief's control panels, steel or hazard trim, and the consoles are plain green or olive blocks. The surfaces are not clearly what the brief asks for."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Lights (11 to 17) are placed around the rooms, but the views are evenly and dimly lit with no clear sodium-orange glow, no bright and dark contrast, and no lit windows onto the hall as the brief describes."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The landmark fw_lm_pumphall_control is present (as the brief asks). The windows onto the hall, which are the map's distinctive feature, are not visible in the plan or the views. A dark vertical pole in views 2 and 3 and a grate floor in view 5 are the only details; there are no consoles with dials or switches."
+  },
+  "P8": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "Measures show it compiles (no check errors), and no item is left unreached on the walk. But the lift's top is blocked for a standing player (the reach warning), so the walk to the valve room depends on that lift at its lower stop. The map ends at game_end (10), which the measures do not check as the way out."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views show generic textured rooms with a drum standing in dark water (room 101 10 154) and green marker blocks, with no consoles, windows or valve wheel visible. A player would not take these for a control room over a pumping hall. The room style is close to Half-Life's, but the place is not recognisable as the brief's."
+  }
+ },
+ "total": 9,
+ "of": 18,
+ "passes": false
+}

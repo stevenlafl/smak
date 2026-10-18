@@ -15,51 +15,38 @@
     {
       "kind": "path",
       "map": "maps/fw_pumphall.bsp",
-      "seconds": 14,
+      "seconds": 10,
       "keys": [
         {
           "t": 0,
           "at": [
-            -1200,
-            -300,
-            220
+            -1050,
+            -40,
+            230
           ],
-          "look": [
-            -400,
-            -300,
-            220
-          ],
+          "look": "ahead",
           "fov": 90
         },
         {
-          "t": 7,
+          "t": 10,
           "at": [
-            -400,
-            -300,
-            220
+            1000,
+            40,
+            230
           ],
-          "look": [
-            400,
-            -300,
-            220
-          ],
-          "fov": 90
-        },
-        {
-          "t": 14,
-          "at": [
-            400,
-            -300,
-            220
-          ],
-          "look": [
-            1200,
-            -300,
-            220
-          ],
+          "look": "ahead",
           "fov": 90
         }
-      ]
+      ],
+      "caption": "three pumps, catwalks on both sides, the bridge over the water"
+    },
+    {
+      "kind": "flyover",
+      "map": "maps/fw_pumphall.bsp",
+      "seconds": 6,
+      "height": 520,
+      "turns": 0.4,
+      "caption": "the flooded hall from above"
     }
   ]
 }

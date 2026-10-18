@@ -1,0 +1,121 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_steam.spr: a steam puff that rises and thins, animated",
+ "measured": {
+  "size": [
+   64,
+   64
+  ],
+  "frames": 12,
+  "type": "parallel",
+  "format": "index alpha",
+  "measures": {
+   "frames": 12,
+   "size": [
+    64,
+    64
+   ],
+   "border": {
+    "max": 0.176,
+    "mean": 0.003
+   },
+   "envelope": {
+    "peakAt": 0.36,
+    "first": 0.03,
+    "last": 0
+   },
+   "dark": 0.79,
+   "wrap": 0.27,
+   "jitter": 1.36
+  },
+  "class": "smoke puff",
+  "againstClass": [
+   {
+    "measure": "jitter",
+    "value": 1.36,
+    "range": [
+     0.9,
+     1.5
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "border",
+    "value": 0.003,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "peakAt",
+    "value": 0.36,
+    "range": [
+     0.2,
+     0.6
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "first",
+    "value": 0.03,
+    "range": [
+     0,
+     0.35
+    ],
+    "ok": true,
+    "words": ""
+   },
+   {
+    "measure": "last",
+    "value": 0,
+    "range": [
+     0,
+     0.1
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Reads as a steam puff: a column of soft grey puffs in frames 1 to 9 that spreads and thins out by frames 10 and 11. The rise is weak to the eye, since the column stays near the bottom of each tile, so this is not docked, but the brief's 'rises' is only partly shown."
+  },
+  "R2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "All 12 frames are 64 by 64 with the effect inside them as a narrow column, about a third of the tile wide, rising from the lower edge. The column fills the height of the frame, as a steam puff's does."
+  },
+  "R3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Light grey-white steam on the mid-grey ground the engine blends it over, with no colour cast. It reads as steam, not smoke or fire, and its brightness is stable across the frames it is visible in."
+  },
+  "R4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "12 frames. The measures sit inside the smoke puff class: first frame 0.03 (under 0.35), peak at 0.36 (within 0.2 to 0.6), last frame 0 (under 0.1), border 0.003 (under 0.005), jitter 1.36 (within 0.9 to 1.5). It grows, then fades to dark by frame 11, a one-shot ending dark, as the class takes. The frame count is not in the class table, so it is held to the class measures only."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Format is index alpha, as steam is in the game, and the name is fw_steam. The type is 'parallel', but the amendment of 2026-10-17 records that the game's steam1 is 'parallel oriented', and the made file's type differs from it. The brief does not say which slot it replaces, so this is a fault of type (clearly off), not a proven failure. Scored 1 until the replaced file's type is confirmed."
+  }
+ },
+ "total": 9,
+ "of": 10,
+ "passes": false
+}

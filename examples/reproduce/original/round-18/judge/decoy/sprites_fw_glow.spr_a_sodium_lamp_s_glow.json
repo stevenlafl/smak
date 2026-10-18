@@ -1,0 +1,81 @@
+{
+ "kind": "sprite",
+ "label": "sprites/fw_glow.spr: a sodium lamp's glow",
+ "measured": {
+  "size": [
+   32,
+   32
+  ],
+  "frames": 1,
+  "type": "parallel",
+  "format": "additive",
+  "measures": {
+   "frames": 1,
+   "size": [
+    32,
+    32
+   ],
+   "border": {
+    "max": 0,
+    "mean": 0
+   },
+   "envelope": {
+    "peakAt": 0,
+    "first": 1,
+    "last": 1
+   },
+   "dark": 0.56,
+   "wrap": null,
+   "jitter": null
+  },
+  "class": "glow",
+  "againstClass": [
+   {
+    "measure": "border",
+    "value": 0,
+    "range": [
+     0,
+     0.005
+    ],
+    "ok": true,
+    "words": ""
+   }
+  ]
+ },
+ "caps": {},
+ "scores": {
+  "R1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The frame is one hard-edged, flat-filled light disc on a dark ground (frames.png, the only frame). It is round and in the middle, so it reads as a lamp's light shape, but it has no soft falloff, bloom or gradient, so it does not show a glow."
+  },
+  "R2": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The 32 x 32 frame is filled by the disc, which runs to about 2 to 3 pixels from each edge, with dark corners. Its edge is a sharp circle rather than the feathered fade a glow fills its frame with, so the effect is only partly shaped as a glow's would be."
+  },
+  "R3": {
+   "judge": 0,
+   "cap": null,
+   "score": 0,
+   "reason": "The disc is neutral light grey-white (near #DCDCE0 in the picture). The brief asks for a sodium lamp's glow, which is sodium orange. There is no orange anywhere in the frame, so the colour is wrong by eye."
+  },
+  "R4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The file has one frame, which fits a steady glow, and the class's border measure passes at 0 (range 0 to 0.005). The class's other measures (dark 0.56, the envelope) are not given to compare against, and a single flat disc shows no motion to check, so this is only partly shown."
+  },
+  "R5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The file is parallel and additive, which is the kind of format a glow uses, and it is named fw_glow as the brief asks. Whether its type and format match the original's slot cannot be checked from the data given, so this is not fully confirmed."
+  }
+ },
+ "total": 4,
+ "of": 10,
+ "passes": false
+}

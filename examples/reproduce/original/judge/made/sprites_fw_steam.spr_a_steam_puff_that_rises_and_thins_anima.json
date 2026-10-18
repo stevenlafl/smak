@@ -16,23 +16,23 @@
     64
    ],
    "border": {
-    "max": 0.341,
-    "mean": 0.005
+    "max": 0.176,
+    "mean": 0.003
    },
    "envelope": {
     "peakAt": 0.36,
-    "first": 0,
+    "first": 0.03,
     "last": 0
    },
-   "dark": 0.74,
-   "wrap": 0.11,
-   "jitter": 1.19
+   "dark": 0.79,
+   "wrap": 0.27,
+   "jitter": 1.36
   },
   "class": "smoke puff",
   "againstClass": [
    {
     "measure": "jitter",
-    "value": 1.19,
+    "value": 1.36,
     "range": [
      0.9,
      1.5
@@ -42,7 +42,7 @@
    },
    {
     "measure": "border",
-    "value": 0.005,
+    "value": 0.003,
     "range": [
      0,
      0.005
@@ -62,7 +62,7 @@
    },
    {
     "measure": "first",
-    "value": 0,
+    "value": 0.03,
     "range": [
      0,
      0.35
@@ -88,31 +88,31 @@
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Reads as a steam puff. Frames 1 to 7 show a pale, lumpy cloud that swells and then breaks up, which is the effect the brief asks for (frames.png, cells 1 to 11)."
+   "reason": "Reads as a smoke or steam puff: a soft, feathery grey-white column that thickens and thins across the frames, the same effect the brief asks for."
   },
   "R2": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The 64 by 64 frames are filled the way a puff should fill them: the cloud sits mostly central at about 40 to 50 percent of the frame, with no content cut at the frame edge beyond the measured border max of 0.341 on frame 8. The measured mean border of 0.005 is within the class range."
+   "reason": "Frames are 64 by 64 as the measure gives. The plume sits in a narrow central column with a clear margin (border max 0.176, mean 0.003), so nothing is cut off at the edges. The class measures give no coverage figure, so the fill is judged as adequate, not proven."
   },
   "R3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "By eye, the puff is a warm-neutral grey-white with soft grey shading, which reads as steam against the grey backdrop. Nothing in the frames is off-palette, such as tinted or saturated colour."
+   "reason": "Pale grey-white wisps over the engine's grey backing, with no tint or neon. That matches the steam colour the brief asks for, judged by eye."
   },
   "R4": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Twelve frames, matching the class. The envelope is within range: peak at 0.36, first and last frames empty (0). Jitter is 1.19, inside the class's 0.9 to 1.5. The motion is a swell from frame 1 to 4, a slow drift across frames 4 to 7, then a break-up and thinning in frames 8 to 11, which is the grows-and-fades kind the class takes. The rise is modest rather than strong, and no frame shows a loop closing, so this is the one place a close look could push it down."
+   "reason": "12 frames, the same count as the original's measure. The envelope is within class: peak at 0.36 (range 0.2 to 0.6), first frame 0.03 (under 0.35), last frame 0 (under 0.1), so it fades in and out. Jitter is 1.36 (range 0.9 to 1.5) and the border measure is in range. The rise is visible from frame 1 to frame 7, though frames 8 to 10 drop back low, so the motion is less steady than a plain rise."
   },
   "R5": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "The measures report type parallel oriented and format index alpha, and the frames show a 64 by 64 index-alpha style with no stray colour outside the cloud. The file name cannot be read from the pictures; that is the measurement's to confirm, and nothing visible contradicts it."
+   "reason": "Type is parallel oriented and format index alpha, the steam class's type and format as the brief's slot requires. The file is named fw_steam.spr, read back as written, and nothing in the measures contradicts it."
   }
  },
  "total": 10,

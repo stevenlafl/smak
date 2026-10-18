@@ -1,0 +1,94 @@
+{
+ "kind": "enemy",
+ "label": "the crawler (models/headcrab.mdl): a sludge crawler: low, wet, six-legged, the size of a headcrab, grey-green with a pale belly and a ring of teeth",
+ "measured": {
+  "size": [
+   28.3,
+   25.7,
+   22.1
+  ],
+  "sizeAsked": {
+   "long": 25.9
+  },
+  "sizeOff": 0.091,
+  "triangles": 380,
+  "halfLifeMedianOfItsKind": 308,
+  "halfLifeThreeQuartersUnder": 340,
+  "halfLifeMost": 655,
+  "checkErrors": [],
+  "lineup": "the asset is one of A to D in lineup.png beside models/chumtoad.mdl, models/roach.mdl, models/houndeye.mdl",
+  "lineupTest": "asked 4 times, each in another order, which of the four was not made by Valve: judges picked D, D, B, D where the asset was B, B, B, D: passed for one of the game's",
+  "contract": "keeps the headcrab's bones, animations, attachments and bodyparts"
+ },
+ "caps": {
+  "M2": 2,
+  "M8": 2,
+  "M6": 2,
+  "C2": 2
+ },
+ "scores": {
+  "M1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Against the brief's words the body is a tall, rounded dome (about 22 units high on a 28-unit length, front view and side view), not the low, wet, flattened crawler the brief describes. The spines sticking out sideways at the rim read as spikes rather than six walking legs in the side and top views (run.png, sides.png LEFT and TOP)."
+  },
+  "M2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured 28.3 x 25.7 x 22.1 units. The asked length is 25.9, and 28.3 is 9.1% over (sizeOff 0.091), inside the 15% band for a creature."
+  },
+  "M3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief names six legs and a ring of teeth. The legs are spiky projections whose count cannot be confirmed as six in the views (sides.png BELOW shows about six spikes at the rim, but the top and front views disagree). The teeth are a single painted red mouth with white teeth on the front (FRONT, FRONT-LEFT), with only small teeth on the sides (LEFT, RIGHT), not a ring round the body. The pale belly is a flat tan plate, which is present."
+  },
+  "M4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The body is grey-green with blue-grey mottling, as the brief asks, and the underside is a pale tan belly (sides.png BELOW, LEFT). The red mouth paint is extra but not wrong."
+  },
+  "M5": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The mottled skin is the wet, uneven surface the brief implies, with a pale belly patch and small teeth in their places. Nothing is smeared or noisy beyond what a crawler's skin would show."
+  },
+  "M6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Measured on the line-up test: caught 2 of 4 readings, under the threshold of three, so it passed as one of the game's. Capped at 2 for this leg."
+  },
+  "M7": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The red mouth is at the front, the body sits upright, and in walk.png every frame stands on the floor line on the belly plate, as the origin does."
+  },
+  "M8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The check passes with no errors. 380 triangles is under twice the 308 median (616). The underside is a closed plate. Walk frames show the legs touching the floor, with nothing floating."
+  },
+  "C1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "In the jump frames (attack.png, frames 17 to 26) the pale belly plate appears as a separate beige strip beside the body's outline while the body rotates, so the plate looks detached and does not stay on the body. The walk frames (run.png) are clean."
+  },
+  "C2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The contract check (compareContract) finds the headcrab's bones, animations, attachments and bodyparts kept, with no faults, so the game's own headcrab can play it."
+  }
+ },
+ "total": 17,
+ "of": 20,
+ "passes": false
+}

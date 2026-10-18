@@ -3,29 +3,29 @@
  "label": "sound/headcrab/hc_attack1.wav: the crawler's attack",
  "measured": {
   "features": {
-   "length": 0.785,
+   "length": 0.9,
    "peak": -0.5,
-   "rms": -18.4,
-   "crest": 17.9,
-   "dc": -0.0002,
+   "rms": -12.5,
+   "crest": 12,
+   "dc": 0.002,
    "clipped": 0,
    "lead": 0,
-   "tail": 0.015,
-   "attack": 0.1,
-   "peakAt": 0.399,
-   "t20": 0.344,
-   "t40": 0.349,
-   "centroid": 846,
-   "rolloff": 1701,
-   "flatness": 0.217,
+   "tail": 0.005,
+   "attack": 0.005,
+   "peakAt": 0.125,
+   "t20": 0.454,
+   "t40": 0.748,
+   "centroid": 840,
+   "rolloff": 1163,
+   "flatness": 0.216,
    "bands": {
-    "<150": 3.1,
-    "150-600": 66.3,
-    "600-2k": 18.4,
-    "2k-5k": 10.6,
-    ">5k": 1.6
+    "<150": 1.9,
+    "150-600": 61.7,
+    "600-2k": 28.7,
+    "2k-5k": 5.6,
+    ">5k": 2
    },
-   "onsets": 2
+   "onsets": 3
   },
   "class": null,
   "against": {
@@ -49,37 +49,37 @@
  },
  "scores": {
   "S1": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "The picture shows a sharp strike at the start (0 to 0.1 s), then three separated bursts at about 0.40, 0.53 and 0.74 s, with a flat, near-silent gap between them. That could read as a crawler's bite or lunge, but the bursts are clean, hard-edged noise pops rather than the game's wet, dense tail. A crawler's attack is hard to confirm from the picture alone, so this is only a partial match."
+   "score": 2,
+   "reason": "The picture shows the crawler's attack as a run of rasping noise bursts with a sharp transient near the end, the same kind of event as the game's own headcrab attack (noise bursts that thin into ticks). The brief's crawler attack is what this sounds like."
   },
   "S2": {
-   "judge": 1,
+   "judge": 2,
    "cap": null,
-   "score": 1,
-   "reason": "Length is 0.785 s against the game's 0.906 s, 13% short and within 25%. The decay (t20) is 0.344 s against 0.394 s, and the attack is 0.1 s. The class range that S2 is held to (src/audio/classes.mjs) was not given to me, so the envelope is confirmed only against the game's own sound, not against its class."
+   "score": 2,
+   "reason": "Length is 0.90 s against the original's 0.906 s, well within 25%. T20 is 0.454 s against 0.394 s, a 0.06 s gap that is inside a quarter of the original's decay (0.099 s). Attack is 0.005 s; the original's attack is not given in the measures, so only the decay is checked against it."
   },
   "S3": {
    "judge": 2,
    "cap": null,
    "score": 2,
-   "reason": "Measured against the game's own: centroid 846 against 921 Hz (8% off, within 20%). Band shares are all within 10 points: under 150 Hz 3.1 against 0.5, 150 to 600 Hz 66.3 against 68.1, 600 to 2k 18.4 against 18.8, 2k to 5k 10.6 against 10.9, over 5k 1.6 against 1.6."
+   "reason": "Centroid is 840 Hz against 921 Hz, a 9% difference, inside 20%. Band shares against the original: <150 Hz 1.9 vs 0.5 (1.4 points), 150-600 Hz 61.7 vs 68.1 (6.4), 600-2k Hz 28.7 vs 18.8 (9.9, just inside the 10-point limit), 2k-5k Hz 5.6 vs 10.9 (5.3), >5k Hz 2.0 vs 1.6. All are within 10 points, but 600-2k is close to the edge."
   },
   "S4": {
    "judge": 1,
    "cap": null,
    "score": 1,
-   "reason": "The harness counts 2 onsets, but the picture shows four transients (the start, and bursts near 0.40, 0.53 and 0.74 s), so the measure may be missing some. The game's sound has a dense start cluster and a steady low hiss under sparse clicks. The made sound's tail between bursts is near-silent rather than a hiss. The game's flatness is not given, so the tone or noise match cannot be checked."
+   "reason": "Flatness is 0.216, inside the game's noisy range, so the tone-or-noise character matches. The onsets do not: the picture shows about six separate noise bursts spread across the first 0.5 s, against the original's front-loaded cluster of about four or five. The made sound's energy also stays loud through about 0.6 s, where the original drops away after its first burst and then has one sharp spike near 0.6 s. The measured onset count of 3 does not match the picture's count."
   },
   "S5": {
-   "judge": 1,
+   "judge": 2,
    "cap": 2,
-   "score": 1,
-   "reason": "The name is right (sound/headcrab/hc_attack1.wav), with no clipping (0), no DC offset (-0.0002), a peak of -0.5 dBFS and a small tail (0.015 s). The sample rate, bit depth and channel count are not in the measurements, so mono PCM at 11025, 22050 or 44100 Hz, 8 or 16 bits, cannot be confirmed from what I was given."
+   "score": 2,
+   "reason": "Clipped is 0, DC is 0.002, peak is -0.5 dBFS, and engineFaults is empty. The name matches the game's file. The packet does not give the sample rate or bit depth, so mono PCM at an engine rate is not confirmed from the measures; the empty fault list is the only evidence that the file is accepted."
   }
  },
- "total": 6,
+ "total": 9,
  "of": 10,
- "passes": false
+ "passes": true
 }

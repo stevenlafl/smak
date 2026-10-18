@@ -1,0 +1,87 @@
+{
+ "kind": "map",
+ "label": "maps/fw_control.bsp: the control room over the hall: consoles under windows onto the hall, a lift down to the valve room with the main valve wheel; two crawlers",
+ "measured": {
+  "size": [
+   1808,
+   392
+  ],
+  "sizeAsked": null,
+  "checkErrors": [],
+  "notReached": [],
+  "reachWarnings": [],
+  "changelevels": [],
+  "landmarks": [
+   "fw_lm_pumphall_control"
+  ],
+  "itemsAsked": [
+   "monster_headcrab"
+  ],
+  "itemsFound": [
+   "monster_headcrab: 2"
+  ]
+ },
+ "caps": {
+  "P2": 2,
+  "P8": 2
+ },
+ "scores": {
+  "P1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The plan shows a long central room with a func_plat (entity 1) and a trigger_once (entity 2) on the right, a game_end at the far right, and two large rooms on the left. It shows no separate control room above a hall, no row of windows, and no consoles, so the brief's arrangement (control room over the hall, lift down to a valve room) cannot be read from it. The lift is the only one of the brief's joins that is present."
+  },
+  "P2": {
+   "judge": 1,
+   "cap": 2,
+   "score": 1,
+   "reason": "The brief gives no sizes for fw_control, so the 25% check has nothing to measure against. The map is 1808 by 392 units and is not measured for P2 here. The plan's rooms are large and boxy, which is not checkable against the brief."
+  },
+  "P3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The brief's control room sits above the hall, and the lift runs down to the valve room. The plan labels '2 160' and '2 -128' and the views show water at several heights, but no view or label shows a control floor above a hall floor. The single func_plat (entity 1, orange, at roughly x 815 to 905 in the plan) is the only vertical element, so the storeys and drop cannot be confirmed."
+  },
+  "P4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The start (info_player_start, entity 6), the two crawlers (monster_headcrab, entities 8 and 9), the lift (func_plat, entity 1) and the landmark (info_landmark, entity 7) are present, and the measurement finds two crawlers. The main valve wheel is not among the entities, and game_end (entity 10) is not tied to any wheel, so the brief's ending entity and the valve wheel are missing."
+  },
+  "P5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The wall and floor textures read as concrete, and the ceiling as a grate with lamps, which suits the brief. The water is a flat teal plane with no ripple, and the lift's surface in the 'FUNC_PLAT 1 YAW -22' view is wood-looking planks, where the brief asks for rusted steel plate."
+  },
+  "P6": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "Seventeen light entities are placed, and the 'ROOM -284 35 154' view shows a warm yellow glow on a wall, in keeping with the sodium lamps. The rest of the views are evenly lit, and the brief's bright and dark contrast over the hall is not visible."
+  },
+  "P7": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The lift, the drum-like cylinder in the water ('ROOM 115 -27 154' and 'WATER YAW 180') and the caged-looking ceiling lights are present. The brief's windows onto the hall, the consoles under them and the valve wheel do not appear in the plan or any of the six views."
+  },
+  "P8": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The build reports no check errors, no unreached entities and no reach warnings, the landmark is set, and the map's one changelevel-free ending (game_end) is reached on foot. Nothing in the measurements flags a leak, and the walk test covers the start and every item."
+  },
+  "P9": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "From inside, the views ('ROOM 732 0 160 YAW 0', 'ROOM 1274 19 -64 YAW 180') show a plain boxed corridor with a flat water floor and a grate ceiling. Nothing identifies it as a control room: there are no windows looking down on a hall, no consoles and no valve wheel, so a player would not recognise the brief's place."
+  }
+ },
+ "total": 10,
+ "of": 18,
+ "passes": false
+}

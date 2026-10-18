@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "fw_lm_yard"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "fw_lm_yard",
+     "fw_lm_hall"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "fw_lm_hall"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 142748
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 236787
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 5877360
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 323336
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements report nothing missing and no failed checks. The sheet shows all five props (valve wheel, drum, console, pipe junction, caged lamp), the wrench and the crawler, and the three maps. The brief's videos and prop sheet are listed as present. Sprites, sounds and the wad are not visible in this picture, so this rests on the measurements. Quality issues belong to the per-asset scores, not to presence."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain is wired: fw_yard leads to fw_pumphall through fw_lm_yard, and fw_pumphall leads to fw_control through fw_lm_hall. fw_control is the last map and has no onward link, which the brief asks for. The walk test reaches each change of level from the start. The names check reports no failures."
+  },
+  "O3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The hazard yellow, red and steel grey of the props and the hazard-striped walls in the third view agree with each other. But fw_yard is shown under a bright blue daytime sky, where the brief asks for dusk. Its walls are brown-orange rust, while the flooded hall's door view is grey concrete. The yard reads as a different material family from the hall and the control room. The wrench in the sheet is a grey block with a red stub, which does not share the props' finish."
+  },
+  "O4": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The sheet of props exists and shows five props in a single picture, and the videos are listed as present. The wrench's entry in the sheet does not show the wrench as it is: it reads as a grey box with a red stub and no toothed jaw. The crawler's sheet entry reads as a green blob with a ring of teeth, which is recognisable, but the wrench is not."
+  }
+ },
+ "total": 6,
+ "of": 8,
+ "passes": false
+}

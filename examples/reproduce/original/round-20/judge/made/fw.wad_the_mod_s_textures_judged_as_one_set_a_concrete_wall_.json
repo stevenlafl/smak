@@ -1,0 +1,162 @@
+{
+ "kind": "texture",
+ "label": "fw.wad, the mod's textures, judged as one set: a concrete wall, a wet concrete floor, a steel grate with holes, a catwalk floor, a pipe-covered wall, a hazard-striped trim, a rusted steel plate, a control panel with dials, a sodium lamp's face (lit), the water, a sign reading PUMP 3, a door",
+ "measured": {
+  "count": 12,
+  "least": 12,
+  "textures": [
+   {
+    "name": "fw_concrete",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 29
+   },
+   {
+    "name": "fw_wetfloor",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 16.3
+   },
+   {
+    "name": "{fw_grate",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 40.4
+   },
+   {
+    "name": "fw_catwalk",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21.4
+   },
+   {
+    "name": "fw_pipes",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 24.5
+   },
+   {
+    "name": "fw_hazard",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 101.7
+   },
+   {
+    "name": "fw_rustplate",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 21.8
+   },
+   {
+    "name": "fw_panel",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 25.4
+   },
+   {
+    "name": "~fw_lamp",
+    "size": [
+     64,
+     64
+    ],
+    "detail": 15.7
+   },
+   {
+    "name": "!fw_water",
+    "size": [
+     128,
+     128
+    ],
+    "detail": 3.9
+   },
+   {
+    "name": "fw_sign",
+    "size": [
+     128,
+     64
+    ],
+    "detail": 47.6
+   },
+   {
+    "name": "fw_door",
+    "size": [
+     64,
+     128
+    ],
+    "detail": 16.8
+   }
+  ],
+  "halfLifeDetail": {
+   "least": 10.8,
+   "q1": 19.7,
+   "median": 30.1,
+   "q3": 45,
+   "most": 75,
+   "liquids": [
+    0,
+    20.1
+   ],
+   "band": "T5's band is least to most, Half-Life's own from the 5th to the 95th in 100: fine detail inside it is Valve's own range (a quartile is no bound); under least reads smeared or flat, over most noisy. A texture the brief asks to be one plain colour is flat in Valve's too (its BLACK and YELLOW are 0): flat is right there, and T5 is 2. A liquid (its name begins !) is held to Valve's own liquids instead, 0 to 20.1: the engine warps it as it draws it, and its water is smooth"
+  }
+ },
+ "caps": {
+  "T6": 2
+ },
+ "scores": {
+  "T1": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "The set reads as the brief's materials, but fw_panel (128x128) has three square lamps and a set of black slots, with no round dials, so the brief's control panel with dials is not there. fw_hazard reads as fine diagonal hatching more than as hazard stripes, and fw_wetfloor is a dull flat grey-green with no wet sheen."
+  },
+  "T2": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "Colours follow the brief's palette: grey concrete and steel, green-grey water and wetfloor, yellow hazard and sign, an orange lit lamp face, and brown-grey catwalk and rust. Nothing reads as neon or sci-fi. Judged by eye; no brief-colour measure is given."
+  },
+  "T3": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "fw_hazard (64x64, shown at three times) has stripes about 2 texture pixels apart, too fine to read as trim at a wall's scale; the pattern is closer to noise than to a stripe a wall of the game's would carry. Other tiles (catwalk plates, pipe flanges, rust plate rivets, grate cells of about 8 pixels) have believable spacing."
+  },
+  "T4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "No seam is visible at the tile edges of any texture in the flat view. This is a visual read only: no step-across measure was given, so it is not confirmed by a number."
+  },
+  "T5": {
+   "judge": 1,
+   "cap": null,
+   "score": 1,
+   "reason": "fw_hazard measures 101.7 fine detail against Half-Life's most of 75, and it is visibly noisy and moiré-like, so the set is not at least as good as the game's own. The other eleven measure inside the band (lamp 15.7, water 3.9 inside the liquid band of 0 to 20.1) and look sharp, so the fault sits in this one texture."
+  },
+  "T6": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "Names and kinds are kept: {fw_grate is 64x64 with holes that show as dark gaps, !fw_water is a liquid, ~fw_lamp is a lit face, the fw_sign face reads PUMP 3 in 128x64, and fw_door is a 64x128 door. Sizes are against the brief, not an original, so exactness to Valve's sizes cannot be checked from these measures."
+  }
+ },
+ "total": 9,
+ "of": 12,
+ "passes": false
+}

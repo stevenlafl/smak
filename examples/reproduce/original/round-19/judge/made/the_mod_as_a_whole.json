@@ -1,0 +1,94 @@
+{
+ "kind": "mod",
+ "label": "the mod as a whole",
+ "measured": {
+  "missing": [],
+  "failedChecks": [],
+  "chain": [
+   {
+    "map": "fw_yard",
+    "leadsTo": [
+     "fw_pumphall"
+    ],
+    "landmarks": [
+     "fw_lm_yard_pumphall"
+    ],
+    "asked": "fw_pumphall"
+   },
+   {
+    "map": "fw_pumphall",
+    "leadsTo": [
+     "fw_control"
+    ],
+    "landmarks": [
+     "fw_lm_yard_pumphall",
+     "fw_lm_pumphall_control"
+    ],
+    "asked": "fw_control"
+   },
+   {
+    "map": "fw_control",
+    "leadsTo": [],
+    "landmarks": [
+     "fw_lm_pumphall_control"
+    ],
+    "asked": null
+   }
+  ],
+  "shown": [
+   {
+    "file": "videos/fw_wrench.mp4",
+    "there": true,
+    "bytes": 271069
+   },
+   {
+    "file": "videos/fw_crawler.mp4",
+    "there": true,
+    "bytes": 250047
+   },
+   {
+    "file": "videos/fw_pumphall.mp4",
+    "there": true,
+    "bytes": 4952515
+   },
+   {
+    "file": "pictures/fw_props.png",
+    "there": true,
+    "bytes": 1149623
+   }
+  ]
+ },
+ "caps": {
+  "O1": 2,
+  "O2": 2
+ },
+ "scores": {
+  "O1": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The measurements report no missing files and no failed SMAK checks, and the sheet shows all five props (valve wheel, drum, console, pipe junction, caged lamp), the wrench, the crawler and the three maps. The sheet cannot show the .wad's twelve textures, the three sprites or the six sounds, so this relies on the measurements for those."
+  },
+  "O2": {
+   "judge": 2,
+   "cap": 2,
+   "score": 2,
+   "reason": "The chain runs fw_yard to fw_pumphall (landmark fw_lm_yard_pumphall), then fw_pumphall to fw_control (landmark fw_lm_pumphall_control), and fw_control is the end. Each map arrives where the last left, per the measured walk test. The map's model and sprite references are not visible on this sheet."
+  },
+  "O3": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The sheet reads as one industrial place: rust-brown drum, grey-green console and lamp housing, red-painted wheel and wrench with worn grey, tan concrete walls and a dark teal-green water in the pump room, green-grey ceiling in the control room, and sodium-orange lamp glass throughout. The crawler's brighter green is the one tone that sits a little apart, but not clearly off."
+  },
+  "O4": {
+   "judge": 2,
+   "cap": null,
+   "score": 2,
+   "reason": "The measurements show the wrench and crawler turntable videos, the pump hall flight video and the props picture present. The sheet shows each prop, the wrench, the crawler and a view of each map, and each reads as the thing it is: the wheel has a red hub and spokes, the drum has its hazard band, the lamp has its orange glass in a cage."
+  }
+ },
+ "total": 8,
+ "of": 8,
+ "passes": true
+}
