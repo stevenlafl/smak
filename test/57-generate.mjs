@@ -130,6 +130,8 @@ async function generateCase() {
   sure(/3 of 3 takes of "a wrench on a pipe" by clang \(sound; licence CC-BY-NC 4\.0\); the model loaded in 0\.1 s/.test(said), said);
   sure(/work:gen\/hit_s2\.wav: 0\.5 s at 48000 Hz, made in 0\.01 s; peak .* against metal hit: \d+ of \d+/.test(said), said);
   sure(answer[1]?.type === "image", "one picture of the takes");
+  // kept for the person, and the person's choice comes before any shaping
+  sure(/work:gen\/hit_takes\.png/.test(said) && existsSync(join(folders.work, "gen", "hit_takes.png")) && /let them choose before you shape one/.test(said), said);
   const sidecar = JSON.parse(readFileSync(join(folders.work, "gen", "hit_s1.json"), "utf8"));
   sure(sidecar.model === "clang" && sidecar.seed === 1 && sidecar.licence === "CC-BY-NC 4.0" && sidecar.prompt === "a wrench on a pipe", JSON.stringify(sidecar));
   // more seeds of the same prompt: the model is not loaded again, the load not told again
@@ -148,6 +150,7 @@ async function generateCase() {
   // a take used in a sound spec through build
   const built = (await tools.build.call({ spec: { spec: "smak.sound/1", name: "weapons/hit.wav", layers: [{ kind: "sample", file: "work:gen/hit_s0.wav", from: "onset" }] } }))[0].text;
   sure(!/made of layers alone/.test(built), "no note once a take is used");
+  sure(/picture: work:weapons_hit\.png/.test(built) && existsSync(join(folders.work, "weapons_hit.png")), "the sound's picture kept beside its spec");
   sure(/^OK/.test(built) && /made by clang seed 0 from "a wrench on a pipe", licence CC-BY-NC 4\.0 \(non-commercial\)/.test(built) && !/may not be sold/.test(built), built);
   // refused in words
   for (const [args, said] of [[{ prompt: "", length: 1 }, /prompt:/], [{ prompt: "x", length: 0 }, /length:/], [{ prompt: "x", length: 1, model: "none" }, /model: one of clang \(sound\), tune \(music\)/], [{ prompt: "x", length: 1, seeds: 99 }, /seeds:/]]) {

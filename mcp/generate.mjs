@@ -242,11 +242,17 @@ export async function generate(folders, args) {
       ? "Each take has a sidecar .json (model, prompt, seed, licence). No spec writes music for the game yet: a take is a 48 kHz stereo WAV, and the game plays its music as 44.1 kHz stereo MP3 under media/ (research/local-music-generators.md). Tell the person which take, and that it is to be converted and named for the game."
       : `Each take has a sidecar .json (model, prompt, seed, licence). Listen to them, or read the picture; put the one you choose in a sound spec as a layer { "kind": "sample", "file": "work:${stem}_s<seed>.wav", "from": "onset" } and shape it there (guide { doc: "spec" }, "A sound"); "finish": { "fit": "bands" } brings its bands to its class's or the game's own.${/\bNC\b|non-?commercial/i.test(model.licence ?? "") ? ` ${model.name}'s licence is non-commercial: whether that suits their mod is the person's choice, not yours. Tell them, and use a take unless they have said not to.` : ""}`,
   ];
-  const answer = [text(lines.join("\n"))];
+  // the person's choice comes before any shaping: the takes go to them, and the picture is kept for them to open
+  lines.push(`With a person: send them the takes (file) and let them choose before you shape one (guide { doc: "workflow", topic: "sound" }).`);
+  let picture;
   if (made.length) {
-    const picture = soundPicture(made.map((t) => ({ name: `${t.file} (seed ${t.seed})`, x: t.x, rate: 22050 })));
-    answer.push(image(png(picture.width, picture.height, picture.rgba)));
+    picture = soundPicture(made.map((t) => ({ name: `${t.file} (seed ${t.seed})`, x: t.x, rate: 22050 })));
+    const drawn = pathOf(folders, `${stem}_takes.png`, { write: true });
+    writeFileSync(drawn, png(picture.width, picture.height, picture.rgba));
+    lines.push(`The takes drawn one under another: work:${relative(folders.work, drawn)}`);
   }
+  const answer = [text(lines.join("\n"))];
+  if (picture) answer.push(image(png(picture.width, picture.height, picture.rgba)));
   return answer;
 }
 

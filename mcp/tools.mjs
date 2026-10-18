@@ -811,7 +811,12 @@ function build(folders, args) {
       writeFileSync(path, file.bytes);
     }
     if (files.length) lines.push(`written: ${files.map((file) => `work:sound/${file.name}`).join(", ")} (they take the place of the game's own of those names when put in <mod>/sound)`);
-    if (picture) show(picture);
+    // the picture kept too, for a person who sees the files and not the tool's answer
+    if (picture) {
+      writeFileSync(join(folders.work, `${base}.png`), smak.png(picture.width, picture.height, picture.rgba));
+      lines.push(`picture: work:${base}.png`);
+      show(picture);
+    }
     return [text(lines.join("\n")), ...pictures];
   }
   if (spec?.spec === "smak.music/1") {
@@ -828,7 +833,11 @@ function build(folders, args) {
       writeFileSync(path, file.bytes);
       lines.push(`written: work:${under} (put in <mod>/${under})`);
     }
-    if (picture) show(picture);
+    if (picture) {
+      writeFileSync(join(folders.work, `${base}.png`), smak.png(picture.width, picture.height, picture.rgba));
+      lines.push(`picture: work:${base}.png`);
+      show(picture);
+    }
     return [text(lines.join("\n")), ...pictures];
   }
   if (spec?.spec !== "smak.model/1")
