@@ -15,7 +15,8 @@ A model, a map or a sound can also be described in plain JSON, a **spec**, and b
 tool `build` (or `node bin/smak.mjs build spec.json`) with no script at all: `docs/SPEC.md`, with worked cases in
 `examples/prompts/`. For a person's request through the MCP server, that is the way.
 
-This file is the whole briefing. `docs/API.md` lists every function; `docs/SPEC.md` the specs; `docs/ENGINES.md` covers GoldSrc against Xash;
+This file is the whole briefing. `docs/API.md` lists every function; `docs/SPEC.md` the specs; `docs/WORKFLOWS.md`
+how to make each kind of asset with a person over a few rounds (what to ask, where to stop and show them); `docs/ENGINES.md` covers GoldSrc against Xash;
 `docs/MAPS.md` (a compiled map, and the pictures of maps) and `docs/MAPS-MAKING.md` (brushes and the compile) hold
 the vocabulary for maps.
 

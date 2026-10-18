@@ -74,7 +74,7 @@ twelve, maps included), so the long guidance stays behind `guide` and is read on
 
 | Tool     | What it does                                                                                                                                                      | Arguments                                                                                                                                                           |
 | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `guide`  | The kit's guide (`AGENTS.md`), cut at its headings when asked. With nothing: the list of sections, a line each, and the table of what the kit can and cannot do.  | `topic` (section numbers `"12,20"`, or words of one title), `doc` (`"api"`, `"spec"`, `"engines"`, `"maps"`, `"maps-making"`, `"maps-checks"`, `"import"`, `"items"`, `"play"`, `"editor"`, or an example's or a kit's path), `find` (the lines that hold these words) |
+| `guide`  | The kit's guide (`AGENTS.md`), cut at its headings when asked. With nothing: the list of sections, a line each, and the table of what the kit can and cannot do.  | `topic` (section numbers `"12,20"`, or words of one title), `doc` (`"api"`, `"spec"`, `"engines"`, `"maps"`, `"maps-making"`, `"maps-checks"`, `"import"`, `"items"`, `"play"`, `"editor"`, `"workflow"`, or an example's or a kit's path), `find` (the lines that hold these words) |
 | `models` | The files there are: the models folder's `.mdl`, `.bsp`, `.map` and `.wad` files and everything in the work folder, with their sizes.                              | `match`                                                                                                                                                             |
 | `info`   | What a model holds: bones, bodies with their body numbers, textures, animations. Of a map (`.bsp`): its size, entities, textures, light; of a `.map` or a `.wad`, what is in it. | `model`, `full` (bone places, events, attachments; a map: every entity with its keys)                                                                               |
 | `check`  | The errors and warnings an engine would have with a model or a compiled map; of a `.map`, what its plan has wrong before a compile. With `walk`, a map's walk test: what a player cannot reach on foot, what stands in something solid, the openings. With `against`, a map's entities held against its mod: classes, keys, values, names, the mod's rules. | `model`, `engine` (`goldsrc`, `xash`), `walk`, `goal` (entities to tell the walk to, `"9, keeper"`), `doors` (`open`, `closed`), `against` (files of the folders, with commas: `.fgd` files, what `smak map-learn` wrote, a profile that is a `.json` file; or `goldsrc`. A profile that is a module is code: `run`)                                      |
@@ -134,6 +134,18 @@ sent again: `run` with its `name` and `edits: [{ old, new }]` (each `old` must b
 changes it in place and runs it; with the `name` alone it runs as kept. What it prints comes back cut to 6000
 characters a stream (its start and its end are kept), without the lines of a stack trace that are inside Node.
 
+## Working with a person
+
+A person who asks for an asset stays to look at it, and gets it right over a few rounds. `docs/WORKFLOWS.md`
+(`guide { doc: "workflow", topic: "sound" }`) says, for each kind (a model, a weapon, a character, a map,
+textures, a sprite, a sound, music, a video), what to ask first, the checkpoints where the client shows the
+person the pictures or the sound and waits before the next costly step, how to turn their notes into the next
+round, and what to hand over when they say ship it. The server's instructions send the client there.
+
+The server also offers **prompts**, the starting messages a client lists in its menu (in Claude Code, `/mcp__smak__make-sound`):
+`make-model`, `make-weapon`, `make-character`, `make-map`, `make-sound`, `make-textures` and `make-sprite`. Each
+takes the person's request in their own words (optional) and starts the conversation by naming its workflow.
+
 ## A session
 
 What a person might ask, and the calls a client makes for it.
@@ -176,7 +188,8 @@ What a person might ask, and the calls a client makes for it.
 | File           |                                                                                                     |
 | -------------- | --------------------------------------------------------------------------------------------------- |
 | `server.mjs`   | The entry: the flags, the two folders, the start.                                                   |
-| `protocol.mjs` | JSON-RPC over two streams: `initialize`, `ping`, `tools/list`, `tools/call`, and a call taken back. |
+| `protocol.mjs` | JSON-RPC over two streams: `initialize`, `ping`, `tools/list`, `tools/call`, `prompts/list`, `prompts/get`, and a call taken back. |
+| `prompts.mjs`  | The prompts: a starting message for each kind of asset, naming its workflow in `docs/WORKFLOWS.md`. |
 | `folders.mjs`  | The rule that a named file is inside `--models` or `--work`.                                        |
 | `guide.mjs`    | The guide and the reference cut at their headings, read from the kit's own files each time.         |
 | `tools.mjs`    | The tools: their descriptions as a client is told them, and `models`, `info`, `check`, `render`, `build`, `entities`. |

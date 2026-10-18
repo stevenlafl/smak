@@ -28,6 +28,7 @@ const DOCUMENTS = {
   play: "docs/PLAY.md",
   "maps-checks": "docs/MAPS-CHECKS.md",
   editor: "editor/AGENTS.md",
+  workflow: "docs/WORKFLOWS.md",
 };
 /** The folders whose modules are documents too, each by its path. */
 const CODE_FOLDERS = ["examples", "kits"];
