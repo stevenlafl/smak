@@ -711,8 +711,10 @@ function build(folders, args) {
     }).then(({ report, files }) => {
       const lines = reportLines(report);
       if (!report.ok && !files.sheet) return [text(lines.join("\n"))];
-      mkdirSync(dirname(join(folders.work, `${spec.name}.spec.json`)), { recursive: true });
-      writeFileSync(join(folders.work, `${spec.name}.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
+      // .video.spec.json: a video of a model is named as the model (fw_wrench), and its spec written as
+      // fw_wrench.spec.json took the place of the model's own (the original mod's wrench, 2026-10-17)
+      mkdirSync(dirname(join(folders.work, `${spec.name}.video.spec.json`)), { recursive: true });
+      writeFileSync(join(folders.work, `${spec.name}.video.spec.json`), `${JSON.stringify(spec, null, 2)}\n`);
       if (files.video) {
         const file = join(folders.work, `${spec.name}.${files.format}`);
         writeFileSync(file, files.video);

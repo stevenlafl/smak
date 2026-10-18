@@ -48,4 +48,8 @@ await testAsync("the tool builds a video spec: a preview by default, a GIF when 
   const words = made.find((p) => p.type === "text").text;
   sure(/^OK/.test(words) && /turntable: 12 frames .*change between frames median/.test(words) && /written: work:post\.gif/.test(words), words);
   sure(readFileSync(join(folder, "post.gif")).subarray(0, 6).toString("latin1") === "GIF89a", "the GIF written");
+  // a video named as its model keeps its spec apart from the model's (a wrench's video wrote over its model's spec)
+  writeFileSync(join(folder, "post.spec.json"), "{\"spec\": \"smak.model/1\"}\n");
+  await build.call({ spec, preview: false });
+  sure(JSON.parse(readFileSync(join(folder, "post.spec.json"), "utf8")).spec === "smak.model/1" && JSON.parse(readFileSync(join(folder, "post.video.spec.json"), "utf8")).spec === "smak.video/1", "the model's spec kept, the video's beside it");
 });
