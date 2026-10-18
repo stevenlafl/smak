@@ -135,3 +135,16 @@ test('pose: { fit: "shape" } fits the base\'s stance to its own body\'s outlines
   const none = validateModelSpec({ ...spec, parts: [{ id: "body", kind: "box", size: [4, 8, 20] }] });
   sure(none.errors.some((e) => /pose\.fit: "shape" fits the base to a mesh or carved body/.test(e)), none.errors.join(" | "));
 });
+
+test("a character carved from a few pictures, or painted from its front and back alone, is warned of", () => {
+  const sides = /no projected picture sees its sides/;
+  const block = (project) => ({ spec: "smak.model/1", name: "block.mdl", kind: "character", base: { file: "base.mdl" }, floor: 0, parts: [{ id: "body", kind: "mesh", file: "block.obj", up: "z", size: [4, 8, 20] }], project });
+  const front = buildModelSpec(block([{ picture: "red.png", view: "front" }]), { folder });
+  sure(front.report.warnings.some((w) => sides.test(w)), front.report.warnings.join(" | "));
+  const all = buildModelSpec(block([{ picture: "red.png", view: "front" }, { picture: "red.png", yaw: 90 }, { picture: "red.png", view: "right" }]), { folder });
+  sure(!all.report.warnings.some((w) => sides.test(w)), all.report.warnings.join(" | "));
+  // a person's soldier carved from four photographs came out a cut-out and the build said every check passed
+  const carved = buildModelSpec({ spec: "smak.model/1", name: "cut.mdl", kind: "character", base: { file: "base.mdl" }, floor: 0,
+    parts: [{ id: "body", kind: "carved", size: [8, 30, 40], pictures: [{ picture: "red.png", view: "front" }, { picture: "red.png", yaw: 90 }] }] }, { folder });
+  sure(carved.report.warnings.some((w) => /body: a character carved from 2 pictures is their outlines crossed.*generate \{ kind: "shape"/.test(w)), carved.report.warnings.join(" | "));
+});

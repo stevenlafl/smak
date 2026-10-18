@@ -33,7 +33,8 @@ pictures of the result, from a barrel to a city of four shops and a sewer; read 
    alone, then put in the larger one: a model's `prefab` part; a map's `models`, `prefabs` (brushes, or a
    `.map` file) and `include` (a whole map spec as a module).
 6. **Given pictures of the thing** (its sides, some angles), let the pictures do what they can measure: a
-   `carved` part takes its outline from them at once (then paint it); a character's `pose: { fit: true }` and
+   prop's `carved` part takes its outline from them at once (then paint it); a character's body is made from
+   its front picture by `generate { kind: "shape", picture }` ("A character", below); a character's `pose: { fit: true }` and
    `motion` take its stance and its run from them; a map's `.wad` textures are found by the `info` tool's
    `like` and `rect`. Build the rest by hand: what an outline cannot show (a hollow, a handle's hole, a face).
 7. **The person asks for a change** ("looks good, now add a fridge next to the cabinet"): change the spec
@@ -275,7 +276,15 @@ a part that comes apart in any of them is a fault (`in run2 frame 11: ... thumb_
   squared stays as parts: a vest, a helmet, a holster, boots (`superquadric`, `box`); a blob rounds every corner, and
   one that swallowed a squared vest lost the outline. Keep a blob to what is round: its outline against the
   pictures says so at once. 40 triangles a piece unless told, 600 at most.
-- **Given pictures of the character, carve its body from them** (`carved`, with `sheet` or `pictures`, and no `at`:
+- **Given pictures of the character** (a photograph, the person's drawings, a front and a back), make its body
+  from the front one with `generate { kind: "shape", picture: "work:<front>", back: "work:<back>", base }`
+  ("The picture is the character's paint", below): a body in 3D, its limbs apart, its sides painted. Do not carve
+  it from them. A carve is the pictures' outlines crossed, so from a front and a side every slice of it is a
+  rectangle: the arms, the legs and the trunk are one column from the side, and the side faces wear no picture.
+  A person's soldier so carved from four photographs was a cut-out from every side but the front; Barney and the
+  scientist made by `generate` passed their judges. Carve a character only from a full sheet of six sides drawn
+  without perspective, as the kit's own `sheet` draws them (a reproduction of a model from its renders), and so:
+  (`carved`, with `sheet` or `pictures`, and no `at`:
   it stands on the base's own feet, where the skeleton stands before `floor` lifts it; `at: [0, 0, 0]` hangs it over
   its bones, 36 units on Gordon's, each corner on the wrong limb): each corner hangs on the base's limb nearest it, so the one shape bends at the
   knees and elbows, and its outline is the pictures' at once. Turn the base to the pictures' stance first (`pose:

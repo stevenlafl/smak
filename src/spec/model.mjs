@@ -1959,6 +1959,18 @@ function buildOnce(spec, { folder, out, prefabs = {}, games = [], readPicture, r
   for (const part of skeleton ? spec.parts.filter((p) => (p.kind === "carved" || p.kind === "mesh") && Array.isArray(p.at)) : [])
     if (Math.abs(part.at[2] - baseFeet) > FEET_OFF)
       report.faults.push(`${part.id}: its feet at z ${part.at[2]}, the base's at ${Math.round(baseFeet * 10) / 10}: the body hangs off its bones and bends at the wrong joints. Leave at out (it stands on the base's feet), or give z ${Math.round(baseFeet * 10) / 10}`);
+  // a character carved from a few pictures is their outlines crossed: every slice a rectangle, arms, legs and
+  // trunk one column from the side. A person's soldier carved from four photographs came out a cut-out and the
+  // build said every check passed (2026-10-17); its body is generate's to make
+  if (spec.kind === "character")
+    for (const part of spec.parts.filter((p) => p.kind === "carved" && !p.sheet))
+      report.warnings.push(`${part.id}: a character carved from ${(part.pictures ?? []).length} pictures is their outlines crossed: from the side its arms, legs and trunk are one column, and no picture paints its sides. Make the body from the front picture with generate { kind: "shape", picture, back } and build it as a mesh part; carve a character only from a sheet of six sides drawn without perspective`);
+  // pictures that see only its front and back leave its sides streaked with their edge colours
+  if (spec.project?.length && spec.parts.some((p) => p.kind === "carved" || p.kind === "mesh" || p.kind === "blob")) {
+    const sideways = (v) => { const [yaw, pitch] = typeof v.view === "string" ? VIEW_NAMES[v.view] ?? [0, 0] : [v.yaw ?? 0, v.pitch ?? 0]; const y = ((yaw % 360) + 360) % 360; return Math.abs(pitch) < 60 && Math.min(Math.abs(y - 90), Math.abs(y - 270)) <= 45; };
+    if (!spec.project.some(sideways))
+      report.warnings.push(`no projected picture sees its sides (yaw 90 or 270): they take the front's and the back's colours stretched across them, streaked from every side view. Give side views${spec.kind === "character" ? " (generate's shape call paints them: <name>_sides/view_1.png at yaw 90, view_3.png at 270)" : ""}`);
+  }
   // carved parts: their hull worked out from their pictures before anything is built (carve.mjs)
   if (spec.parts.some((part) => part.kind === "carved")) {
     const readCarved = readPicture ?? ((name) => unpicture(readFileSync(resolve(folder ?? ".", name.replace(/^(work|models):/, "")))));
