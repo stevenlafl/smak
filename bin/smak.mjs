@@ -1714,11 +1714,16 @@ async function mapShots({ file, rest, flags, listed }) {
   const guess = cameraFlags(flags) ?? {};
   const shots = rest.map((f) => ({ picture: smak.unpicture(readFileSync(existing(f))), guess }));
   const r = shotsAgainst(map, shots, matchOptions(file, flags, listed));
+  const { label } = await import("../src/render.mjs");
   r.shots.forEach((s, n) => {
     console.log(`${rest[n]}: camera ${placeText(s.camera.from)} yaw ${s.camera.yaw} pitch ${s.camera.pitch}, by ${s.by}${s.inliers ? ` (${s.inliers} features)` : ""}, edges ${s.edgeScore} pixels apart`);
     for (const p of s.planes.filter((p) => p.move !== 0)) console.log(`      ${planeLine(p)}`);
     for (const note of s.notes) console.log(`      ${note}`);
-    if (flags.o) save(join(flags.o, `shot${n}.png`), smak.png(s.overlay.width, s.overlay.height, s.overlay.rgba));
+    if (flags.o) {
+      // the overlay at the camera found, how it was found in its corner
+      label(s.overlay, `${s.by === "pnp" ? `PNP ${s.inliers}` : "EDGES"} ${s.edgeScore} PX`, 4, 4, 2);
+      save(join(flags.o, `shot${n}.png`), smak.png(s.overlay.width, s.overlay.height, s.overlay.rgba));
+    }
   });
   if (!r.planes.length) console.log("no plane is off: the pictures agree with the map as built");
   for (const p of r.planes) console.log(`OFF   ${planeLine(p)} of ${p.seen} that see it`);

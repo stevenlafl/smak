@@ -41,6 +41,8 @@ const REACH = 24;
  * rather than pulling the camera to where such edges hide (a nudged guess drifted 70 units so, 2026-10-17).
  */
 const TRUNCATE = 6;
+/** In an overlay, an edge with no picture line within this many pixels has nothing to be compared with: amber. */
+const NO_LINE = 10;
 /** Brush entities a picture never shows. */
 const UNSEEN = /^(trigger_|func_ladder$|func_buyzone$|func_bomb_target$|func_monsterclip$|env_)/;
 
@@ -402,7 +404,10 @@ export function faceOffsets(geometry, field, camera, { range = 64, step = 2, lea
 /**
  * The map's edges drawn over the picture from a camera, with the score and the faces that are off: `{ width,
  * height, rgba, score, faces, camera }`. The picture is dimmed; an edge within 2 pixels of the picture's own
- * is green, further red; a texture join is drawn thin and blue. `width` the picture's unless told.
+ * is green; one with a picture line 2 to NO_LINE pixels away is red (off: there is a line, and the edge is not on
+ * it); one with no picture line within NO_LINE is amber (nothing to compare: a soft, low-contrast line the
+ * detector missed, or a camera so far off nothing is near). A texture join is drawn thin and blue. `width` the
+ * picture's unless told.
  */
 export function overlayOf(map, picture, camera, { width = picture.width, height = picture.height, offsets = true } = {}) {
   const geometry = map.surfaces ? map : geometryOf(map);
@@ -424,8 +429,10 @@ export function overlayOf(map, picture, camera, { width = picture.width, height 
       }
       const e = s.edges.edge[y * width + x];
       if (e === 1) {
-        const near = field.dist[y * width + x] <= 2;
-        rgba.set(near ? [60, 255, 60] : [255, 50, 40], k);
+        // red only where the picture has a line to be on and the edge is not: with no line near, amber. On the
+        // true camera of a c1a0 view, soft shadowed beam undersides were red, read as off where they were right
+        const d = field.dist[y * width + x];
+        rgba.set(d <= 2 ? [60, 255, 60] : d <= NO_LINE ? [255, 50, 40] : [235, 180, 40], k);
       } else if (e === 2) rgba.set([70, 140, 255], k);
     }
   return {

@@ -7,6 +7,8 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 import * as smak from "../../src/index.mjs";
 import { locateShot, structureOf, guessesFrom, shotsAgainst } from "../../src/maps/photo.mjs";
+import { overlayOf } from "../../src/maps/overlay.mjs";
+import { label } from "../../src/render.mjs";
 
 const { maps, png } = smak;
 const [valve, compilers, out, ...names] = process.argv.slice(2);
@@ -26,7 +28,7 @@ function locateAll(map, shots, cams, guess, options) {
     out[matcher] = shots.map((shot, n) => {
       const t = Date.now();
       const r = locateShot(map, shot, guessOf(cams[n], guess), { ...options, matcher });
-      return { off: round(dist(r.camera.from, cams[n].from)), yaw: round(yawOff(r.camera.yaw, cams[n].yaw)), by: r.by, inliers: r.inliers, ms: Date.now() - t };
+      return { off: round(dist(r.camera.from, cams[n].from)), yaw: round(yawOff(r.camera.yaw, cams[n].yaw)), by: r.by, inliers: r.inliers, ms: Date.now() - t, camera: r.camera };
     });
   }
   return out;
@@ -41,7 +43,7 @@ function vggtStart(map, shots, cams, options) {
   const rows = guesses.map((g) => {
     const n = g.picture;
     const r = n === 0 ? anchor : locateShot(map, shots[n], { ...g, fov: 90 }, { ...options, matcher: "lightglue" });
-    return { shot: n, guessOff: round(dist(g.from, cams[n].from)), off: round(dist(r.camera.from, cams[n].from)), yaw: round(yawOff(r.camera.yaw, cams[n].yaw)), by: r.by, inliers: r.inliers };
+    return { shot: n, guessOff: round(dist(g.from, cams[n].from)), off: round(dist(r.camera.from, cams[n].from)), yaw: round(yawOff(r.camera.yaw, cams[n].yaw)), by: r.by, inliers: r.inliers, guess: { ...g, fov: 90 }, camera: r.camera };
   });
   return { rows, seconds: structure.seconds, peak: structure.peak };
 }
@@ -71,6 +73,23 @@ function structures(shots, cams) {
   return out;
 }
 
+/**
+ * Each shot's overlays side by side, from cameras the run already has (nothing located again): the true camera,
+ * the start, and each method's found camera, how far off in each panel's corner. `panels`: [[title, camera]].
+ */
+function strip(file, map, shot, truth, panels) {
+  const [w, h] = [320, 240];
+  const out = { width: w * panels.length, height: h, rgba: new Uint8Array(w * panels.length * h * 4) };
+  panels.forEach(([title, camera], k) => {
+    const o = overlayOf(map, shot, camera, { width: w, height: h, offsets: false });
+    for (let y = 0; y < h; y++) out.rgba.set(o.rgba.subarray(y * w * 4, (y + 1) * w * 4), (y * out.width + k * w) * 4);
+    const off = dist(camera.from, truth.from);
+    const words = `${title} ${off < 0.05 ? "" : `${round(off)} OFF`}`.trim();
+    label(out, words, k * w + 4, 4, 2);
+  });
+  writeFileSync(file, png(out.width, out.height, out.rgba));
+}
+
 const summary = {};
 for (const name of names.length ? names : ["c1a0", "c2a5"]) {
   const bsp = maps.readBsp(readFileSync(join(valve, "maps", `${name}.bsp`)));
@@ -93,6 +112,11 @@ for (const name of names.length ? names : ["c1a0", "c2a5"]) {
   const roomShots = around.map((c) => maps.drawMap(bsp, { ...c, width: 640, height: 480, folders: [valve], entities: "none", labels: false }));
   if (parts.includes("vggtstart")) result.vggtStart = vggtStart(bsp, roomShots, around, options);
   if (parts.includes("structure")) result.structure = structures(roomShots, around);
+  // what each method found, drawn: true camera, the near start, SIFT's and LightGlue's fits; VGGT's start and fit
+  if (result.near)
+    shots.forEach((shot, n) => strip(join(out, `${name}-found${n}.png`), bsp, shot, cams[n], [["TRUE", cams[n]], ["START", guessOf(cams[n], near)], ["SIFT", result.near.sift[n].camera], ["LIGHTGLUE", result.near.lightglue[n].camera]]));
+  if (result.vggtStart?.rows)
+    for (const row of result.vggtStart.rows) strip(join(out, `${name}-vggt${row.shot}.png`), bsp, roomShots[row.shot], around[row.shot], [["TRUE", around[row.shot]], ["VGGT START", row.guess], ["VGGT+PNP", row.camera]]);
   summary[name] = result;
   console.log(`${name}: ${JSON.stringify(result)}`);
 }

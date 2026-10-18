@@ -39,6 +39,23 @@ test("map overlay: a room's edges laid over a picture of it from its camera, and
   sure(fitted.score < off.score, `and scores better than the guess: ${fitted.score}`);
 });
 
+test("map overlay: green on the picture's lines, red off a line that is there, amber where no line is near", () => {
+  const count = (o) => {
+    const n = { green: 0, red: 0, amber: 0 };
+    for (let k = 0; k < o.rgba.length; k += 4) {
+      const [r, g, b] = [o.rgba[k], o.rgba[k + 1], o.rgba[k + 2]];
+      if (r === 60 && g === 255 && b === 60) n.green++;
+      else if (r === 255 && g === 50 && b === 40) n.red++;
+      else if (r === 235 && g === 180 && b === 40) n.amber++;
+    }
+    return n;
+  };
+  const right = count(overlayOf(room(0), shot, camera, { width: 320, height: 240, offsets: false }));
+  sure(right.green > 4 * right.red && right.green > right.amber, `at the true camera mostly green: ${JSON.stringify(right)}`);
+  const far = count(overlayOf(room(0), shot, { ...camera, from: [250, 300, 64], yaw: 120 }, { width: 320, height: 240, offsets: false }));
+  sure(far.red + far.amber > far.green && far.amber > 0, `far off, red and amber: ${JSON.stringify(far)}`);
+});
+
 test("map overlay: a wall built 32 units off is told by the edges, the most off of the faces, and by about how much", () => {
   const o = overlayOf(room(32), shot, camera, { width: 320, height: 240 });
   const first = o.faces[0];
