@@ -13,7 +13,12 @@ spend their time on a costly step they have not seen the reason for. Every kind 
    change?" Do not go on to the next step until they say so.
 3. **Turn their notes into the next round.** Keep what they liked. Change only what they named. Start from the
    best version so far, not the last one, if the last was worse. Say in one or two lines what you changed.
-   If a note is unclear, ask about that note only.
+   If a note is unclear, ask about that note only. Give each round's spec and result a name of its own
+   (`guard_r5.json`, `guard_r5.mdl`) so the best one is still there to go back to: a session that built over its
+   best model with three worse ones had nothing to return to.
+   Fix a fault on the route the person approved, not by changing route: a character's mesh whose arms join its
+   trunk is mended with a new picture with the arms apart, not by rebuilding it from pieces, which loses the
+   picture's shape they chose.
 4. **Stop when they say ship it.** Then give them the files and where each goes in the mod's folder (below), what
    `check` said, and what the pictures cannot tell (how it plays and sounds in the game).
 
@@ -86,7 +91,8 @@ For a person or a monster on one of the game's skeletons. Spec: "A character on 
 - **Checkpoint 3, moving:** `page { kind: "view" }` with it walking and running beside the game's own, or
   `render { kind: "gif" }` of its walk.
 - **Notes:** a note about the clothes or face goes back to checkpoint 1 (a new picture); a note about the size
-  or stance changes the spec; "the back is wrong" is the back picture.
+  or stance changes the spec; "the back is wrong" is the back picture. The build's warning that arms join the
+  trunk (they tear in motion) goes back to checkpoint 1 too: a picture with clear space between arms and body.
 - **Ship it:** `<mod>/models/<name>.mdl` under the name the mod's code loads.
 
 ## A map
