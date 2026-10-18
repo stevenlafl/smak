@@ -59,6 +59,13 @@ await testAsync("command: the server's compilers are the command line's, as the 
   sure(said(answer).includes(`compilers: ${join(tmp, "my-compilers")}`), said(answer));
 });
 
+await testAsync("command: the generators manifest's photogrammetry and cutter are the command line's Pythons", "mcp: command", async () => {
+  const folders = { ...openFolders({ work, models }), generators: { models: [{ name: "pg", kind: "photogrammetry", root: join(tmp, "l3d"), python: "venvs/pg/bin/python" }, { name: "cut", kind: "segment", root: join(tmp, "l3d"), python: "venvs/seg/bin/python" }, { name: "lm", kind: "learned-match", root: join(tmp, "l3d"), python: "venvs/lm/bin/python" }] } };
+  const run = toolsFor(folders).find((t) => t.name === "run");
+  const answer = await run.call({ script: "console.log(`pg ${process.env.SMAK_PHOTOGRAMMETRY} cut ${process.env.SMAK_SEGMENT} lm ${process.env.SMAK_LEARNED_MATCH}`)" });
+  sure(said(answer).includes(`pg ${join(tmp, "l3d", "venvs/pg/bin/python")} cut ${join(tmp, "l3d")} lm ${join(tmp, "l3d", "venvs/lm/bin/python")}`), said(answer));
+});
+
 await testAsync("file: a work file read back as words, a picture or a sound, and a text file written", "mcp: file", async () => {
   const folders = openFolders({ work, models });
   const file = toolsFor(folders).find((t) => t.name === "file");

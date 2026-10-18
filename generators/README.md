@@ -43,8 +43,10 @@ take the CUDA wheels instead. About 150 GB in all. On this machine the folders a
 `name` is one `worker.py` knows (`woosh-dflow`, `woosh-flow`, `moss-sfx`, `stable-audio-3-sfx`, `ezaudio`, `acestep`,
 `acestep-xl`, `hunyuan3d-mini`, `zimage-turbo`, `hunyuan3d-paint`, `segment`);
 `kind` `sound`, `music`, `shape`, `picture` (a picture model: what draws a character from words for a shape),
-`paint` (what paints a character's sides from its front picture) or `segment` (what cuts a named subject out of a
-picture); `root` the model's own folder, from this one (the 3D models live apart);
+`paint` (what paints a character's sides from its front picture), `segment` (what cuts a named subject out of a
+picture), or `photogrammetry` and `learned-match` (the map commands' Pythons: `map-overlay --locate`, `map-shots` and
+`map-sfm` through the MCP tool `command` find them here, as `SMAK_PHOTOGRAMMETRY` and `SMAK_LEARNED_MATCH`; the
+cutter's folder is passed as `SMAK_SEGMENT`); `root` the model's own folder, from this one (the 3D models live apart);
 `python` the venv's interpreter, from its root; `licence` is written into every take's sidecar, and
 a sound spec built from a take under a non-commercial one says so; `default` the kind's model when a call
 names none (marked on several sound or music models, a call draws its seeds from each, the files named after

@@ -30,7 +30,7 @@ import { text, image } from "./protocol.mjs";
 import { pathOf } from "./folders.mjs";
 
 const WORKER = join(dirname(fileURLToPath(import.meta.url)), "..", "generators", "worker.py");
-const KINDS = ["sound", "music", "shape", "picture", "paint", "segment"];
+const KINDS = ["sound", "music", "shape", "picture", "paint", "segment", "photogrammetry", "learned-match"];
 /**
  * What a picture model is told beside the prompt when it draws a character for a shape: whole, facing the viewer,
  * its limbs clear of its body and its hands empty (a hand fused to a thigh tears in every motion), on white.
@@ -57,7 +57,7 @@ export function openGenerators(folder) {
   const { models } = JSON.parse(readFileSync(file, "utf8"));
   if (!Array.isArray(models) || !models.length) throw new Error(`${file}: "models": [{ name, kind, python, licence }]`);
   for (const m of models) {
-    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music | shape | picture | segment, python }, not ${JSON.stringify(m)}`);
+    if (typeof m.name !== "string" || !KINDS.includes(m.kind) || typeof m.python !== "string") throw new Error(`${file}: each model { name, kind: sound | music | shape | picture | paint | segment | photogrammetry | learned-match, python }, not ${JSON.stringify(m)}`);
     m.root = resolve(folder, m.root ?? ".");
     if (!existsSync(resolve(m.root, m.python))) throw new Error(`${file}: ${m.name}'s python ${m.python} is not there in ${m.root} (generators/install.sh)`);
   }
@@ -198,6 +198,7 @@ export async function generate(folders, args) {
   if (model.kind === "shape") return generateShapes(folders, generators, model, args);
   if (model.kind === "paint") throw new Error(`${model.name} paints a character's sides once its shape is made: generate { kind: "shape", base, ... } calls it`);
   if (model.kind === "segment") return generateCut(folders, generators, model, args);
+  if (model.kind === "photogrammetry" || model.kind === "learned-match") throw new Error(`${model.name} is the map commands' (map-overlay --locate, map-shots, map-sfm), run through command`);
   if (typeof prompt !== "string" || !prompt.trim()) throw new Error("prompt: what to make, in words (\"a wrench hitting a steel pipe, one sharp clang\")");
   if (!(typeof length === "number" && length > 0 && length <= 600)) throw new Error("length: seconds, over 0 and at most 600");
   const seeds = seedsOf(args);

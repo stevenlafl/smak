@@ -19,7 +19,7 @@ import {
   symlinkSync,
   writeFileSync,
 } from "node:fs";
-import { basename, dirname, join } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import * as smak from "../src/index.mjs";
 import { text, image } from "./protocol.mjs";
@@ -110,6 +110,20 @@ const tidy = (printed, script) =>
     .trim();
 
 /**
+ * The Pythons the command line's own commands look for, from the server's generators manifest: the map commands'
+ * photogrammetry (map-overlay --locate, map-shots, map-sfm: SMAK_PHOTOGRAMMETRY, its interpreter; its learned
+ * matchers, LightGlue and VGGT: SMAK_LEARNED_MATCH) and the subject
+ * cutter (segmentOf: SMAK_SEGMENT, the folder that holds its venv). Through the server they were unset, and a
+ * located camera fell back to edges with no word of why (2026-10-17).
+ */
+function pythonsOf(folders) {
+  const models = folders.generators?.models ?? [];
+  const python = (kind, name) => ((m) => (m ? { [name]: resolve(m.root, m.python) } : {}))(models.find((m) => m.kind === kind));
+  const cut = models.find((m) => m.kind === "segment");
+  return { ...python("photogrammetry", "SMAK_PHOTOGRAMMETRY"), ...python("learned-match", "SMAK_LEARNED_MATCH"), ...(cut ? { SMAK_SEGMENT: cut.root } : {}) };
+}
+
+/**
  * Runs Node in the work folder on `args`: a script's file, or a module and its arguments (the command line's
  * own, for the tool `command`). What it prints is told with the address of `args[0]` cut to its name. Resolves
  * to { code, stopped, seconds, out, err }.
@@ -122,7 +136,7 @@ export function runNode(args, folders, seconds, signal) {
       cwd: folders.work,
       // the server's compilers (--compilers) for a command's map-compile, as the build has them; a maker given
       // only the build's found that `command map-compile` could not find VHLT (2026-10-17)
-      env: { ...process.env, SMAK_WORK: folders.work, SMAK_MODELS: folders.models ?? "", ...(folders.compilers ? { VHLT_DIR: folders.compilers } : {}) },
+      env: { ...process.env, SMAK_WORK: folders.work, SMAK_MODELS: folders.models ?? "", ...(folders.compilers ? { VHLT_DIR: folders.compilers } : {}), ...pythonsOf(folders) },
       stdio: ["ignore", "pipe", "pipe"],
       windowsHide: true,
     });
